@@ -1,0 +1,10 @@
+---
+title: "Mathematical Physics"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: false
+  include:
+    categories: [mathematical-physics, quantum-gravity]
+---

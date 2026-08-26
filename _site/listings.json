@@ -1,0 +1,21 @@
+[
+  {
+    "listing": "/physics.html",
+    "items": [
+      "/posts/no-infinities-allowed/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/quadrea-projective-quadrangle/index.html",
+      "/posts/no-infinities-allowed/index.html"
+    ]
+  },
+  {
+    "listing": "/math.html",
+    "items": [
+      "/posts/quadrea-projective-quadrangle/index.html"
+    ]
+  }
+]

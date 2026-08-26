@@ -1,0 +1,280 @@
+---
+title: "The Quadrea of a Projective Quadrangle: Archimedes' Function & Projective Pythagoras"
+description: "Extending UHG quadrea to general projective quadrangles, exploring algebraic Archimedes functions, and deriving projective Pythagoras in degenerate configurations."
+author: "John D. Coady"
+date: "2026-08-25"
+categories: [pure-math, universal-hyperbolic-geometry, projective-geometry, quadrea]
+format:
+  html:
+    toc: true
+    number-sections: false
+    html-math-method: katex
+draft: false
+---
+
+::: {.callout-tip}
+## Companion resources
+
+- **Paper (Zenodo, open access):** John David Coady, *The Quadrea of a Projective Quadrangle Theorem in Universal Hyperbolic Geometry: Using Archimedes' Function and Deriving Projective Pythagoras in Degenerate Quadrangles*, 2025. DOI: [10.5281/zenodo.17081213](https://doi.org/10.5281/zenodo.17081213)
+- **Background lecture:** N. J. Wildberger's *Heron's Formula, Archimedes' Function, and the TQF* — the algebraic engine behind every result below.
+:::
+
+{{< video https://youtu.be/iMWEiPuFhBQ >}}
+
+## Why rational geometric measure matters
+
+Universal Hyperbolic Geometry (UHG), as developed by N. J. Wildberger, replaces distances and angles with two purely algebraic quantities — **quadrance** and **spread** — defined by ratios of polynomials in projective coordinates over an arbitrary field, most naturally $\mathbb{Q}$. There are no limits, no infinite decimals, and no transcendental functions anywhere in sight. Every quantity is a rational number (or a rational function of rational inputs), and every identity is, in principle, checkable by a computer algebra system in finitely many steps.
+
+This matters because the classical toolkit for triangles — Pythagoras, the Triple Quad Formula (TQF), the Spread Law, the Cross Law — has always had a companion notion for triangles called the **quadrea**, the rational analogue of "area squared." But nothing analogous existed for a *projective quadrangle*: four points, no three collinear, with a fixed cyclic order. Rational Trigonometry has a quadrea for quadrilaterals in the affine setting, but UHG's projective column had a gap (see the table below). This post works through how that gap gets filled.
+
+| Formula | Affine (RT) | Projective (UHG) |
+|---|:---:|:---:|
+| Pythagoras | ✓ | ✓ |
+| Triple Quad Formula | ✓ | ✓ |
+| Spread Law | ✓ | ✓ |
+| Cross Law | ✓ | ✓ |
+| Quadrance / Spread | ✓ | ✓ |
+| Quadrea of Triangle | ✓ | ✓ |
+| Quadrea of Quadrangle | ✗ | **filled here** |
+| Quadreal of Quadrilateral | ✗ | **filled here (dual)** |
+
+## Theoretical framework
+
+### Quadrance and spread, algebraically
+
+Points are $3$-proportions $a \equiv [x:y:z]$ and lines are $3$-proportions $L \equiv (l:m:n)$. In the **hyperbolic** setting the relevant bilinear form is $\langle a, L\rangle = lx + my - nz$, giving:
+
+::: {.callout-note}
+## Definition — hyperbolic quadrance and spread
+
+$$
+q(a_1,a_2) \equiv 1 - \frac{(x_1x_2+y_1y_2-z_1z_2)^2}{(x_1^2+y_1^2-z_1^2)(x_2^2+y_2^2-z_2^2)}
+$$
+
+$$
+S(L_1,L_2) \equiv 1 - \frac{(l_1l_2+m_1m_2-n_1n_2)^2}{(l_1^2+m_1^2-n_1^2)(l_2^2+m_2^2-n_2^2)}
+$$
+:::
+
+The **elliptic** case is identical except every minus sign in the quadratic and bilinear forms becomes a plus sign — $x^2+y^2+z^2$ in place of $x^2+y^2-z^2$. Remarkably, essentially every formula in this post — Table of laws, quadrea theorem, corollaries — holds *verbatim* in both geometries, because the algebra never inspects the sign of the quadratic form; it only manipulates $q_{ij}$ and $S_i$ symbolically.
+
+Quadrances and spreads in the hyperbolic case can be positive, negative, or zero depending on whether points sit inside, on, or outside the null cone (unit disk). This sign freedom is a feature, not a bug: it is exactly what lets rational arithmetic substitute for a metric that would otherwise require case-splitting on "inside" versus "outside."
+
+### Archimedes' function
+
+The single algebraic engine driving all of RT and UHG's higher identities is a completely elementary function:
+
+::: {.callout-important}
+## Theorem (Archimedes' function)
+
+$$
+A(x,y,z) = (x+y+z)^2 - 2(x^2+y^2+z^2) = 4xy-(x+y-z)^2
+$$
+:::
+
+$A$ is symmetric, quadratic, and vanishes exactly when $x, y, z$ are the three squared "quad" values of a triple that closes up consistently — this is the compatibility condition behind the Triple Quad Formula, and it is what makes two quadratic equations in a shared unknown *compatible* (have a common root):
+
+::: {.callout-note}
+## Quadratic Compatibility (Wildberger)
+
+The equations
+$$(X-p_1)^2=r_1,\qquad (X-p_2)^2=r_2$$
+share a common solution precisely when
+$$A\big(r_1,\, r_2,\, (p_1-p_2)^2\big)=0,$$
+equivalently $\big((p_1-p_2)^2-(r_1+r_2)\big)^2 - 4r_1r_2=0$. When $p_1\neq p_2$ the shared root is
+$$X=\frac{p_1+p_2}{2}-\frac{r_1-r_2}{2(p_1-p_2)}.$$
+:::
+
+This single mechanism — two "circle-like" quadratics in an unknown $X$, forced compatible by $A=0$ — is exactly how the quadrangle quadrea gets built: split the quadrangle into two triangulations, each triangulation pins down a quadratic constraint on the unknown quadrea $\mathcal{B}$, and Archimedes' function certifies the two constraints agree.
+
+### Quadrea of a triangle, recalled
+
+For a non-degenerate triangle $a_1a_2a_3$, the quadrea is defined directly from coordinates,
+$$
+\mathcal{A}(a_1a_2a_3) \equiv -\frac{(x_1y_2z_3-x_1y_3z_2+x_2y_3z_1-x_3y_2z_1+x_3y_1z_2-x_2y_1z_3)^2}{(x_1^2+y_1^2-z_1^2)(x_2^2+y_2^2-z_2^2)(x_3^2+y_3^2-z_3^2)},
+$$
+and satisfies the clean product identity
+$$
+q_{12}\,q_{13}\,S_1 = \mathcal{A}.
+$$
+This is the seed the quadrangle result generalizes.
+
+## Main theorem: the quadrea of a projective quadrangle
+
+Take a cyclically ordered quadrangle $\overline{a_1a_2a_3a_4}$ with side quadrances $q_{12},q_{23},q_{34},q_{41}$ and vertex spreads $S_1,S_2,S_3,S_4$ (Figure below the definitions in the paper). There are two natural ways to triangulate it — $\{a_1a_2a_4,\,a_2a_3a_4\}$ or $\{a_1a_2a_3,\,a_3a_4a_1\}$ — and each triangulation, via the triangle quadrea product identity above, forces a quadratic constraint on an unknown quantity $\mathcal{B}$.
+
+::: {.callout-important}
+## Theorem 4.1 — Quadrea of a General Projective Quadrangle
+
+The quadrea $\mathcal{B}(a_1a_2a_3a_4)$ is the common solution of the compatible pair
+$$
+\big(\mathcal{B}-q_{12}q_{23}S_2-q_{34}q_{41}S_4\big)^2 = 4q_{12}q_{23}q_{34}q_{41}(1-S_1)(1-S_3)
+$$
+$$
+\big(\mathcal{B}-q_{41}q_{12}S_1-q_{23}q_{34}S_3\big)^2 = 4q_{12}q_{23}q_{34}q_{41}(1-S_2)(1-S_4)
+$$
+
+and, when $q_{12}q_{23}S_2+q_{34}q_{41}S_4 \neq q_{41}q_{12}S_1+q_{23}q_{34}S_3$, is given explicitly by
+$$
+\mathcal{B} = \frac{q_{12}q_{23}S_2+q_{34}q_{41}S_4+q_{41}q_{12}S_1+q_{23}q_{34}S_3}{2}
+-\frac{4q_{12}q_{23}q_{34}q_{41}\big[(1-S_1)(1-S_3)-(1-S_2)(1-S_4)\big]}{2\big(q_{12}q_{23}S_2+q_{34}q_{41}S_4-q_{41}q_{12}S_1-q_{23}q_{34}S_3\big)}.
+$$
+:::
+
+The proof pattern is worth stating explicitly, because it's the template for every result that follows:
+
+1. Write $J_1 = q_{12}q_{23}S_2+q_{34}q_{41}S_4$, $J_2 = q_{41}q_{12}S_1+q_{23}q_{34}S_3$, and the corresponding right-hand sides $K_1 = 4q_{12}q_{23}q_{34}q_{41}(1-S_1)(1-S_3)$, $K_2 = 4q_{12}q_{23}q_{34}q_{41}(1-S_2)(1-S_4)$.
+2. Compatibility of $(\mathcal{B}-J_1)^2=K_1$ and $(\mathcal{B}-J_2)^2=K_2$ is exactly the statement $A(K_1,K_2,(J_1-J_2)^2)=0$.
+3. That this identity holds is a substitution-and-simplify exercise: expand every $q_{ij}$, $S_i$ purely in terms of the twelve homogeneous coordinates $x_i,y_i,z_i$ ($i=1,\dots,4$) using the join/meet theorems, and let a CAS confirm $A=0$ identically.
+4. Once compatibility is certified, Theorem 3.9 (quadratic compatibility) gives the explicit closed form for $\mathcal{B}$ above.
+
+Because the whole argument only depends on the *algebraic shape* of quadrance and spread, not on the sign of the ambient quadratic form, the identical proof — with $x^2+y^2+z^2$ replacing $x^2+y^2-z^2$ throughout, and a sign flip in the third coordinate of join/meet — verifies the **elliptic** case too.
+
+::: {.callout-note}
+## Remark — cyclic invariance
+
+The pair of compatible equations is invariant under cyclic relabeling $a_1\to a_2\to a_3\to a_4\to a_1$, which is a useful sanity check: the quadrea shouldn't care which vertex you started labeling from.
+:::
+
+### The dual: quadreal of a projective quadrilateral
+
+Duality in UHG swaps points $\leftrightarrow$ lines, join $\leftrightarrow$ meet, quadrance $\leftrightarrow$ spread. Running the same machinery on a quadrilateral $L_1L_2L_3L_4$ produces the **quadreal** $\mathcal{M}$:
+
+::: {.callout-important}
+## Theorem 4.2 — Quadreal of a General Projective Quadrilateral
+
+$$
+\big(\mathcal{M}-S_{12}S_{23}q_2-S_{34}S_{41}q_4\big)^2 = 4S_{12}S_{23}S_{34}S_{41}(1-q_1)(1-q_3)
+$$
+$$
+\big(\mathcal{M}-S_{41}S_{12}q_1-S_{23}S_{34}q_3\big)^2 = 4S_{12}S_{23}S_{34}S_{41}(1-q_2)(1-q_4)
+$$
+
+with the same closed-form pattern as $\mathcal{B}$, swapping the roles of $q$ and $S$.
+:::
+
+Since a quadrangle carries an associated quadrilateral (its four side-lines) and vice versa (its four meet-points), $\mathcal{M}(a_1a_2a_3a_4)$ and $\mathcal{B}(L_1L_2L_3L_4)$ are both well-defined, closing the loop between the two dual metrical quantities.
+
+## Degenerate cases: where projective Pythagoras appears
+
+The real payoff of a general formula is what it does at the boundary. Three corollaries fall out of Theorem 4.1 almost for free.
+
+::: {.callout-tip}
+## Corollary 4.1.1 — collapsing to a triangle
+
+If two adjacent vertices coincide, say $a_3=a_4$, then $q_{34}=0$, the two quadratic equations become identical and linear (not genuinely quadratic), and
+$$
+\mathcal{B}(a_1a_2a_3) = q_{12}q_{23}S_2,
+$$
+recovering exactly the triangle quadrea identity. The quadrangle degenerates gracefully into a triangle, and the formula degenerates with it.
+:::
+
+::: {.callout-tip}
+## Corollary 4.1.2 — Dual Pythagoras from a degenerate quadrangle
+
+Suppose $a_1,a_2,a_3$ are collinear (so $S_2=0$, since $L_{12}=L_{23}$) **and** $a_1\perp a_3$ (so $q_{13}=1$, by the quadrance–spread duality theorem). Substituting into the two compatible equations of Theorem 4.1 collapses them to one, and comparing altitude-quadrance decompositions of the three triangles $a_1a_2a_4$, $a_2a_3a_4$, $a_1a_3a_4$ (sharing common quadrance-altitude $h$) forces
+$$
+q_{34}q_{41}S_4 = q_{41}q_{12}S_1+q_{23}q_{34}S_3.
+$$
+Equating the surviving right-hand sides and cancelling nonzero quadrance factors yields
+$$
+S_4 = S_1+S_3-S_1S_3,
+$$
+the **Dual Pythagoras theorem** — a spread-only, non-Euclidean echo of $Q_3=Q_1+Q_2$ falling straight out of the general quadrangle identity, with zero extra machinery.
+:::
+
+::: {.callout-tip}
+## Corollary 4.1.3 — right quadrangles
+
+If the quadrangle is right at a vertex, e.g. $S_1=1$ (Theorem 3.1: perpendicular points have quadrance/spread $1$), the corresponding right-hand side vanishes and the quadrea reduces to a **sum of adjacent triangle quadreas**:
+$$
+\mathcal{B}(a_1a_2a_3a_4) = q_{12}q_{23}S_2+q_{34}q_{41}S_4.
+$$
+
+This is the direct four-point analogue of Pythagoras: in RT, quadrances of a right triangle sum ($Q_3=Q_1+Q_2$); in UHG, quadreas of a right quadrangle sum.
+:::
+
+Together, these corollaries show the general Theorem 4.1 is not just a formal extension — it *contains* the triangle quadrea and the Dual Pythagoras theorem as limiting, degenerate cases, exactly as one would hope from a genuinely unifying formula.
+
+## Worked examples: hyperbolic and elliptic
+
+The paper verifies everything with fully rational numeric examples, checked in SymPy, Maple, and Mathematica.
+
+**Hyperbolic** (points inside the unit disk, giving negative quadrances): with
+$a_1=[-\tfrac35:\tfrac35:1]$, $a_2=[\tfrac45:0:1]$, $a_3=[\tfrac25:-\tfrac45:1]$, $a_4=[-\tfrac25:-\tfrac25:1]$, the theorem gives the exact rational values
+$$
+\mathcal{B}(a_1a_2a_3a_4)=\frac{17512}{315},\qquad \mathcal{M}(a_1a_2a_3a_4)=-\frac{9019516250}{896919661},
+$$
+with both compatible quadratic equations verified to hold on the nose.
+
+**Elliptic** (celestial sphere): using equatorial coordinates for Dubhe, Merak, Phecda, and Megrez — the four stars forming the bowl of the Big Dipper — the same machinery produces exact (very large-denominator) rational quadrea and quadreal values, demonstrating the formulas work unmodified for spherical/astronomical configurations, not just abstract hyperbolic ones.
+
+::: {.callout-note}
+## Interactive verification: Python/SymPy
+
+The pattern below mirrors Appendix A.2 of the paper and is the fastest way to sanity-check the theorem on your own configurations. Given the twelve homogeneous coordinates of a quadrangle, compute $q_{ij}$, $S_i$, then solve for $\mathcal{B}$ via the compatibility formula and confirm both quadratics hold.
+
+```python
+from sympy import Rational, sqrt, simplify
+
+def quadrance(a, b, sign=-1):
+    dot_ab = a[0]*b[0] + a[1]*b[1] + sign*a[2]*b[2]
+    dot_aa = a[0]**2 + a[1]**2 + sign*a[2]**2
+    dot_bb = b[0]**2 + b[1]**2 + sign*b[2]**2
+    return 1 - dot_ab**2 / (dot_aa * dot_bb)
+
+def join(a, b, sign=-1):
+    # hyperbolic join; flip 3rd component convention for elliptic (sign=+1)
+    x = a[1]*b[2] - b[1]*a[2]
+    y = a[2]*b[0] - b[2]*a[0]
+    z = b[0]*a[1] - a[0]*b[1] if sign == -1 else a[0]*b[1] - b[0]*a[1]
+    return (x, y, z)
+
+def spread(L1, L2, sign=-1):
+    return quadrance(L1, L2, sign=sign)
+
+def archimedes(x, y, z):
+    return (x + y + z)**2 - 2*(x**2 + y**2 + z**2)
+
+def quadrea(q12, q23, q34, q41, S1, S2, S3, S4):
+    J1 = q12*q23*S2 + q34*q41*S4
+    J2 = q41*q12*S1 + q23*q34*S3
+    K1 = 4*q12*q23*q34*q41*(1 - S1)*(1 - S3)
+    K2 = 4*q12*q23*q34*q41*(1 - S2)*(1 - S4)
+    assert simplify(archimedes(K1, K2, (J1 - J2)**2)) == 0, "compatibility fails"
+    B = (J1 + J2)/2 - (K1 - K2)/(2*(J1 - J2))
+    return B, (J1, K1), (J2, K2)
+
+a1 = (Rational(-3,5), Rational(3,5), 1)
+a2 = (Rational(4,5), 0, 1)
+a3 = (Rational(2,5), Rational(-4,5), 1)
+a4 = (Rational(-2,5), Rational(-2,5), 1)
+
+q12, q23 = quadrance(a1, a2), quadrance(a2, a3)
+q34, q41 = quadrance(a3, a4), quadrance(a4, a1)
+L12, L23 = join(a1, a2), join(a2, a3)
+L34, L41 = join(a3, a4), join(a4, a1)
+S1, S2 = spread(L41, L12), spread(L12, L23)
+S3, S4 = spread(L23, L34), spread(L34, L41)
+
+B, eq1, eq2 = quadrea(q12, q23, q34, q41, S1, S2, S3, S4)
+print("Quadrea B =", simplify(B))   # -> 17512/315
+```
+:::
+
+## Discussion: what this buys you
+
+- **Table 1 gets completed.** UHG's formula library now has a projective quadrangle quadrea and its dual quadrilateral quadreal, matching Rational Trigonometry's affine quadrilateral quadrea.
+- **Hyperbolic and elliptic geometry are unified at the formula level.** The theorem's algebraic content is agnostic to the sign of the ambient quadratic form; only the substitution into $q_{ij}, S_i$ differs.
+- **Degenerate cases are not edge-case patches — they're structural.** The triangle quadrea, the Dual Pythagoras theorem, and a Pythagorean-style "quadreas sum at a right vertex" statement all emerge from the *same* pair of compatible quadratics, just specialized.
+- **Everything is exact.** Every worked numeric example is a genuine element of $\mathbb{Q}$ — no floating-point residue, no numerical tolerance — which is precisely the appeal of doing non-Euclidean geometry the UHG way.
+
+::: {.callout-note}
+## Open directions
+
+The paper flags a few natural next steps: extending to pentagonal (five-point) configurations, exploring null-point/null-line degenerations more systematically, and packaging the verification routines as reusable SymPy utilities for classroom and research use.
+:::
+
+## Citation
+
+> Coady, J. D. (2025). *The Quadrea of a Projective Quadrangle Theorem in Universal Hyperbolic Geometry: Using Archimedes' Function and Deriving Projective Pythagoras in Degenerate Quadrangles.* Zenodo. [https://doi.org/10.5281/zenodo.17081213](https://doi.org/10.5281/zenodo.17081213)

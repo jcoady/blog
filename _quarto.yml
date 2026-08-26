@@ -1,0 +1,34 @@
+project:
+  type: website
+
+website:
+  title: "John Coady's Blog"
+  site-url: "https://jcoady.github.io/blog/"
+  navbar:
+    left:
+      - href: index.qmd
+        text: All Posts
+      - href: math.qmd
+        text: Pure Mathematics
+      - href: physics.qmd
+        text: Math Physics
+      - href: about.qmd
+        text: About
+    right:
+      - text: '<img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID iD" style="height:20px; width:20px; vertical-align:-3px;">'
+        href: https://orcid.org/0009-0008-6020-5733
+        aria-label: ORCID
+      - icon: twitter-x
+        href: https://x.com/johndavidcoady
+        aria-label: X
+      - icon: github
+        href: https://github.com/jcoady
+        aria-label: GitHub
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
