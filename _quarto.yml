@@ -1,0 +1,19 @@
+project:
+  type: website
+
+website:
+  title: "John Coady's Blog"
+  site-url: "https://jcoady.github.io/blog/"
+  navbar:
+    right:
+      - icon: github
+        href: https://github.com/jcoady
+      - icon: twitter
+        href: https://twitter.com/
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
