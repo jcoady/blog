@@ -1,1 +1,1 @@
-# physics-blog
+# blog
