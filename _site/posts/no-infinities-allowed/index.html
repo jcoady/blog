@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="John D. Coady">
+<meta name="dcterms.date" content="2026-08-25">
+<meta name="description" content="A finite-field twist on quantum propagators: exact, divergence-free transition amplitudes built from projective geometry over \mathbb{F}_p, with unitarity you can check by hand.">
+
+<title>No Infinities Allowed: Building Quantum Amplitudes Out of Finite Fields – John Coady’s Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-2212757b80b1df614b4b011ba39f1668.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">John Coady’s Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">All Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../math.html"> 
+<span class="menu-text">Pure Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics.html"> 
+<span class="menu-text">Math Physics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0009-0008-6020-5733"> 
+<span class="menu-text"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID iD" style="height:20px; width:20px; vertical-align:-3px;"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://x.com/johndavidcoady"> <i class="bi bi-twitter-x" role="img" aria-label="X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jcoady"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">No Infinities Allowed: Building Quantum Amplitudes Out of Finite Fields</h1>
+                  <div>
+        <div class="description">
+          A finite-field twist on quantum propagators: exact, divergence-free transition amplitudes built from projective geometry over <span class="math inline">\(\mathbb{F}_p\)</span>, with unitarity you can check by hand.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">mathematical-physics</div>
+                <div class="quarto-category">finite-fields</div>
+                <div class="quarto-category">quantum-gravity</div>
+                <div class="quarto-category">algebra</div>
+                <div class="quarto-category">discrete-mathematics</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>John D. Coady </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">August 25, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-bother-with-quantum-theory-over-a-finite-field" id="toc-why-bother-with-quantum-theory-over-a-finite-field" class="nav-link active" data-scroll-target="#why-bother-with-quantum-theory-over-a-finite-field">Why bother with quantum theory over a finite field?</a></li>
+  <li><a href="#setting-the-stage-states-on-a-finite-projective-plane" id="toc-setting-the-stage-states-on-a-finite-projective-plane" class="nav-link" data-scroll-target="#setting-the-stage-states-on-a-finite-projective-plane">Setting the stage: states on a finite projective plane</a></li>
+  <li><a href="#ghost-parity-an-exact-mathbbz_2-symmetry" id="toc-ghost-parity-an-exact-mathbbz_2-symmetry" class="nav-link" data-scroll-target="#ghost-parity-an-exact-mathbbz_2-symmetry">Ghost parity: an exact <span class="math inline">\(\mathbb{Z}_2\)</span> symmetry</a></li>
+  <li><a href="#the-propagator-cayley-not-exponential" id="toc-the-propagator-cayley-not-exponential" class="nav-link" data-scroll-target="#the-propagator-cayley-not-exponential">The propagator: Cayley, not exponential</a>
+  <ul class="collapse">
+  <li><a href="#sec-thm1" id="toc-sec-thm1" class="nav-link" data-scroll-target="#sec-thm1">Theorem 1: exact unitarity, no approximation needed</a></li>
+  </ul></li>
+  <li><a href="#exact-amplitudes-a-resolution-of-identity-expansion" id="toc-exact-amplitudes-a-resolution-of-identity-expansion" class="nav-link" data-scroll-target="#exact-amplitudes-a-resolution-of-identity-expansion">Exact amplitudes: a resolution-of-identity expansion</a></li>
+  <li><a href="#show-me-the-arithmetic-a-worked-mathbbf_7-example" id="toc-show-me-the-arithmetic-a-worked-mathbbf_7-example" class="nav-link" data-scroll-target="#show-me-the-arithmetic-a-worked-mathbbf_7-example">Show me the arithmetic: a worked <span class="math inline">\(\mathbb{F}_7\)</span> example</a></li>
+  <li><a href="#where-does-the-p-equiv-3-pmod-4-condition-come-from" id="toc-where-does-the-p-equiv-3-pmod-4-condition-come-from" class="nav-link" data-scroll-target="#where-does-the-p-equiv-3-pmod-4-condition-come-from">Where does the <span class="math inline">\(p \equiv 3 \pmod 4\)</span> condition come from?</a></li>
+  <li><a href="#what-this-framework-does-not-claim" id="toc-what-this-framework-does-not-claim" class="nav-link" data-scroll-target="#what-this-framework-does-not-claim">What this framework does <em>not</em> claim</a></li>
+  <li><a href="#open-questions" id="toc-open-questions" class="nav-link" data-scroll-target="#open-questions">Open questions</a></li>
+  <li><a href="#wrapping-up" id="toc-wrapping-up" class="nav-link" data-scroll-target="#wrapping-up">Wrapping up</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="why-bother-with-quantum-theory-over-a-finite-field" class="level2">
+<h2 class="anchored" data-anchor-id="why-bother-with-quantum-theory-over-a-finite-field">Why bother with quantum theory over a finite field?</h2>
+<p>Every physicist who has pushed a quantum field theory calculation far enough eventually runs into the same wall: infinities. Loop integrals diverge, and unless the theory is <em>renormalizable</em> — meaning those infinities can be absorbed into a finite number of physical constants — you’re stuck. This is precisely the obstacle that has made it so hard to build a consistent quantum theory of gravity: naive quantization of Einstein’s equations gives a non-renormalizable mess.</p>
+<p>One long-standing (if unconventional) response to this problem is to ask: what if the divergences are an <em>artifact of working over the real or complex numbers</em> — number systems that are infinite by construction — rather than a genuine feature of nature? If you instead build quantum mechanics over a <strong>finite field</strong> <span class="math inline">\(\mathbb{F}_p\)</span> (arithmetic modulo a prime <span class="math inline">\(p\)</span>), infinite sums simply can’t happen. There’s no “infinity” to diverge to. Every calculation is a finite sum of elements in a finite set.</p>
+<p>This isn’t a new idea — physicists including Schwinger, Wootters, and more recently Felix Lev have explored versions of it. What’s new in the paper this post is based on is <em>where the finite-field structure comes from</em>: not an abstract representation theory, but an explicit, computable geometric configuration space built from <strong>Universal Hyperbolic Geometry</strong> (UHG), a rational, transcendental-function-free geometry developed by N. J. Wildberger.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The core idea in one sentence
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Build quantum states out of triangles and tetrahedra living on a finite projective geometry, evolve them with a rational (not exponential) evolution operator, and get <strong>exact</strong>, hand-checkable unitarity — with zero risk of ultraviolet divergence, because the state space is finite by construction.</p>
+</div>
+</div>
+<p>This post walks through the mathematical machinery, states the two central theorems, and then — the fun part — actually runs the finite-field arithmetic in Python so you can see the “quantum amplitude” computed by hand-verifiable modular arithmetic.</p>
+</section>
+<section id="setting-the-stage-states-on-a-finite-projective-plane" class="level2">
+<h2 class="anchored" data-anchor-id="setting-the-stage-states-on-a-finite-projective-plane">Setting the stage: states on a finite projective plane</h2>
+<p>The construction starts with a prime <span class="math inline">\(p \equiv 3 \pmod 4\)</span> (a technical condition that turns out to be forced, not chosen — more on that below), and builds a quadratic extension field</p>
+<p><span class="math display">\[
+\mathbb{F}_p[\delta] = \mathbb{F}_p[\delta]/(\delta^2+1) \cong \mathbb{F}_{p^2},
+\]</span></p>
+<p>which behaves like “the complex numbers, but finite.” Just as <span class="math inline">\(\mathbb{C} = \mathbb{R}[i]\)</span> adjoins a square root of <span class="math inline">\(-1\)</span> to the reals, <span class="math inline">\(\mathbb{F}_p[\delta]\)</span> adjoins a square root of <span class="math inline">\(-1\)</span> to <span class="math inline">\(\mathbb{F}_p\)</span>. This gives us <strong>Galois conjugation</strong> <span class="math inline">\((x+y\delta)^* = x - y\delta\)</span>, the finite-field stand-in for complex conjugation — and with it, the possibility of building something that behaves like a Hermitian inner product.</p>
+<p>Quantum <em>states</em> in this framework are not points or wavefunctions in the usual sense. They are equivalence classes of <strong>Cyclic Oriented Polygonal Splines (COPS)</strong> — oriented triangles living on the finite projective plane <span class="math inline">\(\mathbb{P}^2(\mathbb{F}_p)\)</span>, or oriented tetrahedra in the finite projective 3-space <span class="math inline">\(\mathbb{P}^3(\mathbb{F}_p)\)</span>. Two configurations are considered “adjacent” if they differ by a single vertex swap that respects a geometric compatibility rule — this adjacency data becomes a graph, called the <strong>mutation graph</strong>, with a symmetric adjacency matrix <span class="math inline">\(A\)</span>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Intuition: think of it like a discrete lattice model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you’re used to lattice models in condensed matter or lattice gauge theory, the mutation graph plays a similar role to a lattice of sites with nearest-neighbour hopping. The crucial difference is that here the “lattice” is not a hand-imposed grid — it emerges from the geometry of finite projective space itself.</p>
+</div>
+</div>
+</section>
+<section id="ghost-parity-an-exact-mathbbz_2-symmetry" class="level2">
+<h2 class="anchored" data-anchor-id="ghost-parity-an-exact-mathbbz_2-symmetry">Ghost parity: an exact <span class="math inline">\(\mathbb{Z}_2\)</span> symmetry</h2>
+<p>Every non-degenerate COPS configuration <span class="math inline">\(\gamma\)</span> gets assigned a sign <span class="math inline">\(\varepsilon(\gamma) = \pm 1\)</span>: the product of the <strong>Legendre symbols</strong> (quadratic residue/non-residue character) of the quadrances of its vertices. This defines a diagonal <strong>ghost-parity operator</strong> <span class="math inline">\(G\)</span> with <span class="math inline">\(G|\gamma\rangle = \varepsilon(\gamma)|\gamma\rangle\)</span>.</p>
+<p>The name “ghost parity” is a deliberate echo of recent work by Bateman and Turok <span class="citation" data-cites="batemanturok2026">[@batemanturok2026]</span> on taming unphysical negative-norm “ghost” states in higher-derivative gravity using a hidden <span class="math inline">\(\mathbb{Z}_2\)</span> symmetry. The technical realization here is completely different — purely finite-field and algebraic, with no continuum field theory involved — but the <em>spirit</em> is the same: use a discrete symmetry to keep “physical” and “ghost” sectors from talking to each other.</p>
+<p>Because the mutation graph respects this parity grading by construction, <span class="math inline">\([A,G]=0\)</span>, and since the potential matrix <span class="math inline">\(W\)</span> is diagonal in the same basis as <span class="math inline">\(G\)</span>, <span class="math inline">\([W,G]=0\)</span> trivially too. Put together:</p>
+<p><span class="math display">\[
+H = -A + gW \quad \Longrightarrow \quad [H,G] = 0.
+\]</span></p>
+<p>That one commutation relation is the seed from which everything else in the paper grows.</p>
+</section>
+<section id="the-propagator-cayley-not-exponential" class="level2">
+<h2 class="anchored" data-anchor-id="the-propagator-cayley-not-exponential">The propagator: Cayley, not exponential</h2>
+<p>In ordinary quantum mechanics, time evolution comes from <span class="math inline">\(U = e^{-iHt/\hbar}\)</span>. But <span class="math inline">\(\mathbb{F}_p[\delta]\)</span> has no natural exponential function — there’s no convergent power series over a finite field. Instead, the paper uses the <strong>Cayley transform</strong>, a classical trick from linear algebra for turning a self-adjoint operator into a unitary one <em>without</em> any limiting process:</p>
+<p><span class="math display">\[
+U = (I - \delta H)(I + \delta H)^{-1}.
+\]</span></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why the Cayley transform is the right tool here
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Cayley transform is purely algebraic — just a matrix inverse — so it works perfectly well over a finite field where “exponentiate an operator” doesn’t even make sense. It’s the mechanism that lets this whole framework dispense with continuum path integrals entirely.</p>
+</div>
+</div>
+<section id="sec-thm1" class="level3">
+<h3 class="anchored" data-anchor-id="sec-thm1">Theorem 1: exact unitarity, no approximation needed</h3>
+<p>Provided <span class="math inline">\(I + \delta H\)</span> is invertible (which holds for all but a finite, boundable set of “exceptional” couplings <span class="math inline">\(g\)</span>), one can prove <strong>exactly</strong>:</p>
+<p><span class="math display">\[
+U^\dagger U = I, \qquad U^\dagger G U = G, \qquad [U,G] = 0.
+\]</span></p>
+<p>The proof is short and elegant. Write <span class="math inline">\(X = \delta H\)</span>. Because <span class="math inline">\(H\)</span> has entries purely in <span class="math inline">\(\mathbb{F}_p\)</span>, the Galois automorphism <span class="math inline">\(\sigma: \delta \mapsto -\delta\)</span> sends <span class="math inline">\(I + X \mapsto I - X\)</span>, so invertibility of one factor guarantees invertibility of the other. Since <span class="math inline">\(X^\dagger = -X\)</span> (self-adjointness of <span class="math inline">\(H\)</span> plus <span class="math inline">\(\delta^* = -\delta\)</span>), the algebra falls into place:</p>
+<p><span class="math display">\[
+U^\dagger = (I+X)(I-X)^{-1}, \qquad U^\dagger U = (I+X)(I-X)^{-1}(I-X)(I+X)^{-1} = I.
+\]</span></p>
+<p>And because <span class="math inline">\([H,G]=0\)</span>, the same commuting-inverse trick shows <span class="math inline">\([U,G]=0\)</span>, which upgrades ordinary unitarity to the <strong>Krein-isometry</strong> relation <span class="math inline">\(U^\dagger G U = G\)</span> — the statement that <span class="math inline">\(U\)</span> preserves the <em>indefinite</em> inner product defined using <span class="math inline">\(G\)</span>, not just the ordinary one.</p>
+<p>A direct corollary: since <span class="math inline">\(G^2 = I\)</span> splits the state space into <span class="math inline">\(+1\)</span> and <span class="math inline">\(-1\)</span> eigenspaces <span class="math inline">\(\mathcal{H}_+ \oplus \mathcal{H}_-\)</span>, and <span class="math inline">\(U\)</span> commutes with <span class="math inline">\(G\)</span>, the propagator can never move a state from one parity sector to the other:</p>
+<p><span class="math display">\[
+\langle \gamma_- | U | \gamma_+ \rangle_0 = 0.
+\]</span></p>
+<p>Physical and ghost sectors are <em>exactly</em> decoupled, at every finite <span class="math inline">\(p\)</span> — not just approximately, and not just in some limit.</p>
+</section>
+</section>
+<section id="exact-amplitudes-a-resolution-of-identity-expansion" class="level2">
+<h2 class="anchored" data-anchor-id="exact-amplitudes-a-resolution-of-identity-expansion">Exact amplitudes: a resolution-of-identity expansion</h2>
+<p>Because the state space is finite-dimensional, inserting a resolution of the identity between repeated applications of <span class="math inline">\(U\)</span> gives an <em>exact</em> expression for a multi-step transition amplitude as a finite sum over intermediate state sequences:</p>
+<p><span class="math display">\[
+\langle \gamma_f | U^t | \gamma_i \rangle_0 = \sum_{\gamma_1,\ldots,\gamma_{t-1}} \prod_{j=1}^{t} \langle \gamma_j | U | \gamma_{j-1} \rangle_0.
+\]</span></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+A tempting but incorrect intuition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It’s natural to want to read this as “a sum over paths along the mutation graph,” in analogy with a Feynman path integral. <strong>That’s not quite right.</strong> The mutation graph <span class="math inline">\(A\)</span> is sparse, but <span class="math inline">\(U\)</span> — being a matrix <em>inverse</em> — is generically <strong>dense</strong>. Nonzero entries <span class="math inline">\(\langle \gamma_j | U | \gamma_k \rangle_0\)</span> can appear even where the mutation graph has no edge. So the sum runs over <em>all</em> sequences of states, not just graph-local ones. The paper is careful to call this an <strong>exact finite matrix-product history expansion</strong>, deliberately avoiding the phrase “path integral” until an additive character connecting it to a local action is actually constructed.</p>
+</div>
+</div>
+<p>Because the whole thing is a finite sum of elements of <span class="math inline">\(\mathbb{F}_p[\delta]\)</span>, there is no continuum measure, no regularization, and — at fixed <span class="math inline">\(p\)</span>, dimension <span class="math inline">\(D\)</span>, and time <span class="math inline">\(t\)</span> — no possibility of ultraviolet divergence. That’s the headline selling point of the framework.</p>
+</section>
+<section id="show-me-the-arithmetic-a-worked-mathbbf_7-example" class="level2">
+<h2 class="anchored" data-anchor-id="show-me-the-arithmetic-a-worked-mathbbf_7-example">Show me the arithmetic: a worked <span class="math inline">\(\mathbb{F}_7\)</span> example</h2>
+<p>Theorems are nice, but the real charm of this construction is that you can <em>verify unitarity by hand</em> with nothing more than modular arithmetic. Let’s do exactly that: build a toy <span class="math inline">\(2 \times 2\)</span> Hamiltonian over <span class="math inline">\(\mathbb{F}_7\)</span>, compute its Cayley-transformed propagator, and check <span class="math inline">\(U^\dagger U = I\)</span> — all with elementary school arithmetic (mod 7).</p>
+<p>We’ll represent elements of <span class="math inline">\(\mathbb{F}_7[\delta]\)</span> as pairs <code>(a, b)</code> standing for <span class="math inline">\(a + b\delta \pmod 7\)</span>, with <span class="math inline">\(\delta^2 \equiv -1 \equiv 6 \pmod 7\)</span>.</p>
+<div id="fields-setup" class="cell" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add(x, y):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ((x[<span class="dv">0</span>] <span class="op">+</span> y[<span class="dv">0</span>]) <span class="op">%</span> p, (x[<span class="dv">1</span>] <span class="op">+</span> y[<span class="dv">1</span>]) <span class="op">%</span> p)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sub(x, y):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ((x[<span class="dv">0</span>] <span class="op">-</span> y[<span class="dv">0</span>]) <span class="op">%</span> p, (x[<span class="dv">1</span>] <span class="op">-</span> y[<span class="dv">1</span>]) <span class="op">%</span> p)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mul(x, y):</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># (a + b*delta) * (c + d*delta) = (ac - bd) + (ad + bc)*delta   since delta^2 = -1</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    a, b <span class="op">=</span> x</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    c, d <span class="op">=</span> y</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    real <span class="op">=</span> (a <span class="op">*</span> c <span class="op">-</span> b <span class="op">*</span> d) <span class="op">%</span> p</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    imag <span class="op">=</span> (a <span class="op">*</span> d <span class="op">+</span> b <span class="op">*</span> c) <span class="op">%</span> p</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (real, imag)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> conj(x):</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x[<span class="dv">0</span>], (<span class="op">-</span>x[<span class="dv">1</span>]) <span class="op">%</span> p)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> inv(x):</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># (a+b*delta)^-1 = (a-b*delta) / (a^2+b^2)   -- norm is a^2+b^2 since delta^2=-1</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    a, b <span class="op">=</span> x</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    norm <span class="op">=</span> (a <span class="op">*</span> a <span class="op">+</span> b <span class="op">*</span> b) <span class="op">%</span> p</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    norm_inv <span class="op">=</span> <span class="bu">pow</span>(norm, p <span class="op">-</span> <span class="dv">2</span>, p)  <span class="co"># Fermat's little theorem</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ((a <span class="op">*</span> norm_inv) <span class="op">%</span> p, ((<span class="op">-</span>b) <span class="op">*</span> norm_inv) <span class="op">%</span> p)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_str(x):</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    a, b <span class="op">=</span> x</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span>a<span class="sc">}</span><span class="ss">+</span><span class="sc">{</span>b<span class="sc">}</span><span class="ss">δ (mod </span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Now the <span class="math inline">\(2\times 2\)</span> matrix machinery — just enough linear algebra over this toy field to multiply, transpose-conjugate, and invert <span class="math inline">\(2 \times 2\)</span> matrices.</p>
+<div id="matrix-ops" class="cell" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ZERO <span class="op">=</span> (<span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mat_mul(A, B):</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        [add(mul(A[<span class="dv">0</span>][<span class="dv">0</span>], B[<span class="dv">0</span>][<span class="dv">0</span>]), mul(A[<span class="dv">0</span>][<span class="dv">1</span>], B[<span class="dv">1</span>][<span class="dv">0</span>])),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>         add(mul(A[<span class="dv">0</span>][<span class="dv">0</span>], B[<span class="dv">0</span>][<span class="dv">1</span>]), mul(A[<span class="dv">0</span>][<span class="dv">1</span>], B[<span class="dv">1</span>][<span class="dv">1</span>]))],</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        [add(mul(A[<span class="dv">1</span>][<span class="dv">0</span>], B[<span class="dv">0</span>][<span class="dv">0</span>]), mul(A[<span class="dv">1</span>][<span class="dv">1</span>], B[<span class="dv">1</span>][<span class="dv">0</span>])),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>         add(mul(A[<span class="dv">1</span>][<span class="dv">0</span>], B[<span class="dv">0</span>][<span class="dv">1</span>]), mul(A[<span class="dv">1</span>][<span class="dv">1</span>], B[<span class="dv">1</span>][<span class="dv">1</span>]))],</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mat_dagger(A):</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># conjugate transpose</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        [conj(A[<span class="dv">0</span>][<span class="dv">0</span>]), conj(A[<span class="dv">1</span>][<span class="dv">0</span>])],</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        [conj(A[<span class="dv">0</span>][<span class="dv">1</span>]), conj(A[<span class="dv">1</span>][<span class="dv">1</span>])],</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mat_2x2_inv(A):</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    a, b, c, d <span class="op">=</span> A[<span class="dv">0</span>][<span class="dv">0</span>], A[<span class="dv">0</span>][<span class="dv">1</span>], A[<span class="dv">1</span>][<span class="dv">0</span>], A[<span class="dv">1</span>][<span class="dv">1</span>]</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    det <span class="op">=</span> sub(mul(a, d), mul(b, c))</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    det_inv <span class="op">=</span> inv(det)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        [mul(d, det_inv), mul((<span class="op">-</span>b[<span class="dv">0</span>] <span class="op">%</span> p, <span class="op">-</span>b[<span class="dv">1</span>] <span class="op">%</span> p), det_inv)],</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        [mul((<span class="op">-</span>c[<span class="dv">0</span>] <span class="op">%</span> p, <span class="op">-</span>c[<span class="dv">1</span>] <span class="op">%</span> p), det_inv), mul(a, det_inv)],</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mat_scale_delta(H):</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># X = delta * H,  H has entries in F_p (real part only)</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    delta <span class="op">=</span> (<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [[mul(delta, (h, <span class="dv">0</span>)) <span class="cf">for</span> h <span class="kw">in</span> row] <span class="cf">for</span> row <span class="kw">in</span> H]</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mat_add(A, B):</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [[add(A[i][j], B[i][j]) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>)] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>)]</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mat_identity():</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [[(<span class="dv">1</span>, <span class="dv">0</span>), (<span class="dv">0</span>, <span class="dv">0</span>)], [(<span class="dv">0</span>, <span class="dv">0</span>), (<span class="dv">1</span>, <span class="dv">0</span>)]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Now let’s define the Hamiltonian from the paper — <span class="math inline">\(H = \begin{pmatrix}1 &amp; 3\\ 3 &amp; 2\end{pmatrix}\)</span> over <span class="math inline">\(\mathbb{F}_7\)</span> — form the Cayley transform <span class="math inline">\(U = (I-X)(I+X)^{-1}\)</span> with <span class="math inline">\(X=\delta H\)</span>, and check <span class="math inline">\(U^\dagger U = I\)</span>.</p>
+<div id="cayley-transform" class="cell" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">3</span>], [<span class="dv">3</span>, <span class="dv">2</span>]]  <span class="co"># the toy Hamiltonian from the paper, entries in F_7</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> mat_scale_delta(H)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>I <span class="op">=</span> mat_identity()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>I_plus_X  <span class="op">=</span> mat_add(I, X)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>I_minus_X <span class="op">=</span> [[sub(I[i][j], X[i][j]) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>)] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>)]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> mat_mul(I_minus_X, mat_2x2_inv(I_plus_X))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Propagator U over F_7[δ]:"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> U:</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"  ["</span>, <span class="st">", "</span>.join(to_str(x) <span class="cf">for</span> x <span class="kw">in</span> row), <span class="st">"]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Propagator U over F_7[δ]:
+  [ 6+4δ (mod 7), 1+5δ (mod 7) ]
+  [ 1+5δ (mod 7), 4+1δ (mod 7) ]</code></pre>
+</div>
+</div>
+<p>Now the moment of truth — check <span class="math inline">\(U^\dagger U = I\)</span> exactly, purely by finite-field arithmetic:</p>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>U_dagger <span class="op">=</span> mat_dagger(U)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>U_dagger_U <span class="op">=</span> mat_mul(U_dagger, U)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"U† U over F_7[δ] (should be the identity matrix):"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> U_dagger_U:</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"  ["</span>, <span class="st">", "</span>.join(to_str(x) <span class="cf">for</span> x <span class="kw">in</span> row), <span class="st">"]"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>expected_identity <span class="op">=</span> mat_identity()</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> U_dagger_U <span class="op">==</span> expected_identity, <span class="st">"Unitarity check failed!"</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">✅ Confirmed: U†U = I exactly, over F_7[δ]. No approximation involved."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-unitarity-check" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-unitarity-check-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-stdout">
+<pre><code>U† U over F_7[δ] (should be the identity matrix):
+  [ 1+0δ (mod 7), 0+0δ (mod 7) ]
+  [ 0+0δ (mod 7), 1+0δ (mod 7) ]
+
+✅ Confirmed: U†U = I exactly, over F_7[δ]. No approximation involved.</code></pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-unitarity-check-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1
+</figcaption>
+</figure>
+</div>
+<p>That’s it — genuine, exact unitarity of a “quantum” evolution operator, verified by nothing more than arithmetic modulo 7. No limits, no epsilon-delta arguments, no floating-point rounding error to worry about — the check either passes exactly or it doesn’t.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What just happened, in plain terms
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We built a <span class="math inline">\(2\times 2\)</span> toy Hamiltonian, ran it through the Cayley transform (the finite-field substitute for <span class="math inline">\(e^{-iHt}\)</span>), and checked that the resulting evolution operator preserves probability-like structure (<span class="math inline">\(U^\dagger U = I\)</span>) — using only modular arithmetic that a computer (or a careful person with a pencil) can verify in seconds. This is the whole framework in miniature: everything scales up from this same mechanism to the full <span class="math inline">\(D=109\)</span>-dimensional state space of tetrahedra over <span class="math inline">\(\mathbb{F}_7\)</span>.</p>
+</div>
+</div>
+<p>We can also verify the second headline result — the exact resolution-of-identity expansion — by comparing <span class="math inline">\(\langle \gamma_1 | U^2 | \gamma_1 \rangle\)</span> computed two different ways: directly as a matrix power, and as a sum over the two possible intermediate states.</p>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Direct computation: (U^2)_{11}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>U_squared <span class="op">=</span> mat_mul(U, U)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>direct <span class="op">=</span> U_squared[<span class="dv">0</span>][<span class="dv">0</span>]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Path-sum computation: U_{11}*U_{11} + U_{12}*U_{21}</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>path_via_gamma1 <span class="op">=</span> mul(U[<span class="dv">0</span>][<span class="dv">0</span>], U[<span class="dv">0</span>][<span class="dv">0</span>])</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>path_via_gamma2 <span class="op">=</span> mul(U[<span class="dv">0</span>][<span class="dv">1</span>], U[<span class="dv">1</span>][<span class="dv">0</span>])</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>path_sum <span class="op">=</span> add(path_via_gamma1, path_via_gamma2)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Direct (U^2)_11:              </span><span class="sc">{</span>to_str(direct)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Path sum (via γ1) + (via γ2): </span><span class="sc">{</span>to_str(path_via_gamma1)<span class="sc">}</span><span class="ss"> + </span><span class="sc">{</span>to_str(path_via_gamma2)<span class="sc">}</span><span class="ss"> = </span><span class="sc">{</span>to_str(path_sum)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> direct <span class="op">==</span> path_sum</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">✅ Confirmed: the two routes agree exactly — the resolution-of-identity expansion is exact."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-path-expansion" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-path-expansion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-stdout">
+<pre><code>Direct (U^2)_11:              3+2δ (mod 7)
+Path sum (via γ1) + (via γ2): 6+6δ (mod 7) + 4+3δ (mod 7) = 3+2δ (mod 7)
+
+✅ Confirmed: the two routes agree exactly — the resolution-of-identity expansion is exact.</code></pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-path-expansion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2
+</figcaption>
+</figure>
+</div>
+<p>Notice that <em>both</em> intermediate states <span class="math inline">\(\gamma_1\)</span> and <span class="math inline">\(\gamma_2\)</span> contribute to the sum, even though — in a larger model — a mutation graph might not have had a direct edge between them. This is exactly the sparsity subtlety flagged above: <span class="math inline">\(U\)</span> doesn’t respect the graph’s edge structure, only <span class="math inline">\(H\)</span> does.</p>
+</section>
+<section id="where-does-the-p-equiv-3-pmod-4-condition-come-from" class="level2">
+<h2 class="anchored" data-anchor-id="where-does-the-p-equiv-3-pmod-4-condition-come-from">Where does the <span class="math inline">\(p \equiv 3 \pmod 4\)</span> condition come from?</h2>
+<p>This congruence condition shows up throughout the construction, and it’s worth pausing on <em>why</em>. A prime <span class="math inline">\(p\)</span> can be written as a sum of two squares if and only if <span class="math inline">\(p \equiv 1 \pmod 4\)</span> (a classical fact of number theory). This matters because it controls whether <span class="math inline">\(-1\)</span> is a quadratic residue mod <span class="math inline">\(p\)</span>: when <span class="math inline">\(p \equiv 3 \pmod 4\)</span>, <span class="math inline">\(-1\)</span> is <strong>not</strong> a square, so <span class="math inline">\(x^2 + 1\)</span> is irreducible over <span class="math inline">\(\mathbb{F}_p\)</span>, and adjoining a root <span class="math inline">\(\delta\)</span> genuinely produces a field extension <span class="math inline">\(\mathbb{F}_{p^2}\)</span> with a well-behaved conjugation.</p>
+<p>Interestingly, this isn’t a special requirement invented for this particular geometric construction — it turns out to be forced by <em>any</em> attempt to build a complex-conjugation-like structure over a finite field. Felix Lev’s independently developed finite quantum theory (FQT) program, which approaches finite-field quantum mechanics from a totally different angle (modular representations of de Sitter/anti-de Sitter symmetry algebras rather than projective geometry), runs into exactly the same congruence condition for exactly the same reason <span class="citation" data-cites="lev2022finite">[@lev2022finite]</span>. When two very different frameworks are forced into the same number-theoretic corner, that’s a reasonably good sign the constraint reflects something structural about finite-field quantum kinematics in general, not an artifact of one particular model.</p>
+</section>
+<section id="what-this-framework-does-not-claim" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-framework-does-not-claim">What this framework does <em>not</em> claim</h2>
+<p>It’s worth being explicit about scope, because it’s easy to over-read “exact unitarity” as more than it is. <span class="math inline">\(\mathbb{F}_p[\delta]\)</span> is an <strong>unordered field</strong> — there’s no meaningful notion of “positive” or “negative” the way there is for the reals. So:</p>
+<ul>
+<li>“Unitary” here means the purely algebraic relation <span class="math inline">\(U^\dagger U = I\)</span>, not a statement about conserved probabilities in the usual Born-rule sense.</li>
+<li>There’s no claim of an S-matrix, scattering theory, or continuum limit.</li>
+<li>The matrix-product expansion is <em>not</em> a local-action path integral — no additive character mapping an <span class="math inline">\(\mathbb{F}_p\)</span>-valued action to a phase has been constructed.</li>
+<li>Convergence to Regge calculus or the Einstein field equations in a large-<span class="math inline">\(p\)</span> limit remains an open, and genuinely hard, problem.</li>
+</ul>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Honesty about limits matters here
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A framework that proves exact algebraic theorems while being upfront about what those theorems do <em>not</em> establish is more useful — and more trustworthy — than one that blurs the line between “we proved this” and “we hope this generalizes.” The paper this post is based on tries hard to stay on the right side of that line.</p>
+</div>
+</div>
+</section>
+<section id="open-questions" class="level2">
+<h2 class="anchored" data-anchor-id="open-questions">Open questions</h2>
+<p>A few threads worth pulling on:</p>
+<ol type="1">
+<li><strong>Two different notions of finite-field “parity.”</strong> Lev’s FQT framework shows that finite characteristic tends to <em>merge</em> particle and antiparticle representations that only separate in the continuum limit <span class="math inline">\(p \to \infty\)</span> — an additive, cyclic mechanism. The ghost-parity operator <span class="math inline">\(G\)</span> here does the opposite: it’s a <em>multiplicative</em> quadratic-residue character that keeps sectors <strong>exactly separate</strong> at every finite <span class="math inline">\(p\)</span>, with no merging limit at all. Are these two mechanisms related, or genuinely independent phenomena that happen to coexist in the landscape of finite-field quantum constructions?</li>
+<li><strong>Field vs.&nbsp;ring.</strong> Lev has argued that the <em>ultimate</em> finite quantum theory should be built over a ring, not a field, since fundamental operations shouldn’t require division. This framework leans on field division everywhere — the Cap-map denominator, quadrance ratios, and the Cayley transform inverse itself. Could the Cayley-propagator mechanism be reformulated over a ring, or is division essential to a rational, exponential-free evolution operator of this kind?</li>
+<li><strong>The large-<span class="math inline">\(p\)</span> limit.</strong> Does this exact finite construction connect to Regge calculus — the standard discretization of general relativity — as <span class="math inline">\(p \to \infty\)</span>? This is squarely unresolved.</li>
+</ol>
+</section>
+<section id="wrapping-up" class="level2">
+<h2 class="anchored" data-anchor-id="wrapping-up">Wrapping up</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Key takeaway
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can build a genuinely finite, genuinely exact analogue of a unitary quantum propagator — no continuum limits, no regularization, no risk of divergence — out of nothing more than projective geometry over a finite field and a Cayley transform. The price is that “unitary” and “probability” mean something more limited and more algebraic than they do in ordinary quantum mechanics. Whether that price is worth paying, on the road toward a genuinely finite theory of quantum gravity, is the open question this whole research program is chasing.</p>
+</div>
+</div>
+<p>The full technical development — complete proofs, the three-dimensional (tetrahedral) extension, and the geometric foundations in Universal Hyperbolic Geometry — is available in the published paper and its two companion preprints.</p>
+<p><strong>Paper DOI:</strong> <a href="https://doi.org/10.5281/zenodo.22101224">10.5281/zenodo.22101224</a></p>
+<hr>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" role="list">
+
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">coady2026exact</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>       = {Coady, John D.},</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {Exact Finite Path-Sum Amplitudes in a Finitist Indefinite-Hermitian Framework over Projective Spaces $<span class="ch">\mathbb</span>{P}^2(<span class="ch">\mathbb</span>{F}_p)$ and $<span class="ch">\mathbb</span>{P}^3(<span class="ch">\mathbb</span>{F}_p)$},</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>         = {2026},</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">month</span>        = <span class="st">aug</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span>          = {10.5281/zenodo.22101224},</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">howpublished</span> = {Preprint},</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span>          = {https://doi.org/10.5281/zenodo.22101224}</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">coady2026ghostparity</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>       = {Coady, John D.},</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {A Candidate Finitist Indefinite Hermitian Model with Ghost-Parity Symmetry},</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>         = {2026},</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">month</span>        = <span class="st">aug</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span>          = {10.5281/zenodo.21464405},</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">howpublished</span> = {Preprint}</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">coady2026threeone</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>       = {Coady, John D.},</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {A Unified Finitist Indefinite-Hermitian Framework for 3+1D Spacetime},</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>         = {2026},</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">month</span>        = <span class="st">aug</span>,</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span>          = {10.5281/zenodo.21998460},</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="dt">howpublished</span> = {Preprint}</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">wildberger2013</span>,</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>  = {Wildberger, N. J.},</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>   = {Universal Hyperbolic Geometry I: Trigonometry},</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Geometriae Dedicata},</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span>  = {163},</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span>  = {1},</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span>   = {109--147},</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>    = {2013},</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  <span class="dt">eprint</span>  = {0909.1377},</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>  <span class="dt">archivePrefix</span> = {arXiv}</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">batemanturok2026</span>,</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Bateman, S. and Turok, N.},</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>  = {Escape from Ostrogradsky via Hidden Ghost Parity},</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>   = {2026},</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>  <span class="dt">eprint</span> = {2607.00096},</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>  <span class="dt">archivePrefix</span> = {arXiv},</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>  <span class="dt">primaryClass</span>  = {hep-th}</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="va">@book</span>{<span class="ot">lev2020finite</span>,</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>    = {Lev, Felix M.},</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>     = {Finite Mathematics as the Foundation of Classical Mathematics and Quantum Theory. With Application to Gravity and Particle Theory},</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>  <span class="dt">publisher</span> = {Springer},</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>  <span class="dt">address</span>   = {Cham, Switzerland},</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>      = {2020},</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>  <span class="dt">isbn</span>      = {978-3-030-61101-9}</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">lev2022finite</span>,</span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Lev, Felix M.},</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>  = {Finite Mathematics as the Most General (Fundamental) Mathematics},</span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>   = {2024},</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>  <span class="dt">eprint</span> = {2203.09482},</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>  <span class="dt">archivePrefix</span> = {arXiv},</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>  <span class="dt">primaryClass</span>  = {physics.gen-ph}</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">lev2024problems</span>,</span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Lev, Felix M.},</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>  = {Main Problems in Constructing Quantum Theory Based on Finite Mathematics},</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>   = {2024},</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>  <span class="dt">eprint</span> = {2412.01846},</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>  <span class="dt">archivePrefix</span> = {arXiv},</span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>  <span class="dt">primaryClass</span>  = {physics.gen-ph}</span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">rovelli2004</span>,</span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>    = {Rovelli, Carlo},</span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>     = {Quantum Gravity},</span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>  <span class="dt">publisher</span> = {Cambridge University Press},</span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>      = {2004}</span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">perez2013</span>,</span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>  = {Perez, Alejandro},</span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>   = {The Spin Foam Approach to Quantum Gravity},</span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Living Reviews in Relativity},</span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span>  = {16},</span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span>   = {3},</span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>    = {2013}</span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">ambjorn2012</span>,</span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>  = {Ambj{<span class="ch">\o</span>}rn, J. and G{<span class="ch">\"</span>o}rlich, A. and Jurkiewicz, J. and Loll, R.},</span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>   = {Nonperturbative Quantum Gravity},</span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Physics Reports},</span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span>  = {519},</span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span>   = {127--210},</span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>    = {2012}</span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a><span class="va">@book</span>{<span class="ot">lidlniederreiter1997</span>,</span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>    = {Lidl, Rudolf and Niederreiter, Harald},</span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>     = {Finite Fields},</span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a>  <span class="dt">edition</span>   = {2nd},</span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a>  <span class="dt">publisher</span> = {Cambridge University Press},</span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>      = {1997}</span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jcoady\.github\.io\/blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

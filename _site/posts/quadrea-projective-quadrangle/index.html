@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="John D. Coady">
+<meta name="dcterms.date" content="2026-08-25">
+<meta name="description" content="Extending UHG quadrea to general projective quadrangles, exploring algebraic Archimedes functions, and deriving projective Pythagoras in degenerate configurations.">
+
+<title>The Quadrea of a Projective Quadrangle: Archimedes’ Function &amp; Projective Pythagoras – John Coady's Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-2212757b80b1df614b4b011ba39f1668.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">John Coady’s Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">All Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../math.html"> 
+<span class="menu-text">Pure Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics.html"> 
+<span class="menu-text">Math Physics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0009-0008-6020-5733"> 
+<span class="menu-text"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID iD" style="height:20px; width:20px; vertical-align:-3px;"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://x.com/johndavidcoady"> <i class="bi bi-twitter-x" role="img" aria-label="X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jcoady"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">The Quadrea of a Projective Quadrangle: Archimedes’ Function &amp; Projective Pythagoras</h1>
+                  <div>
+        <div class="description">
+          Extending UHG quadrea to general projective quadrangles, exploring algebraic Archimedes functions, and deriving projective Pythagoras in degenerate configurations.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">pure-math</div>
+                <div class="quarto-category">universal-hyperbolic-geometry</div>
+                <div class="quarto-category">projective-geometry</div>
+                <div class="quarto-category">quadrea</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>John D. Coady </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">August 25, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-rational-geometric-measure-matters" id="toc-why-rational-geometric-measure-matters" class="nav-link active" data-scroll-target="#why-rational-geometric-measure-matters">Why rational geometric measure matters</a></li>
+  <li><a href="#theoretical-framework" id="toc-theoretical-framework" class="nav-link" data-scroll-target="#theoretical-framework">Theoretical framework</a>
+  <ul class="collapse">
+  <li><a href="#quadrance-and-spread-algebraically" id="toc-quadrance-and-spread-algebraically" class="nav-link" data-scroll-target="#quadrance-and-spread-algebraically">Quadrance and spread, algebraically</a></li>
+  <li><a href="#archimedes-function" id="toc-archimedes-function" class="nav-link" data-scroll-target="#archimedes-function">Archimedes’ function</a></li>
+  <li><a href="#quadrea-of-a-triangle-recalled" id="toc-quadrea-of-a-triangle-recalled" class="nav-link" data-scroll-target="#quadrea-of-a-triangle-recalled">Quadrea of a triangle, recalled</a></li>
+  </ul></li>
+  <li><a href="#main-theorem-the-quadrea-of-a-projective-quadrangle" id="toc-main-theorem-the-quadrea-of-a-projective-quadrangle" class="nav-link" data-scroll-target="#main-theorem-the-quadrea-of-a-projective-quadrangle">Main theorem: the quadrea of a projective quadrangle</a>
+  <ul class="collapse">
+  <li><a href="#the-dual-quadreal-of-a-projective-quadrilateral" id="toc-the-dual-quadreal-of-a-projective-quadrilateral" class="nav-link" data-scroll-target="#the-dual-quadreal-of-a-projective-quadrilateral">The dual: quadreal of a projective quadrilateral</a></li>
+  </ul></li>
+  <li><a href="#degenerate-cases-where-projective-pythagoras-appears" id="toc-degenerate-cases-where-projective-pythagoras-appears" class="nav-link" data-scroll-target="#degenerate-cases-where-projective-pythagoras-appears">Degenerate cases: where projective Pythagoras appears</a></li>
+  <li><a href="#worked-examples-hyperbolic-and-elliptic" id="toc-worked-examples-hyperbolic-and-elliptic" class="nav-link" data-scroll-target="#worked-examples-hyperbolic-and-elliptic">Worked examples: hyperbolic and elliptic</a></li>
+  <li><a href="#discussion-what-this-buys-you" id="toc-discussion-what-this-buys-you" class="nav-link" data-scroll-target="#discussion-what-this-buys-you">Discussion: what this buys you</a></li>
+  <li><a href="#citation" id="toc-citation" class="nav-link" data-scroll-target="#citation">Citation</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Companion resources
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Paper (Zenodo, open access):</strong> John David Coady, <em>The Quadrea of a Projective Quadrangle Theorem in Universal Hyperbolic Geometry: Using Archimedes’ Function and Deriving Projective Pythagoras in Degenerate Quadrangles</em>, 2025. DOI: <a href="https://doi.org/10.5281/zenodo.17081213">10.5281/zenodo.17081213</a></li>
+<li><strong>Background lecture:</strong> N. J. Wildberger’s <em>Heron’s Formula, Archimedes’ Function, and the TQF</em> — the algebraic engine behind every result below.</li>
+</ul>
+</div>
+</div>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/iMWEiPuFhBQ" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<section id="why-rational-geometric-measure-matters" class="level2">
+<h2 class="anchored" data-anchor-id="why-rational-geometric-measure-matters">Why rational geometric measure matters</h2>
+<p>Universal Hyperbolic Geometry (UHG), as developed by N. J. Wildberger, replaces distances and angles with two purely algebraic quantities — <strong>quadrance</strong> and <strong>spread</strong> — defined by ratios of polynomials in projective coordinates over an arbitrary field, most naturally <span class="math inline">\mathbb{Q}</span>. There are no limits, no infinite decimals, and no transcendental functions anywhere in sight. Every quantity is a rational number (or a rational function of rational inputs), and every identity is, in principle, checkable by a computer algebra system in finitely many steps.</p>
+<p>This matters because the classical toolkit for triangles — Pythagoras, the Triple Quad Formula (TQF), the Spread Law, the Cross Law — has always had a companion notion for triangles called the <strong>quadrea</strong>, the rational analogue of “area squared.” But nothing analogous existed for a <em>projective quadrangle</em>: four points, no three collinear, with a fixed cyclic order. Rational Trigonometry has a quadrea for quadrilaterals in the affine setting, but UHG’s projective column had a gap (see the table below). This post works through how that gap gets filled.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Formula</th>
+<th style="text-align: center;">Affine (RT)</th>
+<th style="text-align: center;">Projective (UHG)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pythagoras</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td>Triple Quad Formula</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="odd">
+<td>Spread Law</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td>Cross Law</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="odd">
+<td>Quadrance / Spread</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td>Quadrea of Triangle</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="odd">
+<td>Quadrea of Quadrangle</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;"><strong>filled here</strong></td>
+</tr>
+<tr class="even">
+<td>Quadreal of Quadrilateral</td>
+<td style="text-align: center;">✗</td>
+<td style="text-align: center;"><strong>filled here (dual)</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="theoretical-framework" class="level2">
+<h2 class="anchored" data-anchor-id="theoretical-framework">Theoretical framework</h2>
+<section id="quadrance-and-spread-algebraically" class="level3">
+<h3 class="anchored" data-anchor-id="quadrance-and-spread-algebraically">Quadrance and spread, algebraically</h3>
+<p>Points are <span class="math inline">3</span>-proportions <span class="math inline">a \equiv [x:y:z]</span> and lines are <span class="math inline">3</span>-proportions <span class="math inline">L \equiv (l:m:n)</span>. In the <strong>hyperbolic</strong> setting the relevant bilinear form is <span class="math inline">\langle a, L\rangle = lx + my - nz</span>, giving:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Definition — hyperbolic quadrance and spread
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">
+q(a_1,a_2) \equiv 1 - \frac{(x_1x_2+y_1y_2-z_1z_2)^2}{(x_1^2+y_1^2-z_1^2)(x_2^2+y_2^2-z_2^2)}
+</span></p>
+<p><span class="math display">
+S(L_1,L_2) \equiv 1 - \frac{(l_1l_2+m_1m_2-n_1n_2)^2}{(l_1^2+m_1^2-n_1^2)(l_2^2+m_2^2-n_2^2)}
+</span></p>
+</div>
+</div>
+<p>The <strong>elliptic</strong> case is identical except every minus sign in the quadratic and bilinear forms becomes a plus sign — <span class="math inline">x^2+y^2+z^2</span> in place of <span class="math inline">x^2+y^2-z^2</span>. Remarkably, essentially every formula in this post — Table of laws, quadrea theorem, corollaries — holds <em>verbatim</em> in both geometries, because the algebra never inspects the sign of the quadratic form; it only manipulates <span class="math inline">q_{ij}</span> and <span class="math inline">S_i</span> symbolically.</p>
+<p>Quadrances and spreads in the hyperbolic case can be positive, negative, or zero depending on whether points sit inside, on, or outside the null cone (unit disk). This sign freedom is a feature, not a bug: it is exactly what lets rational arithmetic substitute for a metric that would otherwise require case-splitting on “inside” versus “outside.”</p>
+</section>
+<section id="archimedes-function" class="level3">
+<h3 class="anchored" data-anchor-id="archimedes-function">Archimedes’ function</h3>
+<p>The single algebraic engine driving all of RT and UHG’s higher identities is a completely elementary function:</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem (Archimedes’ function)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">
+A(x,y,z) = (x+y+z)^2 - 2(x^2+y^2+z^2) = 4xy-(x+y-z)^2
+</span></p>
+</div>
+</div>
+<p><span class="math inline">A</span> is symmetric, quadratic, and vanishes exactly when <span class="math inline">x, y, z</span> are the three squared “quad” values of a triple that closes up consistently — this is the compatibility condition behind the Triple Quad Formula, and it is what makes two quadratic equations in a shared unknown <em>compatible</em> (have a common root):</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Quadratic Compatibility (Wildberger)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The equations <span class="math display">(X-p_1)^2=r_1,\qquad (X-p_2)^2=r_2</span> share a common solution precisely when <span class="math display">A\big(r_1,\, r_2,\, (p_1-p_2)^2\big)=0,</span> equivalently <span class="math inline">\big((p_1-p_2)^2-(r_1+r_2)\big)^2 - 4r_1r_2=0</span>. When <span class="math inline">p_1\neq p_2</span> the shared root is <span class="math display">X=\frac{p_1+p_2}{2}-\frac{r_1-r_2}{2(p_1-p_2)}.</span></p>
+</div>
+</div>
+<p>This single mechanism — two “circle-like” quadratics in an unknown <span class="math inline">X</span>, forced compatible by <span class="math inline">A=0</span> — is exactly how the quadrangle quadrea gets built: split the quadrangle into two triangulations, each triangulation pins down a quadratic constraint on the unknown quadrea <span class="math inline">\mathcal{B}</span>, and Archimedes’ function certifies the two constraints agree.</p>
+</section>
+<section id="quadrea-of-a-triangle-recalled" class="level3">
+<h3 class="anchored" data-anchor-id="quadrea-of-a-triangle-recalled">Quadrea of a triangle, recalled</h3>
+<p>For a non-degenerate triangle <span class="math inline">a_1a_2a_3</span>, the quadrea is defined directly from coordinates, <span class="math display">
+\mathcal{A}(a_1a_2a_3) \equiv -\frac{(x_1y_2z_3-x_1y_3z_2+x_2y_3z_1-x_3y_2z_1+x_3y_1z_2-x_2y_1z_3)^2}{(x_1^2+y_1^2-z_1^2)(x_2^2+y_2^2-z_2^2)(x_3^2+y_3^2-z_3^2)},
+</span> and satisfies the clean product identity <span class="math display">
+q_{12}\,q_{13}\,S_1 = \mathcal{A}.
+</span> This is the seed the quadrangle result generalizes.</p>
+</section>
+</section>
+<section id="main-theorem-the-quadrea-of-a-projective-quadrangle" class="level2">
+<h2 class="anchored" data-anchor-id="main-theorem-the-quadrea-of-a-projective-quadrangle">Main theorem: the quadrea of a projective quadrangle</h2>
+<p>Take a cyclically ordered quadrangle <span class="math inline">\overline{a_1a_2a_3a_4}</span> with side quadrances <span class="math inline">q_{12},q_{23},q_{34},q_{41}</span> and vertex spreads <span class="math inline">S_1,S_2,S_3,S_4</span> (Figure below the definitions in the paper). There are two natural ways to triangulate it — <span class="math inline">\{a_1a_2a_4,\,a_2a_3a_4\}</span> or <span class="math inline">\{a_1a_2a_3,\,a_3a_4a_1\}</span> — and each triangulation, via the triangle quadrea product identity above, forces a quadratic constraint on an unknown quantity <span class="math inline">\mathcal{B}</span>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem 4.1 — Quadrea of a General Projective Quadrangle
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The quadrea <span class="math inline">\mathcal{B}(a_1a_2a_3a_4)</span> is the common solution of the compatible pair <span class="math display">
+\big(\mathcal{B}-q_{12}q_{23}S_2-q_{34}q_{41}S_4\big)^2 = 4q_{12}q_{23}q_{34}q_{41}(1-S_1)(1-S_3)
+</span> <span class="math display">
+\big(\mathcal{B}-q_{41}q_{12}S_1-q_{23}q_{34}S_3\big)^2 = 4q_{12}q_{23}q_{34}q_{41}(1-S_2)(1-S_4)
+</span></p>
+<p>and, when <span class="math inline">q_{12}q_{23}S_2+q_{34}q_{41}S_4 \neq q_{41}q_{12}S_1+q_{23}q_{34}S_3</span>, is given explicitly by <span class="math display">
+\mathcal{B} = \frac{q_{12}q_{23}S_2+q_{34}q_{41}S_4+q_{41}q_{12}S_1+q_{23}q_{34}S_3}{2}
+-\frac{4q_{12}q_{23}q_{34}q_{41}\big[(1-S_1)(1-S_3)-(1-S_2)(1-S_4)\big]}{2\big(q_{12}q_{23}S_2+q_{34}q_{41}S_4-q_{41}q_{12}S_1-q_{23}q_{34}S_3\big)}.
+</span></p>
+</div>
+</div>
+<p>The proof pattern is worth stating explicitly, because it’s the template for every result that follows:</p>
+<ol type="1">
+<li>Write <span class="math inline">J_1 = q_{12}q_{23}S_2+q_{34}q_{41}S_4</span>, <span class="math inline">J_2 = q_{41}q_{12}S_1+q_{23}q_{34}S_3</span>, and the corresponding right-hand sides <span class="math inline">K_1 = 4q_{12}q_{23}q_{34}q_{41}(1-S_1)(1-S_3)</span>, <span class="math inline">K_2 = 4q_{12}q_{23}q_{34}q_{41}(1-S_2)(1-S_4)</span>.</li>
+<li>Compatibility of <span class="math inline">(\mathcal{B}-J_1)^2=K_1</span> and <span class="math inline">(\mathcal{B}-J_2)^2=K_2</span> is exactly the statement <span class="math inline">A(K_1,K_2,(J_1-J_2)^2)=0</span>.</li>
+<li>That this identity holds is a substitution-and-simplify exercise: expand every <span class="math inline">q_{ij}</span>, <span class="math inline">S_i</span> purely in terms of the twelve homogeneous coordinates <span class="math inline">x_i,y_i,z_i</span> (<span class="math inline">i=1,\dots,4</span>) using the join/meet theorems, and let a CAS confirm <span class="math inline">A=0</span> identically.</li>
+<li>Once compatibility is certified, Theorem 3.9 (quadratic compatibility) gives the explicit closed form for <span class="math inline">\mathcal{B}</span> above.</li>
+</ol>
+<p>Because the whole argument only depends on the <em>algebraic shape</em> of quadrance and spread, not on the sign of the ambient quadratic form, the identical proof — with <span class="math inline">x^2+y^2+z^2</span> replacing <span class="math inline">x^2+y^2-z^2</span> throughout, and a sign flip in the third coordinate of join/meet — verifies the <strong>elliptic</strong> case too.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remark — cyclic invariance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The pair of compatible equations is invariant under cyclic relabeling <span class="math inline">a_1\to a_2\to a_3\to a_4\to a_1</span>, which is a useful sanity check: the quadrea shouldn’t care which vertex you started labeling from.</p>
+</div>
+</div>
+<section id="the-dual-quadreal-of-a-projective-quadrilateral" class="level3">
+<h3 class="anchored" data-anchor-id="the-dual-quadreal-of-a-projective-quadrilateral">The dual: quadreal of a projective quadrilateral</h3>
+<p>Duality in UHG swaps points <span class="math inline">\leftrightarrow</span> lines, join <span class="math inline">\leftrightarrow</span> meet, quadrance <span class="math inline">\leftrightarrow</span> spread. Running the same machinery on a quadrilateral <span class="math inline">L_1L_2L_3L_4</span> produces the <strong>quadreal</strong> <span class="math inline">\mathcal{M}</span>:</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem 4.2 — Quadreal of a General Projective Quadrilateral
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">
+\big(\mathcal{M}-S_{12}S_{23}q_2-S_{34}S_{41}q_4\big)^2 = 4S_{12}S_{23}S_{34}S_{41}(1-q_1)(1-q_3)
+</span> <span class="math display">
+\big(\mathcal{M}-S_{41}S_{12}q_1-S_{23}S_{34}q_3\big)^2 = 4S_{12}S_{23}S_{34}S_{41}(1-q_2)(1-q_4)
+</span></p>
+<p>with the same closed-form pattern as <span class="math inline">\mathcal{B}</span>, swapping the roles of <span class="math inline">q</span> and <span class="math inline">S</span>.</p>
+</div>
+</div>
+<p>Since a quadrangle carries an associated quadrilateral (its four side-lines) and vice versa (its four meet-points), <span class="math inline">\mathcal{M}(a_1a_2a_3a_4)</span> and <span class="math inline">\mathcal{B}(L_1L_2L_3L_4)</span> are both well-defined, closing the loop between the two dual metrical quantities.</p>
+</section>
+</section>
+<section id="degenerate-cases-where-projective-pythagoras-appears" class="level2">
+<h2 class="anchored" data-anchor-id="degenerate-cases-where-projective-pythagoras-appears">Degenerate cases: where projective Pythagoras appears</h2>
+<p>The real payoff of a general formula is what it does at the boundary. Three corollaries fall out of Theorem 4.1 almost for free.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Corollary 4.1.1 — collapsing to a triangle
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If two adjacent vertices coincide, say <span class="math inline">a_3=a_4</span>, then <span class="math inline">q_{34}=0</span>, the two quadratic equations become identical and linear (not genuinely quadratic), and <span class="math display">
+\mathcal{B}(a_1a_2a_3) = q_{12}q_{23}S_2,
+</span> recovering exactly the triangle quadrea identity. The quadrangle degenerates gracefully into a triangle, and the formula degenerates with it.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Corollary 4.1.2 — Dual Pythagoras from a degenerate quadrangle
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Suppose <span class="math inline">a_1,a_2,a_3</span> are collinear (so <span class="math inline">S_2=0</span>, since <span class="math inline">L_{12}=L_{23}</span>) <strong>and</strong> <span class="math inline">a_1\perp a_3</span> (so <span class="math inline">q_{13}=1</span>, by the quadrance–spread duality theorem). Substituting into the two compatible equations of Theorem 4.1 collapses them to one, and comparing altitude-quadrance decompositions of the three triangles <span class="math inline">a_1a_2a_4</span>, <span class="math inline">a_2a_3a_4</span>, <span class="math inline">a_1a_3a_4</span> (sharing common quadrance-altitude <span class="math inline">h</span>) forces <span class="math display">
+q_{34}q_{41}S_4 = q_{41}q_{12}S_1+q_{23}q_{34}S_3.
+</span> Equating the surviving right-hand sides and cancelling nonzero quadrance factors yields <span class="math display">
+S_4 = S_1+S_3-S_1S_3,
+</span> the <strong>Dual Pythagoras theorem</strong> — a spread-only, non-Euclidean echo of <span class="math inline">Q_3=Q_1+Q_2</span> falling straight out of the general quadrangle identity, with zero extra machinery.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Corollary 4.1.3 — right quadrangles
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the quadrangle is right at a vertex, e.g.&nbsp;<span class="math inline">S_1=1</span> (Theorem 3.1: perpendicular points have quadrance/spread <span class="math inline">1</span>), the corresponding right-hand side vanishes and the quadrea reduces to a <strong>sum of adjacent triangle quadreas</strong>: <span class="math display">
+\mathcal{B}(a_1a_2a_3a_4) = q_{12}q_{23}S_2+q_{34}q_{41}S_4.
+</span></p>
+<p>This is the direct four-point analogue of Pythagoras: in RT, quadrances of a right triangle sum (<span class="math inline">Q_3=Q_1+Q_2</span>); in UHG, quadreas of a right quadrangle sum.</p>
+</div>
+</div>
+<p>Together, these corollaries show the general Theorem 4.1 is not just a formal extension — it <em>contains</em> the triangle quadrea and the Dual Pythagoras theorem as limiting, degenerate cases, exactly as one would hope from a genuinely unifying formula.</p>
+</section>
+<section id="worked-examples-hyperbolic-and-elliptic" class="level2">
+<h2 class="anchored" data-anchor-id="worked-examples-hyperbolic-and-elliptic">Worked examples: hyperbolic and elliptic</h2>
+<p>The paper verifies everything with fully rational numeric examples, checked in SymPy, Maple, and Mathematica.</p>
+<p><strong>Hyperbolic</strong> (points inside the unit disk, giving negative quadrances): with <span class="math inline">a_1=[-\tfrac35:\tfrac35:1]</span>, <span class="math inline">a_2=[\tfrac45:0:1]</span>, <span class="math inline">a_3=[\tfrac25:-\tfrac45:1]</span>, <span class="math inline">a_4=[-\tfrac25:-\tfrac25:1]</span>, the theorem gives the exact rational values <span class="math display">
+\mathcal{B}(a_1a_2a_3a_4)=\frac{17512}{315},\qquad \mathcal{M}(a_1a_2a_3a_4)=-\frac{9019516250}{896919661},
+</span> with both compatible quadratic equations verified to hold on the nose.</p>
+<p><strong>Elliptic</strong> (celestial sphere): using equatorial coordinates for Dubhe, Merak, Phecda, and Megrez — the four stars forming the bowl of the Big Dipper — the same machinery produces exact (very large-denominator) rational quadrea and quadreal values, demonstrating the formulas work unmodified for spherical/astronomical configurations, not just abstract hyperbolic ones.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Interactive verification: Python/SymPy
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The pattern below mirrors Appendix A.2 of the paper and is the fastest way to sanity-check the theorem on your own configurations. Given the twelve homogeneous coordinates of a quadrangle, compute <span class="math inline">q_{ij}</span>, <span class="math inline">S_i</span>, then solve for <span class="math inline">\mathcal{B}</span> via the compatibility formula and confirm both quadratics hold.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> Rational, sqrt, simplify</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quadrance(a, b, sign<span class="op">=-</span><span class="dv">1</span>):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    dot_ab <span class="op">=</span> a[<span class="dv">0</span>]<span class="op">*</span>b[<span class="dv">0</span>] <span class="op">+</span> a[<span class="dv">1</span>]<span class="op">*</span>b[<span class="dv">1</span>] <span class="op">+</span> sign<span class="op">*</span>a[<span class="dv">2</span>]<span class="op">*</span>b[<span class="dv">2</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    dot_aa <span class="op">=</span> a[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> a[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> sign<span class="op">*</span>a[<span class="dv">2</span>]<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    dot_bb <span class="op">=</span> b[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> b[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> sign<span class="op">*</span>b[<span class="dv">2</span>]<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="op">-</span> dot_ab<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> (dot_aa <span class="op">*</span> dot_bb)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> join(a, b, sign<span class="op">=-</span><span class="dv">1</span>):</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># hyperbolic join; flip 3rd component convention for elliptic (sign=+1)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> a[<span class="dv">1</span>]<span class="op">*</span>b[<span class="dv">2</span>] <span class="op">-</span> b[<span class="dv">1</span>]<span class="op">*</span>a[<span class="dv">2</span>]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> a[<span class="dv">2</span>]<span class="op">*</span>b[<span class="dv">0</span>] <span class="op">-</span> b[<span class="dv">2</span>]<span class="op">*</span>a[<span class="dv">0</span>]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> b[<span class="dv">0</span>]<span class="op">*</span>a[<span class="dv">1</span>] <span class="op">-</span> a[<span class="dv">0</span>]<span class="op">*</span>b[<span class="dv">1</span>] <span class="cf">if</span> sign <span class="op">==</span> <span class="op">-</span><span class="dv">1</span> <span class="cf">else</span> a[<span class="dv">0</span>]<span class="op">*</span>b[<span class="dv">1</span>] <span class="op">-</span> b[<span class="dv">0</span>]<span class="op">*</span>a[<span class="dv">1</span>]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x, y, z)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spread(L1, L2, sign<span class="op">=-</span><span class="dv">1</span>):</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> quadrance(L1, L2, sign<span class="op">=</span>sign)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> archimedes(x, y, z):</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x <span class="op">+</span> y <span class="op">+</span> z)<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> <span class="dv">2</span><span class="op">*</span>(x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> z<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> quadrea(q12, q23, q34, q41, S1, S2, S3, S4):</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    J1 <span class="op">=</span> q12<span class="op">*</span>q23<span class="op">*</span>S2 <span class="op">+</span> q34<span class="op">*</span>q41<span class="op">*</span>S4</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    J2 <span class="op">=</span> q41<span class="op">*</span>q12<span class="op">*</span>S1 <span class="op">+</span> q23<span class="op">*</span>q34<span class="op">*</span>S3</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    K1 <span class="op">=</span> <span class="dv">4</span><span class="op">*</span>q12<span class="op">*</span>q23<span class="op">*</span>q34<span class="op">*</span>q41<span class="op">*</span>(<span class="dv">1</span> <span class="op">-</span> S1)<span class="op">*</span>(<span class="dv">1</span> <span class="op">-</span> S3)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    K2 <span class="op">=</span> <span class="dv">4</span><span class="op">*</span>q12<span class="op">*</span>q23<span class="op">*</span>q34<span class="op">*</span>q41<span class="op">*</span>(<span class="dv">1</span> <span class="op">-</span> S2)<span class="op">*</span>(<span class="dv">1</span> <span class="op">-</span> S4)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> simplify(archimedes(K1, K2, (J1 <span class="op">-</span> J2)<span class="op">**</span><span class="dv">2</span>)) <span class="op">==</span> <span class="dv">0</span>, <span class="st">"compatibility fails"</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    B <span class="op">=</span> (J1 <span class="op">+</span> J2)<span class="op">/</span><span class="dv">2</span> <span class="op">-</span> (K1 <span class="op">-</span> K2)<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>(J1 <span class="op">-</span> J2))</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> B, (J1, K1), (J2, K2)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>a1 <span class="op">=</span> (Rational(<span class="op">-</span><span class="dv">3</span>,<span class="dv">5</span>), Rational(<span class="dv">3</span>,<span class="dv">5</span>), <span class="dv">1</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>a2 <span class="op">=</span> (Rational(<span class="dv">4</span>,<span class="dv">5</span>), <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>a3 <span class="op">=</span> (Rational(<span class="dv">2</span>,<span class="dv">5</span>), Rational(<span class="op">-</span><span class="dv">4</span>,<span class="dv">5</span>), <span class="dv">1</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>a4 <span class="op">=</span> (Rational(<span class="op">-</span><span class="dv">2</span>,<span class="dv">5</span>), Rational(<span class="op">-</span><span class="dv">2</span>,<span class="dv">5</span>), <span class="dv">1</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>q12, q23 <span class="op">=</span> quadrance(a1, a2), quadrance(a2, a3)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>q34, q41 <span class="op">=</span> quadrance(a3, a4), quadrance(a4, a1)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>L12, L23 <span class="op">=</span> join(a1, a2), join(a2, a3)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>L34, L41 <span class="op">=</span> join(a3, a4), join(a4, a1)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>S1, S2 <span class="op">=</span> spread(L41, L12), spread(L12, L23)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>S3, S4 <span class="op">=</span> spread(L23, L34), spread(L34, L41)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>B, eq1, eq2 <span class="op">=</span> quadrea(q12, q23, q34, q41, S1, S2, S3, S4)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Quadrea B ="</span>, simplify(B))   <span class="co"># -&gt; 17512/315</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="discussion-what-this-buys-you" class="level2">
+<h2 class="anchored" data-anchor-id="discussion-what-this-buys-you">Discussion: what this buys you</h2>
+<ul>
+<li><strong>Table 1 gets completed.</strong> UHG’s formula library now has a projective quadrangle quadrea and its dual quadrilateral quadreal, matching Rational Trigonometry’s affine quadrilateral quadrea.</li>
+<li><strong>Hyperbolic and elliptic geometry are unified at the formula level.</strong> The theorem’s algebraic content is agnostic to the sign of the ambient quadratic form; only the substitution into <span class="math inline">q_{ij}, S_i</span> differs.</li>
+<li><strong>Degenerate cases are not edge-case patches — they’re structural.</strong> The triangle quadrea, the Dual Pythagoras theorem, and a Pythagorean-style “quadreas sum at a right vertex” statement all emerge from the <em>same</em> pair of compatible quadratics, just specialized.</li>
+<li><strong>Everything is exact.</strong> Every worked numeric example is a genuine element of <span class="math inline">\mathbb{Q}</span> — no floating-point residue, no numerical tolerance — which is precisely the appeal of doing non-Euclidean geometry the UHG way.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Open directions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The paper flags a few natural next steps: extending to pentagonal (five-point) configurations, exploring null-point/null-line degenerations more systematically, and packaging the verification routines as reusable SymPy utilities for classroom and research use.</p>
+</div>
+</div>
+</section>
+<section id="citation" class="level2">
+<h2 class="anchored" data-anchor-id="citation">Citation</h2>
+<blockquote class="blockquote">
+<p>Coady, J. D. (2025). <em>The Quadrea of a Projective Quadrangle Theorem in Universal Hyperbolic Geometry: Using Archimedes’ Function and Deriving Projective Pythagoras in Degenerate Quadrangles.</em> Zenodo. <a href="https://doi.org/10.5281/zenodo.17081213">https://doi.org/10.5281/zenodo.17081213</a></p>
+</blockquote>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jcoady\.github\.io\/blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
