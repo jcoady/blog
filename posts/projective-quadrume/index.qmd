@@ -11,6 +11,7 @@ format:
     code-fold: false
     theme: cosmo
     mathjax: true
+bibliography: references.bib
 ---
 
 ## From Quadrea to Quadrume: Climbing a Dimension
@@ -33,11 +34,12 @@ characteristic not two.
 The natural question is: what happens one dimension up? If a projective triangle in
 $\mathbb{P}^2$ has a quadrea, what does a projective **tetrahedron** in $\mathbb{P}^3$ have?
 John D. Coady's paper, *On the Projective Quadrume and the Recursive Factorization of Projective
-Simplices*, answers this directly. It defines the **projective quadrume** of a tetrahedron as a
-normalized $4\times4$ Gram determinant, proves that it factorizes cleanly into a face quadrea
-times an altitude quadrance, and then shows that this is just the first non-trivial case of a
-completely general recursive theorem for simplices of any dimension. This post walks through
-that construction.
+Simplices* [@coady2026quadrume], answers this directly. It defines the **projective quadrume** of
+a tetrahedron as a normalized $4\times4$ Gram determinant, proves that it factorizes cleanly into
+a face quadrea times an altitude quadrance, and then shows that this is just the first
+non-trivial case of a completely general recursive theorem for simplices of any dimension. This
+post walks through that construction. The full paper is openly available on Zenodo at
+[doi.org/10.5281/zenodo.21523416](https://doi.org/10.5281/zenodo.21523416).
 
 ## The Algebraic Setting
 
@@ -297,14 +299,15 @@ placeholder for a GeoGebra 3D applet illustrating exactly that: a tetrahedron $a
 base face $a_1a_2a_3$ with dual normal $n$, and the altitude line from $a_4$ to $n$.
 
 ```{=html}
-<div style="position: relative; width: 100%; padding-top: 66%; margin: 2rem 0;">
+<div style="width: 100%; max-width: 900px; aspect-ratio: 3 / 2; margin: 2rem auto; overflow: hidden;">
   <iframe
     src="https://www.geogebra.org/material/iframe/id/mftg7rup/width/2133/height/957/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
-    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #cccccc;"
+    style="width: 100%; height: 100%; border: 1px solid #cccccc; display: block;"
     scrolling="no"
     allowfullscreen>
   </iframe>
 </div>
+```
 
 ## Closing Thoughts
 
@@ -319,3 +322,12 @@ $$
 governing the projective Gram volume of a simplex of *any* size in a space of *any* dimension,
 over a field of *any* characteristic other than two. No transcendental functions were used in the
 making of this theorem — and that, per Wildberger's original philosophy, is precisely the point.
+
+For the full definitions, proofs, and the complete SymPy verification script, see the original
+paper on Zenodo: Coady, J. D. (2026). *On the Projective Quadrume and the Recursive Factorization
+of Projective Simplices*. [https://doi.org/10.5281/zenodo.21523416](https://doi.org/10.5281/zenodo.21523416).
+
+## References
+
+::: {#refs}
+:::

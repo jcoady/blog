@@ -57,7 +57,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -250,6 +270,7 @@ window.Quarto = {
   <li><a href="#independent-symbolic-verification" id="toc-independent-symbolic-verification" class="nav-link" data-scroll-target="#independent-symbolic-verification">Independent Symbolic Verification</a></li>
   <li><a href="#seeing-it-an-interactive-tetrahedron" id="toc-seeing-it-an-interactive-tetrahedron" class="nav-link" data-scroll-target="#seeing-it-an-interactive-tetrahedron">Seeing It: An Interactive Tetrahedron</a></li>
   <li><a href="#closing-thoughts" id="toc-closing-thoughts" class="nav-link" data-scroll-target="#closing-thoughts">Closing Thoughts</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -265,7 +286,7 @@ window.Quarto = {
 <p>In our earlier post on the <strong>projective quadrea</strong>, we watched N. J. Wildberger’s rational trigonometry do something remarkable: it took the metrical geometry of a projective triangle in <span class="math inline">\(\mathbb{P}^2\)</span> — a triangle built from three lines through the origin of an ambient vector space <span class="math inline">\(\mathbb{V}^3\)</span> — and expressed every measurement as a ratio of polynomials in a bilinear form. No <span class="math inline">\(\sin\)</span>, no <span class="math inline">\(\cos\)</span>, no square roots, no transcendental machinery. Just a symmetric bilinear form <span class="math inline">\(B\)</span>, a handful of Gram determinants, and a field <span class="math inline">\(\mathbb{F}\)</span> with <span class="math inline">\(\mathrm{char}(\mathbb{F})
 \neq 2\)</span>.</p>
 <p>That framework — <strong>quadrance</strong> for the “squared distance” between points, <strong>spread</strong> for the “squared angle” between lines, and <strong>quadrea</strong> for the invariant of a whole triangle — is the backbone of Wildberger’s <em>Universal Hyperbolic Geometry</em>. It works because rational trigonometry refuses to privilege the real numbers or the transcendental functions built on them; it insists that everything metrical reduces to polynomial identities that make sense over <em>any</em> field of characteristic not two.</p>
-<p>The natural question is: what happens one dimension up? If a projective triangle in <span class="math inline">\(\mathbb{P}^2\)</span> has a quadrea, what does a projective <strong>tetrahedron</strong> in <span class="math inline">\(\mathbb{P}^3\)</span> have? John D. Coady’s paper, <em>On the Projective Quadrume and the Recursive Factorization of Projective Simplices</em>, answers this directly. It defines the <strong>projective quadrume</strong> of a tetrahedron as a normalized <span class="math inline">\(4\times4\)</span> Gram determinant, proves that it factorizes cleanly into a face quadrea times an altitude quadrance, and then shows that this is just the first non-trivial case of a completely general recursive theorem for simplices of any dimension. This post walks through that construction.</p>
+<p>The natural question is: what happens one dimension up? If a projective triangle in <span class="math inline">\(\mathbb{P}^2\)</span> has a quadrea, what does a projective <strong>tetrahedron</strong> in <span class="math inline">\(\mathbb{P}^3\)</span> have? John D. Coady’s paper, <em>On the Projective Quadrume and the Recursive Factorization of Projective Simplices</em> <span class="citation" data-cites="coady2026quadrume">(<a href="#ref-coady2026quadrume" role="doc-biblioref">Coady 2026</a>)</span>, answers this directly. It defines the <strong>projective quadrume</strong> of a tetrahedron as a normalized <span class="math inline">\(4\times4\)</span> Gram determinant, proves that it factorizes cleanly into a face quadrea times an altitude quadrance, and then shows that this is just the first non-trivial case of a completely general recursive theorem for simplices of any dimension. This post walks through that construction. The full paper is openly available on Zenodo at <a href="https://doi.org/10.5281/zenodo.21523416">doi.org/10.5281/zenodo.21523416</a>.</p>
 </section>
 <section id="the-algebraic-setting" class="level2">
 <h2 class="anchored" data-anchor-id="the-algebraic-setting">The Algebraic Setting</h2>
@@ -350,7 +371,7 @@ h(a_k) \equiv \frac{B(v_k,n)^2}{Q(v_k)\,Q(n)}.
 \Delta \equiv \det(G_4)\,Q(n) - \det(G_3)\,B(v_4,n)^2
 \]</span></p>
 <p>simplifies identically to zero.</p>
-<div id="c0e4edd1" class="cell" data-execution_count="1">
+<div id="78d56bff" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_symbolic_proof():</span>
@@ -407,8 +428,9 @@ h(a_k) \equiv \frac{B(v_k,n)^2}{Q(v_k)\,Q(n)}.
 <section id="seeing-it-an-interactive-tetrahedron" class="level2">
 <h2 class="anchored" data-anchor-id="seeing-it-an-interactive-tetrahedron">Seeing It: An Interactive Tetrahedron</h2>
 <p>The identity is easiest to trust once you can rotate a tetrahedron, drag a vertex, and watch the quadrume, the face quadrea, and the altitude quadrance stay locked in the relation <span class="math inline">\(\mathcal{V} = \mathcal{S} \times h(a_4)\)</span> no matter how you deform it. The embed below is a placeholder for a GeoGebra 3D applet illustrating exactly that: a tetrahedron <span class="math inline">\(a_1a_2a_3a_4\)</span>, its base face <span class="math inline">\(a_1a_2a_3\)</span> with dual normal <span class="math inline">\(n\)</span>, and the altitude line from <span class="math inline">\(a_4\)</span> to <span class="math inline">\(n\)</span>.</p>
-<div style="position: relative; width: 100%; padding-top: 66%; margin: 2rem 0;">
-<p><iframe src="https://www.geogebra.org/material/iframe/id/mftg7rup/width/2133/height/957/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #cccccc;" scrolling="no" allowfullscreen=""> </iframe></p>
+<div style="width: 100%; max-width: 900px; aspect-ratio: 3 / 2; margin: 2rem auto; overflow: hidden;">
+  <iframe src="https://www.geogebra.org/material/iframe/id/mftg7rup/width/2133/height/957/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false" style="width: 100%; height: 100%; border: 1px solid #cccccc; display: block;" scrolling="no" allowfullscreen="">
+  </iframe>
 </div>
 </section>
 <section id="closing-thoughts" class="level2">
@@ -416,6 +438,15 @@ h(a_k) \equiv \frac{B(v_k,n)^2}{Q(v_k)\,Q(n)}.
 <p>The projective quadrume is a satisfying instance of a pattern that shows up whenever rational trigonometry is extended: define the natural normalized Gram invariant, prove a factorization lemma using nothing but bilinear-form algebra and a change of basis, and watch the identity survive intact at every dimension. What starts as “the quadrea of a triangle” becomes “the quadrume of a tetrahedron” becomes, ultimately, a single recursive law <span class="math display">\[
 \mathcal{Q}_k = \mathcal{Q}_{k-1} \times h(a_k)
 \]</span> governing the projective Gram volume of a simplex of <em>any</em> size in a space of <em>any</em> dimension, over a field of <em>any</em> characteristic other than two. No transcendental functions were used in the making of this theorem — and that, per Wildberger’s original philosophy, is precisely the point.</p>
+<p>For the full definitions, proofs, and the complete SymPy verification script, see the original paper on Zenodo: Coady, J. D. (2026). <em>On the Projective Quadrume and the Recursive Factorization of Projective Simplices</em>. <a href="https://doi.org/10.5281/zenodo.21523416">https://doi.org/10.5281/zenodo.21523416</a>.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-coady2026quadrume" class="csl-entry" role="listitem">
+Coady, John D. 2026. <span>“On the Projective Quadrume and the Recursive Factorization of Projective Simplices.”</span> Zenodo. <a href="https://doi.org/10.5281/zenodo.21523416">https://doi.org/10.5281/zenodo.21523416</a>.
+</div>
+</div>
 
 
 </section>
