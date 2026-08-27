@@ -299,17 +299,12 @@ base face $a_1a_2a_3$ with dual normal $n$, and the altitude line from $a_4$ to 
 ```{=html}
 <div style="position: relative; width: 100%; padding-top: 66%; margin: 2rem 0;">
   <iframe
-    src="https://www.geogebra.org/material/iframe/id/YOUR_APPLET_ID/width/900/height/600/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false"
+    src="https://www.geogebra.org/material/iframe/id/mftg7rup/width/2133/height/957/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #cccccc;"
     scrolling="no"
     allowfullscreen>
   </iframe>
 </div>
-```
-
-*(Replace `YOUR_APPLET_ID` with the published GeoGebra material ID. The `ai=false` and `rc=false`
-parameters suppress the algebra input bar and "reset" control respectively, keeping the embedded
-view clean for readers who just want to manipulate the tetrahedron.)*
 
 ## Closing Thoughts
 

@@ -235,7 +235,7 @@
     "href": "posts/projective-quadrume/index.html#seeing-it-an-interactive-tetrahedron",
     "title": "The Projective Quadrume: Extending Rational Trigonometry to Tetrahedra and Higher Dimensions",
     "section": "Seeing It: An Interactive Tetrahedron",
-    "text": "Seeing It: An Interactive Tetrahedron\nThe identity is easiest to trust once you can rotate a tetrahedron, drag a vertex, and watch the quadrume, the face quadrea, and the altitude quadrance stay locked in the relation \\(\\mathcal{V} = \\mathcal{S} \\times h(a_4)\\) no matter how you deform it. The embed below is a placeholder for a GeoGebra 3D applet illustrating exactly that: a tetrahedron \\(a_1a_2a_3a_4\\), its base face \\(a_1a_2a_3\\) with dual normal \\(n\\), and the altitude line from \\(a_4\\) to \\(n\\).\n\n  \n  \n\n(Replace YOUR_APPLET_ID with the published GeoGebra material ID. The ai=false and rc=false parameters suppress the algebra input bar and “reset” control respectively, keeping the embedded view clean for readers who just want to manipulate the tetrahedron.)"
+    "text": "Seeing It: An Interactive Tetrahedron\nThe identity is easiest to trust once you can rotate a tetrahedron, drag a vertex, and watch the quadrume, the face quadrea, and the altitude quadrance stay locked in the relation \\(\\mathcal{V} = \\mathcal{S} \\times h(a_4)\\) no matter how you deform it. The embed below is a placeholder for a GeoGebra 3D applet illustrating exactly that: a tetrahedron \\(a_1a_2a_3a_4\\), its base face \\(a_1a_2a_3\\) with dual normal \\(n\\), and the altitude line from \\(a_4\\) to \\(n\\)."
   },
   {
     "objectID": "posts/projective-quadrume/index.html#closing-thoughts",
