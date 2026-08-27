@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Math Blog">
+<meta name="dcterms.date" content="2026-07-24">
+<meta name="description" content="From the projective quadrea of a triangle to the projective quadrume of a tetrahedron: a purely algebraic, recursive theory of hypervolume for projective simplices in any dimension.">
+
+<title>The Projective Quadrume: Extending Rational Trigonometry to Tetrahedra and Higher Dimensions – John Coady’s Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-2212757b80b1df614b4b011ba39f1668.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">John Coady’s Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">All Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../math.html"> 
+<span class="menu-text">Pure Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics.html"> 
+<span class="menu-text">Math Physics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0009-0008-6020-5733"> 
+<span class="menu-text"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID iD" style="height:20px; width:20px; vertical-align:-3px;"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://x.com/johndavidcoady"> <i class="bi bi-twitter-x" role="img" aria-label="X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jcoady"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">The Projective Quadrume: Extending Rational Trigonometry to Tetrahedra and Higher Dimensions</h1>
+                  <div>
+        <div class="description">
+          From the projective quadrea of a triangle to the projective quadrume of a tetrahedron: a purely algebraic, recursive theory of hypervolume for projective simplices in any dimension.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Mathematics</div>
+                <div class="quarto-category">Universal Hyperbolic Geometry</div>
+                <div class="quarto-category">GeoGebra</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Math Blog </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">July 24, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#from-quadrea-to-quadrume-climbing-a-dimension" id="toc-from-quadrea-to-quadrume-climbing-a-dimension" class="nav-link active" data-scroll-target="#from-quadrea-to-quadrume-climbing-a-dimension">From Quadrea to Quadrume: Climbing a Dimension</a></li>
+  <li><a href="#the-algebraic-setting" id="toc-the-algebraic-setting" class="nav-link" data-scroll-target="#the-algebraic-setting">The Algebraic Setting</a></li>
+  <li><a href="#why-gram-determinants-factor-the-exterior-algebra-picture" id="toc-why-gram-determinants-factor-the-exterior-algebra-picture" class="nav-link" data-scroll-target="#why-gram-determinants-factor-the-exterior-algebra-picture">Why Gram Determinants Factor: The Exterior Algebra Picture</a></li>
+  <li><a href="#the-dual-point-of-a-plane" id="toc-the-dual-point-of-a-plane" class="nav-link" data-scroll-target="#the-dual-point-of-a-plane">The Dual Point of a Plane</a></li>
+  <li><a href="#the-polynomial-gram-determinant-identity" id="toc-the-polynomial-gram-determinant-identity" class="nav-link" data-scroll-target="#the-polynomial-gram-determinant-identity">The Polynomial Gram Determinant Identity</a></li>
+  <li><a href="#the-quadrume-factorization-theorem" id="toc-the-quadrume-factorization-theorem" class="nav-link" data-scroll-target="#the-quadrume-factorization-theorem">The Quadrume Factorization Theorem</a></li>
+  <li><a href="#the-general-n-dimensional-theorem" id="toc-the-general-n-dimensional-theorem" class="nav-link" data-scroll-target="#the-general-n-dimensional-theorem">The General <span class="math inline">\(n\)</span>-Dimensional Theorem</a></li>
+  <li><a href="#independent-symbolic-verification" id="toc-independent-symbolic-verification" class="nav-link" data-scroll-target="#independent-symbolic-verification">Independent Symbolic Verification</a></li>
+  <li><a href="#seeing-it-an-interactive-tetrahedron" id="toc-seeing-it-an-interactive-tetrahedron" class="nav-link" data-scroll-target="#seeing-it-an-interactive-tetrahedron">Seeing It: An Interactive Tetrahedron</a></li>
+  <li><a href="#closing-thoughts" id="toc-closing-thoughts" class="nav-link" data-scroll-target="#closing-thoughts">Closing Thoughts</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="from-quadrea-to-quadrume-climbing-a-dimension" class="level2">
+<h2 class="anchored" data-anchor-id="from-quadrea-to-quadrume-climbing-a-dimension">From Quadrea to Quadrume: Climbing a Dimension</h2>
+<p>In our earlier post on the <strong>projective quadrea</strong>, we watched N. J. Wildberger’s rational trigonometry do something remarkable: it took the metrical geometry of a projective triangle in <span class="math inline">\(\mathbb{P}^2\)</span> — a triangle built from three lines through the origin of an ambient vector space <span class="math inline">\(\mathbb{V}^3\)</span> — and expressed every measurement as a ratio of polynomials in a bilinear form. No <span class="math inline">\(\sin\)</span>, no <span class="math inline">\(\cos\)</span>, no square roots, no transcendental machinery. Just a symmetric bilinear form <span class="math inline">\(B\)</span>, a handful of Gram determinants, and a field <span class="math inline">\(\mathbb{F}\)</span> with <span class="math inline">\(\mathrm{char}(\mathbb{F})
+\neq 2\)</span>.</p>
+<p>That framework — <strong>quadrance</strong> for the “squared distance” between points, <strong>spread</strong> for the “squared angle” between lines, and <strong>quadrea</strong> for the invariant of a whole triangle — is the backbone of Wildberger’s <em>Universal Hyperbolic Geometry</em>. It works because rational trigonometry refuses to privilege the real numbers or the transcendental functions built on them; it insists that everything metrical reduces to polynomial identities that make sense over <em>any</em> field of characteristic not two.</p>
+<p>The natural question is: what happens one dimension up? If a projective triangle in <span class="math inline">\(\mathbb{P}^2\)</span> has a quadrea, what does a projective <strong>tetrahedron</strong> in <span class="math inline">\(\mathbb{P}^3\)</span> have? John D. Coady’s paper, <em>On the Projective Quadrume and the Recursive Factorization of Projective Simplices</em>, answers this directly. It defines the <strong>projective quadrume</strong> of a tetrahedron as a normalized <span class="math inline">\(4\times4\)</span> Gram determinant, proves that it factorizes cleanly into a face quadrea times an altitude quadrance, and then shows that this is just the first non-trivial case of a completely general recursive theorem for simplices of any dimension. This post walks through that construction.</p>
+</section>
+<section id="the-algebraic-setting" class="level2">
+<h2 class="anchored" data-anchor-id="the-algebraic-setting">The Algebraic Setting</h2>
+<p>Everything rests on a single piece of data: an <span class="math inline">\(n\)</span>-dimensional vector space <span class="math inline">\(\mathbb{V}^n\)</span> over a field <span class="math inline">\(\mathbb{F}\)</span> with <span class="math inline">\(\mathrm{char}(\mathbb{F}) \neq 2\)</span>, equipped with a non-degenerate symmetric bilinear form <span class="math inline">\(B(u,v)\)</span>. The characteristic restriction is not a technicality to wave away — it is what keeps a symmetric bilinear form from collapsing into an alternating one, and it keeps the number <span class="math inline">\(2\)</span> invertible, which the definitions below lean on constantly.</p>
+<p><strong>Quadrance.</strong> For a vector <span class="math inline">\(v \in \mathbb{V}^n\)</span>, <span class="math display">\[
+Q(v) \equiv B(v,v).
+\]</span> A vector is <strong>null</strong> if <span class="math inline">\(Q(v) = 0\)</span>; the theory only tracks non-null representatives.</p>
+<p><strong>Projective points and projective quadrance.</strong> A point <span class="math inline">\(a_i\)</span> of <span class="math inline">\(\mathbb{P}^{n-1}\)</span> is a one-dimensional subspace of <span class="math inline">\(\mathbb{V}^n\)</span>, represented by a non-null vector <span class="math inline">\(v_i\)</span>. The projective quadrance between two points is <span class="math display">\[
+q(a_1,a_2) \equiv 1 - \frac{B(v_1,v_2)^2}{Q(v_1)\,Q(v_2)}.
+\]</span></p>
+<p><strong>The projective Gram volume.</strong> This is the key generalization. Given <span class="math inline">\(k\)</span> vectors <span class="math inline">\(v_1,\dots,v_k\)</span>, form the <span class="math inline">\(k\times k\)</span> Gram matrix <span class="math inline">\([G_k]_{ij} = B(v_i,v_j)\)</span>. The <strong>projective Gram volume</strong> is the normalized determinant <span class="math display">\[
+\mathcal{Q}_k \equiv \frac{\det(G_k)}{\prod_{i=1}^{k} Q(v_i)}.
+\]</span></p>
+<p>This single quantity unifies the whole hierarchy: at <span class="math inline">\(k=2\)</span> it <em>is</em> the projective quadrance, at <span class="math inline">\(k=3\)</span> it is Wildberger’s <strong>projective quadrea</strong> <span class="math inline">\(\mathcal{S}\)</span>, and at <span class="math inline">\(k=4\)</span> it is what Coady names the <strong>projective quadrume</strong> <span class="math inline">\(\mathcal{V}\)</span> — the natural continuation of Wildberger’s naming scheme for the tetrahedral case.</p>
+<p>Crucially, <span class="math inline">\(\mathcal{Q}_k\)</span> doesn’t care which representative vectors you chose. Scaling <span class="math inline">\(v_i \to \lambda_i v_i\)</span> multiplies <span class="math inline">\(\det(G_k)\)</span> by <span class="math inline">\(\prod \lambda_i^2\)</span> and multiplies <span class="math inline">\(\prod Q(v_i)\)</span> by the same factor, so the ratio is invariant — exactly the projective invariance you need for this to be a well-defined geometric quantity rather than an artifact of coordinates.</p>
+</section>
+<section id="why-gram-determinants-factor-the-exterior-algebra-picture" class="level2">
+<h2 class="anchored" data-anchor-id="why-gram-determinants-factor-the-exterior-algebra-picture">Why Gram Determinants Factor: The Exterior Algebra Picture</h2>
+<p>Before stating the tetrahedral theorem, it’s worth seeing <em>why</em> Gram determinants factor at all, because the reason is geometric, not just algebraic bookkeeping.</p>
+<p>The Gram determinant of <span class="math inline">\(k\)</span> vectors has a coordinate-free meaning in the exterior algebra <span class="math inline">\(\bigwedge^k \mathbb{V}^n\)</span>: <span class="math display">\[
+\det(G_k) = \langle v_1 \wedge \cdots \wedge v_k,\; v_1 \wedge \cdots \wedge v_k \rangle.
+\]</span> If you decompose the last vector <span class="math inline">\(v_k = v_k^{\parallel} + v_k^{\perp}\)</span> relative to the span of the first <span class="math inline">\(k-1\)</span> vectors, the parallel component contributes nothing to the wedge product — a wedge with a repeated direction vanishes — so <span class="math display">\[
+v_1 \wedge \cdots \wedge v_{k-1} \wedge v_k = v_1 \wedge \cdots \wedge v_{k-1} \wedge v_k^{\perp}.
+\]</span> This is the exterior-algebra shadow of the familiar Euclidean fact that <em>(squared base) <span class="math inline">\(\times\)</span> (squared height) = squared volume</em>. Made precise as a Gram determinant statement:</p>
+<blockquote class="blockquote">
+<p><strong>Lemma (Gram Determinant Factorization).</strong> If <span class="math inline">\(U_{k-1} \subset U_k\)</span> with <span class="math inline">\(\dim U_{k-1} = k-1\)</span>, <span class="math inline">\(\dim U_k = k\)</span>, and <span class="math inline">\(B|_{U_{k-1}}\)</span> is non-degenerate, then <span class="math display">\[\det(G_k) = \det(G_{k-1}) \cdot Q(v_k^{\perp}),\]</span> where <span class="math inline">\(v_k^{\perp}\)</span> is the component of <span class="math inline">\(v_k\)</span> orthogonal to <span class="math inline">\(U_{k-1}\)</span>.</p>
+</blockquote>
+<p>The proof is a congruence transformation: replace <span class="math inline">\(v_k\)</span> by <span class="math inline">\(v_k^{\perp}\)</span> using an upper-triangular change of basis of determinant <span class="math inline">\(1\)</span>, which block-diagonalizes the Gram matrix without changing its determinant. Everything downstream in the paper is this lemma, applied at increasing dimension and translated into projective language.</p>
+</section>
+<section id="the-dual-point-of-a-plane" class="level2">
+<h2 class="anchored" data-anchor-id="the-dual-point-of-a-plane">The Dual Point of a Plane</h2>
+<p>To turn “orthogonal complement of a <span class="math inline">\(3\)</span>-dimensional subspace” into something computable, Coady gives an explicit cofactor construction. If <span class="math inline">\(v_1,v_2,v_3 \in \mathbb{V}^4\)</span> span a non-degenerate subspace <span class="math inline">\(U\)</span>, form the <span class="math inline">\(3\times4\)</span> matrix <span class="math inline">\(M\)</span> whose rows are <span class="math inline">\(v_1^T G\)</span>, <span class="math inline">\(v_2^T G\)</span>, <span class="math inline">\(v_3^T G\)</span> (here <span class="math inline">\(G\)</span> is the matrix of <span class="math inline">\(B\)</span> in coordinates). The <strong>dual point</strong> <span class="math inline">\(n\)</span> orthogonal to <span class="math inline">\(U\)</span> is given, up to scale, by the signed <span class="math inline">\(3\times3\)</span> cofactors of <span class="math inline">\(M\)</span>: <span class="math display">\[
+n_i \equiv (-1)^i \det(\hat M_i),
+\]</span> where <span class="math inline">\(\hat M_i\)</span> deletes the <span class="math inline">\(i\)</span>-th column. A Laplace-expansion argument shows this automatically satisfies <span class="math inline">\(B(v_i, n) = 0\)</span> for <span class="math inline">\(i=1,2,3\)</span>, and non-degeneracy of <span class="math inline">\(B\)</span> on the ambient space plus non-degeneracy of <span class="math inline">\(B|_U\)</span> together force <span class="math inline">\(Q(n) \neq 0\)</span> — the dual point is itself non-null, so it represents a genuine projective point.</p>
+<p>This is the algebraic stand-in for “the point at infinity in the direction perpendicular to a plane” — except there is no metric distance being invoked anywhere, only the bilinear form.</p>
+</section>
+<section id="the-polynomial-gram-determinant-identity" class="level2">
+<h2 class="anchored" data-anchor-id="the-polynomial-gram-determinant-identity">The Polynomial Gram Determinant Identity</h2>
+<p>With the dual point in hand, Coady states the central algebraic result of the tetrahedral case.</p>
+<blockquote class="blockquote">
+<p><strong>Theorem (Polynomial Gram Determinant Identity).</strong> Let <span class="math inline">\(v_1,v_2,v_3,v_4 \in \mathbb{V}^4\)</span> with <span class="math inline">\(U = \mathrm{span}(v_1,v_2,v_3)\)</span> non-degenerate, and let <span class="math inline">\(n\)</span> be the cofactor dual of <span class="math inline">\(v_1,v_2,v_3\)</span>. Then, identically as polynomials in the coordinates, <span class="math display">\[
+\det(G_4)\, Q(n) = \det(G_3)\, B(v_4, n)^2.
+\]</span></p>
+</blockquote>
+<p>The proof combines the two previous ingredients. The Gram Determinant Factorization Lemma gives <span class="math inline">\(\det(G_4) = \det(G_3) \cdot Q(v_4^{\perp})\)</span>, and the orthogonal projection of <span class="math inline">\(v_4\)</span> onto the line spanned by <span class="math inline">\(n\)</span> is <span class="math inline">\(v_4^{\perp} = \frac{B(v_4,n)}{Q(n)} n\)</span>, so <span class="math display">\[
+Q(v_4^{\perp}) = \frac{B(v_4,n)^2}{Q(n)}.
+\]</span> Substituting and clearing the denominator <span class="math inline">\(Q(n)\)</span> produces the identity. The subtlety Coady is careful about is that this argument, on its face, only works where <span class="math inline">\(B|_U\)</span> is non-degenerate. But since both sides of the identity are <em>polynomials</em> in the coordinates of <span class="math inline">\(v_1,\dots,v_4\)</span> (the cofactor entries of <span class="math inline">\(n\)</span> are themselves polynomial), and they agree on a Zariski-dense open set, they must agree everywhere — including at degenerate configurations where the geometric argument alone would not apply.</p>
+</section>
+<section id="the-quadrume-factorization-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="the-quadrume-factorization-theorem">The Quadrume Factorization Theorem</h2>
+<p>Dividing the Polynomial Gram Determinant Identity through by <span class="math inline">\(Q(v_1)Q(v_2)Q(v_3)Q(v_4)Q(n)\)</span> turns a statement about raw determinants into a statement about projective invariants. Define the <strong>projective altitude quadrance</strong> from vertex <span class="math inline">\(a_4\)</span> to the opposite face <span class="math inline">\(a_1a_2a_3\)</span> as <span class="math display">\[
+h(a_4) \equiv \frac{B(v_4,n)^2}{Q(v_4)\,Q(n)} = 1 - q(a_4, n),
+\]</span> the projective quadrance between <span class="math inline">\(a_4\)</span> and the dual point <span class="math inline">\(n\)</span> of its opposite face. Then:</p>
+<blockquote class="blockquote">
+<p><strong>Quadrume Factorization Theorem.</strong> For four non-coplanar points <span class="math inline">\(a_1,a_2,a_3,a_4 \in
+\mathbb{P}^3\)</span> with non-degenerate face span, <span class="math display">\[
+\boxed{\mathcal{V} = \mathcal{S} \times h(a_4)}
+\]</span> where <span class="math inline">\(\mathcal{V}\)</span> is the projective quadrume of the tetrahedron and <span class="math inline">\(\mathcal{S}\)</span> is the projective quadrea of the opposite face.</p>
+</blockquote>
+<p>This is exactly the algebraic tetrahedral analogue of *(base area)<span class="math inline">\(^2\)</span> <span class="math inline">\(\times\)</span> (height)<span class="math inline">\(^2\)</span> = (volume)<span class="math inline">\(^2\)</span>, up to the appropriate normalization — except stated with quadrances and quadreas instead of lengths and areas, and valid over any field of characteristic not two, in any signature.</p>
+<p>A companion result records how the identity behaves under rescaling representative vectors: the <em>unnormalized</em> polynomial identity picks up a factor of <span class="math inline">\(\prod_i \lambda_i^2 \cdot \lambda_n^2\)</span> on both sides, while the <em>normalized</em> quadrume factorization is completely scale-invariant, as it must be for a genuinely projective statement.</p>
+</section>
+<section id="the-general-n-dimensional-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="the-general-n-dimensional-theorem">The General <span class="math inline">\(n\)</span>-Dimensional Theorem</h2>
+<p>The tetrahedral case turns out to be nothing special — it’s the <span class="math inline">\(k=4\)</span> instance of a fully general recursion. Define the altitude quadrance of the <span class="math inline">\(k\)</span>-th vertex relative to the span of the preceding <span class="math inline">\(k-1\)</span> points in exactly the same way, using the dual normal <span class="math inline">\(n\)</span> of the codimension-one face <span class="math inline">\(U_{k-1} \subset U_k\)</span>: <span class="math display">\[
+h(a_k) \equiv \frac{B(v_k,n)^2}{Q(v_k)\,Q(n)}.
+\]</span></p>
+<blockquote class="blockquote">
+<p><strong><span class="math inline">\(n\)</span>-Dimensional Factorization Theorem.</strong> Let <span class="math inline">\(a_1,\dots,a_k\)</span> be linearly independent points in <span class="math inline">\(\mathbb{P}^{n-1}\)</span> (<span class="math inline">\(k \le n\)</span>) with <span class="math inline">\(B|_{U_{k-1}}\)</span> non-degenerate. Then <span class="math display">\[
+\mathcal{Q}_k = \mathcal{Q}_{k-1} \times h(a_k).
+\]</span></p>
+</blockquote>
+<p>The proof is the identical two-step argument — Gram factorization lemma, then normalize — just carried out at general <span class="math inline">\(k\)</span> instead of <span class="math inline">\(k=4\)</span>. Applied recursively down a flag of non-degenerate subspaces <span class="math inline">\(U_1 \subset U_2 \subset \cdots \subset U_{k-1}\)</span>, it telescopes into a full chain factorization <span class="math display">\[
+\mathcal{Q}_k = \prod_{j=2}^{k} h(a_j),
+\]</span> expressing the hypervolume invariant of an entire simplex as a product of successive altitude quadrances — the projective, algebraic analogue of building up a simplex’s volume one dimension at a time.</p>
+<p>Two caveats are worth keeping in mind. First, degeneracy: if any representative vector is null, or if <span class="math inline">\(\det(G_{k-1}) = 0\)</span> (either because the first <span class="math inline">\(k-1\)</span> points are linearly dependent, or because <span class="math inline">\(B\)</span> restricted to their span is itself degenerate), the <em>normalized</em> invariant <span class="math inline">\(\mathcal{Q}_k\)</span> simply isn’t defined, even though the underlying polynomial identity still holds. Second, sign: because <span class="math inline">\(\mathcal{Q}_k\)</span> behaves as a <em>squared</em> hypervolume, it can be negative in indefinite signatures such as the Lorentzian <span class="math inline">\((+,+,+,-)\)</span> — consistent with how Wildberger’s quadrance and quadrea already handle indefinite geometries without resorting to absolute values. In the positive-definite Euclidean limit, <span class="math inline">\(\sqrt{|\mathcal{Q}_k|}\)</span> recovers (up to a fixed scaling convention) the classical Cayley–Menger volume of the simplex.</p>
+</section>
+<section id="independent-symbolic-verification" class="level2">
+<h2 class="anchored" data-anchor-id="independent-symbolic-verification">Independent Symbolic Verification</h2>
+<p>A clean way to build confidence in an identity like this — beyond the synthetic proof — is to throw a computer algebra system at it directly, with a fully general symbolic metric. Coady’s appendix does exactly that: it builds four symbolic projective points, a general diagonal symbolic bilinear form (any symmetric bilinear form can be diagonalized over a field of characteristic <span class="math inline">\(\neq 2\)</span>), constructs the dual point via the cofactor formula, and checks that</p>
+<p><span class="math display">\[
+\Delta \equiv \det(G_4)\,Q(n) - \det(G_3)\,B(v_4,n)^2
+\]</span></p>
+<p>simplifies identically to zero.</p>
+<div id="ace0a2a5" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_symbolic_proof():</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. Symbolic coordinates for 4 general projective points</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> <span class="bu">list</span>(sp.symbols(<span class="st">'a0:4'</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    B_pt <span class="op">=</span> <span class="bu">list</span>(sp.symbols(<span class="st">'b0:4'</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    C <span class="op">=</span> <span class="bu">list</span>(sp.symbols(<span class="st">'c0:4'</span>))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> <span class="bu">list</span>(sp.symbols(<span class="st">'d0:4'</span>))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. General diagonal symbolic metric (WLOG, char(F) != 2)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    g0, g1, g2, g3 <span class="op">=</span> sp.symbols(<span class="st">'g0 g1 g2 g3'</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> sp.diag(g0, g1, g2, g3)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> B_form(u, v):</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        u_mat, v_mat <span class="op">=</span> sp.Matrix(u), sp.Matrix(v)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> (u_mat.T <span class="op">*</span> G <span class="op">*</span> v_mat)[<span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Cofactor construction of the dual point n orthogonal to span(A,B,C)</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> symbolic_dual_point(A, B_pt, C):</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        r1 <span class="op">=</span> <span class="bu">list</span>(sp.Matrix(A).T <span class="op">*</span> G)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        r2 <span class="op">=</span> <span class="bu">list</span>(sp.Matrix(B_pt).T <span class="op">*</span> G)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        r3 <span class="op">=</span> <span class="bu">list</span>(sp.Matrix(C).T <span class="op">*</span> G)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        M <span class="op">=</span> sp.Matrix([r1, r2, r3])</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> []</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>):</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>            M_sub <span class="op">=</span> M.copy()</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>            M_sub.col_del(i)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>            n.append((<span class="op">-</span><span class="dv">1</span>)<span class="op">**</span>i <span class="op">*</span> M_sub.det())</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> n</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4. Gram matrices G4, G3</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    pts <span class="op">=</span> [A, B_pt, C, D]</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    G4 <span class="op">=</span> sp.Matrix(<span class="dv">4</span>, <span class="dv">4</span>, <span class="kw">lambda</span> i, j: B_form(pts[i], pts[j]))</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    G3 <span class="op">=</span> sp.Matrix(<span class="dv">3</span>, <span class="dv">3</span>, <span class="kw">lambda</span> i, j: B_form(pts[i], pts[j]))</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    det_G4, det_G3 <span class="op">=</span> G4.det(), G3.det()</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> symbolic_dual_point(A, B_pt, C)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    Q_n <span class="op">=</span> B_form(n, n)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    B_D_n <span class="op">=</span> B_form(D, n)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    LHS <span class="op">=</span> det_G4 <span class="op">*</span> Q_n</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    RHS <span class="op">=</span> det_G3 <span class="op">*</span> (B_D_n<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    difference <span class="op">=</span> sp.simplify(LHS <span class="op">-</span> RHS)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Symbolic Difference (LHS - RHS) ="</span>, difference)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Is the identity proved?"</span>, difference <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    run_symbolic_proof()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Running this (it takes roughly a minute or two, since <code>simplify</code> is working over sixteen free coordinate variables and four free metric parameters) prints <code>Symbolic Difference = 0</code> and <code>Is the identity proved? True</code>. This is a genuinely independent check: the symbolic computation never assumes the synthetic proof’s structure, it just multiplies out sixteen coordinates against an arbitrary diagonal metric and confirms the two sides collapse to the same polynomial.</p>
+</section>
+<section id="seeing-it-an-interactive-tetrahedron" class="level2">
+<h2 class="anchored" data-anchor-id="seeing-it-an-interactive-tetrahedron">Seeing It: An Interactive Tetrahedron</h2>
+<p>The identity is easiest to trust once you can rotate a tetrahedron, drag a vertex, and watch the quadrume, the face quadrea, and the altitude quadrance stay locked in the relation <span class="math inline">\(\mathcal{V} = \mathcal{S} \times h(a_4)\)</span> no matter how you deform it. The embed below is a placeholder for a GeoGebra 3D applet illustrating exactly that: a tetrahedron <span class="math inline">\(a_1a_2a_3a_4\)</span>, its base face <span class="math inline">\(a_1a_2a_3\)</span> with dual normal <span class="math inline">\(n\)</span>, and the altitude line from <span class="math inline">\(a_4\)</span> to <span class="math inline">\(n\)</span>.</p>
+<div style="position: relative; width: 100%; padding-top: 66%; margin: 2rem 0;">
+  <iframe src="https://www.geogebra.org/material/iframe/id/YOUR_APPLET_ID/width/900/height/600/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #cccccc;" scrolling="no" allowfullscreen="">
+  </iframe>
+</div>
+<p><em>(Replace <code>YOUR_APPLET_ID</code> with the published GeoGebra material ID. The <code>ai=false</code> and <code>rc=false</code> parameters suppress the algebra input bar and “reset” control respectively, keeping the embedded view clean for readers who just want to manipulate the tetrahedron.)</em></p>
+</section>
+<section id="closing-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="closing-thoughts">Closing Thoughts</h2>
+<p>The projective quadrume is a satisfying instance of a pattern that shows up whenever rational trigonometry is extended: define the natural normalized Gram invariant, prove a factorization lemma using nothing but bilinear-form algebra and a change of basis, and watch the identity survive intact at every dimension. What starts as “the quadrea of a triangle” becomes “the quadrume of a tetrahedron” becomes, ultimately, a single recursive law <span class="math display">\[
+\mathcal{Q}_k = \mathcal{Q}_{k-1} \times h(a_k)
+\]</span> governing the projective Gram volume of a simplex of <em>any</em> size in a space of <em>any</em> dimension, over a field of <em>any</em> characteristic other than two. No transcendental functions were used in the making of this theorem — and that, per Wildberger’s original philosophy, is precisely the point.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jcoady\.github\.io\/blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
