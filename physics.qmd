@@ -6,5 +6,5 @@ listing:
   type: default
   categories: false
   include:
-    categories: [mathematical-physics, quantum-gravity]
+    categories: [mathematical-physics, quantum-gravity, particle-physics]
 ---

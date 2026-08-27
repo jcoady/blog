@@ -2,31 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jcoady.github.io/blog/physics.html</loc>
-    <lastmod>2026-08-26T18:09:28.504Z</lastmod>
+    <lastmod>2026-08-27T23:12:41.885Z</lastmod>
   </url>
   <url>
-    <loc>https://jcoady.github.io/blog/posts/projective-quadrume/index.html</loc>
-    <lastmod>2026-08-27T19:51:47.519Z</lastmod>
+    <loc>https://jcoady.github.io/blog/posts/koide-relativistic-archimedes/index.html</loc>
+    <lastmod>2026-08-27T23:11:25.578Z</lastmod>
   </url>
   <url>
-    <loc>https://jcoady.github.io/blog/posts/quadrea-projective-quadrangle/index.html</loc>
-    <lastmod>2026-08-27T19:08:03.847Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jcoady.github.io/blog/index.html</loc>
-    <lastmod>2026-08-27T17:27:44.932Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jcoady.github.io/blog/math.html</loc>
-    <lastmod>2026-08-27T17:32:25.442Z</lastmod>
+    <loc>https://jcoady.github.io/blog/posts/no-infinities-allowed/index.html</loc>
+    <lastmod>2026-08-26T18:01:20.117Z</lastmod>
   </url>
   <url>
     <loc>https://jcoady.github.io/blog/about.html</loc>
     <lastmod>2026-08-26T18:09:28.501Z</lastmod>
   </url>
   <url>
-    <loc>https://jcoady.github.io/blog/posts/no-infinities-allowed/index.html</loc>
-    <lastmod>2026-08-26T18:01:20.117Z</lastmod>
+    <loc>https://jcoady.github.io/blog/math.html</loc>
+    <lastmod>2026-08-27T17:32:25.442Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jcoady.github.io/blog/index.html</loc>
+    <lastmod>2026-08-27T17:27:44.932Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jcoady.github.io/blog/posts/quadrea-projective-quadrangle/index.html</loc>
+    <lastmod>2026-08-27T19:08:03.847Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jcoady.github.io/blog/posts/projective-quadrume/index.html</loc>
+    <lastmod>2026-08-27T19:51:47.519Z</lastmod>
   </url>
   <url>
     <loc>https://jcoady.github.io/blog/posts/projective-trigonometry-tetrahedron/index.html</loc>

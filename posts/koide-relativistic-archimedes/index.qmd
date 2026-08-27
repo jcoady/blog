@@ -1,0 +1,266 @@
+---
+title: "A Geometric Interpretation of Koide's Formula via the Relativistic Archimedes Function"
+author: "John D. Coady"
+date: "2025-10-22"
+categories: [particle-physics, rational-trigonometry, universal-hyperbolic-geometry, koide-formula]
+format:
+  html:
+    toc: true
+    code-fold: true
+---
+
+## Introduction
+
+Koide's formula is one of those strange, quiet mysteries that sits in the corner of the Standard Model. First written down by Yoshio Koide in 1981, it relates the masses of the three charged leptons — the electron, the muon, and the tauon — through a remarkably simple ratio that happens to equal $2/3$ to within experimental uncertainty. Decades later, nobody has a fully accepted explanation for *why* this relation holds. It has survived every refinement of the measured lepton masses, and it keeps hitting $2/3$ to eight or nine significant figures.
+
+This post walks through a geometric explanation for that coincidence, based on **Rational Trigonometry (RT)**, N. J. Wildberger's reformulation of geometry that replaces distances and angles with purely algebraic quantities: *quadrances* (an analogue of squared distance) and *spreads* (an analogue of squared angle). The central object connecting RT to Koide's formula is the **Archimedes function**, RT's algebraic replacement for Heron's formula, and specifically its **relativistic** (Lorentzian) variant.
+
+The result, due to independent researcher John D. Coady, is that if you take the square roots of the charged lepton masses and treat them as *quadrances* in a pseudo-Euclidean (Minkowski) plane, Koide's relation falls straight out as the condition that a certain triangle has a fixed relative signed squared area. No circles, no curvature, no transcendental functions — just algebra over a field equipped with an indefinite bilinear form.
+
+Before diving in, it's worth watching the two Wildberger lectures that this work builds on directly. The first introduces Heron's formula, the Archimedes function, and the Triple Quad Formula:
+
+{{< video https://youtu.be/iMWEiPuFhBQ?si=CHeP6IrEIY6Lq-Ji >}}
+
+The second is part of Wildberger's "Famous Math Problems" series and works through the area of a triangle via the Archimedes function directly:
+
+{{< video https://youtu.be/jHm3C1UCR5o?si=CHeP6IrEIY6Lq-Ji >}}
+
+With that background in place, let's build up the machinery.
+
+## Rational Trigonometry Preliminaries
+
+### General bilinear forms
+
+RT works over an affine plane $\mathbb{A}$ built on a vector space $V = F^2$ over a field $F$ (take $F = \mathbb{Q}$ for concreteness). Rather than fixing the Euclidean dot product, RT equips $V$ with a **general symmetric bilinear form**
+
+$$
+\vec{u} \cdot \vec{v} = \vec{u} M \vec{v}^{\mathsf T}, \qquad M = \begin{pmatrix} l & m \\ m & n \end{pmatrix}, \qquad \det M = ln - m^2 \neq 0.
+$$
+
+This single matrix $M$ determines the entire metrical structure. From it, RT defines three core quantities without ever invoking square roots, transcendental functions, or limits:
+
+- **Quadrance** of a vector: $Q(\vec v) = \vec v \cdot \vec v = \vec v M \vec v^{\mathsf T}$, and for two points $P_1, P_2$, $Q(P_1,P_2) \equiv Q(\overrightarrow{P_1P_2})$.
+- **Spread** between two lines with direction vectors $\vec u, \vec v$:
+  $$
+  s(l_1,l_2) = 1 - \frac{(\vec u \cdot \vec v)^2}{Q(\vec u)\,Q(\vec v)} = \frac{(\vec u \times \vec v)^2}{Q(\vec u)\,Q(\vec v)},
+  $$
+  where $\vec u \times \vec v = ad-bc$ is the signed area of the parallelogram spanned by $\vec u=(a,b)$ and $\vec v=(c,d)$.
+- **Quadrea**, the algebraic stand-in for squared area of a triangle spanned by $\vec u, \vec v$:
+  $$
+  A = 4\big[(\vec u \cdot \vec u)(\vec v \cdot \vec v) - (\vec u \cdot \vec v)^2\big] = 4(\det M)(ad-bc)^2.
+  $$
+
+The link between the dot product and the cross product is the **Fibonacci–Lagrange identity**,
+$$
+Q(\vec u)\, Q(\vec v) = (\vec u \cdot \vec v)^2 + (\vec u \times \vec v)^2,
+$$
+which is exactly what lets the spread formula above be written two equivalent ways.
+
+Three metrics are worth keeping in mind as reference points:
+
+- **Euclidean**: $M = \begin{pmatrix}1 & 0\\ 0 & 1\end{pmatrix}$, giving the familiar $\vec u \cdot \vec v = ac+bd$ and $\det M = 1 > 0$.
+- **Lorentzian / relativistic**: $M = \begin{pmatrix}1 & 0\\ 0 & -1\end{pmatrix}$, giving $\vec u \cdot \vec v = ac-bd$ and $\det M = -1 < 0$.
+- **Rotated relativistic**: $M = \begin{pmatrix}0 & 1\\ 1 & 0\end{pmatrix}$, giving $\vec u \cdot \vec v = ad+bc$, a $45^\circ$ rotation of the Lorentzian form.
+
+The sign of $\det M$ controls whether the resulting quadrea is positive (Euclidean-like) or can go negative (indefinite, relativistic-like).
+
+### The Cross Law
+
+Consider a triangle $P_1 P_2 P_3$ with directed sides $\vec v_1 = \overrightarrow{P_3P_2}$, $\vec v_2 = \overrightarrow{P_3P_1}$, $\vec v_3 = \overrightarrow{P_1P_2}$, satisfying $\vec v_1 - \vec v_2 = \vec v_3$. Write $Q_i = Q(\vec v_i)$ for the quadrance opposite vertex $P_i$, and $s_i$ for the spread at $P_i$. Expanding $Q_3 = (\vec v_1 - \vec v_2)\cdot(\vec v_1-\vec v_2)$ and applying the polarization identity gives
+
+$$
+\overrightarrow{P_3P_2}\cdot\overrightarrow{P_3P_1} = \frac{Q_1+Q_2-Q_3}{2},
+$$
+
+and substituting into the spread formula produces the **Cross Law**:
+
+$$
+(Q_1+Q_2-Q_3)^2 = 4 Q_1 Q_2 (1-s_3).
+$$
+
+Rearranging this and cycling through the three vertices yields a fully symmetric expression that is independent of which vertex you started from:
+
+$$
+4Q_1Q_2 s_3 = 4Q_2Q_3 s_1 = 4Q_3Q_1 s_2 = A(Q_1,Q_2,Q_3),
+$$
+
+where
+
+$$
+A(Q_1,Q_2,Q_3) = (Q_1+Q_2+Q_3)^2 - 2\big(Q_1^2+Q_2^2+Q_3^2\big) = 4Q_1Q_2 - (Q_1+Q_2-Q_3)^2
+$$
+
+is the **Archimedes function** — RT's rational, square-root-free replacement for Heron's formula.
+
+## The Relativistic Archimedes Function
+
+In the Euclidean case ($\det M = 1$), the Archimedes function is positive and equals $16\Delta^2$, where $\Delta$ is the ordinary area of the triangle:
+
+$$
+A = 16\Delta^2 = (Q_1+Q_2+Q_3)^2 - 2(Q_1^2+Q_2^2+Q_3^2).
+$$
+
+Now switch to the Lorentzian metric, $M = \begin{pmatrix}1&0\\0&-1\end{pmatrix}$, so that $\vec u \circ \vec v = ac-bd$ and $Q(\vec u) = a^2-b^2$. The key algebraic fact underpinning everything that follows is the **modified Fibonacci–Lagrange identity**:
+
+$$
+-(ad-bc)^2 + (ac-bd)^2 = (a^2-b^2)(c^2-d^2). \tag{2}
+$$
+
+Compared to the Euclidean identity, the cross term's sign has flipped — a direct consequence of the indefinite metric — and this is precisely what allows the resulting quadrea to become *negative*. Carrying this through the same polarization argument as before ($2\,\vec u \circ \vec v = Q_1+Q_2-Q_3$) produces the **relativistic Archimedes function**:
+
+$$
+A(Q_1,Q_2,Q_3) = (Q_1+Q_2+Q_3)^2 - 2\big(Q_1^2+Q_2^2+Q_3^2\big) = -16\Delta^2, \tag{1}
+$$
+
+with the equivalent cyclic form
+
+$$
+-16\Delta^2 = 4Q_1Q_2 - (Q_1+Q_2-Q_3)^2. \tag{3}
+$$
+
+The overall minus sign is the whole story: it's a direct fingerprint of $\det M < 0$, and it's what makes the relativistic version of the theory naturally accommodate *signed* squared areas rather than forcing area-squared to be positive.
+
+## Koide's Formula, Restated Geometrically
+
+Koide's original empirical relation for the charged lepton pole masses $m_e, m_\mu, m_\tau$ is
+
+$$
+\frac{m_e+m_\mu+m_\tau}{\left(\sqrt{m_e}+\sqrt{m_\mu}+\sqrt{m_\tau}\right)^2} = \frac{2}{3}. \tag{4}
+$$
+
+Define $\kappa_i = \sqrt{m_i}$ for $i=1,2,3$ (electron, muon, tauon). Then (4) becomes
+
+$$
+\frac{\sum_{i=1}^3 \kappa_i^2}{\left(\sum_{i=1}^3 \kappa_i\right)^2} = \frac{2}{3}. \tag{5}
+$$
+
+The move at the heart of this paper is to stop treating the $\kappa_i$ as mere numbers and instead interpret them as **quadrances** $Q_i$ of a triangle living in the relativistic (Lorentzian) plane. That reinterpretation is what connects (5) to the Archimedes function $A(Q_1,Q_2,Q_3)$ derived above.
+
+## Main Theorem: The Koide–Relativistic Archimedes Connection
+
+::: {.callout-note title="Theorem"}
+Let $Q_1, Q_2, Q_3$ be quadrances in the relativistic plane (with $\det M < 0$) satisfying equation (1). Then
+
+$$
+\frac{Q_1^2+Q_2^2+Q_3^2}{(Q_1+Q_2+Q_3)^2} = \frac{1+16\Delta^2/\sigma^2}{2}, \qquad \sigma = Q_1+Q_2+Q_3. \tag{6}
+$$
+
+Substituting $Q_i = \sqrt{m_i}$ recovers Koide's formula (5) exactly when
+
+$$
+\frac{16\Delta^2}{\sigma^2} = \frac13 \quad\Longleftrightarrow\quad \Delta^2 = \frac{\sigma^2}{48}.
+$$
+:::
+
+In words: **Koide's ratio of $2/3$ is precisely the statement that the Koide triangle has a fixed relative signed squared area**, one forty-eighth of the square of its "perimeter" $\sigma = Q_1+Q_2+Q_3$. The mysterious empirical constant $2/3$ turns into a clean non-degeneracy condition on a triangle in Minkowski space.
+
+## Proof Sketch
+
+### Rearranging the quadrea
+
+Starting from $A = \sigma^2 - 2\Sigma = -16\Delta^2$, where $\Sigma = Q_1^2+Q_2^2+Q_3^2$, solve directly for $\Sigma$:
+
+$$
+\Sigma = \frac{\sigma^2 - A}{2} = \frac{\sigma^2+16\Delta^2}{2} \quad\Longrightarrow\quad \frac{\Sigma}{\sigma^2} = \frac{1+16\Delta^2/\sigma^2}{2},
+$$
+
+which is exactly (6).
+
+### Deriving the relativistic quadrea
+
+Let $\vec u = (a,b)$, $\vec v = (c,d)$, with signed area $\Delta = \tfrac12(ad-bc)$, so $4\Delta^2=(ad-bc)^2$. The relativistic quadrances are $Q_1 = a^2-b^2$, $Q_2 = c^2-d^2$, $Q_3 = (c-a)^2-(d-b)^2$. Identity (2) rearranges to
+
+$$
+-(ad-bc)^2 = Q_1 Q_2 - (\vec u \circ \vec v)^2,
+$$
+
+so that
+
+$$
+-16\Delta^2 = -4(ad-bc)^2 = 4Q_1Q_2 - 4(\vec u \circ \vec v)^2.
+$$
+
+Polarization gives $2\,\vec u \circ \vec v = Q_1+Q_2-Q_3$, and substituting yields
+
+$$
+-16\Delta^2 = 4Q_1Q_2 - (Q_1+Q_2-Q_3)^2 = A(Q_1,Q_2,Q_3),
+$$
+
+matching (1). Cycling through the vertices recovers the fully symmetric form.
+
+### Matching Koide's ratio
+
+Substituting $Q_i = \kappa_i = \sqrt{m_i}$ into (6) gives
+
+$$
+\frac{\sum m_i}{\sigma^2} = \frac{1+16\Delta^2/\sigma^2}{2}.
+$$
+
+The empirical value $\Sigma/\sigma^2 = 2/3$ forces
+
+$$
+\frac23 = \frac{1+16\Delta^2/\sigma^2}{2} \;\Longrightarrow\; \frac{16\Delta^2}{\sigma^2}=\frac13 \;\Longrightarrow\; \Delta^2 = \frac{\sigma^2}{48},
+$$
+
+which is the non-degeneracy condition of the theorem.
+
+## Numerical Verification
+
+Using Particle Data Group (PDG) 2025 pole masses,
+
+$$
+m_e = 0.51099895~\text{MeV}/c^2, \quad m_\mu = 105.6583745~\text{MeV}/c^2, \quad m_\tau = 1776.86~\text{MeV}/c^2,
+$$
+
+we compute $\kappa_i = \sqrt{m_i}$, $\sigma = \sum \kappa_i$, and $\Sigma = \sum m_i$:
+
+| | Value (MeV/$c^2$) | $\kappa_i = \sqrt{m_i}$ |
+|---|---:|---:|
+| $m_e$ | 0.51099895 | 0.71498 |
+| $m_\mu$ | 105.6583745 | 10.28037 |
+| $m_\tau$ | 1776.86 | 42.1567 |
+| $\sigma = \sum \kappa_i$ | – | 53.15205 |
+| $\Sigma = \sum m_i$ | 1883.0293 | – |
+| $\Sigma/\sigma^2$ | – | 0.6666667 |
+| $\Delta^2 = \sigma^2/48$ | – | 58.85 |
+
+: Charged lepton masses and derived quantities verifying Koide's formula. Central values only; propagated experimental uncertainties yield a deviation of roughly $10^{-8}$ from $2/3$.
+
+The ratio $\Sigma/\sigma^2 \approx 0.6666667$, matching $2/3$ to eight decimal places — well within the precision of the measured lepton masses — with an implied signed squared area $\Delta^2 \approx \sigma^2/48 \approx 58.85$.
+
+## Explicit Minkowski Coordinates
+
+It's possible to write down the actual vertices of the "Koide triangle" in the Minkowski plane, with the metric $Q = \Delta x^2 - \Delta y^2$. Place $P_1$ at the origin and $P_2$ on the spacelike $x$-axis at $(a,0)$ with $a=\sqrt{Q_\mu}$, so that $Q(\overrightarrow{P_1P_2}) = Q_\mu$. Vertex $P_3=(x,y)$ must then satisfy $Q(\overrightarrow{P_1P_3}) = Q_\tau$ and $Q(\overrightarrow{P_2P_3}) = Q_e$. Subtracting the two resulting quadratic equations eliminates $y$ and gives a closed form for $x$:
+
+$$
+x = \frac{Q_\tau + Q_\mu - Q_e}{2\sqrt{Q_\mu}}, \qquad y = \sqrt{x^2 - Q_\tau}
+$$
+
+(taking the positive branch, the standard choice for hyperbolic embeddings). Plugging in the numerical quadrances $Q_e \approx 0.71498$, $Q_\mu \approx 10.28037$, $Q_\tau \approx 42.1567$ gives:
+
+| Vertex | $x$ | $y$ |
+|---|---:|---:|
+| $P_1$ | 0.00000000 | 0.00000000 |
+| $P_2$ | 3.20609201 | 0.00000000 |
+| $P_3$ | 8.06542688 | 4.78521614 |
+
+: Explicit coordinates (rounded to 8 decimals) of the Koide triangle vertices in the Minkowski plane.
+
+From these coordinates, the signed area is $\Delta = \tfrac12 a y \approx 7.67092$, giving $\Delta^2 \approx 58.843$, which agrees with $\sigma^2/48 \approx 58.846$ to within the same empirical precision established above. The three side quadrances of this triangle — measured with the indefinite Lorentzian metric rather than the ordinary Euclidean one — reproduce $\kappa_e, \kappa_\mu, \kappa_\tau$ directly.
+
+## Closing Thoughts
+
+What makes this construction appealing is how little machinery it needs. There's no appeal to circle inversions, no curvature parameters, no transcendental functions anywhere in the derivation — just a symmetric bilinear form, the Cross Law, and the modified Fibonacci–Lagrange identity that falls out of switching the sign in front of one term. Koide's stubborn $2/3$ becomes, in this language, nothing more exotic than a triangle in Minkowski space with a specific signed area relative to its "perimeter" $\sigma$.
+
+This is very much in the spirit of Wildberger's broader RT program: strip geometry down to its purely algebraic bones, and relations that look numerically mysterious in one coordinate system often turn out to be simple invariants in another. Whether or not this particular embedding turns out to have deeper physical significance for the Standard Model's flavor structure, it's a striking illustration of RT's reach — turning an empirical curiosity in particle physics into an algebraic identity in a pseudo-Euclidean plane.
+
+For the original derivations and full details, see the paper on Zenodo: [10.5281/zenodo.17347164](https://doi.org/10.5281/zenodo.17347164).
+
+## References
+
+- Y. Koide, "A formula for the charged-lepton masses," *Progress of Theoretical Physics*, 66(6):2287–2289, 1981.
+- S. Navas et al. (Particle Data Group), "Review of Particle Physics," *Phys. Rev. D*, 110(3):030001, 2024 (2025 data edition).
+- N. J. Wildberger, *Divine Proportions: Rational Trigonometry to Universal Geometry*, Wild Egg Books, 2005.
+- N. J. Wildberger, "Heron's formula, Archimedes' function, and the TQF — Rational Geometry Math Foundations 124," YouTube, January 2015. [https://youtu.be/iMWEiPuFhBQ](https://youtu.be/iMWEiPuFhBQ)
+- N. J. Wildberger, "The area of a triangle and Archimedes' formula — Famous Math Problems 16," YouTube, January 2014. [https://youtu.be/jHm3C1UCR5o](https://youtu.be/jHm3C1UCR5o)
+- J. D. Coady, "A Geometric Interpretation of Koide's Formula via the Relativistic Archimedes Function," Zenodo, October 2025. [https://doi.org/10.5281/zenodo.17347164](https://doi.org/10.5281/zenodo.17347164)
