@@ -2,7 +2,7 @@
 title: "The Projective Quadrume: Extending Rational Trigonometry to Tetrahedra and Higher Dimensions"
 author: "Math Blog"
 date: "2026-07-24"
-categories: [Mathematics, Universal Hyperbolic Geometry, GeoGebra]
+categories: [Pure Mathematics, Universal Hyperbolic Geometry, Projective Geometry, Quadrea, Quadrume]
 description: "From the projective quadrea of a triangle to the projective quadrume of a tetrahedron: a purely algebraic, recursive theory of hypervolume for projective simplices in any dimension."
 format:
   html:
