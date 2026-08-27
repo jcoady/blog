@@ -1,0 +1,326 @@
+---
+title: "The Projective Quadrume: Extending Rational Trigonometry to Tetrahedra and Higher Dimensions"
+author: "Math Blog"
+date: "2026-07-24"
+categories: [Mathematics, Universal Hyperbolic Geometry, GeoGebra]
+description: "From the projective quadrea of a triangle to the projective quadrume of a tetrahedron: a purely algebraic, recursive theory of hypervolume for projective simplices in any dimension."
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    theme: cosmo
+    mathjax: true
+---
+
+## From Quadrea to Quadrume: Climbing a Dimension
+
+In our earlier post on the **projective quadrea**, we watched N. J. Wildberger's rational
+trigonometry do something remarkable: it took the metrical geometry of a projective triangle in
+$\mathbb{P}^2$ — a triangle built from three lines through the origin of an ambient vector space
+$\mathbb{V}^3$ — and expressed every measurement as a ratio of polynomials in a bilinear form.
+No $\sin$, no $\cos$, no square roots, no transcendental machinery. Just a symmetric bilinear
+form $B$, a handful of Gram determinants, and a field $\mathbb{F}$ with $\mathrm{char}(\mathbb{F})
+\neq 2$.
+
+That framework — **quadrance** for the "squared distance" between points, **spread** for the
+"squared angle" between lines, and **quadrea** for the invariant of a whole triangle — is the
+backbone of Wildberger's *Universal Hyperbolic Geometry*. It works because rational trigonometry
+refuses to privilege the real numbers or the transcendental functions built on them; it insists
+that everything metrical reduces to polynomial identities that make sense over *any* field of
+characteristic not two.
+
+The natural question is: what happens one dimension up? If a projective triangle in
+$\mathbb{P}^2$ has a quadrea, what does a projective **tetrahedron** in $\mathbb{P}^3$ have?
+John D. Coady's paper, *On the Projective Quadrume and the Recursive Factorization of Projective
+Simplices*, answers this directly. It defines the **projective quadrume** of a tetrahedron as a
+normalized $4\times4$ Gram determinant, proves that it factorizes cleanly into a face quadrea
+times an altitude quadrance, and then shows that this is just the first non-trivial case of a
+completely general recursive theorem for simplices of any dimension. This post walks through
+that construction.
+
+## The Algebraic Setting
+
+Everything rests on a single piece of data: an $n$-dimensional vector space $\mathbb{V}^n$ over a
+field $\mathbb{F}$ with $\mathrm{char}(\mathbb{F}) \neq 2$, equipped with a non-degenerate
+symmetric bilinear form $B(u,v)$. The characteristic restriction is not a technicality to wave
+away — it is what keeps a symmetric bilinear form from collapsing into an alternating one, and it
+keeps the number $2$ invertible, which the definitions below lean on constantly.
+
+**Quadrance.** For a vector $v \in \mathbb{V}^n$,
+$$
+Q(v) \equiv B(v,v).
+$$
+A vector is **null** if $Q(v) = 0$; the theory only tracks non-null representatives.
+
+**Projective points and projective quadrance.** A point $a_i$ of $\mathbb{P}^{n-1}$ is a
+one-dimensional subspace of $\mathbb{V}^n$, represented by a non-null vector $v_i$. The
+projective quadrance between two points is
+$$
+q(a_1,a_2) \equiv 1 - \frac{B(v_1,v_2)^2}{Q(v_1)\,Q(v_2)}.
+$$
+
+**The projective Gram volume.** This is the key generalization. Given $k$ vectors
+$v_1,\dots,v_k$, form the $k\times k$ Gram matrix $[G_k]_{ij} = B(v_i,v_j)$. The **projective
+Gram volume** is the normalized determinant
+$$
+\mathcal{Q}_k \equiv \frac{\det(G_k)}{\prod_{i=1}^{k} Q(v_i)}.
+$$
+
+This single quantity unifies the whole hierarchy: at $k=2$ it *is* the projective quadrance, at
+$k=3$ it is Wildberger's **projective quadrea** $\mathcal{S}$, and at $k=4$ it is what Coady names
+the **projective quadrume** $\mathcal{V}$ — the natural continuation of Wildberger's naming
+scheme for the tetrahedral case.
+
+Crucially, $\mathcal{Q}_k$ doesn't care which representative vectors you chose. Scaling
+$v_i \to \lambda_i v_i$ multiplies $\det(G_k)$ by $\prod \lambda_i^2$ and multiplies
+$\prod Q(v_i)$ by the same factor, so the ratio is invariant — exactly the projective invariance
+you need for this to be a well-defined geometric quantity rather than an artifact of coordinates.
+
+## Why Gram Determinants Factor: The Exterior Algebra Picture
+
+Before stating the tetrahedral theorem, it's worth seeing *why* Gram determinants factor at all,
+because the reason is geometric, not just algebraic bookkeeping.
+
+The Gram determinant of $k$ vectors has a coordinate-free meaning in the exterior algebra
+$\bigwedge^k \mathbb{V}^n$:
+$$
+\det(G_k) = \langle v_1 \wedge \cdots \wedge v_k,\; v_1 \wedge \cdots \wedge v_k \rangle.
+$$
+If you decompose the last vector $v_k = v_k^{\parallel} + v_k^{\perp}$ relative to the span of the
+first $k-1$ vectors, the parallel component contributes nothing to the wedge product — a wedge
+with a repeated direction vanishes — so
+$$
+v_1 \wedge \cdots \wedge v_{k-1} \wedge v_k = v_1 \wedge \cdots \wedge v_{k-1} \wedge v_k^{\perp}.
+$$
+This is the exterior-algebra shadow of the familiar Euclidean fact that
+*(squared base) $\times$ (squared height) = squared volume*. Made precise as a Gram determinant
+statement:
+
+> **Lemma (Gram Determinant Factorization).** If $U_{k-1} \subset U_k$ with
+> $\dim U_{k-1} = k-1$, $\dim U_k = k$, and $B|_{U_{k-1}}$ is non-degenerate, then
+> $$\det(G_k) = \det(G_{k-1}) \cdot Q(v_k^{\perp}),$$
+> where $v_k^{\perp}$ is the component of $v_k$ orthogonal to $U_{k-1}$.
+
+The proof is a congruence transformation: replace $v_k$ by $v_k^{\perp}$ using an
+upper-triangular change of basis of determinant $1$, which block-diagonalizes the Gram matrix
+without changing its determinant. Everything downstream in the paper is this lemma, applied at
+increasing dimension and translated into projective language.
+
+## The Dual Point of a Plane
+
+To turn "orthogonal complement of a $3$-dimensional subspace" into something computable, Coady
+gives an explicit cofactor construction. If $v_1,v_2,v_3 \in \mathbb{V}^4$ span a non-degenerate
+subspace $U$, form the $3\times4$ matrix $M$ whose rows are $v_1^T G$, $v_2^T G$, $v_3^T G$ (here
+$G$ is the matrix of $B$ in coordinates). The **dual point** $n$ orthogonal to $U$ is given, up to
+scale, by the signed $3\times3$ cofactors of $M$:
+$$
+n_i \equiv (-1)^i \det(\hat M_i),
+$$
+where $\hat M_i$ deletes the $i$-th column. A Laplace-expansion argument shows this automatically
+satisfies $B(v_i, n) = 0$ for $i=1,2,3$, and non-degeneracy of $B$ on the ambient space plus
+non-degeneracy of $B|_U$ together force $Q(n) \neq 0$ — the dual point is itself non-null,
+so it represents a genuine projective point.
+
+This is the algebraic stand-in for "the point at infinity in the direction perpendicular to a
+plane" — except there is no metric distance being invoked anywhere, only the bilinear form.
+
+## The Polynomial Gram Determinant Identity
+
+With the dual point in hand, Coady states the central algebraic result of the tetrahedral case.
+
+> **Theorem (Polynomial Gram Determinant Identity).** Let $v_1,v_2,v_3,v_4 \in \mathbb{V}^4$ with
+> $U = \mathrm{span}(v_1,v_2,v_3)$ non-degenerate, and let $n$ be the cofactor dual of
+> $v_1,v_2,v_3$. Then, identically as polynomials in the coordinates,
+> $$
+> \det(G_4)\, Q(n) = \det(G_3)\, B(v_4, n)^2.
+> $$
+
+The proof combines the two previous ingredients. The Gram Determinant Factorization Lemma gives
+$\det(G_4) = \det(G_3) \cdot Q(v_4^{\perp})$, and the orthogonal projection of $v_4$ onto the
+line spanned by $n$ is $v_4^{\perp} = \frac{B(v_4,n)}{Q(n)} n$, so
+$$
+Q(v_4^{\perp}) = \frac{B(v_4,n)^2}{Q(n)}.
+$$
+Substituting and clearing the denominator $Q(n)$ produces the identity. The subtlety Coady is
+careful about is that this argument, on its face, only works where $B|_U$ is non-degenerate. But
+since both sides of the identity are *polynomials* in the coordinates of $v_1,\dots,v_4$ (the
+cofactor entries of $n$ are themselves polynomial), and they agree on a Zariski-dense open set,
+they must agree everywhere — including at degenerate configurations where the geometric argument
+alone would not apply.
+
+## The Quadrume Factorization Theorem
+
+Dividing the Polynomial Gram Determinant Identity through by $Q(v_1)Q(v_2)Q(v_3)Q(v_4)Q(n)$ turns
+a statement about raw determinants into a statement about projective invariants. Define the
+**projective altitude quadrance** from vertex $a_4$ to the opposite face $a_1a_2a_3$ as
+$$
+h(a_4) \equiv \frac{B(v_4,n)^2}{Q(v_4)\,Q(n)} = 1 - q(a_4, n),
+$$
+the projective quadrance between $a_4$ and the dual point $n$ of its opposite face. Then:
+
+> **Quadrume Factorization Theorem.** For four non-coplanar points $a_1,a_2,a_3,a_4 \in
+> \mathbb{P}^3$ with non-degenerate face span,
+> $$
+> \boxed{\mathcal{V} = \mathcal{S} \times h(a_4)}
+> $$
+> where $\mathcal{V}$ is the projective quadrume of the tetrahedron and $\mathcal{S}$ is the
+> projective quadrea of the opposite face.
+
+This is exactly the algebraic tetrahedral analogue of *(base area)$^2$ $\times$ (height)$^2$ =
+(volume)$^2$, up to the appropriate normalization — except stated with quadrances and quadreas
+instead of lengths and areas, and valid over any field of characteristic not two, in any
+signature.
+
+A companion result records how the identity behaves under rescaling representative vectors: the
+*unnormalized* polynomial identity picks up a factor of $\prod_i \lambda_i^2 \cdot \lambda_n^2$
+on both sides, while the *normalized* quadrume factorization is completely scale-invariant, as it
+must be for a genuinely projective statement.
+
+## The General $n$-Dimensional Theorem
+
+The tetrahedral case turns out to be nothing special — it's the $k=4$ instance of a fully general
+recursion. Define the altitude quadrance of the $k$-th vertex relative to the span of the
+preceding $k-1$ points in exactly the same way, using the dual normal $n$ of the codimension-one
+face $U_{k-1} \subset U_k$:
+$$
+h(a_k) \equiv \frac{B(v_k,n)^2}{Q(v_k)\,Q(n)}.
+$$
+
+> **$n$-Dimensional Factorization Theorem.** Let $a_1,\dots,a_k$ be linearly independent points
+> in $\mathbb{P}^{n-1}$ ($k \le n$) with $B|_{U_{k-1}}$ non-degenerate. Then
+> $$
+> \mathcal{Q}_k = \mathcal{Q}_{k-1} \times h(a_k).
+> $$
+
+The proof is the identical two-step argument — Gram factorization lemma, then normalize — just
+carried out at general $k$ instead of $k=4$. Applied recursively down a flag of non-degenerate
+subspaces $U_1 \subset U_2 \subset \cdots \subset U_{k-1}$, it telescopes into a full chain
+factorization
+$$
+\mathcal{Q}_k = \prod_{j=2}^{k} h(a_j),
+$$
+expressing the hypervolume invariant of an entire simplex as a product of successive altitude
+quadrances — the projective, algebraic analogue of building up a simplex's volume one dimension
+at a time.
+
+Two caveats are worth keeping in mind. First, degeneracy: if any representative vector is null,
+or if $\det(G_{k-1}) = 0$ (either because the first $k-1$ points are linearly dependent, or
+because $B$ restricted to their span is itself degenerate), the *normalized* invariant
+$\mathcal{Q}_k$ simply isn't defined, even though the underlying polynomial identity still holds.
+Second, sign: because $\mathcal{Q}_k$ behaves as a *squared* hypervolume, it can be negative in
+indefinite signatures such as the Lorentzian $(+,+,+,-)$ — consistent with how Wildberger's
+quadrance and quadrea already handle indefinite geometries without resorting to absolute values.
+In the positive-definite Euclidean limit, $\sqrt{|\mathcal{Q}_k|}$ recovers (up to a fixed scaling
+convention) the classical Cayley–Menger volume of the simplex.
+
+## Independent Symbolic Verification
+
+A clean way to build confidence in an identity like this — beyond the synthetic proof — is to
+throw a computer algebra system at it directly, with a fully general symbolic metric. Coady's
+appendix does exactly that: it builds four symbolic projective points, a general diagonal
+symbolic bilinear form (any symmetric bilinear form can be diagonalized over a field of
+characteristic $\neq 2$), constructs the dual point via the cofactor formula, and checks that
+
+$$
+\Delta \equiv \det(G_4)\,Q(n) - \det(G_3)\,B(v_4,n)^2
+$$
+
+simplifies identically to zero.
+
+```{python}
+#| eval: false
+import sympy as sp
+
+def run_symbolic_proof():
+    # 1. Symbolic coordinates for 4 general projective points
+    A = list(sp.symbols('a0:4'))
+    B_pt = list(sp.symbols('b0:4'))
+    C = list(sp.symbols('c0:4'))
+    D = list(sp.symbols('d0:4'))
+
+    # 2. General diagonal symbolic metric (WLOG, char(F) != 2)
+    g0, g1, g2, g3 = sp.symbols('g0 g1 g2 g3')
+    G = sp.diag(g0, g1, g2, g3)
+
+    def B_form(u, v):
+        u_mat, v_mat = sp.Matrix(u), sp.Matrix(v)
+        return (u_mat.T * G * v_mat)[0, 0]
+
+    # 3. Cofactor construction of the dual point n orthogonal to span(A,B,C)
+    def symbolic_dual_point(A, B_pt, C):
+        r1 = list(sp.Matrix(A).T * G)
+        r2 = list(sp.Matrix(B_pt).T * G)
+        r3 = list(sp.Matrix(C).T * G)
+        M = sp.Matrix([r1, r2, r3])
+        n = []
+        for i in range(4):
+            M_sub = M.copy()
+            M_sub.col_del(i)
+            n.append((-1)**i * M_sub.det())
+        return n
+
+    # 4. Gram matrices G4, G3
+    pts = [A, B_pt, C, D]
+    G4 = sp.Matrix(4, 4, lambda i, j: B_form(pts[i], pts[j]))
+    G3 = sp.Matrix(3, 3, lambda i, j: B_form(pts[i], pts[j]))
+
+    det_G4, det_G3 = G4.det(), G3.det()
+    n = symbolic_dual_point(A, B_pt, C)
+
+    Q_n = B_form(n, n)
+    B_D_n = B_form(D, n)
+
+    LHS = det_G4 * Q_n
+    RHS = det_G3 * (B_D_n**2)
+
+    difference = sp.simplify(LHS - RHS)
+    print("Symbolic Difference (LHS - RHS) =", difference)
+    print("Is the identity proved?", difference == 0)
+
+if __name__ == "__main__":
+    run_symbolic_proof()
+```
+
+Running this (it takes roughly a minute or two, since `simplify` is working over sixteen free
+coordinate variables and four free metric parameters) prints `Symbolic Difference = 0` and
+`Is the identity proved? True`. This is a genuinely independent check: the symbolic computation
+never assumes the synthetic proof's structure, it just multiplies out sixteen coordinates against
+an arbitrary diagonal metric and confirms the two sides collapse to the same polynomial.
+
+## Seeing It: An Interactive Tetrahedron
+
+The identity is easiest to trust once you can rotate a tetrahedron, drag a vertex, and watch the
+quadrume, the face quadrea, and the altitude quadrance stay locked in the relation
+$\mathcal{V} = \mathcal{S} \times h(a_4)$ no matter how you deform it. The embed below is a
+placeholder for a GeoGebra 3D applet illustrating exactly that: a tetrahedron $a_1a_2a_3a_4$, its
+base face $a_1a_2a_3$ with dual normal $n$, and the altitude line from $a_4$ to $n$.
+
+```{=html}
+<div style="position: relative; width: 100%; padding-top: 66%; margin: 2rem 0;">
+  <iframe
+    src="https://www.geogebra.org/material/iframe/id/YOUR_APPLET_ID/width/900/height/600/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #cccccc;"
+    scrolling="no"
+    allowfullscreen>
+  </iframe>
+</div>
+```
+
+*(Replace `YOUR_APPLET_ID` with the published GeoGebra material ID. The `ai=false` and `rc=false`
+parameters suppress the algebra input bar and "reset" control respectively, keeping the embedded
+view clean for readers who just want to manipulate the tetrahedron.)*
+
+## Closing Thoughts
+
+The projective quadrume is a satisfying instance of a pattern that shows up whenever rational
+trigonometry is extended: define the natural normalized Gram invariant, prove a factorization
+lemma using nothing but bilinear-form algebra and a change of basis, and watch the identity
+survive intact at every dimension. What starts as "the quadrea of a triangle" becomes "the
+quadrume of a tetrahedron" becomes, ultimately, a single recursive law
+$$
+\mathcal{Q}_k = \mathcal{Q}_{k-1} \times h(a_k)
+$$
+governing the projective Gram volume of a simplex of *any* size in a space of *any* dimension,
+over a field of *any* characteristic other than two. No transcendental functions were used in the
+making of this theorem — and that, per Wildberger's original philosophy, is precisely the point.

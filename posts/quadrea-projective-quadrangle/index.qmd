@@ -279,13 +279,12 @@ The paper flags a few natural next steps: extending to pentagonal (five-point) c
   <iframe 
     scrolling="no" 
     title="QuadreaOfProjectiveQuadrangle" 
-    src="https://www.geogebra.org/material/iframe/id/nbayxwxd/width/2048/height/919/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false" 
+    src="https://www.geogebra.org/material/iframe/id/nbayxwxd/width/2048/height/919/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/false/ctl/false" 
     width="100%" 
     height="600px" 
     style="border: 1px solid #e0e0e0; border-radius: 8px;"> 
   </iframe>
 </div>
-
 ::: {.callout-note icon=false}
 ## 🎥 Watch the Video Lecture
 {{< video https://youtu.be/ptq05zUmnQM?si=EADHhpFFLy5W1OPm >}}
