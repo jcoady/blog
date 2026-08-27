@@ -2,7 +2,7 @@
 title: "The Projective Quadrume: Extending Rational Trigonometry to Tetrahedra and Higher Dimensions"
 author: "Math Blog"
 date: "2026-07-24"
-categories: [Pure Mathematics, Universal Hyperbolic Geometry, Projective Geometry, Quadrea, Quadrume]
+categories: [pure-math, universal-hyperbolic-geometry, projective-geometry, quadrea, quadrume]
 description: "From the projective quadrea of a triangle to the projective quadrume of a tetrahedron: a purely algebraic, recursive theory of hypervolume for projective simplices in any dimension."
 format:
   html:
@@ -299,14 +299,13 @@ placeholder for a GeoGebra 3D applet illustrating exactly that: a tetrahedron $a
 base face $a_1a_2a_3$ with dual normal $n$, and the altitude line from $a_4$ to $n$.
 
 ```{=html}
-<div style="width: 100%; max-width: 900px; aspect-ratio: 3 / 2; margin: 2rem auto; overflow: hidden;">
-  <iframe
-    src="https://www.geogebra.org/material/iframe/id/mftg7rup/width/2133/height/957/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
-    style="width: 100%; height: 100%; border: 1px solid #cccccc; display: block;"
-    scrolling="no"
-    allowfullscreen>
-  </iframe>
+<div style="text-align: center; margin: 20px 0;">
+  <a href="https://www.geogebra.org/m/eyveucxr" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
+    <img src="ProjectiveTetrahedronP3-UHG.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;" />
+    <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points A, B, C, and D to see metric calculations update.</em></p>
+  </a>
 </div>
+
 ```
 
 ## Closing Thoughts

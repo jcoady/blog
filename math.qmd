@@ -6,7 +6,7 @@ listing:
   type: default
   categories: false
   include:
-    categories: [pure-math, universal-hyperbolic-geometry, projective-geometry, rational-trigonometry]
+    categories: [pure-math, universal-hyperbolic-geometry, projective-geometry, rational-trigonometry, quadrea, quadrume]
 page-layout: full
 ---
 
