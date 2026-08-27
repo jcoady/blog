@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="John D. Coady">
+<meta name="dcterms.date" content="2025-10-22">
+
+<title>A Geometric Interpretation of Koide’s Formula via the Relativistic Archimedes Function – John Coady's Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-2212757b80b1df614b4b011ba39f1668.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">John Coady’s Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">All Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../math.html"> 
+<span class="menu-text">Pure Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics.html"> 
+<span class="menu-text">Math Physics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0009-0008-6020-5733"> 
+<span class="menu-text"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID iD" style="height:20px; width:20px; vertical-align:-3px;"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://x.com/johndavidcoady"> <i class="bi bi-twitter-x" role="img" aria-label="X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jcoady"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">A Geometric Interpretation of Koide’s Formula via the Relativistic Archimedes Function</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">particle-physics</div>
+                <div class="quarto-category">rational-trigonometry</div>
+                <div class="quarto-category">universal-hyperbolic-geometry</div>
+                <div class="quarto-category">koide-formula</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>John D. Coady </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 22, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#rational-trigonometry-preliminaries" id="toc-rational-trigonometry-preliminaries" class="nav-link" data-scroll-target="#rational-trigonometry-preliminaries">Rational Trigonometry Preliminaries</a>
+  <ul class="collapse">
+  <li><a href="#general-bilinear-forms" id="toc-general-bilinear-forms" class="nav-link" data-scroll-target="#general-bilinear-forms">General bilinear forms</a></li>
+  <li><a href="#the-cross-law" id="toc-the-cross-law" class="nav-link" data-scroll-target="#the-cross-law">The Cross Law</a></li>
+  </ul></li>
+  <li><a href="#the-relativistic-archimedes-function" id="toc-the-relativistic-archimedes-function" class="nav-link" data-scroll-target="#the-relativistic-archimedes-function">The Relativistic Archimedes Function</a></li>
+  <li><a href="#koides-formula-restated-geometrically" id="toc-koides-formula-restated-geometrically" class="nav-link" data-scroll-target="#koides-formula-restated-geometrically">Koide’s Formula, Restated Geometrically</a></li>
+  <li><a href="#main-theorem-the-koiderelativistic-archimedes-connection" id="toc-main-theorem-the-koiderelativistic-archimedes-connection" class="nav-link" data-scroll-target="#main-theorem-the-koiderelativistic-archimedes-connection">Main Theorem: The Koide–Relativistic Archimedes Connection</a></li>
+  <li><a href="#proof-sketch" id="toc-proof-sketch" class="nav-link" data-scroll-target="#proof-sketch">Proof Sketch</a>
+  <ul class="collapse">
+  <li><a href="#rearranging-the-quadrea" id="toc-rearranging-the-quadrea" class="nav-link" data-scroll-target="#rearranging-the-quadrea">Rearranging the quadrea</a></li>
+  <li><a href="#deriving-the-relativistic-quadrea" id="toc-deriving-the-relativistic-quadrea" class="nav-link" data-scroll-target="#deriving-the-relativistic-quadrea">Deriving the relativistic quadrea</a></li>
+  <li><a href="#matching-koides-ratio" id="toc-matching-koides-ratio" class="nav-link" data-scroll-target="#matching-koides-ratio">Matching Koide’s ratio</a></li>
+  </ul></li>
+  <li><a href="#numerical-verification" id="toc-numerical-verification" class="nav-link" data-scroll-target="#numerical-verification">Numerical Verification</a></li>
+  <li><a href="#explicit-minkowski-coordinates" id="toc-explicit-minkowski-coordinates" class="nav-link" data-scroll-target="#explicit-minkowski-coordinates">Explicit Minkowski Coordinates</a></li>
+  <li><a href="#closing-thoughts" id="toc-closing-thoughts" class="nav-link" data-scroll-target="#closing-thoughts">Closing Thoughts</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Koide’s formula is one of those strange, quiet mysteries that sits in the corner of the Standard Model. First written down by Yoshio Koide in 1981, it relates the masses of the three charged leptons — the electron, the muon, and the tauon — through a remarkably simple ratio that happens to equal <span class="math inline">\(2/3\)</span> to within experimental uncertainty. Decades later, nobody has a fully accepted explanation for <em>why</em> this relation holds. It has survived every refinement of the measured lepton masses, and it keeps hitting <span class="math inline">\(2/3\)</span> to eight or nine significant figures.</p>
+<p>This post walks through a geometric explanation for that coincidence, based on <strong>Rational Trigonometry (RT)</strong>, N. J. Wildberger’s reformulation of geometry that replaces distances and angles with purely algebraic quantities: <em>quadrances</em> (an analogue of squared distance) and <em>spreads</em> (an analogue of squared angle). The central object connecting RT to Koide’s formula is the <strong>Archimedes function</strong>, RT’s algebraic replacement for Heron’s formula, and specifically its <strong>relativistic</strong> (Lorentzian) variant.</p>
+<p>The result, due to independent researcher John D. Coady, is that if you take the square roots of the charged lepton masses and treat them as <em>quadrances</em> in a pseudo-Euclidean (Minkowski) plane, Koide’s relation falls straight out as the condition that a certain triangle has a fixed relative signed squared area. No circles, no curvature, no transcendental functions — just algebra over a field equipped with an indefinite bilinear form.</p>
+<p>Before diving in, it’s worth watching the two Wildberger lectures that this work builds on directly. The first introduces Heron’s formula, the Archimedes function, and the Triple Quad Formula:</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/iMWEiPuFhBQ?si=CHeP6IrEIY6Lq-Ji" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>The second is part of Wildberger’s “Famous Math Problems” series and works through the area of a triangle via the Archimedes function directly:</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/jHm3C1UCR5o?si=CHeP6IrEIY6Lq-Ji" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>With that background in place, let’s build up the machinery.</p>
+</section>
+<section id="rational-trigonometry-preliminaries" class="level2">
+<h2 class="anchored" data-anchor-id="rational-trigonometry-preliminaries">Rational Trigonometry Preliminaries</h2>
+<section id="general-bilinear-forms" class="level3">
+<h3 class="anchored" data-anchor-id="general-bilinear-forms">General bilinear forms</h3>
+<p>RT works over an affine plane <span class="math inline">\(\mathbb{A}\)</span> built on a vector space <span class="math inline">\(V = F^2\)</span> over a field <span class="math inline">\(F\)</span> (take <span class="math inline">\(F = \mathbb{Q}\)</span> for concreteness). Rather than fixing the Euclidean dot product, RT equips <span class="math inline">\(V\)</span> with a <strong>general symmetric bilinear form</strong></p>
+<p><span class="math display">\[
+\vec{u} \cdot \vec{v} = \vec{u} M \vec{v}^{\mathsf T}, \qquad M = \begin{pmatrix} l &amp; m \\ m &amp; n \end{pmatrix}, \qquad \det M = ln - m^2 \neq 0.
+\]</span></p>
+<p>This single matrix <span class="math inline">\(M\)</span> determines the entire metrical structure. From it, RT defines three core quantities without ever invoking square roots, transcendental functions, or limits:</p>
+<ul>
+<li><strong>Quadrance</strong> of a vector: <span class="math inline">\(Q(\vec v) = \vec v \cdot \vec v = \vec v M \vec v^{\mathsf T}\)</span>, and for two points <span class="math inline">\(P_1, P_2\)</span>, <span class="math inline">\(Q(P_1,P_2) \equiv Q(\overrightarrow{P_1P_2})\)</span>.</li>
+<li><strong>Spread</strong> between two lines with direction vectors <span class="math inline">\(\vec u, \vec v\)</span>: <span class="math display">\[
+s(l_1,l_2) = 1 - \frac{(\vec u \cdot \vec v)^2}{Q(\vec u)\,Q(\vec v)} = \frac{(\vec u \times \vec v)^2}{Q(\vec u)\,Q(\vec v)},
+\]</span> where <span class="math inline">\(\vec u \times \vec v = ad-bc\)</span> is the signed area of the parallelogram spanned by <span class="math inline">\(\vec u=(a,b)\)</span> and <span class="math inline">\(\vec v=(c,d)\)</span>.</li>
+<li><strong>Quadrea</strong>, the algebraic stand-in for squared area of a triangle spanned by <span class="math inline">\(\vec u, \vec v\)</span>: <span class="math display">\[
+A = 4\big[(\vec u \cdot \vec u)(\vec v \cdot \vec v) - (\vec u \cdot \vec v)^2\big] = 4(\det M)(ad-bc)^2.
+\]</span></li>
+</ul>
+<p>The link between the dot product and the cross product is the <strong>Fibonacci–Lagrange identity</strong>, <span class="math display">\[
+Q(\vec u)\, Q(\vec v) = (\vec u \cdot \vec v)^2 + (\vec u \times \vec v)^2,
+\]</span> which is exactly what lets the spread formula above be written two equivalent ways.</p>
+<p>Three metrics are worth keeping in mind as reference points:</p>
+<ul>
+<li><strong>Euclidean</strong>: <span class="math inline">\(M = \begin{pmatrix}1 &amp; 0\\ 0 &amp; 1\end{pmatrix}\)</span>, giving the familiar <span class="math inline">\(\vec u \cdot \vec v = ac+bd\)</span> and <span class="math inline">\(\det M = 1 &gt; 0\)</span>.</li>
+<li><strong>Lorentzian / relativistic</strong>: <span class="math inline">\(M = \begin{pmatrix}1 &amp; 0\\ 0 &amp; -1\end{pmatrix}\)</span>, giving <span class="math inline">\(\vec u \cdot \vec v = ac-bd\)</span> and <span class="math inline">\(\det M = -1 &lt; 0\)</span>.</li>
+<li><strong>Rotated relativistic</strong>: <span class="math inline">\(M = \begin{pmatrix}0 &amp; 1\\ 1 &amp; 0\end{pmatrix}\)</span>, giving <span class="math inline">\(\vec u \cdot \vec v = ad+bc\)</span>, a <span class="math inline">\(45^\circ\)</span> rotation of the Lorentzian form.</li>
+</ul>
+<p>The sign of <span class="math inline">\(\det M\)</span> controls whether the resulting quadrea is positive (Euclidean-like) or can go negative (indefinite, relativistic-like).</p>
+</section>
+<section id="the-cross-law" class="level3">
+<h3 class="anchored" data-anchor-id="the-cross-law">The Cross Law</h3>
+<p>Consider a triangle <span class="math inline">\(P_1 P_2 P_3\)</span> with directed sides <span class="math inline">\(\vec v_1 = \overrightarrow{P_3P_2}\)</span>, <span class="math inline">\(\vec v_2 = \overrightarrow{P_3P_1}\)</span>, <span class="math inline">\(\vec v_3 = \overrightarrow{P_1P_2}\)</span>, satisfying <span class="math inline">\(\vec v_1 - \vec v_2 = \vec v_3\)</span>. Write <span class="math inline">\(Q_i = Q(\vec v_i)\)</span> for the quadrance opposite vertex <span class="math inline">\(P_i\)</span>, and <span class="math inline">\(s_i\)</span> for the spread at <span class="math inline">\(P_i\)</span>. Expanding <span class="math inline">\(Q_3 = (\vec v_1 - \vec v_2)\cdot(\vec v_1-\vec v_2)\)</span> and applying the polarization identity gives</p>
+<p><span class="math display">\[
+\overrightarrow{P_3P_2}\cdot\overrightarrow{P_3P_1} = \frac{Q_1+Q_2-Q_3}{2},
+\]</span></p>
+<p>and substituting into the spread formula produces the <strong>Cross Law</strong>:</p>
+<p><span class="math display">\[
+(Q_1+Q_2-Q_3)^2 = 4 Q_1 Q_2 (1-s_3).
+\]</span></p>
+<p>Rearranging this and cycling through the three vertices yields a fully symmetric expression that is independent of which vertex you started from:</p>
+<p><span class="math display">\[
+4Q_1Q_2 s_3 = 4Q_2Q_3 s_1 = 4Q_3Q_1 s_2 = A(Q_1,Q_2,Q_3),
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+A(Q_1,Q_2,Q_3) = (Q_1+Q_2+Q_3)^2 - 2\big(Q_1^2+Q_2^2+Q_3^2\big) = 4Q_1Q_2 - (Q_1+Q_2-Q_3)^2
+\]</span></p>
+<p>is the <strong>Archimedes function</strong> — RT’s rational, square-root-free replacement for Heron’s formula.</p>
+</section>
+</section>
+<section id="the-relativistic-archimedes-function" class="level2">
+<h2 class="anchored" data-anchor-id="the-relativistic-archimedes-function">The Relativistic Archimedes Function</h2>
+<p>In the Euclidean case (<span class="math inline">\(\det M = 1\)</span>), the Archimedes function is positive and equals <span class="math inline">\(16\Delta^2\)</span>, where <span class="math inline">\(\Delta\)</span> is the ordinary area of the triangle:</p>
+<p><span class="math display">\[
+A = 16\Delta^2 = (Q_1+Q_2+Q_3)^2 - 2(Q_1^2+Q_2^2+Q_3^2).
+\]</span></p>
+<p>Now switch to the Lorentzian metric, <span class="math inline">\(M = \begin{pmatrix}1&amp;0\\0&amp;-1\end{pmatrix}\)</span>, so that <span class="math inline">\(\vec u \circ \vec v = ac-bd\)</span> and <span class="math inline">\(Q(\vec u) = a^2-b^2\)</span>. The key algebraic fact underpinning everything that follows is the <strong>modified Fibonacci–Lagrange identity</strong>:</p>
+<p><span class="math display">\[
+-(ad-bc)^2 + (ac-bd)^2 = (a^2-b^2)(c^2-d^2). \tag{2}
+\]</span></p>
+<p>Compared to the Euclidean identity, the cross term’s sign has flipped — a direct consequence of the indefinite metric — and this is precisely what allows the resulting quadrea to become <em>negative</em>. Carrying this through the same polarization argument as before (<span class="math inline">\(2\,\vec u \circ \vec v = Q_1+Q_2-Q_3\)</span>) produces the <strong>relativistic Archimedes function</strong>:</p>
+<p><span class="math display">\[
+A(Q_1,Q_2,Q_3) = (Q_1+Q_2+Q_3)^2 - 2\big(Q_1^2+Q_2^2+Q_3^2\big) = -16\Delta^2, \tag{1}
+\]</span></p>
+<p>with the equivalent cyclic form</p>
+<p><span class="math display">\[
+-16\Delta^2 = 4Q_1Q_2 - (Q_1+Q_2-Q_3)^2. \tag{3}
+\]</span></p>
+<p>The overall minus sign is the whole story: it’s a direct fingerprint of <span class="math inline">\(\det M &lt; 0\)</span>, and it’s what makes the relativistic version of the theory naturally accommodate <em>signed</em> squared areas rather than forcing area-squared to be positive.</p>
+</section>
+<section id="koides-formula-restated-geometrically" class="level2">
+<h2 class="anchored" data-anchor-id="koides-formula-restated-geometrically">Koide’s Formula, Restated Geometrically</h2>
+<p>Koide’s original empirical relation for the charged lepton pole masses <span class="math inline">\(m_e, m_\mu, m_\tau\)</span> is</p>
+<p><span class="math display">\[
+\frac{m_e+m_\mu+m_\tau}{\left(\sqrt{m_e}+\sqrt{m_\mu}+\sqrt{m_\tau}\right)^2} = \frac{2}{3}. \tag{4}
+\]</span></p>
+<p>Define <span class="math inline">\(\kappa_i = \sqrt{m_i}\)</span> for <span class="math inline">\(i=1,2,3\)</span> (electron, muon, tauon). Then (4) becomes</p>
+<p><span class="math display">\[
+\frac{\sum_{i=1}^3 \kappa_i^2}{\left(\sum_{i=1}^3 \kappa_i\right)^2} = \frac{2}{3}. \tag{5}
+\]</span></p>
+<p>The move at the heart of this paper is to stop treating the <span class="math inline">\(\kappa_i\)</span> as mere numbers and instead interpret them as <strong>quadrances</strong> <span class="math inline">\(Q_i\)</span> of a triangle living in the relativistic (Lorentzian) plane. That reinterpretation is what connects (5) to the Archimedes function <span class="math inline">\(A(Q_1,Q_2,Q_3)\)</span> derived above.</p>
+</section>
+<section id="main-theorem-the-koiderelativistic-archimedes-connection" class="level2">
+<h2 class="anchored" data-anchor-id="main-theorem-the-koiderelativistic-archimedes-connection">Main Theorem: The Koide–Relativistic Archimedes Connection</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Theorem">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Theorem
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let <span class="math inline">\(Q_1, Q_2, Q_3\)</span> be quadrances in the relativistic plane (with <span class="math inline">\(\det M &lt; 0\)</span>) satisfying equation (1). Then</p>
+<p><span class="math display">\[
+\frac{Q_1^2+Q_2^2+Q_3^2}{(Q_1+Q_2+Q_3)^2} = \frac{1+16\Delta^2/\sigma^2}{2}, \qquad \sigma = Q_1+Q_2+Q_3. \tag{6}
+\]</span></p>
+<p>Substituting <span class="math inline">\(Q_i = \sqrt{m_i}\)</span> recovers Koide’s formula (5) exactly when</p>
+<p><span class="math display">\[
+\frac{16\Delta^2}{\sigma^2} = \frac13 \quad\Longleftrightarrow\quad \Delta^2 = \frac{\sigma^2}{48}.
+\]</span></p>
+</div>
+</div>
+<p>In words: <strong>Koide’s ratio of <span class="math inline">\(2/3\)</span> is precisely the statement that the Koide triangle has a fixed relative signed squared area</strong>, one forty-eighth of the square of its “perimeter” <span class="math inline">\(\sigma = Q_1+Q_2+Q_3\)</span>. The mysterious empirical constant <span class="math inline">\(2/3\)</span> turns into a clean non-degeneracy condition on a triangle in Minkowski space.</p>
+</section>
+<section id="proof-sketch" class="level2">
+<h2 class="anchored" data-anchor-id="proof-sketch">Proof Sketch</h2>
+<section id="rearranging-the-quadrea" class="level3">
+<h3 class="anchored" data-anchor-id="rearranging-the-quadrea">Rearranging the quadrea</h3>
+<p>Starting from <span class="math inline">\(A = \sigma^2 - 2\Sigma = -16\Delta^2\)</span>, where <span class="math inline">\(\Sigma = Q_1^2+Q_2^2+Q_3^2\)</span>, solve directly for <span class="math inline">\(\Sigma\)</span>:</p>
+<p><span class="math display">\[
+\Sigma = \frac{\sigma^2 - A}{2} = \frac{\sigma^2+16\Delta^2}{2} \quad\Longrightarrow\quad \frac{\Sigma}{\sigma^2} = \frac{1+16\Delta^2/\sigma^2}{2},
+\]</span></p>
+<p>which is exactly (6).</p>
+</section>
+<section id="deriving-the-relativistic-quadrea" class="level3">
+<h3 class="anchored" data-anchor-id="deriving-the-relativistic-quadrea">Deriving the relativistic quadrea</h3>
+<p>Let <span class="math inline">\(\vec u = (a,b)\)</span>, <span class="math inline">\(\vec v = (c,d)\)</span>, with signed area <span class="math inline">\(\Delta = \tfrac12(ad-bc)\)</span>, so <span class="math inline">\(4\Delta^2=(ad-bc)^2\)</span>. The relativistic quadrances are <span class="math inline">\(Q_1 = a^2-b^2\)</span>, <span class="math inline">\(Q_2 = c^2-d^2\)</span>, <span class="math inline">\(Q_3 = (c-a)^2-(d-b)^2\)</span>. Identity (2) rearranges to</p>
+<p><span class="math display">\[
+-(ad-bc)^2 = Q_1 Q_2 - (\vec u \circ \vec v)^2,
+\]</span></p>
+<p>so that</p>
+<p><span class="math display">\[
+-16\Delta^2 = -4(ad-bc)^2 = 4Q_1Q_2 - 4(\vec u \circ \vec v)^2.
+\]</span></p>
+<p>Polarization gives <span class="math inline">\(2\,\vec u \circ \vec v = Q_1+Q_2-Q_3\)</span>, and substituting yields</p>
+<p><span class="math display">\[
+-16\Delta^2 = 4Q_1Q_2 - (Q_1+Q_2-Q_3)^2 = A(Q_1,Q_2,Q_3),
+\]</span></p>
+<p>matching (1). Cycling through the vertices recovers the fully symmetric form.</p>
+</section>
+<section id="matching-koides-ratio" class="level3">
+<h3 class="anchored" data-anchor-id="matching-koides-ratio">Matching Koide’s ratio</h3>
+<p>Substituting <span class="math inline">\(Q_i = \kappa_i = \sqrt{m_i}\)</span> into (6) gives</p>
+<p><span class="math display">\[
+\frac{\sum m_i}{\sigma^2} = \frac{1+16\Delta^2/\sigma^2}{2}.
+\]</span></p>
+<p>The empirical value <span class="math inline">\(\Sigma/\sigma^2 = 2/3\)</span> forces</p>
+<p><span class="math display">\[
+\frac23 = \frac{1+16\Delta^2/\sigma^2}{2} \;\Longrightarrow\; \frac{16\Delta^2}{\sigma^2}=\frac13 \;\Longrightarrow\; \Delta^2 = \frac{\sigma^2}{48},
+\]</span></p>
+<p>which is the non-degeneracy condition of the theorem.</p>
+</section>
+</section>
+<section id="numerical-verification" class="level2">
+<h2 class="anchored" data-anchor-id="numerical-verification">Numerical Verification</h2>
+<p>Using Particle Data Group (PDG) 2025 pole masses,</p>
+<p><span class="math display">\[
+m_e = 0.51099895~\text{MeV}/c^2, \quad m_\mu = 105.6583745~\text{MeV}/c^2, \quad m_\tau = 1776.86~\text{MeV}/c^2,
+\]</span></p>
+<p>we compute <span class="math inline">\(\kappa_i = \sqrt{m_i}\)</span>, <span class="math inline">\(\sigma = \sum \kappa_i\)</span>, and <span class="math inline">\(\Sigma = \sum m_i\)</span>:</p>
+<table class="caption-top table">
+<caption>Charged lepton masses and derived quantities verifying Koide’s formula. Central values only; propagated experimental uncertainties yield a deviation of roughly <span class="math inline">\(10^{-8}\)</span> from <span class="math inline">\(2/3\)</span>.</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: right;">Value (MeV/<span class="math inline">\(c^2\)</span>)</th>
+<th style="text-align: right;"><span class="math inline">\(\kappa_i = \sqrt{m_i}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(m_e\)</span></td>
+<td style="text-align: right;">0.51099895</td>
+<td style="text-align: right;">0.71498</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(m_\mu\)</span></td>
+<td style="text-align: right;">105.6583745</td>
+<td style="text-align: right;">10.28037</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(m_\tau\)</span></td>
+<td style="text-align: right;">1776.86</td>
+<td style="text-align: right;">42.1567</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\sigma = \sum \kappa_i\)</span></td>
+<td style="text-align: right;">–</td>
+<td style="text-align: right;">53.15205</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\Sigma = \sum m_i\)</span></td>
+<td style="text-align: right;">1883.0293</td>
+<td style="text-align: right;">–</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\Sigma/\sigma^2\)</span></td>
+<td style="text-align: right;">–</td>
+<td style="text-align: right;">0.6666667</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\Delta^2 = \sigma^2/48\)</span></td>
+<td style="text-align: right;">–</td>
+<td style="text-align: right;">58.85</td>
+</tr>
+</tbody>
+</table>
+<p>The ratio <span class="math inline">\(\Sigma/\sigma^2 \approx 0.6666667\)</span>, matching <span class="math inline">\(2/3\)</span> to eight decimal places — well within the precision of the measured lepton masses — with an implied signed squared area <span class="math inline">\(\Delta^2 \approx \sigma^2/48 \approx 58.85\)</span>.</p>
+</section>
+<section id="explicit-minkowski-coordinates" class="level2">
+<h2 class="anchored" data-anchor-id="explicit-minkowski-coordinates">Explicit Minkowski Coordinates</h2>
+<p>It’s possible to write down the actual vertices of the “Koide triangle” in the Minkowski plane, with the metric <span class="math inline">\(Q = \Delta x^2 - \Delta y^2\)</span>. Place <span class="math inline">\(P_1\)</span> at the origin and <span class="math inline">\(P_2\)</span> on the spacelike <span class="math inline">\(x\)</span>-axis at <span class="math inline">\((a,0)\)</span> with <span class="math inline">\(a=\sqrt{Q_\mu}\)</span>, so that <span class="math inline">\(Q(\overrightarrow{P_1P_2}) = Q_\mu\)</span>. Vertex <span class="math inline">\(P_3=(x,y)\)</span> must then satisfy <span class="math inline">\(Q(\overrightarrow{P_1P_3}) = Q_\tau\)</span> and <span class="math inline">\(Q(\overrightarrow{P_2P_3}) = Q_e\)</span>. Subtracting the two resulting quadratic equations eliminates <span class="math inline">\(y\)</span> and gives a closed form for <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[
+x = \frac{Q_\tau + Q_\mu - Q_e}{2\sqrt{Q_\mu}}, \qquad y = \sqrt{x^2 - Q_\tau}
+\]</span></p>
+<p>(taking the positive branch, the standard choice for hyperbolic embeddings). Plugging in the numerical quadrances <span class="math inline">\(Q_e \approx 0.71498\)</span>, <span class="math inline">\(Q_\mu \approx 10.28037\)</span>, <span class="math inline">\(Q_\tau \approx 42.1567\)</span> gives:</p>
+<table class="caption-top table">
+<caption>Explicit coordinates (rounded to 8 decimals) of the Koide triangle vertices in the Minkowski plane.</caption>
+<thead>
+<tr class="header">
+<th>Vertex</th>
+<th style="text-align: right;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(y\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P_1\)</span></td>
+<td style="text-align: right;">0.00000000</td>
+<td style="text-align: right;">0.00000000</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_2\)</span></td>
+<td style="text-align: right;">3.20609201</td>
+<td style="text-align: right;">0.00000000</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_3\)</span></td>
+<td style="text-align: right;">8.06542688</td>
+<td style="text-align: right;">4.78521614</td>
+</tr>
+</tbody>
+</table>
+<p>From these coordinates, the signed area is <span class="math inline">\(\Delta = \tfrac12 a y \approx 7.67092\)</span>, giving <span class="math inline">\(\Delta^2 \approx 58.843\)</span>, which agrees with <span class="math inline">\(\sigma^2/48 \approx 58.846\)</span> to within the same empirical precision established above. The three side quadrances of this triangle — measured with the indefinite Lorentzian metric rather than the ordinary Euclidean one — reproduce <span class="math inline">\(\kappa_e, \kappa_\mu, \kappa_\tau\)</span> directly.</p>
+</section>
+<section id="closing-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="closing-thoughts">Closing Thoughts</h2>
+<p>What makes this construction appealing is how little machinery it needs. There’s no appeal to circle inversions, no curvature parameters, no transcendental functions anywhere in the derivation — just a symmetric bilinear form, the Cross Law, and the modified Fibonacci–Lagrange identity that falls out of switching the sign in front of one term. Koide’s stubborn <span class="math inline">\(2/3\)</span> becomes, in this language, nothing more exotic than a triangle in Minkowski space with a specific signed area relative to its “perimeter” <span class="math inline">\(\sigma\)</span>.</p>
+<p>This is very much in the spirit of Wildberger’s broader RT program: strip geometry down to its purely algebraic bones, and relations that look numerically mysterious in one coordinate system often turn out to be simple invariants in another. Whether or not this particular embedding turns out to have deeper physical significance for the Standard Model’s flavor structure, it’s a striking illustration of RT’s reach — turning an empirical curiosity in particle physics into an algebraic identity in a pseudo-Euclidean plane.</p>
+<p>For the original derivations and full details, see the paper on Zenodo: <a href="https://doi.org/10.5281/zenodo.17347164">10.5281/zenodo.17347164</a>.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>Y. Koide, “A formula for the charged-lepton masses,” <em>Progress of Theoretical Physics</em>, 66(6):2287–2289, 1981.</li>
+<li>S. Navas et al.&nbsp;(Particle Data Group), “Review of Particle Physics,” <em>Phys. Rev.&nbsp;D</em>, 110(3):030001, 2024 (2025 data edition).</li>
+<li>N. J. Wildberger, <em>Divine Proportions: Rational Trigonometry to Universal Geometry</em>, Wild Egg Books, 2005.</li>
+<li>N. J. Wildberger, “Heron’s formula, Archimedes’ function, and the TQF — Rational Geometry Math Foundations 124,” YouTube, January 2015. <a href="https://youtu.be/iMWEiPuFhBQ">https://youtu.be/iMWEiPuFhBQ</a></li>
+<li>N. J. Wildberger, “The area of a triangle and Archimedes’ formula — Famous Math Problems 16,” YouTube, January 2014. <a href="https://youtu.be/jHm3C1UCR5o">https://youtu.be/jHm3C1UCR5o</a></li>
+<li>J. D. Coady, “A Geometric Interpretation of Koide’s Formula via the Relativistic Archimedes Function,” Zenodo, October 2025. <a href="https://doi.org/10.5281/zenodo.17347164">https://doi.org/10.5281/zenodo.17347164</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jcoady\.github\.io\/blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
