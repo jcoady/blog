@@ -224,11 +224,11 @@ window.Quarto = {
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">Pure Mathematics</div>
-                <div class="quarto-category">Universal Hyperbolic Geometry</div>
-                <div class="quarto-category">Projective Geometry</div>
-                <div class="quarto-category">Quadrea</div>
-                <div class="quarto-category">Quadrume</div>
+                <div class="quarto-category">pure-math</div>
+                <div class="quarto-category">universal-hyperbolic-geometry</div>
+                <div class="quarto-category">projective-geometry</div>
+                <div class="quarto-category">quadrea</div>
+                <div class="quarto-category">quadrume</div>
               </div>
                   </div>
   </div>
@@ -373,7 +373,7 @@ h(a_k) \equiv \frac{B(v_k,n)^2}{Q(v_k)\,Q(n)}.
 \Delta \equiv \det(G_4)\,Q(n) - \det(G_3)\,B(v_4,n)^2
 \]</span></p>
 <p>simplifies identically to zero.</p>
-<div id="78d56bff" class="cell" data-execution_count="1">
+<div id="2dd52ed6" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_symbolic_proof():</span>
@@ -430,10 +430,13 @@ h(a_k) \equiv \frac{B(v_k,n)^2}{Q(v_k)\,Q(n)}.
 <section id="seeing-it-an-interactive-tetrahedron" class="level2">
 <h2 class="anchored" data-anchor-id="seeing-it-an-interactive-tetrahedron">Seeing It: An Interactive Tetrahedron</h2>
 <p>The identity is easiest to trust once you can rotate a tetrahedron, drag a vertex, and watch the quadrume, the face quadrea, and the altitude quadrance stay locked in the relation <span class="math inline">\(\mathcal{V} = \mathcal{S} \times h(a_4)\)</span> no matter how you deform it. The embed below is a placeholder for a GeoGebra 3D applet illustrating exactly that: a tetrahedron <span class="math inline">\(a_1a_2a_3a_4\)</span>, its base face <span class="math inline">\(a_1a_2a_3\)</span> with dual normal <span class="math inline">\(n\)</span>, and the altitude line from <span class="math inline">\(a_4\)</span> to <span class="math inline">\(n\)</span>.</p>
-<div style="width: 100%; max-width: 900px; aspect-ratio: 3 / 2; margin: 2rem auto; overflow: hidden;">
-  <iframe src="https://www.geogebra.org/material/iframe/id/mftg7rup/width/2133/height/957/border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false" style="width: 100%; height: 100%; border: 1px solid #cccccc; display: block;" scrolling="no" allowfullscreen="">
-  </iframe>
+<div style="text-align: center; margin: 20px 0;">
+  <a href="" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
+    <img src="ProjectiveTetrahedronP3-UHG.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
+    <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points A, B, C, and D to see metric calculations update.</em></p>
+  </a>
 </div>
+
 </section>
 <section id="closing-thoughts" class="level2">
 <h2 class="anchored" data-anchor-id="closing-thoughts">Closing Thoughts</h2>
