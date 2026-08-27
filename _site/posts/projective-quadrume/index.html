@@ -373,7 +373,7 @@ h(a_k) \equiv \frac{B(v_k,n)^2}{Q(v_k)\,Q(n)}.
 \Delta \equiv \det(G_4)\,Q(n) - \det(G_3)\,B(v_4,n)^2
 \]</span></p>
 <p>simplifies identically to zero.</p>
-<div id="2dd52ed6" class="cell" data-execution_count="1">
+<div id="1537e750" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_symbolic_proof():</span>
@@ -431,7 +431,7 @@ h(a_k) \equiv \frac{B(v_k,n)^2}{Q(v_k)\,Q(n)}.
 <h2 class="anchored" data-anchor-id="seeing-it-an-interactive-tetrahedron">Seeing It: An Interactive Tetrahedron</h2>
 <p>The identity is easiest to trust once you can rotate a tetrahedron, drag a vertex, and watch the quadrume, the face quadrea, and the altitude quadrance stay locked in the relation <span class="math inline">\(\mathcal{V} = \mathcal{S} \times h(a_4)\)</span> no matter how you deform it. The embed below is a placeholder for a GeoGebra 3D applet illustrating exactly that: a tetrahedron <span class="math inline">\(a_1a_2a_3a_4\)</span>, its base face <span class="math inline">\(a_1a_2a_3\)</span> with dual normal <span class="math inline">\(n\)</span>, and the altitude line from <span class="math inline">\(a_4\)</span> to <span class="math inline">\(n\)</span>.</p>
 <div style="text-align: center; margin: 20px 0;">
-  <a href="" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
+  <a href="https://www.geogebra.org/m/eyveucxr" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
     <img src="ProjectiveTetrahedronP3-UHG.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
     <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points A, B, C, and D to see metric calculations update.</em></p>
   </a>
