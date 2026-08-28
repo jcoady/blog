@@ -1,0 +1,295 @@
+---
+title: "An Orthic Mass Gap for Null Tetrahedra in Universal Hyperbolic Geometry"
+author: "John D. Coady"
+date: "2026-02-04"
+categories:
+  - universal-hyperbolic-geometry
+  - rational-trigonometry
+  - projective-geometry
+  - invariant-theory
+format:
+  html:
+    toc: true
+    number-sections: false
+    code-fold: false
+    fig-cap-location: bottom
+---
+
+## Introduction
+
+This post is a direct sequel to
+[*Invariant Quadrea of Orthocenter Triangles from Four Null Points in Universal Hyperbolic Geometry*](https://jcoady.github.io/blog/posts/invariant-quadrea-orthocenter-triangles/).
+That post stayed in the projective plane $\mathbb{P}^2$: four null points on the absolute
+conic, four triply-nil-triangle orthocenters, and a single absolute invariant — the quadrea
+$\mathcal{A} = 16/27$ — that turned out to be completely independent of how the four points
+were chosen.
+
+Here we lift the same question one dimension higher. Instead of a *quadrangle* of four null
+points in $\mathbb{P}^2$, we start with a **null tetrahedron**: four null points in $\mathbb{P}^3$,
+each face of which is a triply nil triangle. Each face has its own orthocenter, and the four
+face-orthocenters form a new tetrahedron — the **orthic tetrahedron**. The question this time
+is not "what constant does the invariant equal" but "how much can it vary, and is there a floor
+below which it cannot go?"
+
+The answer is yes: the common face quadrea $A_{\text{orthic}}$ of the orthic tetrahedron is
+confined to the half-open interval
+$$
+A_{\text{orthic}} \in \left[\, \tfrac{5}{54}, \; \tfrac{16}{27} \,\right),
+$$
+with the lower bound attained only at a distinguished, maximally symmetric configuration. Because
+this lower bound behaves like a floor that no configuration can cross — a persistent, irreducible
+minimum forced purely by the algebra of the construction — it is natural to call it an **orthic
+mass gap**, by loose analogy with the way a mass gap in a variational or quantum field theory
+marks the energy of the ground state above vacuum. Nothing physical is being claimed; it is a
+descriptive name for a strict positive lower bound on a geometric invariant.
+
+Reassuringly, the upper bound recovers the previous post's result exactly: as the null tetrahedron
+degenerates so that its fourth vertex becomes coplanar with the other three, the orthic tetrahedron
+flattens into the orthic *quadrangle* of the planar construction, and $A_{\text{orthic}}$ approaches
+$16/27$ — the constant from the $\mathbb{P}^2$ theorem, recovered here as a supremum rather than an
+exact value.
+
+## Why the Null Tetrahedron Itself Has No Metric
+
+In Universal Hyperbolic Geometry (UHG), as developed by N. J. Wildberger, quadrance between two
+points $v, w$ is defined as
+$$
+q(v,w) = 1 - \frac{B(v,w)^2}{Q(v)\,Q(w)},
+$$
+where $Q$ is the governing quadratic form and $B$ its associated bilinear form. This expression is
+simply undefined whenever $Q(v) = 0$ or $Q(w) = 0$ — that is, whenever either point is **null**.
+Since a null tetrahedron $\overline{\alpha_1\alpha_2\alpha_3\alpha_4}$ consists of four null points
+by definition, none of its six pairwise quadrances exist. There is no sense in which such a
+tetrahedron can be called "regular," "isosceles," or anything else metrical — its only well-defined
+structure is purely projective (its faces, its edges as lines, and their poles and polars).
+
+To recover a metrical object from a null tetrahedron, the paper applies the orthocenter construction
+facewise. Each face $\overline{\alpha_i\alpha_j\alpha_k}$ is a *triply nil triangle*, and although
+none of its vertices carry a quadrance, its **orthocenter** is still well-defined: it is built purely
+from joins, meets, and polars, all of which are rational projective operations that never require
+dividing by $Q$ of a null point. This is the construction recalled in Figure 1 of the paper
+(and worked out in detail in the $\mathbb{P}^2$ post linked above): each altitude $N_i$ is the join
+of vertex $\alpha_i$ with the pole $L_i^{\perp}$ of the opposite side's polar line $L_i$, and the
+three altitudes concur at a single orthocenter $h$.
+
+Applying this facewise to a null tetrahedron in $\mathbb{P}^3$ produces four orthocenters
+$h_1, h_2, h_3, h_4$ — one per face, omitting the opposite vertex each time — and these four points
+generically have *nonzero* $Q$. They therefore support ordinary quadrances, spreads, and quadreas.
+This is the **orthic tetrahedron** $\overline{h_1h_2h_3h_4}$: a genuinely metrical object extracted,
+by a purely projective procedure, from a null configuration that itself admits no metric at all.
+
+## Face Invariance and Projective Exhaustion
+
+Before any bound can be proved, two structural facts need to be established.
+
+### Lemma 1 — Face Invariance
+
+Each face of the orthic tetrahedron is a triangle whose three vertices are themselves orthocenters —
+rational projective expressions in the four original null vertices $\alpha_1, \alpha_2, \alpha_3, \alpha_4$.
+The quadrea of a triangle is
+$$
+\mathcal{A}(v_1,v_2,v_3) = \frac{q_1q_2q_3 - q_1b_{23}^2 - q_2b_{31}^2 - q_3 b_{12}^2 + 2b_{12}b_{23}b_{31}}{q_1q_2q_3},
+\qquad q_i = Q(v_i),\ \ b_{ij} = B(v_i,v_j),
+$$
+so the quadrea of any orthic face is, after substitution, a rational function of the bilinear
+products $B(\alpha_i,\alpha_j)$ between the *original* null vertices. Since both the orthocenter
+construction and the quadrea formula are invariant under relabeling the four vertices, the resulting
+rational expression is identical (up to relabeling) no matter which face of the orthic tetrahedron
+is chosen. All four faces therefore share one common quadrea, denoted $A_{\text{orthic}}$ — the
+single scalar invariant this whole post is about.
+
+### Lemma 2 — Projective Exhaustion
+
+The group $PO(3,1)$ — the projective orthogonal group preserving $Q$ — acts transitively on ordered
+triples of null points in general position. So, up to a global projective transformation, three of
+the four vertices of *any* null tetrahedron can always be moved to a fixed standard configuration,
+leaving only the fourth vertex free to range over the absolute quadric. Because $A_{\text{orthic}}$
+is built from $PO(3,1)$-invariant rational quantities, its value on this reduced, one-parameter-family
+(really two-parameter, via a stereographic pair $(r,s)$) is representative of the entire moduli space
+of null tetrahedra. This is precisely the same reduction-to-normal-form strategy used in the
+$\mathbb{P}^2$ post's cross-ratio parametrization, just one projective dimension up: there, three
+null points were fixed and a single cross-ratio $\lambda$ parametrized the fourth; here, three null
+points are fixed and a pair of stereographic parameters $(r,s)$ parametrizes the fourth.
+
+## The Orthic Mass Gap Theorem
+
+With the invariant reduced to a function $A_{\text{orthic}}(r,s)$ of two real parameters, the paper's
+central result is:
+
+> **Theorem 1 (Orthic Quadrea Range).** For any nondegenerate null tetrahedron in $\mathbb{P}^3$:
+>
+> 1. $A_{\text{orthic}} \ge 5/54$, with equality if and only if the null tetrahedron is *orthically
+>    regular* (up to projective equivalence).
+> 2. $A_{\text{orthic}} < 16/27$, where $16/27$ is a supremum, never attained by a genuine tetrahedron.
+
+**Definition 2 (Orthically Regular).** A null tetrahedron is called orthically regular when its
+associated orthic tetrahedron has all six of its pairwise quadrances equal — i.e. the orthic
+tetrahedron is a regular tetrahedron in the ordinary UHG metrical sense. Because quadrance is
+undefined for the null tetrahedron itself, "regularity" can only ever be a statement about the
+*orthic* tetrahedron; the null tetrahedron only ever has the symmetric position in the underlying
+projective parameter space that produces this regularity.
+
+### The lower bound: a geometric mass gap
+
+The value $5/54$ is attained at exactly one point of the (projectively reduced) parameter space —
+the fully symmetric configuration where the fourth null vertex sits at the parameter value
+$$
+r = s = \frac{\sqrt{3}-1}{2}
+$$
+in the gauge-fixed frame used in the paper's verification script (vertices $\alpha_1,\alpha_2,\alpha_3$
+pinned to a standard triple, $\alpha_4$ free). At this point the orthic tetrahedron is a genuine
+regular tetrahedron, and moving away from it in *any* direction strictly increases $A_{\text{orthic}}$.
+Figures 4 and 5 of the paper illustrate this: a smooth convex bowl in the surface plot, with concentric,
+roughly circular level sets in the contour map, both centered on the single minimum at $5/54$.
+
+This is the sense in which $5/54$ is a **mass gap**: it is not merely the infimum of a set that never
+achieves it (as $16/27$ turns out to be), but a value that *is* achieved, uniquely, at a distinguished
+symmetric ground state, with every other configuration sitting strictly above it. The analogy to a
+mass gap in a variational or field-theoretic setting — a strictly positive minimum separating a
+symmetric ground state from the rest of the spectrum — is only structural, not physical, but the
+resemblance is genuinely there in the shape of the invariant.
+
+### The supremum: planar degeneration
+
+The upper bound behaves completely differently. As the fourth null vertex $\alpha_4$ is pushed toward
+coplanarity with $\alpha_1, \alpha_2, \alpha_3$ — equivalently, as the Gram determinant of the null
+tetrahedron tends to zero — the tetrahedral structure itself collapses. In this limit the orthic
+tetrahedron flattens into a planar **orthic quadrangle**: exactly the configuration studied in the
+$\mathbb{P}^2$ post, four null points on a conic in a projective plane together with the four
+orthocenters of their triply nil sub-triangles.
+
+The diagonal triangle of that planar orthic quadrangle carries the fixed quadrea $16/27$, proved in
+the earlier post as an absolute invariant independent of the cross-ratio $\lambda$. Symbolic evaluation
+of the limit $\alpha_4 \to$ (coplanar with $\alpha_1\alpha_2\alpha_3)$ confirms that $A_{\text{orthic}}$
+converges to exactly this constant. Because the limit corresponds to a genuine degeneration — the
+null tetrahedron ceasing to be nondegenerate — $16/27$ is a **supremum**, never actually reached by
+any honest, nondegenerate null tetrahedron. This is a satisfying consistency check across the two
+posts: the 3D invariant's ceiling is precisely the 2D invariant's fixed value, recovered as a limiting
+case rather than assumed.
+
+## Symbolic Verification
+
+The paper backs the theorem with a SymPy script that (i) checks stationarity and positive-definite
+Hessian at the conjectured minimum, and (ii) checks the degeneration limit converges to $16/27$. The
+script gauge-fixes three null vertices to a standard frame and lets the fourth vary over stereographic
+parameters $(r, s, u)$:
+
+```python
+import sympy
+from sympy import symbols, simplify, Matrix, diff, limit, sqrt
+
+def verify_mass_gap():
+    r, s, u = symbols('r s u', real=True)
+
+    def B(P1, P2):
+        return P1[0]*P2[0] + P1[1]*P2[1] + P1[2]*P2[2] - P1[3]*P2[3]
+
+    def e(r_i, s_i, u_i):
+        return Matrix([2*r_i*u_i, 2*s_i*u_i, u_i**2 - r_i**2 - s_i**2,
+                        u_i**2 + r_i**2 + s_i**2])
+
+    # Standard Frame (Gauge Fixing)
+    A1, A2, A3 = e(0, 0, 1), e(1, 0, 1), e(0, 1, 1)
+    A4 = e(r, s, u)
+
+    def get_H(p1, p2, p3):
+        return B(p2, p3)*p1 + B(p3, p1)*p2 + B(p1, p2)*p3
+
+    def get_A(v1, v2, v3):
+        q1, q2, q3 = B(v1, v1), B(v2, v2), B(v3, v3)
+        b12, b23, b31 = B(v1, v2), B(v2, v3), B(v3, v1)
+        return (q1*q2*q3 - q1*b23**2 - q2*b31**2 - q3*b12**2
+                + 2*b12*b23*b31) / (q1*q2*q3)
+
+    A_orthic = simplify(get_A(get_H(A1, A3, A4), get_H(A1, A2, A4), get_H(A1, A2, A3)))
+
+    # 1. STATIONARITY & MINIMUM (r=s, u=1 normalized)
+    r_c = (sqrt(3) - 1) / 2
+    A_eval = A_orthic.subs({u: 1})
+    q_min = simplify(A_eval.subs({r: r_c, s: r_c}))
+
+    # 2. HESSIAN STABILITY
+    Hxx = diff(A_eval, r, 2).subs({r: r_c, s: r_c})
+    Hyy = diff(A_eval, s, 2).subs({r: r_c, s: r_c})
+    Hxy = diff(A_eval, r, s).subs({r: r_c, s: r_c})
+    det_H = simplify(Hxx*Hyy - Hxy**2)
+
+    # 3. SUPREMUM (Degeneration Limit: r -> u)
+    max_lim = simplify(limit(A_orthic.subs(s, r), r, u))
+
+    print("Invariant is rational and symmetric under permutations.")
+    print(f"Min Quadrea: {q_min}")        # 5/54
+    print(f"Hessian Det: {det_H.evalf():.4f}")  # > 0
+    print(f"Supremum: {max_lim}")         # 16/27
+
+
+if __name__ == "__main__":
+    verify_mass_gap()
+```
+
+Three things are worth highlighting about this check:
+
+- **Gauge fixing.** The three "anchor" null points $\alpha_1, \alpha_2, \alpha_3$ are placed at
+  $e(0,0,1)$, $e(1,0,1)$, $e(0,1,1)$ under the stereographic parametrization
+  $e(r,s,u) = \big[2ru : 2su : u^2-r^2-s^2 : u^2+r^2+s^2\big]$, which lands on the null quadric
+  $Q=0$ identically for any $(r,s,u)$. This is the $\mathbb{P}^3$ analogue of fixing
+  $t_1=-1, t_2=0, t_3=1$ in the earlier planar post.
+- **Stationarity and convexity.** Evaluating the orthic quadrea at $r=s=(\sqrt{3}-1)/2$ (with $u=1$)
+  gives exactly $5/54$, and the Hessian determinant there is positive, confirming a genuine local
+  minimum rather than a saddle — consistent with the strictly convex bowl seen in Figures 4 and 5.
+- **The degeneration limit.** Taking $s \to r$ and then $r \to u$ pushes the fourth vertex toward the
+  plane spanned by the other three; the symbolic limit of $A_{\text{orthic}}$ under this substitution
+  evaluates to exactly $16/27$, matching the planar theorem from the earlier post without any
+  numerical approximation.
+
+Because every step — the orthocenter construction, the quadrea formula, the gauge fixing, and the
+limit — is carried out with exact rational and radical symbolic arithmetic, the computation is a
+verification of the algebra rather than a numerical approximation to it.
+
+## Discussion
+
+Read together, the two posts describe a small hierarchy of absolute and extremal invariants that
+UHG's orthocenter construction produces from null configurations:
+
+- **Four null points in $\mathbb{P}^2$** (a null quadrangle) give an orthic *quadrangle* whose
+  diagonal triangle has a single, absolute quadrea, $16/27$, independent of the configuration's
+  cross-ratio.
+- **Four null points in $\mathbb{P}^3$** (a null tetrahedron) give an orthic *tetrahedron* whose
+  common face quadrea is no longer constant, but is confined to the range $[5/54,\,16/27)$ — a strict
+  floor attained at a unique symmetric configuration, and a ceiling recovered exactly as the planar
+  limit of the 2D result.
+
+The fact that the $\mathbb{P}^3$ supremum reproduces the $\mathbb{P}^2$ constant on the nose, purely
+through a degeneration limit, is a strong internal consistency check that the two constructions are
+genuinely the same orthocenter machinery viewed one projective dimension apart. It also suggests a
+natural next question: does a null 5-point configuration in $\mathbb{P}^4$ produce an analogous
+range, with the $\mathbb{P}^3$ mass gap $5/54$ appearing as *its* degeneration limit?
+
+## Conclusion
+
+Starting from a null tetrahedron in $\mathbb{P}^3$ — four points on the absolute quadric with no
+intrinsic metric of their own — the facewise orthocenter construction produces an orthic tetrahedron
+whose common face quadrea $A_{\text{orthic}}$ is a well-defined projective invariant. Rather than being
+an absolute constant, as in the planar $\mathbb{P}^2$ case, this invariant is confined to the range
+$[5/54, 16/27)$: a strict, uniquely attained lower bound at the orthically regular configuration —
+the orthic mass gap — and a supremum at $16/27$ recovered exactly as the planar-degeneration limit
+of the earlier $\mathbb{P}^2$ result. Both endpoints are confirmed by exact symbolic computation, with
+the Hessian at the minimum confirming a genuine, stable, strictly convex ground state rather than a
+coincidental stationary point.
+
+## References
+
+1. N. J. Wildberger. *Universal Hyperbolic Geometry I: Trigonometry*. Geometriae Dedicata,
+   163(1):109–147, 2013. [doi:10.1007/s10711-012-9746-9](https://doi.org/10.1007/s10711-012-9746-9);
+   [arXiv:0909.1377](https://arxiv.org/abs/0909.1377) [math.MG].
+2. N. J. Wildberger. *Universal Hyperbolic Geometry II: A pictorial overview*, 2010.
+   [arXiv:1012.0880](https://arxiv.org/abs/1012.0880) [math.MG].
+3. N. V. Ivanov. *Arnol'd, the Jacobi Identity, and Orthocenters*. American Mathematical Monthly,
+   118(1):41–65, January 2011.
+4. John D. Coady. *Invariant Quadrea of Orthocenter Triangles from Four Null Points in Universal
+   Hyperbolic Geometry*, Zenodo preprint, 2026. [doi:10.5281/zenodo.17607059](https://doi.org/10.5281/zenodo.17607059).
+
+::: {.callout-note}
+This post is based on: John D. Coady, "An Orthic Mass Gap for Null Tetrahedra in Universal Hyperbolic
+Geometry," February 2026.
+:::

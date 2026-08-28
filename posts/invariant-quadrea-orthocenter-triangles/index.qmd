@@ -105,6 +105,16 @@ i.e., the join of vertex $\alpha_i$ with the pole of the *opposite* side. Becaus
 
 The orthocenter of a triply nil triangle is computed purely rationally: it requires only joins, meets, and polars — three operations built entirely from the coordinates of the vertices — so it exists and is well-defined over any field $F$ of characteristic $\neq 2$, with no need for square roots, limits, or a choice of metric signature convention.
 
+## Geogebra example: Orthocenter of Nil-Triangle Construction
+
+
+<div style="text-align: center; margin: 20px 0;">
+  <a href="https://www.geogebra.org/m/chhdzsby" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
+    <img src="Orthocenter-Construction.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;" />
+    <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points A, B, C, and D to see metric calculations update.</em></p>
+  </a>
+</div>
+
 ## From Four Null Points to an Orthocentric System
 
 Now take **four** distinct null points $\alpha_1, \alpha_2, \alpha_3, \alpha_4$ on the absolute. Omitting one point at a time yields four triply nil triangles, and hence four orthocenters:
