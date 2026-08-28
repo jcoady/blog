@@ -7,21 +7,23 @@
     ]
   },
   {
-    "listing": "/math.html",
-    "items": [
-      "/posts/quadrea-projective-quadrangle/index.html",
-      "/posts/projective-trigonometry-tetrahedron/index.html",
-      "/posts/projective-quadrume/index.html",
-      "/posts/koide-relativistic-archimedes/index.html"
-    ]
-  },
-  {
     "listing": "/index.html",
     "items": [
       "/posts/quadrea-projective-quadrangle/index.html",
       "/posts/no-infinities-allowed/index.html",
       "/posts/projective-trigonometry-tetrahedron/index.html",
       "/posts/projective-quadrume/index.html",
+      "/posts/invariant-quadrea-orthocenter-triangles/index.html",
+      "/posts/koide-relativistic-archimedes/index.html"
+    ]
+  },
+  {
+    "listing": "/math.html",
+    "items": [
+      "/posts/quadrea-projective-quadrangle/index.html",
+      "/posts/projective-trigonometry-tetrahedron/index.html",
+      "/posts/projective-quadrume/index.html",
+      "/posts/invariant-quadrea-orthocenter-triangles/index.html",
       "/posts/koide-relativistic-archimedes/index.html"
     ]
   }
