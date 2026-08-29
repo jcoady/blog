@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="John D. Coady">
+<meta name="dcterms.date" content="2026-08-29">
+
+<title>From Galois Field Geometry to the Ghost-Parity Continuum – John Coady’s Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-fe7872a82928c9cb84149cb81cc2feaf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">John Coady’s Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">All Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../math.html"> 
+<span class="menu-text">Pure Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics.html"> 
+<span class="menu-text">Math Physics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0009-0008-6020-5733"> 
+<span class="menu-text"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID iD" style="height:20px; width:20px; vertical-align:-3px;"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://x.com/johndavidcoady"> <i class="bi bi-twitter-x" role="img" aria-label="X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jcoady"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">From Galois Field Geometry to the Ghost-Parity Continuum</h1>
+            <p class="subtitle lead">Bridging Finite Projective Geometry to Continuous QFTs via Non-Standard Analysis</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Quantum Field Theory</div>
+                <div class="quarto-category">Non-Standard Analysis</div>
+                <div class="quarto-category">Galois Fields</div>
+                <div class="quarto-category">Krein Space</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>John D. Coady </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">August 29, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-overview" id="toc-executive-overview" class="nav-link active" data-scroll-target="#executive-overview">Executive Overview</a></li>
+  <li><a href="#the-discrete-core-finitist-uhg" id="toc-the-discrete-core-finitist-uhg" class="nav-link" data-scroll-target="#the-discrete-core-finitist-uhg">The Discrete Core: Finitist UHG</a></li>
+  <li><a href="#the-set-theoretic-section-map-getting-to-mathbbc-without-cheating" id="toc-the-set-theoretic-section-map-getting-to-mathbbc-without-cheating" class="nav-link" data-scroll-target="#the-set-theoretic-section-map-getting-to-mathbbc-without-cheating">The Set-Theoretic Section Map: Getting to <span class="math inline">\(\mathbb{C}\)</span> Without Cheating</a></li>
+  <li><a href="#the-ultraproduct-bridge" id="toc-the-ultraproduct-bridge" class="nav-link" data-scroll-target="#the-ultraproduct-bridge">The Ultraproduct Bridge</a></li>
+  <li><a href="#the-open-continuum-limit-physical-hedging" id="toc-the-open-continuum-limit-physical-hedging" class="nav-link" data-scroll-target="#the-open-continuum-limit-physical-hedging">The Open Continuum Limit &amp; Physical Hedging</a></li>
+  <li><a href="#epistemic-resolution-two-legitimate-non-contradictory-pictures" id="toc-epistemic-resolution-two-legitimate-non-contradictory-pictures" class="nav-link" data-scroll-target="#epistemic-resolution-two-legitimate-non-contradictory-pictures">Epistemic Resolution: Two Legitimate, Non-Contradictory Pictures</a></li>
+  <li><a href="#wrapping-up" id="toc-wrapping-up" class="nav-link" data-scroll-target="#wrapping-up">Wrapping Up</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="executive-overview" class="level2">
+<h2 class="anchored" data-anchor-id="executive-overview">Executive Overview</h2>
+<p>Higher-derivative quantum field theories have a well-earned reputation for pathology. Ostrogradsky’s theorem tells you that a generic higher-derivative Lagrangian yields a Hamiltonian unbounded below, and the usual fix — quantizing on a Hilbert space — makes that instability look fatal. Bateman and Turok’s recent work on “hidden ghost parity” <span class="citation" data-cites="batemanturok2026">[-@batemanturok2026]</span> showed a genuine way out: quantize on an <em>indefinite</em> Krein space instead, protected by a discrete <span class="math inline">\(\mathbb{Z}_2\)</span> grading operator <span class="math inline">\(\kappa\)</span> that commutes with the Hamiltonian and keeps “physical” and “ghost” sectors from talking to each other. It’s an elegant continuum-QFT result. It is also, unavoidably, a continuum-QFT result — built on Fock spaces, functional measures, and all the usual infinite-dimensional machinery that makes renormalization and UV control hard in the first place.</p>
+<p>A separate, more radical response to the same broad category of problem is to ask whether the infinities are optional. A finitist research program — worked out in a companion sequence of preprints <span class="citation" data-cites="coady2026ghostparity coady2026threeone coady2026exact">[@coady2026ghostparity; @coady2026threeone; @coady2026exact]</span> — builds an entirely finite analogue of this ghost-parity structure directly out of Universal Hyperbolic Geometry over finite projective spaces <span class="math inline">\(\mathbb{P}^2(\mathbb{F}_p)\)</span> and <span class="math inline">\(\mathbb{P}^3(\mathbb{F}_p)\)</span>. At any fixed prime <span class="math inline">\(p\)</span>, the resulting quantum-like system is exact, closed, and provably free of UV divergence, because there is no continuum for anything to diverge <em>into</em>. The catch, acknowledged explicitly in that companion work, is that nothing in the finite construction tells you how — or whether — it connects back to the continuous Krein-space QFTs that motivated the analogy in the first place. This post works through a paper that takes that open question seriously: an explicit, non-constructive <strong>ultraproduct bridge</strong> connecting the two pictures, built with the tools of model theory rather than analysis, and honest about exactly how much of the bridge is proven versus conjectural.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Published paper
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The full paper this post is based on — <em>From Galois Field Geometry to the Ghost-Parity Continuum: An Ultraproduct Construction for Indefinite Krein Space QFTs</em> — is published on Zenodo: <strong><a href="https://doi.org/10.5281/zenodo.22166014">https://doi.org/10.5281/zenodo.22166014</a></strong></p>
+</div>
+</div>
+</section>
+<section id="the-discrete-core-finitist-uhg" class="level2">
+<h2 class="anchored" data-anchor-id="the-discrete-core-finitist-uhg">The Discrete Core: Finitist UHG</h2>
+<p>The starting point is Wildberger’s Universal Hyperbolic Geometry (UHG) <span class="citation" data-cites="wildberger2013">[-@wildberger2013]</span>, a purely algebraic reformulation of hyperbolic geometry that replaces transcendental trigonometric functions with rational invariants — <em>quadrance</em> between points, <em>spread</em> between lines — defined over an arbitrary field. Because UHG never needs <span class="math inline">\(\sin\)</span>, <span class="math inline">\(\cosh\)</span>, or a completed real number line to get off the ground, it works exactly the same way over a finite field <span class="math inline">\(\mathbb{F}_p\)</span> as it does over <span class="math inline">\(\mathbb{Q}\)</span> or <span class="math inline">\(\mathbb{R}\)</span>.</p>
+<p>The companion papers build a quantum-flavored structure on top of this geometry, restricted to primes <span class="math inline">\(p \equiv 3 \pmod 4\)</span>:</p>
+<ul>
+<li><strong>State space.</strong> Quantum states are equivalence classes of <em>Cyclic Oriented Polygonal Splines</em> (COPS) — oriented triangles in <span class="math inline">\(\mathbb{P}^2(\mathbb{F}_p)\)</span>, or tetrahedra in <span class="math inline">\(\mathbb{P}^3(\mathbb{F}_p)\)</span> — living in a <span class="math inline">\(D(p)\)</span>-dimensional space over the quadratic extension <span class="math inline">\(\mathbb{F}_p[\delta] \cong \mathbb{F}_{p^2}\)</span>, where <span class="math inline">\(\delta^2 = -1\)</span>.</li>
+<li><strong>Ghost parity.</strong> A diagonal metric-sign operator <span class="math inline">\(G_p\)</span>, with <span class="math inline">\(\pm 1\)</span> eigenvalues given by the product of Legendre symbols of vertex quadrances, plays the role of Bateman–Turok’s <span class="math inline">\(\kappa\)</span>.</li>
+<li><strong>Evolution.</strong> A rational <strong>Cayley propagator</strong> <span class="math display">\[
+U_p = (I - \delta H_p)(I + \delta H_p)^{-1}
+\]</span> stands in for <span class="math inline">\(e^{-iHt}\)</span> — which doesn’t exist over a finite field, since there’s no convergent power series to define it. The Cayley transform needs nothing but a matrix inverse.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why finitism kills UV divergence outright
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>At fixed <span class="math inline">\(p\)</span>, <span class="math inline">\(D(p)\)</span> is a specific finite integer, <span class="math inline">\(H_p\)</span> and <span class="math inline">\(G_p\)</span> are specific finite matrices, and every “transition amplitude” is a finite sum of elements of a finite field. There is no infinite-dimensional Hilbert space to regularize, no loop integral to diverge, and no measure to be ill-defined. Divergence isn’t tamed here — it’s structurally impossible.</p>
+</div>
+</div>
+<p>Given that <span class="math inline">\(H_p\)</span> is symmetric and commutes with <span class="math inline">\(G_p\)</span>, the companion papers prove — by short, purely algebraic arguments — that <span class="math inline">\(U_p\)</span> is exactly Galois-Hermitian unitary (<span class="math inline">\(U_p^\dagger U_p = I\)</span>), exactly Krein-isometric (<span class="math inline">\(U_p^\dagger G_p U_p = G_p\)</span>), and exactly parity-decoupling (<span class="math inline">\(\langle\gamma_-|U_p|\gamma_+\rangle = 0\)</span>). All three hold with no approximation, for every admissible coupling <span class="math inline">\(g\)</span>, at every fixed <span class="math inline">\(p\)</span>. That’s the entire content of the “strict finitist” picture, and it’s genuinely complete on its own terms.</p>
+</section>
+<section id="the-set-theoretic-section-map-getting-to-mathbbc-without-cheating" class="level2">
+<h2 class="anchored" data-anchor-id="the-set-theoretic-section-map-getting-to-mathbbc-without-cheating">The Set-Theoretic Section Map: Getting to <span class="math inline">\(\mathbb{C}\)</span> Without Cheating</h2>
+<p>The obstacle to going further is immediate: <span class="math inline">\(\mathbb{F}_p\)</span> has characteristic <span class="math inline">\(p\)</span>, and <span class="math inline">\(\mathbb{C}\)</span> has characteristic <span class="math inline">\(0\)</span>. <strong>There is no ring homomorphism from <span class="math inline">\(\mathbb{F}_p\)</span> into <span class="math inline">\(\mathbb{C}\)</span></strong> — any such map would have to send <span class="math inline">\(p \cdot 1_{\mathbb{F}_p} = 0\)</span> to <span class="math inline">\(p \cdot 1_{\mathbb{C}} \neq 0\)</span>, which is a contradiction. So “just embed the finite structure into the complex numbers” is not, strictly speaking, a coherent instruction. Something else has to be done, and it has to be named honestly.</p>
+<p>The paper’s resolution is a <strong>symmetric residue section</strong> <span class="math display">\[
+\pi_p : \mathbb{F}_p \to \left[-\tfrac{p-1}{2}, \tfrac{p-1}{2}\right] \subset \mathbb{Z} \subset \mathbb{R},
+\]</span> which sends each residue class to its representative integer nearest zero, extended entrywise to matrices. This is explicitly <em>not</em> a ring homomorphism — <span class="math inline">\(\pi_p(a) + \pi_p(b)\)</span> need not equal <span class="math inline">\(\pi_p(a+b)\)</span> in general — and the paper is careful to say so rather than dressing it up as an “embedding.”</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why this doesn’t wreck everything
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A non-homomorphic section can’t be trusted to preserve algebraic identities in general — you have to check each one by hand. It turns out the three identities that matter <em>do</em> survive, but for a specific structural reason, not because <span class="math inline">\(\pi_p\)</span> is secretly well-behaved:</p>
+<ul>
+<li><strong>Unitarity</strong> survives because <span class="math inline">\(\tilde H_p := \pi_p(H_p)\)</span> is real symmetric by construction, and the Cayley transform of <em>any</em> real symmetric matrix is unitary — a fact about linear algebra over <span class="math inline">\(\mathbb{R}\)</span>, with no dependence on <span class="math inline">\(\pi_p\)</span>’s arithmetic behavior at all.</li>
+<li><strong>Ghost-parity commutation</strong> survives because <span class="math inline">\([H_p, G_p] = 0 \pmod p\)</span> forces every cross-sector entry of <span class="math inline">\(H_p\)</span> to be the <em>exact residue class</em> <span class="math inline">\(0\)</span> (using that <span class="math inline">\(2\)</span> is invertible mod the odd prime <span class="math inline">\(p\)</span>) — and <span class="math inline">\(\pi_p(0) = 0\)</span> exactly, as an integer, not merely “small.” The lift <span class="math inline">\(\tilde H_p\)</span> is therefore <em>exactly</em> block-diagonal, with true zero off-block entries, not approximately.</li>
+<li><strong>Krein isometry</strong> then follows trivially from the first two.</li>
+</ul>
+<p>The lesson: this lifting procedure is not a general-purpose tool for moving mod-<span class="math inline">\(p\)</span> algebra into <span class="math inline">\(\mathbb{C}\)</span>. It happens to work for these three specific identities because of the particular arithmetic of a <span class="math inline">\(\pm1\)</span>-graded commutator condition.</p>
+</div>
+</div>
+<p>A further point worth flagging explicitly: the real coupling <span class="math inline">\(g_p \in \mathbb{R}^+\)</span> that appears in the lifted Hamiltonian <span class="math inline">\(\tilde H_p = -\tilde A_p + g_p \tilde W_p\)</span> is introduced <em>fresh</em>, during the lifting step — it is not a residue-mapped version of the discrete framework’s own coupling <span class="math inline">\(g \in \mathbb{F}_p\)</span>. This decouples the continuum construction from the finite-field admissibility conditions (the “exceptional coupling” bounds) proven in the companion papers, and lets <span class="math inline">\(g_p\)</span> instead be tuned for analytic convenience on the complex side.</p>
+</section>
+<section id="the-ultraproduct-bridge" class="level2">
+<h2 class="anchored" data-anchor-id="the-ultraproduct-bridge">The Ultraproduct Bridge</h2>
+<p>With a legitimate complexified sequence <span class="math inline">\(\{(\tilde H_p, \tilde G_p, \tilde U_p)\}_{p \in \mathcal{P}}\)</span> in hand, indexed by <span class="math inline">\(\mathcal{P} = \{p \text{ prime} : p \equiv 3 \pmod 4\}\)</span>, the paper invokes the classical machinery of ultraproducts.</p>
+<p><strong>A non-principal ultrafilter</strong> <span class="math inline">\(\mathcal{U}\)</span> on <span class="math inline">\(\mathcal{P}\)</span> is a <span class="math inline">\(\{0,1\}\)</span>-valued finitely-additive “measure” on subsets of <span class="math inline">\(\mathcal{P}\)</span> that assigns every cofinite set measure 1 and every finite set measure 0 — its existence for an infinite index set requires the Axiom of Choice, and this is a genuine, acknowledged departure from constructivism.</p>
+<p>Quotienting the product <span class="math inline">\(\prod_{p \in \mathcal{P}} \mathbb{C}\)</span> by the equivalence “agrees on a <span class="math inline">\(\mathcal{U}\)</span>-large set of coordinates” produces the <strong>non-standard complex field</strong> <span class="math display">\[
+{}^*\mathbb{C} \equiv \left(\prod_{p \in \mathcal{P}} \mathbb{C}\right)\Big/\mathcal{U},
+\]</span> and similarly a <strong>hyperfinite Krein space</strong> <span class="math inline">\({}^*\mathcal{K} \equiv \left(\prod_p \mathbb{C}^{D(p)}\right)/\mathcal{U}\)</span>. Because <span class="math inline">\(\mathbb{C}\)</span> (via <span class="math inline">\(\mathbb{R}\)</span>) carries a genuine order and norm, so does its ultrapower — which is precisely what lets a <strong>standard part map</strong> <span class="math display">\[
+\text{st} : {}^*\mathbb{C}_{\text{fin}} \to \mathbb{C}
+\]</span> be defined: every <em>finite</em> hyperreal (bounded by some ordinary real <span class="math inline">\(M\)</span>) is infinitely close to a unique ordinary complex number, and <span class="math inline">\(\text{st}\)</span> extracts it. This is the step that fails outright if you try to run the construction directly over the <em>finite</em> fields <span class="math inline">\(\mathbb{F}_p[\delta]\)</span> — they carry no order at all, so “finite,” “infinitesimal,” and “nearest point” are simply undefined there. Complexifying first via <span class="math inline">\(\pi_p\)</span> is what makes a standard part map possible in the first place.</p>
+<p><strong>Łoś’ Theorem</strong> is the engine that carries algebra across the ultraproduct: a first-order sentence holds in <span class="math inline">\({}^*\mathcal{K}\)</span> if and only if it holds for <span class="math inline">\(\mathcal{U}\)</span>-almost-all <span class="math inline">\(p\)</span>. Since unitarity, commutation, and Krein isometry are dimension-independent equational sentences — true for literally every <span class="math inline">\(p \in \mathcal{P}\)</span> — they transfer intact:</p>
+<p><span class="math display">\[
+\hat U^\dagger \hat U = I, \qquad [\hat U, \hat G] = 0, \qquad \hat U^\dagger \hat G \hat U = \hat G,
+\]</span></p>
+<p>where <span class="math inline">\(\hat U = [(\tilde U_p)]_{\mathcal U}\)</span> and <span class="math inline">\(\hat G = [(\tilde G_p)]_{\mathcal U}\)</span>. The multi-step transition amplitude also transfers, not as a naive limit of finite sums but as a genuine <strong>internal hyperfinite sum</strong>, <span class="math display">\[
+\langle \gamma_f|\hat U^t|\gamma_i\rangle = \sum_{\gamma_1,\ldots,\gamma_{t-1}=1}^{D_\omega} \prod_{j=1}^t \langle \gamma_j|\hat U|\gamma_{j-1}\rangle,
+\]</span> bounded by the hyperfinite integer <span class="math inline">\(D_\omega = [(D(p))]_{\mathcal U} \in {}^*\mathbb{N}\setminus\mathbb{N}\)</span> — an “infinite” integer in the nonstandard sense, but one for which the sum is still, internally, a finite sum, by transfer of the ordinary finite resolution-of-identity argument that holds at every actual <span class="math inline">\(p\)</span>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Finite Geometry (<span class="math inline">\(\mathbb{F}_p\)</span>)</th>
+<th>Ultraproduct Continuum (<span class="math inline">\({}^*\mathcal{K}\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Scalars</td>
+<td><span class="math inline">\(\mathbb{F}_p[\delta]\)</span>, unordered, characteristic <span class="math inline">\(p\)</span></td>
+<td><span class="math inline">\({}^*\mathbb{C}\)</span>, ordered via <span class="math inline">\(\mathbb{R}\)</span>-components</td>
+</tr>
+<tr class="even">
+<td>“Unitarity” meaning</td>
+<td>Purely algebraic: <span class="math inline">\(U_p^\dagger U_p = I\)</span></td>
+<td>Same algebraic identity, transferred exactly</td>
+</tr>
+<tr class="odd">
+<td>Path sum</td>
+<td>Finite sum over <span class="math inline">\(D(p)\)</span> intermediate states</td>
+<td>Internal hyperfinite sum over <span class="math inline">\(D_\omega \in {}^*\mathbb{N}\setminus\mathbb{N}\)</span></td>
+</tr>
+<tr class="even">
+<td>Divergence risk</td>
+<td>Structurally impossible</td>
+<td>Structurally impossible (still a finite/hyperfinite sum)</td>
+</tr>
+<tr class="odd">
+<td>Construction method</td>
+<td>Fully constructive</td>
+<td>Non-constructive (Axiom of Choice, via <span class="math inline">\(\mathcal U\)</span>)</td>
+</tr>
+<tr class="even">
+<td>Connection to continuum QFT</td>
+<td>None claimed</td>
+<td>Conditional, via <code>st</code> — see below</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-open-continuum-limit-physical-hedging" class="level2">
+<h2 class="anchored" data-anchor-id="the-open-continuum-limit-physical-hedging">The Open Continuum Limit &amp; Physical Hedging</h2>
+<p>This is where the paper is, appropriately, at its most careful — and where the real remaining work lives.</p>
+<p>Having transferred the algebra, the question is whether the transferred amplitude actually lands on anything resembling the Bateman–Turok path integral once you apply <code>st</code>. Two separate hypotheses are needed, and neither is established here.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hypothesis 1 — Finiteness
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For <span class="math inline">\(\text{st}(\langle\gamma_f|\hat U^t|\gamma_i\rangle)\)</span> to be defined at all, the amplitude has to actually lie in <span class="math inline">\({}^*\mathbb{C}_{\text{fin}}\)</span> — bounded by <em>some</em> standard real. The paper’s sufficient condition is a <strong>uniform operator-norm bound</strong>, <span class="math display">\[
+\sup_{p \in \mathcal{P}} \|\tilde H_p\|_2 \le M &lt; \infty,
+\]</span> achieved (in the one worked example given) by scaling the coupling as <span class="math inline">\(g_p = g_0/p^\alpha \to 0\)</span>. This controls <span class="math inline">\(\tilde H_p\)</span>, but it is candidly flagged as an <em>open combinatorial problem</em> whether it’s achievable at all for the actual UHG mutation-graph sequence, where the state-space dimension grows like <span class="math inline">\(D(p) \sim O(p^{12})\)</span>. Bounding <span class="math inline">\(\|\tilde H_p\|_2\)</span> requires bounding the spectral radius of the adjacency matrix <span class="math inline">\(\tilde A_p\)</span> of that graph as <span class="math inline">\(p \to \infty\)</span> — and nothing in the companion papers’ finite-<span class="math inline">\(p\)</span> combinatorics currently establishes such a bound.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hypothesis 2 — Convergence to the right limit
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Even granting finiteness, the paper’s headline map <span class="math display">\[
+\text{st}\left(\langle\gamma_f|\hat U^t|\gamma_i\rangle\right) \xrightarrow{\ \text{weak}\ } \int \mathcal D\phi\, e^{iS_{\text{BT}}[\phi]}
+\]</span> is explicitly labeled a <strong>Conjecture</strong>, conditioned on the spectral densities of <span class="math inline">\(\tilde H_p\)</span> converging weakly to a genuine continuum field operator <span class="math inline">\(H_{\text{cont}}\)</span>. No such convergence is demonstrated; the paper states the conditional cleanly and stops there.</p>
+</div>
+</div>
+<p>There’s also a subtlety worth sitting with rather than glossing over: pushing <span class="math inline">\(g_p \to 0\)</span> to satisfy Hypothesis 1 suppresses the <em>potential term</em> <span class="math inline">\(g_p \tilde W_p\)</span> relative to the adjacency term <span class="math inline">\(-\tilde A_p\)</span> — and <span class="math inline">\(\tilde W_p\)</span> is precisely where all the UHG-specific geometric content lives (Cap-map loop defects, projective quadrea, quadrume). A limit that survives only by damping the interesting term to zero risks landing on something that’s just the bare graph Laplacian of the mutation graph, stripped of the geometry the whole program is built around. The paper flags this directly rather than letting the reader assume the naive scaling is cost-free.</p>
+</section>
+<section id="epistemic-resolution-two-legitimate-non-contradictory-pictures" class="level2">
+<h2 class="anchored" data-anchor-id="epistemic-resolution-two-legitimate-non-contradictory-pictures">Epistemic Resolution: Two Legitimate, Non-Contradictory Pictures</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Strict Finitism (the core model)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The underlying UHG preprints reject actual infinities, non-constructive axioms, and continuous manifolds outright. At any fixed prime <span class="math inline">\(p\)</span>, the physics is complete, exact, and finite — full stop. Nothing in this blog post’s ultraproduct construction adds anything to, or subtracts anything from, that picture.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Model-Theoretic Continuum Bridge (this paper)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is a deliberately non-constructive tool, built for readers who want a continuum-QFT connection and are willing to accept the Axiom of Choice to get one. It establishes — rigorously — the algebraic machinery (ultrapower, Łoś transfer, a genuine standard part map) by which such a bridge <em>could</em> exist, and isolates exactly which further facts (norm boundedness, spectral convergence) would need to be proven to make the bridge to Bateman–Turok’s specific theory concrete rather than conditional.</p>
+</div>
+</div>
+<p>These two pictures don’t compete. The finite model owes nothing to the continuum bridge, and the continuum bridge doesn’t claim to have derived new physics from finite arithmetic — it claims, more modestly and more defensibly, to have built the <em>correct kind of formal apparatus</em> for such a derivation, with the open problems clearly named rather than hidden inside a plausible-sounding limit.</p>
+</section>
+<section id="wrapping-up" class="level2">
+<h2 class="anchored" data-anchor-id="wrapping-up">Wrapping Up</h2>
+<p>The interesting result here isn’t really “discrete UHG connects to Bateman–Turok QFT” — that remains open, and the paper says so. The interesting result is a template for how to even <em>ask</em> that question honestly: build the finite structure with full rigor, lift it to characteristic zero via an explicitly non-homomorphic (but individually verified) section map, take the ultraproduct, and let Łoś’ Theorem do the only work it’s actually entitled to do — transferring finitely-verified equational facts, and nothing more. Whatever happens with the norm-boundedness and spectral-convergence conjectures next, this is the right scaffolding to hang that future work on.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Paper DOI
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong><a href="https://doi.org/10.5281/zenodo.22166014">10.5281/zenodo.22166014</a></strong></p>
+</div>
+</div>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" role="list">
+
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">coady2026ultraproduct</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>       = {Coady, John D.},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {From Galois Field Geometry to the Ghost-Parity Continuum: An Ultraproduct Construction for Indefinite Krein Space QFTs},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>         = {2026},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">month</span>        = <span class="st">aug</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span>          = {10.5281/zenodo.22166014},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">howpublished</span> = {Preprint},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span>          = {https://doi.org/10.5281/zenodo.22166014}</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">batemanturok2026</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Bateman, S. and Turok, N.},</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>  = {Escape from Ostrogradsky via Hidden Ghost Parity},</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>   = {2026},</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">eprint</span> = {2607.00096},</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">archivePrefix</span> = {arXiv},</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">primaryClass</span>  = {hep-th}</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">coady2026ghostparity</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>       = {Coady, John D.},</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {A Candidate Finitist Indefinite Hermitian Model with Ghost-Parity Symmetry},</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>         = {2026},</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span>          = {10.5281/zenodo.21464405},</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="dt">howpublished</span> = {Preprint}</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">coady2026threeone</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>       = {Coady, John D.},</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {A Unified Finitist Indefinite-Hermitian Framework for 3+1D Spacetime},</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>         = {2026},</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span>          = {10.5281/zenodo.21998460},</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="dt">howpublished</span> = {Preprint}</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="va">@misc</span>{<span class="ot">coady2026exact</span>,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>       = {Coady, John D.},</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>        = {Exact Finite Path-Sum Amplitudes in a Finitist Indefinite-Hermitian Framework over Projective Spaces $<span class="ch">\mathbb</span>{P}^2(<span class="ch">\mathbb</span>{F}_p)$ and $<span class="ch">\mathbb</span>{P}^3(<span class="ch">\mathbb</span>{F}_p)$},</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>         = {2026},</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span>          = {10.5281/zenodo.22101224},</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="dt">howpublished</span> = {Preprint}</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">wildberger2013</span>,</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>  = {Wildberger, N. J.},</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>   = {Universal Hyperbolic Geometry I: Trigonometry},</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Geometriae Dedicata},</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span>  = {163},</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span>  = {1},</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span>   = {109--147},</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>    = {2013},</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="dt">eprint</span>  = {0909.1377},</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  <span class="dt">archivePrefix</span> = {arXiv}</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jcoady\.github\.io\/blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="jcoady/blog" data-repo-id="R_kgDOUEMSRA" data-category="General" data-category-id="DIC_kwDOUEMSRM4DEZKl" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-2212757b80b1df614b4b011ba39f1668.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-fe7872a82928c9cb84149cb81cc2feaf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -250,6 +250,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#from-four-null-points-to-an-orthocentric-system" id="toc-from-four-null-points-to-an-orthocentric-system" class="nav-link" data-scroll-target="#from-four-null-points-to-an-orthocentric-system">From Four Null Points to an Orthocentric System</a>
   <ul class="collapse">
+  <li><a href="#geogebra-example-invariant-quadrea-of-orthic-triangles" id="toc-geogebra-example-invariant-quadrea-of-orthic-triangles" class="nav-link" data-scroll-target="#geogebra-example-invariant-quadrea-of-orthic-triangles">Geogebra example: Invariant quadrea of orthic triangles</a></li>
   <li><a href="#the-cross-ratio-parametrization" id="toc-the-cross-ratio-parametrization" class="nav-link" data-scroll-target="#the-cross-ratio-parametrization">The cross-ratio parametrization</a></li>
   </ul></li>
   <li><a href="#main-theorem" id="toc-main-theorem" class="nav-link" data-scroll-target="#main-theorem">Main Theorem</a>
@@ -341,11 +342,10 @@ N_i \equiv \alpha_i \, L_i^{\perp},
 <section id="geogebra-example-orthocenter-of-nil-triangle-construction" class="level3">
 <h3 class="anchored" data-anchor-id="geogebra-example-orthocenter-of-nil-triangle-construction">Geogebra example: Orthocenter of Nil-Triangle Construction</h3>
 <div style="text-align: center; margin: 20px 0;">
-<a href="https://www.geogebra.org/m/chhdzsby" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model"> <img src="Orthocenter-Construction.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
-<p style="font-size: 0.9rem; color: #666; margin-top: 8px;">
-<em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points to see metric calculations update.</em>
-</p>
-</a><p><a href="https://www.geogebra.org/m/chhdzsby" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model"></a></p>
+  <a href="https://www.geogebra.org/m/chhdzsby" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
+    <img src="Orthocenter-Construction.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
+    <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points to see metric calculations update.</em></p>
+  </a>
 </div>
 </section>
 </section>
@@ -360,6 +360,16 @@ h_3 = \operatorname{orthocenter}(\alpha_1\alpha_2\alpha_4), \quad
 h_4 = \operatorname{orthocenter}(\alpha_1\alpha_2\alpha_3).
 \]</span></p>
 <p>The six lines <span class="math inline">\(\alpha_i\alpha_j\)</span> together with their polars generate this orthocentric system of four points — a nil quadrangle’s orthic configuration. The natural question is: what invariant properties does this configuration carry as the four null points vary?</p>
+<section id="geogebra-example-invariant-quadrea-of-orthic-triangles" class="level3">
+<h3 class="anchored" data-anchor-id="geogebra-example-invariant-quadrea-of-orthic-triangles">Geogebra example: Invariant quadrea of orthic triangles</h3>
+<div style="text-align: center; margin: 20px 0;">
+  <a href="https://www.geogebra.org/m/t88sk2qp" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
+    <img src="Orthic-Quadrangle.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
+    <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points to see metric calculations update.</em></p>
+  </a>
+</div>
+
+</section>
 <section id="the-cross-ratio-parametrization" class="level3">
 <h3 class="anchored" data-anchor-id="the-cross-ratio-parametrization">The cross-ratio parametrization</h3>
 <p>To study this question systematically, we fix three of the null points using the affine parametrization <span class="math inline">\(\alpha(t)\)</span> from above, and let the fourth vary. Concretely, set <span class="math display">\[
@@ -419,7 +429,7 @@ Q(h_3) = 192\lambda^4(-\lambda^4-4\lambda^3-6\lambda^2-4\lambda-1).
 <section id="computational-verification" class="level2">
 <h2 class="anchored" data-anchor-id="computational-verification">Computational Verification</h2>
 <p>The algebra above is intricate enough that an independent symbolic check is worthwhile. The following SymPy script implements the join, meet, polar, and orthocenter operations directly from their defining formulas, builds the four null points with a symbolic parameter <code>lam</code>, computes the three orthocenters, and evaluates the quadrea both via the determinant formula and via the alternative product form <span class="math inline">\(q(h_1,h_2)\,q(h_1,h_3)\,S(h_1h_2, h_1h_3)\)</span>.</p>
-<div id="c5c1f078" class="cell" data-execution_count="1">
+<div id="18965f0a" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
