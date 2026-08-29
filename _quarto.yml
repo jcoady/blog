@@ -27,7 +27,8 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: flatly
+    title-block-banner: true
     css: styles.css
     toc: true
 

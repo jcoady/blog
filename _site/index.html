@@ -40,7 +40,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2212757b80b1df614b4b011ba39f1668.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fe7872a82928c9cb84149cb81cc2feaf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,9 +78,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -209,7 +209,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div><div class="category" data-category="YWxnZWJyYQ==">algebra <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGlzY3JldGUtbWF0aGVtYXRpY3M=">discrete-mathematics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZmluaXRlLWZpZWxkcw==">finite-fields <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aW52YXJpYW50LXRoZW9yeQ==">invariant-theory <span class="quarto-category-count">(2)</span></div><div class="category" data-category="a29pZGUtZm9ybXVsYQ==">koide-formula <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWF0aGVtYXRpY2FsLXBoeXNpY3M=">mathematical-physics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGFydGljbGUtcGh5c2ljcw==">particle-physics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHJvamVjdGl2ZS1nZW9tZXRyeQ==">projective-geometry <span class="quarto-category-count">(5)</span></div><div class="category" data-category="cHVyZS1tYXRo">pure-math <span class="quarto-category-count">(3)</span></div><div class="category" data-category="cXVhZHJlYQ==">quadrea <span class="quarto-category-count">(3)</span></div><div class="category" data-category="cXVhZHJ1bWU=">quadrume <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cXVhbnR1bS1ncmF2aXR5">quantum-gravity <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmF0aW9uYWwtdHJpZ29ub21ldHJ5">rational-trigonometry <span class="quarto-category-count">(3)</span></div><div class="category" data-category="dW5pdmVyc2FsLWh5cGVyYm9saWMtZ2VvbWV0cnk=">universal-hyperbolic-geometry <span class="quarto-category-count">(6)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(9)</span></div><div class="category" data-category="R2Fsb2lzJTIwRmllbGRz">Galois Fields <span class="quarto-category-count">(2)</span></div><div class="category" data-category="S3JlaW4lMjBTcGFjZQ==">Krein Space <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Tm9uLVN0YW5kYXJkJTIwQW5hbHlzaXM=">Non-Standard Analysis <span class="quarto-category-count">(2)</span></div><div class="category" data-category="UXVhbnR1bSUyMEZpZWxkJTIwVGhlb3J5">Quantum Field Theory <span class="quarto-category-count">(2)</span></div><div class="category" data-category="YWxnZWJyYQ==">algebra <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGlzY3JldGUtbWF0aGVtYXRpY3M=">discrete-mathematics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZmluaXRlLWZpZWxkcw==">finite-fields <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aW52YXJpYW50LXRoZW9yeQ==">invariant-theory <span class="quarto-category-count">(2)</span></div><div class="category" data-category="a29pZGUtZm9ybXVsYQ==">koide-formula <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWF0aGVtYXRpY2FsLXBoeXNpY3M=">mathematical-physics <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cGFydGljbGUtcGh5c2ljcw==">particle-physics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHJvamVjdGl2ZS1nZW9tZXRyeQ==">projective-geometry <span class="quarto-category-count">(5)</span></div><div class="category" data-category="cHVyZS1tYXRo">pure-math <span class="quarto-category-count">(3)</span></div><div class="category" data-category="cXVhZHJlYQ==">quadrea <span class="quarto-category-count">(3)</span></div><div class="category" data-category="cXVhZHJ1bWU=">quadrume <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cXVhbnR1bS1ncmF2aXR5">quantum-gravity <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmF0aW9uYWwtdHJpZ29ub21ldHJ5">rational-trigonometry <span class="quarto-category-count">(3)</span></div><div class="category" data-category="dW5pdmVyc2FsLWh5cGVyYm9saWMtZ2VvbWV0cnk=">universal-hyperbolic-geometry <span class="quarto-category-count">(6)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -223,7 +223,94 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="cHVyZS1tYXRoJTJDdW5pdmVyc2FsLWh5cGVyYm9saWMtZ2VvbWV0cnklMkNwcm9qZWN0aXZlLWdlb21ldHJ5JTJDcXVhZHJlYQ==" data-listing-date-sort="1787616000000" data-listing-file-modified-sort="1787857683847" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1997">
+<div class="quarto-post image-right" data-index="0" data-categories="bWF0aGVtYXRpY2FsLXBoeXNpY3MlMkNRdWFudHVtJTIwRmllbGQlMjBUaGVvcnklMkNOb24tU3RhbmRhcmQlMjBBbmFseXNpcyUyQ0dhbG9pcyUyMEZpZWxkcyUyQ0tyZWluJTIwU3BhY2U=" data-listing-date-sort="1787961600000" data-listing-file-modified-sort="1788038706253" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2549">
+<div class="thumbnail">
+<p><a href="./posts/from-galois-to-ghost-parity/index.html" class="no-external"></a></p><a href="./posts/from-galois-to-ghost-parity/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="./posts/from-galois-to-ghost-parity/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/from-galois-to-ghost-parity/index.html" class="no-external">From Galois Field Geometry to the Ghost-Parity Continuum</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/from-galois-to-ghost-parity/index.html" class="no-external">Bridging Finite Projective Geometry to Continuous QFTs via Non-Standard Analysis</a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('bWF0aGVtYXRpY2FsLXBoeXNpY3M='); return false;">
+mathematical-physics
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('UXVhbnR1bSUyMEZpZWxkJTIwVGhlb3J5'); return false;">
+Quantum Field Theory
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Tm9uLVN0YW5kYXJkJTIwQW5hbHlzaXM='); return false;">
+Non-Standard Analysis
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('R2Fsb2lzJTIwRmllbGRz'); return false;">
+Galois Fields
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('S3JlaW4lMjBTcGFjZQ=='); return false;">
+Krein Space
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/from-galois-to-ghost-parity/index.html" class="no-external">Higher-derivative quantum field theories have a well-earned reputation for pathology. Ostrogradsky’s theorem tells you that a generic higher-derivative Lagrangian yields a…<span class="citation" data-cites="batemanturok2026"></span><em></em><span class="math inline"></span><span class="math inline"></span></a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/from-galois-to-ghost-parity/index.html" class="no-external">
+<div class="listing-date">
+Aug 29, 2026
+</div>
+<div class="listing-author">
+John D. Coady
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="UXVhbnR1bSUyMEZpZWxkJTIwVGhlb3J5JTJDTm9uLVN0YW5kYXJkJTIwQW5hbHlzaXMlMkNHYWxvaXMlMjBGaWVsZHMlMkNLcmVpbiUyMFNwYWNl" data-listing-date-sort="1787961600000" data-listing-file-modified-sort="1788038357738" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2581">
+<div class="thumbnail">
+<p><a href="./posts/from-galois-to-ghost-parity/new.html" class="no-external"></a></p><a href="./posts/from-galois-to-ghost-parity/new.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="./posts/from-galois-to-ghost-parity/new.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/from-galois-to-ghost-parity/new.html" class="no-external">From Galois Field Geometry to the Ghost-Parity Continuum</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/from-galois-to-ghost-parity/new.html" class="no-external">Bridging Finite Projective Geometry to Continuous QFTs via Non-Standard Analysis</a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('UXVhbnR1bSUyMEZpZWxkJTIwVGhlb3J5'); return false;">
+Quantum Field Theory
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Tm9uLVN0YW5kYXJkJTIwQW5hbHlzaXM='); return false;">
+Non-Standard Analysis
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('R2Fsb2lzJTIwRmllbGRz'); return false;">
+Galois Fields
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('S3JlaW4lMjBTcGFjZQ=='); return false;">
+Krein Space
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/from-galois-to-ghost-parity/new.html" class="no-external">Higher-derivative quantum field theories have a well-earned reputation for pathology. Ostrogradsky’s theorem tells you that a generic higher-derivative Lagrangian yields a…<span class="citation" data-cites="batemanturok2026"></span><em></em><span class="math inline"></span><span class="math inline"></span></a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/from-galois-to-ghost-parity/new.html" class="no-external">
+<div class="listing-date">
+Aug 29, 2026
+</div>
+<div class="listing-author">
+John D. Coady
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="cHVyZS1tYXRoJTJDdW5pdmVyc2FsLWh5cGVyYm9saWMtZ2VvbWV0cnklMkNwcm9qZWN0aXZlLWdlb21ldHJ5JTJDcXVhZHJlYQ==" data-listing-date-sort="1787616000000" data-listing-file-modified-sort="1787857683847" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1997">
 <div class="thumbnail">
 <p><a href="./posts/quadrea-projective-quadrangle/index.html" class="no-external"></a></p><a href="./posts/quadrea-projective-quadrangle/index.html" class="no-external">
 <p class="card-img-top"><img src="posts/quadrea-projective-quadrangle/QuadreaOfProjectiveQuadrangle.png" alt="Quadrea of Projective Quadrangle 3D Model"  class="thumbnail-image card-img"/></p>
@@ -265,7 +352,7 @@ John D. Coady
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="bWF0aGVtYXRpY2FsLXBoeXNpY3MlMkNmaW5pdGUtZmllbGRzJTJDcXVhbnR1bS1ncmF2aXR5JTJDYWxnZWJyYSUyQ2Rpc2NyZXRlLW1hdGhlbWF0aWNz" data-listing-date-sort="1787616000000" data-listing-file-modified-sort="1787767280117" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18" data-listing-word-count-sort="3592">
+<div class="quarto-post image-right" data-index="3" data-categories="bWF0aGVtYXRpY2FsLXBoeXNpY3MlMkNmaW5pdGUtZmllbGRzJTJDcXVhbnR1bS1ncmF2aXR5JTJDYWxnZWJyYSUyQ2Rpc2NyZXRlLW1hdGhlbWF0aWNz" data-listing-date-sort="1787616000000" data-listing-file-modified-sort="1787767280117" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18" data-listing-word-count-sort="3592">
 <div class="thumbnail">
 <p><a href="./posts/no-infinities-allowed/index.html" class="no-external"></a></p><a href="./posts/no-infinities-allowed/index.html" class="no-external">
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -310,7 +397,7 @@ John D. Coady
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="cHVyZS1tYXRoJTJDdW5pdmVyc2FsLWh5cGVyYm9saWMtZ2VvbWV0cnklMkNwcm9qZWN0aXZlLWdlb21ldHJ5JTJDcXVhZHJlYQ==" data-listing-date-sort="1784937600000" data-listing-file-modified-sort="1787868115918" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2747">
+<div class="quarto-post image-right" data-index="4" data-categories="cHVyZS1tYXRoJTJDdW5pdmVyc2FsLWh5cGVyYm9saWMtZ2VvbWV0cnklMkNwcm9qZWN0aXZlLWdlb21ldHJ5JTJDcXVhZHJlYQ==" data-listing-date-sort="1784937600000" data-listing-file-modified-sort="1787868115918" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14" data-listing-word-count-sort="2747">
 <div class="thumbnail">
 <p><a href="./posts/projective-trigonometry-tetrahedron/index.html" class="no-external"></a></p><a href="./posts/projective-trigonometry-tetrahedron/index.html" class="no-external">
 <p class="card-img-top"><img src="posts/projective-trigonometry-tetrahedron/ProjectiveTetrahedronP3-UHG.png" alt="Quadrea of Projective Quadrangle 3D Model"  class="thumbnail-image card-img"/></p>
@@ -352,7 +439,7 @@ John D. Coady
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="cHVyZS1tYXRoJTJDdW5pdmVyc2FsLWh5cGVyYm9saWMtZ2VvbWV0cnklMkNwcm9qZWN0aXZlLWdlb21ldHJ5JTJDcXVhZHJlYSUyQ3F1YWRydW1l" data-listing-date-sort="1784851200000" data-listing-file-modified-sort="1787860307519" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2253">
+<div class="quarto-post image-right" data-index="5" data-categories="cHVyZS1tYXRoJTJDdW5pdmVyc2FsLWh5cGVyYm9saWMtZ2VvbWV0cnklMkNwcm9qZWN0aXZlLWdlb21ldHJ5JTJDcXVhZHJlYSUyQ3F1YWRydW1l" data-listing-date-sort="1784851200000" data-listing-file-modified-sort="1787860307519" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2253">
 <div class="thumbnail">
 <p><a href="./posts/projective-quadrume/index.html" class="no-external"></a></p><a href="./posts/projective-quadrume/index.html" class="no-external">
 <p class="card-img-top"><img src="posts/projective-quadrume/ProjectiveTetrahedronP3-UHG.png" alt="Quadrea of Projective Quadrangle 3D Model"  class="thumbnail-image card-img"/></p>
@@ -397,7 +484,7 @@ Math Blog
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="dW5pdmVyc2FsLWh5cGVyYm9saWMtZ2VvbWV0cnklMkNyYXRpb25hbC10cmlnb25vbWV0cnklMkNwcm9qZWN0aXZlLWdlb21ldHJ5JTJDaW52YXJpYW50LXRoZW9yeQ==" data-listing-date-sort="1770163200000" data-listing-file-modified-sort="1787944611819" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2404">
+<div class="quarto-post image-right" data-index="6" data-categories="dW5pdmVyc2FsLWh5cGVyYm9saWMtZ2VvbWV0cnklMkNyYXRpb25hbC10cmlnb25vbWV0cnklMkNwcm9qZWN0aXZlLWdlb21ldHJ5JTJDaW52YXJpYW50LXRoZW9yeQ==" data-listing-date-sort="1770163200000" data-listing-file-modified-sort="1787944611819" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2404">
 <div class="thumbnail">
 <p><a href="./posts/orthic-mass-gap-null-tetrahedra/index.html" class="no-external"></a></p><a href="./posts/orthic-mass-gap-null-tetrahedra/index.html" class="no-external">
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -439,7 +526,7 @@ John D. Coady
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="dW5pdmVyc2FsLWh5cGVyYm9saWMtZ2VvbWV0cnklMkNyYXRpb25hbC10cmlnb25vbWV0cnklMkNwcm9qZWN0aXZlLWdlb21ldHJ5JTJDaW52YXJpYW50LXRoZW9yeQ==" data-listing-date-sort="1769990400000" data-listing-file-modified-sort="1787959828331" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15" data-listing-word-count-sort="2925">
+<div class="quarto-post image-right" data-index="7" data-categories="dW5pdmVyc2FsLWh5cGVyYm9saWMtZ2VvbWV0cnklMkNyYXRpb25hbC10cmlnb25vbWV0cnklMkNwcm9qZWN0aXZlLWdlb21ldHJ5JTJDaW52YXJpYW50LXRoZW9yeQ==" data-listing-date-sort="1769990400000" data-listing-file-modified-sort="1788037205732" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15" data-listing-word-count-sort="2925">
 <div class="thumbnail">
 <p><a href="./posts/invariant-quadrea-orthocenter-triangles/index.html" class="no-external"></a></p><a href="./posts/invariant-quadrea-orthocenter-triangles/index.html" class="no-external">
 <p class="card-img-top"><img src="posts/invariant-quadrea-orthocenter-triangles/Orthocenter-Construction.png" alt="Quadrea of Projective Quadrangle 3D Model"  class="thumbnail-image card-img"/></p>
@@ -481,7 +568,7 @@ John D. Coady
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="cGFydGljbGUtcGh5c2ljcyUyQ3JhdGlvbmFsLXRyaWdvbm9tZXRyeSUyQ3VuaXZlcnNhbC1oeXBlcmJvbGljLWdlb21ldHJ5JTJDa29pZGUtZm9ybXVsYQ==" data-listing-date-sort="1761091200000" data-listing-file-modified-sort="1787872285578" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1933">
+<div class="quarto-post image-right" data-index="8" data-categories="cGFydGljbGUtcGh5c2ljcyUyQ3JhdGlvbmFsLXRyaWdvbm9tZXRyeSUyQ3VuaXZlcnNhbC1oeXBlcmJvbGljLWdlb21ldHJ5JTJDa29pZGUtZm9ybXVsYQ==" data-listing-date-sort="1761091200000" data-listing-file-modified-sort="1787872285578" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1933">
 <div class="thumbnail">
 <p><a href="./posts/koide-relativistic-archimedes/index.html" class="no-external"></a></p><a href="./posts/koide-relativistic-archimedes/index.html" class="no-external">
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>

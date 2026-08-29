@@ -1,0 +1,219 @@
+---
+title: "From Galois Field Geometry to the Ghost-Parity Continuum"
+subtitle: "Bridging Finite Projective Geometry to Continuous QFTs via Non-Standard Analysis"
+author: "John D. Coady"
+date: "2026-08-29"
+categories: [Quantum Field Theory, Non-Standard Analysis, Galois Fields, Krein Space]
+format:
+  html:
+    code-fold: true
+    toc: true
+    toc-depth: 3
+    theme: flatly
+    mathjax: true
+    number-sections: false
+---
+
+## Executive Overview
+
+Higher-derivative quantum field theories have a well-earned reputation for pathology. Ostrogradsky's theorem tells you that a generic higher-derivative Lagrangian yields a Hamiltonian unbounded below, and the usual fix — quantizing on a Hilbert space — makes that instability look fatal. Bateman and Turok's recent work on "hidden ghost parity" [-@batemanturok2026] showed a genuine way out: quantize on an *indefinite* Krein space instead, protected by a discrete $\mathbb{Z}_2$ grading operator $\kappa$ that commutes with the Hamiltonian and keeps "physical" and "ghost" sectors from talking to each other. It's an elegant continuum-QFT result. It is also, unavoidably, a continuum-QFT result — built on Fock spaces, functional measures, and all the usual infinite-dimensional machinery that makes renormalization and UV control hard in the first place.
+
+A separate, more radical response to the same broad category of problem is to ask whether the infinities are optional. A finitist research program — worked out in a companion sequence of preprints [@coady2026ghostparity; @coady2026threeone; @coady2026exact] — builds an entirely finite analogue of this ghost-parity structure directly out of Universal Hyperbolic Geometry over finite projective spaces $\mathbb{P}^2(\mathbb{F}_p)$ and $\mathbb{P}^3(\mathbb{F}_p)$. At any fixed prime $p$, the resulting quantum-like system is exact, closed, and provably free of UV divergence, because there is no continuum for anything to diverge *into*. The catch, acknowledged explicitly in that companion work, is that nothing in the finite construction tells you how — or whether — it connects back to the continuous Krein-space QFTs that motivated the analogy in the first place. This post works through a paper that takes that open question seriously: an explicit, non-constructive **ultraproduct bridge** connecting the two pictures, built with the tools of model theory rather than analysis, and honest about exactly how much of the bridge is proven versus conjectural.
+
+::: {.callout-note}
+## Published paper
+The full paper this post is based on — *From Galois Field Geometry to the Ghost-Parity Continuum: An Ultraproduct Construction for Indefinite Krein Space QFTs* — is published on Zenodo:
+**[https://doi.org/10.5281/zenodo.22166014](https://doi.org/10.5281/zenodo.22166014)**
+:::
+
+## The Discrete Core: Finitist UHG
+
+The starting point is Wildberger's Universal Hyperbolic Geometry (UHG) [-@wildberger2013], a purely algebraic reformulation of hyperbolic geometry that replaces transcendental trigonometric functions with rational invariants — *quadrance* between points, *spread* between lines — defined over an arbitrary field. Because UHG never needs $\sin$, $\cosh$, or a completed real number line to get off the ground, it works exactly the same way over a finite field $\mathbb{F}_p$ as it does over $\mathbb{Q}$ or $\mathbb{R}$.
+
+The companion papers build a quantum-flavored structure on top of this geometry, restricted to primes $p \equiv 3 \pmod 4$:
+
+- **State space.** Quantum states are equivalence classes of *Cyclic Oriented Polygonal Splines* (COPS) — oriented triangles in $\mathbb{P}^2(\mathbb{F}_p)$, or tetrahedra in $\mathbb{P}^3(\mathbb{F}_p)$ — living in a $D(p)$-dimensional space over the quadratic extension $\mathbb{F}_p[\delta] \cong \mathbb{F}_{p^2}$, where $\delta^2 = -1$.
+- **Ghost parity.** A diagonal metric-sign operator $G_p$, with $\pm 1$ eigenvalues given by the product of Legendre symbols of vertex quadrances, plays the role of Bateman–Turok's $\kappa$.
+- **Evolution.** A rational **Cayley propagator**
+$$
+U_p = (I - \delta H_p)(I + \delta H_p)^{-1}
+$$
+stands in for $e^{-iHt}$ — which doesn't exist over a finite field, since there's no convergent power series to define it. The Cayley transform needs nothing but a matrix inverse.
+
+::: {.callout-note}
+## Why finitism kills UV divergence outright
+At fixed $p$, $D(p)$ is a specific finite integer, $H_p$ and $G_p$ are specific finite matrices, and every "transition amplitude" is a finite sum of elements of a finite field. There is no infinite-dimensional Hilbert space to regularize, no loop integral to diverge, and no measure to be ill-defined. Divergence isn't tamed here — it's structurally impossible.
+:::
+
+Given that $H_p$ is symmetric and commutes with $G_p$, the companion papers prove — by short, purely algebraic arguments — that $U_p$ is exactly Galois-Hermitian unitary ($U_p^\dagger U_p = I$), exactly Krein-isometric ($U_p^\dagger G_p U_p = G_p$), and exactly parity-decoupling ($\langle\gamma_-|U_p|\gamma_+\rangle = 0$). All three hold with no approximation, for every admissible coupling $g$, at every fixed $p$. That's the entire content of the "strict finitist" picture, and it's genuinely complete on its own terms.
+
+## The Set-Theoretic Section Map: Getting to $\mathbb{C}$ Without Cheating
+
+The obstacle to going further is immediate: $\mathbb{F}_p$ has characteristic $p$, and $\mathbb{C}$ has characteristic $0$. **There is no ring homomorphism from $\mathbb{F}_p$ into $\mathbb{C}$** — any such map would have to send $p \cdot 1_{\mathbb{F}_p} = 0$ to $p \cdot 1_{\mathbb{C}} \neq 0$, which is a contradiction. So "just embed the finite structure into the complex numbers" is not, strictly speaking, a coherent instruction. Something else has to be done, and it has to be named honestly.
+
+The paper's resolution is a **symmetric residue section**
+$$
+\pi_p : \mathbb{F}_p \to \left[-\tfrac{p-1}{2}, \tfrac{p-1}{2}\right] \subset \mathbb{Z} \subset \mathbb{R},
+$$
+which sends each residue class to its representative integer nearest zero, extended entrywise to matrices. This is explicitly *not* a ring homomorphism — $\pi_p(a) + \pi_p(b)$ need not equal $\pi_p(a+b)$ in general — and the paper is careful to say so rather than dressing it up as an "embedding."
+
+::: {.callout-important}
+## Why this doesn't wreck everything
+A non-homomorphic section can't be trusted to preserve algebraic identities in general — you have to check each one by hand. It turns out the three identities that matter *do* survive, but for a specific structural reason, not because $\pi_p$ is secretly well-behaved:
+
+- **Unitarity** survives because $\tilde H_p := \pi_p(H_p)$ is real symmetric by construction, and the Cayley transform of *any* real symmetric matrix is unitary — a fact about linear algebra over $\mathbb{R}$, with no dependence on $\pi_p$'s arithmetic behavior at all.
+- **Ghost-parity commutation** survives because $[H_p, G_p] = 0 \pmod p$ forces every cross-sector entry of $H_p$ to be the *exact residue class* $0$ (using that $2$ is invertible mod the odd prime $p$) — and $\pi_p(0) = 0$ exactly, as an integer, not merely "small." The lift $\tilde H_p$ is therefore *exactly* block-diagonal, with true zero off-block entries, not approximately.
+- **Krein isometry** then follows trivially from the first two.
+
+The lesson: this lifting procedure is not a general-purpose tool for moving mod-$p$ algebra into $\mathbb{C}$. It happens to work for these three specific identities because of the particular arithmetic of a $\pm1$-graded commutator condition.
+:::
+
+A further point worth flagging explicitly: the real coupling $g_p \in \mathbb{R}^+$ that appears in the lifted Hamiltonian $\tilde H_p = -\tilde A_p + g_p \tilde W_p$ is introduced *fresh*, during the lifting step — it is not a residue-mapped version of the discrete framework's own coupling $g \in \mathbb{F}_p$. This decouples the continuum construction from the finite-field admissibility conditions (the "exceptional coupling" bounds) proven in the companion papers, and lets $g_p$ instead be tuned for analytic convenience on the complex side.
+
+## The Ultraproduct Bridge
+
+With a legitimate complexified sequence $\{(\tilde H_p, \tilde G_p, \tilde U_p)\}_{p \in \mathcal{P}}$ in hand, indexed by $\mathcal{P} = \{p \text{ prime} : p \equiv 3 \pmod 4\}$, the paper invokes the classical machinery of ultraproducts.
+
+**A non-principal ultrafilter** $\mathcal{U}$ on $\mathcal{P}$ is a $\{0,1\}$-valued finitely-additive "measure" on subsets of $\mathcal{P}$ that assigns every cofinite set measure 1 and every finite set measure 0 — its existence for an infinite index set requires the Axiom of Choice, and this is a genuine, acknowledged departure from constructivism.
+
+Quotienting the product $\prod_{p \in \mathcal{P}} \mathbb{C}$ by the equivalence "agrees on a $\mathcal{U}$-large set of coordinates" produces the **non-standard complex field**
+$$
+{}^*\mathbb{C} \equiv \left(\prod_{p \in \mathcal{P}} \mathbb{C}\right)\Big/\mathcal{U},
+$$
+and similarly a **hyperfinite Krein space** ${}^*\mathcal{K} \equiv \left(\prod_p \mathbb{C}^{D(p)}\right)/\mathcal{U}$. Because $\mathbb{C}$ (via $\mathbb{R}$) carries a genuine order and norm, so does its ultrapower — which is precisely what lets a **standard part map**
+$$
+\text{st} : {}^*\mathbb{C}_{\text{fin}} \to \mathbb{C}
+$$
+be defined: every *finite* hyperreal (bounded by some ordinary real $M$) is infinitely close to a unique ordinary complex number, and $\text{st}$ extracts it. This is the step that fails outright if you try to run the construction directly over the *finite* fields $\mathbb{F}_p[\delta]$ — they carry no order at all, so "finite," "infinitesimal," and "nearest point" are simply undefined there. Complexifying first via $\pi_p$ is what makes a standard part map possible in the first place.
+
+**Łoś' Theorem** is the engine that carries algebra across the ultraproduct: a first-order sentence holds in ${}^*\mathcal{K}$ if and only if it holds for $\mathcal{U}$-almost-all $p$. Since unitarity, commutation, and Krein isometry are dimension-independent equational sentences — true for literally every $p \in \mathcal{P}$ — they transfer intact:
+
+$$
+\hat U^\dagger \hat U = I, \qquad [\hat U, \hat G] = 0, \qquad \hat U^\dagger \hat G \hat U = \hat G,
+$$
+
+where $\hat U = [(\tilde U_p)]_{\mathcal U}$ and $\hat G = [(\tilde G_p)]_{\mathcal U}$. The multi-step transition amplitude also transfers, not as a naive limit of finite sums but as a genuine **internal hyperfinite sum**,
+$$
+\langle \gamma_f|\hat U^t|\gamma_i\rangle = \sum_{\gamma_1,\ldots,\gamma_{t-1}=1}^{D_\omega} \prod_{j=1}^t \langle \gamma_j|\hat U|\gamma_{j-1}\rangle,
+$$
+bounded by the hyperfinite integer $D_\omega = [(D(p))]_{\mathcal U} \in {}^*\mathbb{N}\setminus\mathbb{N}$ — an "infinite" integer in the nonstandard sense, but one for which the sum is still, internally, a finite sum, by transfer of the ordinary finite resolution-of-identity argument that holds at every actual $p$.
+
+| | Finite Geometry ($\mathbb{F}_p$) | Ultraproduct Continuum (${}^*\mathcal{K}$) |
+|---|---|---|
+| Scalars | $\mathbb{F}_p[\delta]$, unordered, characteristic $p$ | ${}^*\mathbb{C}$, ordered via $\mathbb{R}$-components |
+| "Unitarity" meaning | Purely algebraic: $U_p^\dagger U_p = I$ | Same algebraic identity, transferred exactly |
+| Path sum | Finite sum over $D(p)$ intermediate states | Internal hyperfinite sum over $D_\omega \in {}^*\mathbb{N}\setminus\mathbb{N}$ |
+| Divergence risk | Structurally impossible | Structurally impossible (still a finite/hyperfinite sum) |
+| Construction method | Fully constructive | Non-constructive (Axiom of Choice, via $\mathcal U$) |
+| Connection to continuum QFT | None claimed | Conditional, via `st` — see below |
+
+## The Open Continuum Limit & Physical Hedging
+
+This is where the paper is, appropriately, at its most careful — and where the real remaining work lives.
+
+Having transferred the algebra, the question is whether the transferred amplitude actually lands on anything resembling the Bateman–Turok path integral once you apply `st`. Two separate hypotheses are needed, and neither is established here.
+
+::: {.callout-warning}
+## Hypothesis 1 — Finiteness
+For $\text{st}(\langle\gamma_f|\hat U^t|\gamma_i\rangle)$ to be defined at all, the amplitude has to actually lie in ${}^*\mathbb{C}_{\text{fin}}$ — bounded by *some* standard real. The paper's sufficient condition is a **uniform operator-norm bound**,
+$$
+\sup_{p \in \mathcal{P}} \|\tilde H_p\|_2 \le M < \infty,
+$$
+achieved (in the one worked example given) by scaling the coupling as $g_p = g_0/p^\alpha \to 0$. This controls $\tilde H_p$, but it is candidly flagged as an *open combinatorial problem* whether it's achievable at all for the actual UHG mutation-graph sequence, where the state-space dimension grows like $D(p) \sim O(p^{12})$. Bounding $\|\tilde H_p\|_2$ requires bounding the spectral radius of the adjacency matrix $\tilde A_p$ of that graph as $p \to \infty$ — and nothing in the companion papers' finite-$p$ combinatorics currently establishes such a bound.
+:::
+
+::: {.callout-warning}
+## Hypothesis 2 — Convergence to the right limit
+Even granting finiteness, the paper's headline map
+$$
+\text{st}\left(\langle\gamma_f|\hat U^t|\gamma_i\rangle\right) \xrightarrow{\ \text{weak}\ } \int \mathcal D\phi\, e^{iS_{\text{BT}}[\phi]}
+$$
+is explicitly labeled a **Conjecture**, conditioned on the spectral densities of $\tilde H_p$ converging weakly to a genuine continuum field operator $H_{\text{cont}}$. No such convergence is demonstrated; the paper states the conditional cleanly and stops there.
+:::
+
+There's also a subtlety worth sitting with rather than glossing over: pushing $g_p \to 0$ to satisfy Hypothesis 1 suppresses the *potential term* $g_p \tilde W_p$ relative to the adjacency term $-\tilde A_p$ — and $\tilde W_p$ is precisely where all the UHG-specific geometric content lives (Cap-map loop defects, projective quadrea, quadrume). A limit that survives only by damping the interesting term to zero risks landing on something that's just the bare graph Laplacian of the mutation graph, stripped of the geometry the whole program is built around. The paper flags this directly rather than letting the reader assume the naive scaling is cost-free.
+
+## Epistemic Resolution: Two Legitimate, Non-Contradictory Pictures
+
+::: {.callout-tip}
+## Strict Finitism (the core model)
+The underlying UHG preprints reject actual infinities, non-constructive axioms, and continuous manifolds outright. At any fixed prime $p$, the physics is complete, exact, and finite — full stop. Nothing in this blog post's ultraproduct construction adds anything to, or subtracts anything from, that picture.
+:::
+
+::: {.callout-tip}
+## Model-Theoretic Continuum Bridge (this paper)
+This is a deliberately non-constructive tool, built for readers who want a continuum-QFT connection and are willing to accept the Axiom of Choice to get one. It establishes — rigorously — the algebraic machinery (ultrapower, Łoś transfer, a genuine standard part map) by which such a bridge *could* exist, and isolates exactly which further facts (norm boundedness, spectral convergence) would need to be proven to make the bridge to Bateman–Turok's specific theory concrete rather than conditional.
+:::
+
+These two pictures don't compete. The finite model owes nothing to the continuum bridge, and the continuum bridge doesn't claim to have derived new physics from finite arithmetic — it claims, more modestly and more defensibly, to have built the *correct kind of formal apparatus* for such a derivation, with the open problems clearly named rather than hidden inside a plausible-sounding limit.
+
+## Wrapping Up
+
+The interesting result here isn't really "discrete UHG connects to Bateman–Turok QFT" — that remains open, and the paper says so. The interesting result is a template for how to even *ask* that question honestly: build the finite structure with full rigor, lift it to characteristic zero via an explicitly non-homomorphic (but individually verified) section map, take the ultraproduct, and let Łoś' Theorem do the only work it's actually entitled to do — transferring finitely-verified equational facts, and nothing more. Whatever happens with the norm-boundedness and spectral-convergence conjectures next, this is the right scaffolding to hang that future work on.
+
+::: {.callout-note}
+## Paper DOI
+**[10.5281/zenodo.22166014](https://doi.org/10.5281/zenodo.22166014)**
+:::
+
+## References
+
+::: {#refs}
+:::
+
+```bibtex
+@misc{coady2026ultraproduct,
+  author       = {Coady, John D.},
+  title        = {From Galois Field Geometry to the Ghost-Parity Continuum: An Ultraproduct Construction for Indefinite Krein Space QFTs},
+  year         = {2026},
+  month        = aug,
+  doi          = {10.5281/zenodo.22166014},
+  howpublished = {Preprint},
+  url          = {https://doi.org/10.5281/zenodo.22166014}
+}
+
+@misc{batemanturok2026,
+  author = {Bateman, S. and Turok, N.},
+  title  = {Escape from Ostrogradsky via Hidden Ghost Parity},
+  year   = {2026},
+  eprint = {2607.00096},
+  archivePrefix = {arXiv},
+  primaryClass  = {hep-th}
+}
+
+@misc{coady2026ghostparity,
+  author       = {Coady, John D.},
+  title        = {A Candidate Finitist Indefinite Hermitian Model with Ghost-Parity Symmetry},
+  year         = {2026},
+  doi          = {10.5281/zenodo.21464405},
+  howpublished = {Preprint}
+}
+
+@misc{coady2026threeone,
+  author       = {Coady, John D.},
+  title        = {A Unified Finitist Indefinite-Hermitian Framework for 3+1D Spacetime},
+  year         = {2026},
+  doi          = {10.5281/zenodo.21998460},
+  howpublished = {Preprint}
+}
+
+@misc{coady2026exact,
+  author       = {Coady, John D.},
+  title        = {Exact Finite Path-Sum Amplitudes in a Finitist Indefinite-Hermitian Framework over Projective Spaces $\mathbb{P}^2(\mathbb{F}_p)$ and $\mathbb{P}^3(\mathbb{F}_p)$},
+  year         = {2026},
+  doi          = {10.5281/zenodo.22101224},
+  howpublished = {Preprint}
+}
+
+@article{wildberger2013,
+  author  = {Wildberger, N. J.},
+  title   = {Universal Hyperbolic Geometry I: Trigonometry},
+  journal = {Geometriae Dedicata},
+  volume  = {163},
+  number  = {1},
+  pages   = {109--147},
+  year    = {2013},
+  eprint  = {0909.1377},
+  archivePrefix = {arXiv}
+}
+```

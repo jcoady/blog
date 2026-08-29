@@ -107,13 +107,14 @@ The orthocenter of a triply nil triangle is computed purely rationally: it requi
 
 ### Geogebra example: Orthocenter of Nil-Triangle Construction
 
+```{=html}
 <div style="text-align: center; margin: 20px 0;">
   <a href="https://www.geogebra.org/m/chhdzsby" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
     <img src="Orthocenter-Construction.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;" />
     <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points to see metric calculations update.</em></p>
   </a>
 </div>
-
+```
 
 ## From Four Null Points to an Orthocentric System
 
@@ -133,12 +134,15 @@ The six lines $\alpha_i\alpha_j$ together with their polars generate this orthoc
 
 ### Geogebra example: Invariant quadrea of orthic triangles
 
+```{=html}
 <div style="text-align: center; margin: 20px 0;">
   <a href="https://www.geogebra.org/m/t88sk2qp" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
     <img src="Orthic-Quadrangle.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;" />
     <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points to see metric calculations update.</em></p>
   </a>
 </div>
+
+```
 
 ### The cross-ratio parametrization
 
