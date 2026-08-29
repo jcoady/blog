@@ -21,7 +21,7 @@ Before diving in, it's worth watching the two Wildberger lectures that this work
 
 {{< video https://youtu.be/iMWEiPuFhBQ?si=CHeP6IrEIY6Lq-Ji >}}
 
-The second is part of Wildberger's "Famous Math Problems" series and works through the area of a triangle via the Archimedes function directly:
+The second, part of Wildberger's 'Famous Math Problems' series, computes triangle area directly using the Archimedes function and introduces the relativistic Archimedes function near the end of the video:
 
 {{< video https://youtu.be/jHm3C1UCR5o?si=CHeP6IrEIY6Lq-Ji >}}
 
