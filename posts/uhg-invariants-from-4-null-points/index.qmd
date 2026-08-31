@@ -3,21 +3,22 @@ title: "The Hidden Constants at the Edge of Hyperbolic Space"
 subtitle: "How three and four null points generate a rigid algebra of universal numbers in Universal Hyperbolic Geometry"
 author: "Based on research by John D. Coady"
 date: last-modified
-categories: [mathematics, geometry, hyperbolic-geometry]
+categories: [pure-math, geometry, hyperbolic-geometry]
+bibliography: references.bib
 format:
   html:
     toc: true
     toc-depth: 2
     code-fold: true
-    theme: cosmo
+    theme: flatly
     fig-align: center
 ---
 
 ## A geometry without distance
 
-Most of us learn hyperbolic geometry, if we learn it at all, through models full of circles, curves, and transcendental functions — Poincaré disks, tanh and cosh, limits everywhere. Norman Wildberger's **Universal Hyperbolic Geometry (UHG)** throws all of that out. It rebuilds hyperbolic geometry on purely algebraic foundations: points and lines are proportions, and the two fundamental measurements — **quadrance** (a stand-in for distance) and **spread** (a stand-in for angle) — are defined by simple rational formulas built from a quadratic form. No transcendentals, no limits. Just projective geometry and arithmetic.
+Most of us learn hyperbolic geometry, if we learn it at all, through models full of circles, curves, and transcendental functions — Poincaré disks, tanh and cosh, limits everywhere. Norman Wildberger's **Universal Hyperbolic Geometry (UHG)** throws all of that out. It rebuilds hyperbolic geometry on purely algebraic foundations: points and lines are proportions, and the two fundamental measurements — **quadrance** (a stand-in for distance) and **spread** (a stand-in for angle) — are defined by simple rational formulas built from a quadratic form. No transcendentals, no limits. Just projective geometry and arithmetic. 
 
-Sitting inside this framework is a very special set of points: the **null points**, which lie exactly on the quadric $x^2 + y^2 - z^2 = 0$. These are the points where quadrance and spread blow up — the "boundary" of the geometry, analogous to points at infinity in hyperbolic space. You might expect this boundary to be a wild, undefined no-man's-land. A recent paper by John D. Coady argues the opposite: configurations of three or four null points generate a **highly structured, finite, and rigid family of rational constants** — numbers that show up again and again no matter which null points you start with.
+Sitting inside this framework is a very special set of points: the **null points**, which lie exactly on the quadric $x^2 + y^2 - z^2 = 0$. These are the points where quadrance and spread blow up — the "boundary" of the geometry, analogous to points at infinity in hyperbolic space. You might expect this boundary to be a wild, undefined no-man's-land. A recent paper by John D. Coady argues the opposite: configurations of three or four null points generate a **highly structured, finite, and rigid family of rational constants** — numbers that show up again and again no matter which null points you start with [@coady2026nullpoints].
 
 This post walks through the two central discoveries of that paper, and the surprisingly large catalogue of numbers they generate.
 
@@ -33,7 +34,7 @@ $$S(h\alpha_i, h\alpha_j) = \frac{3}{4} \quad \text{for every } i \neq j.$$
 
 Interestingly, this echoes a classical fact from Euclidean geometry: the three lines from a triangle's centroid to its vertices are always separated by exactly $120°$, which corresponds to a spread of $3/4$. The null-triangle orthocenter reproduces that same universal spread — a hyperbolic shadow of a familiar Euclidean fact.
 
-### Geogebra example: Orthocenter of Nil-Triangle Construction
+### Geogebra example: Nil-Triangle Altitude Spreads are precisely equal to 3/4
 
 ```{=html}
 <div style="text-align: center; margin: 20px 0;">
@@ -42,6 +43,7 @@ Interestingly, this echoes a classical fact from Euclidean geometry: the three l
     <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points to see metric calculations update.</em></p>
   </a>
 </div>
+```
 
 ## Four points, four orthocenters, one triangle-quadrea
 
@@ -55,6 +57,19 @@ Every one of the four possible orthocenter-triangles gives exactly this value. T
 
 What's striking is that this happens despite the orthocentric system being, in a sense, "unstable": the individual diagonal spreads of the quadrilateral $h_1h_2h_3h_4$ turn into messy, unsimplifiable rational functions of the configuration's cross-ratio parameter $\lambda$. Yet buried inside that mess, the same two absolute constants — $3/4$ and $16/27$ — resurface every time.
 
+
+### Geogebra example: Invariant quadrea of orthic triangles
+
+```{=html}
+<div style="text-align: center; margin: 20px 0;">
+  <a href="https://www.geogebra.org/m/t88sk2qp" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
+    <img src="Orthic-Quadrangle.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;" />
+    <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points to see metric calculations update.</em></p>
+  </a>
+</div>
+
+```
+
 ## Recovering a classical result
 
 Long before this paper, Wildberger had already found a striking identity for four null points directly (not via their orthocenters). Any nil quadrangle has three **diagonal spreads** $P$, $R$, $T$, and they always satisfy:
@@ -65,23 +80,53 @@ no matter which four null points you pick. Coady's paper reframes these two numb
 
 ## A whole catalogue of constants
 
-Once you start turning the crank — combining null points, orthocenters, poles, reflected points, and diagonal points using the standard UHG toolkit (join, meet, polarity, quadrance, spread, quadrea) — dozens of further universal rational values emerge. A sample from the paper's catalogue:
+Once you start turning the crank — combining null points, orthocenters, poles, reflected points, and diagonal points using the standard UHG toolkit (join, meet, polarity, quadrance, spread, quadrea) — dozens of further universal rational values emerge. Table 1 of the paper [@coady2026nullpoints] lays out the full catalogue as it currently stands:
 
-| Value | What it measures |
-|---|---|
-| $4/3$ | quadrance from orthocenter $h$ to the pole of the opposite side |
-| $-16/9$ | quadrance between a pole and its reflection through $h$ |
-| $-1/3$ | quadrance from $h$ to the foot of an altitude |
-| $16/25$ | spread between lines joining pairs of altitude-feet |
-| $32/27$ | quadrea of a mixed pole/orthocenter triangle |
-| $64/729$ | product of three quadrea values from the orthic system |
-| $8/27$ | quadrea of a quadrangle formed by a diagonal point and three orthocenters |
+| Value | Geometric construction | Status |
+|---|---|---|
+| $4/3$ | $q(h, l_i) = 4/3$ for a triply nil triangle $\alpha_1\alpha_2\alpha_3$, where $h$ is the orthocenter, $L_i = \alpha_j\alpha_k$, and $l_i := L_i^{\perp}$ | Proven analytically |
+| $16/27$ | Quadrea of orthic triangle $h_ih_jh_k$ | Proven symbolically |
+| $48$ | $PR + RT + TP$ | Proven symbolically |
+| $64$ | $PRT$ | Proven symbolically |
+| $-16/9$ | quadrance $q(l_i, l_i')$ | Proven symbolically |
+| $-9/16$ | spread $S(l_il_j', l_j'l_k)$, $S(l_i'l_j, l_i'l_k)$ | Proven symbolically |
+| $8/9$ | quadrance $q(l_i, l_j')$ for $i \neq j$, quadreal $L(h, l_i, l_j')$ | Proven symbolically |
+| $9/8$ | spread $S(hl_j, l_jl_k')$, $S(hl_j', l_j'l_k)$ | Proven symbolically |
+| $32/27$ | quadrea $\mathcal{B}(h, l_i, l_j', l_k)$, $\mathcal{B}(h, l_i', l_j, l_k')$ | Proven symbolically |
+| $27/32$ | quadreal $M(h, l_i, l_j', l_k)$, $M(h, l_i', l_j, l_k')$ | Proven symbolically |
+| $-1/3$ | quadrance $q(h, b_i)$ | Proven analytically |
+| $-5/4$ | quadrance $q(b_i, b_j)$ for $i \neq j$ | Proven analytically |
+| $1$ | quadrance $q(b_i, l_i)$, quadrea $\mathcal{A}(b_i, b_j, b_k)$ | Proven analytically |
+| $2$ | quadrance $q(b_i, l_j)$ for $i \neq j$ | Computationally verified |
+| $10/9$ | quadrance $q(b_i, l_j')$ for $i \neq j$ | Computationally verified |
+| $9/10$ | spread $S(b_il_i, b_il_j')$ | Computationally verified |
+| $25/9$ | quadrance $q(b_i, l_i')$ | Computationally verified |
+| $16/25$ | spread $S(b_ib_j, b_jb_k)$ | Proven analytically |
+| $1/5$ | spread $S(hb_j, b_jb_k)$ | Computationally verified |
+| $1/12$ | quadrea $\mathcal{A}(h, b_j, b_k)$ | Computationally verified |
+| $5/12$ | quadrea $\mathcal{B}(h, b_i, b_j, b_k)$ | Computationally verified |
+| $27/100$ | quadreal $M(h, b_i, b_j, b_k)$ | Computationally verified |
+| $16/27$ | syzygy $\mathcal{A}_e\mathcal{A}_f + \mathcal{A}_f\mathcal{A}_g + \mathcal{A}_g\mathcal{A}_e$ | Computationally verified |
+| $64/729$ | syzygy $\mathcal{A}_e\mathcal{A}_f\mathcal{A}_g$ | Computationally verified |
+| $4/27$ | $(\mathcal{A}_e\mathcal{A}_f\mathcal{A}_g) / (\mathcal{A}_e\mathcal{A}_f + \mathcal{A}_f\mathcal{A}_g + \mathcal{A}_g\mathcal{A}_e)$ | Computationally verified |
+| $8/27$ | quadrangle quadrea of 1 diagonal point and 3 orthocenters | Computationally verified |
+| $2/3$ | harmonic mean of halved diagonal spreads | Computationally verified |
 
-None of these depend on which null points you started with. They're all pinned down purely by the *incidence structure* of the configuration — which points lie on which lines, and how polarity connects them.
+: Preliminary catalogue of universal rational metrical invariants of three or four null points, reproduced from Table 1 of Coady (2026) [@coady2026nullpoints]. Here $b_i$ denotes the foot of an altitude, $l_i \equiv L_i^{\perp}$ is the pole of the side opposite $\alpha_i$, $l_i'$ is the reflection of $l_i$ through the orthocenter $h$, and $e, f, g$ are the diagonal points of the nil quadrangle. $\mathcal{A}$, $\mathcal{B}$, and $M$/$L$ denote quadrea and quadreal quantities respectively.
+
+Every entry here is independent of which null points you started with — pinned down purely by the *incidence structure* of the configuration: which points lie on which lines, and how polarity connects them. Notice, too, that most entries are either proven outright (analytically or via symbolic simplification in the canonical $\lambda$-parametrisation) or checked computationally across large numbers of random configurations; only a handful of derived quantities in the catalogue remain at the "computationally verified" stage rather than a full symbolic proof.
+
+![Invariants related to the orthocenter $h$ of the nil-triangle $\alpha_1\alpha_2\alpha_3$. The orthocenter is the common meet of the altitude lines (or just altitudes) $N_1 \equiv \alpha_1l_1$, $N_2 \equiv \alpha_2l_2$ and $N_3 \equiv \alpha_3l_3$, where $L_1 \equiv \alpha_2\alpha_3$, $L_2 \equiv \alpha_1\alpha_3$ and $L_3 \equiv \alpha_1\alpha_2$ and $l_i \equiv L_i^{\perp}$ is the pole of $L_i$. $l_i^{\prime}$ is the reflection of $l_i$ in the orthocenter $h$.](nil-triangle1.svg){#fig-niltriangle1 fig-align="center" width="100%"}
+
+
+![Invariants related to the orthocenter $h$ of the nil-triangle $\alpha_1\alpha_2\alpha_3$ @wildberger2010universalhyperbolicgeometryii. The orthocenter is the common meet of the altitude lines (or just altitudes) $N_1 \equiv \alpha_1 l_1$, $N_2 \equiv \alpha_2 l_2$, and $N_3 \equiv \alpha_3 l_3$, where $L_1 \equiv \alpha_2\alpha_3$, $L_2 \equiv \alpha_1\alpha_3$, and $L_3 \equiv \alpha_1\alpha_2$, and $l_i \equiv L_i^{\perp}$ is the pole of $L_i$. Here, $l_i^{\prime}$ is the reflection of $l_i$ in the orthocenter $h$.](nil-triangle2.svg){#fig-niltriangle2 fig-align="center" width="100%"}
+
+
+![Some invariants related to the nil quadrangle $\overline{\alpha_1\alpha_2\alpha_3\alpha_4}$ and the associated orthic quadrangle $\overline{h_1h_2h_3h_4}$ constructed from the 4 nil-triangles $\overline{\alpha_i\alpha_j\alpha_k}$. The quadrance from a diagonal point to each orthocenter are equal, that is $q(e,h_i)=q(e,h_j)$, $q(f,h_i)=q(f,h_j)$, and $q(g,h_i)=q(g,h_j)$ for $i \neq j$. Also, $\mathcal{A}_e = \mathcal{A}(e,h_2,h_3) = \mathcal{A}(e,h_4,h_1)$, $\mathcal{A}_f = \mathcal{A}(f,h_2,h_3) = \mathcal{A}(f,h_4,h_1)$, and $\mathcal{A}_g = \mathcal{A}(g,h_1,h_2) = \mathcal{A}(g,h_2,h_3)$.](nil-quadrangle1.svg){#fig-nilquadrangle1 fig-align="center" width="80%"}
 
 ## Why does this happen? A conjecture about finite generation
 
-The paper's boldest claim is structural rather than computational: it conjectures that **every** universal rational invariant obtainable this way lives inside a very small extension of the integers — specifically the "5-smooth" localization $\mathbb{Z}[1/2, 1/3, 1/5]$, the ring of fractions whose denominators only involve the primes 2, 3, and 5. Empirically, every single value in the catalogue — $3/4$, $16/27$, $48$, $64$, and all the rest — fits inside this ring.
+The paper's boldest claim is structural rather than computational: it conjectures that **every** universal rational invariant obtainable this way lives inside a very small extension of the integers — specifically the "5-smooth" localization $\mathbb{Z}[1/2, 1/3, 1/5]$, the ring of fractions whose denominators only involve the primes 2, 3, and 5. Empirically, every single value in the catalogue above — $3/4$, $16/27$, $48$, $64$, and all the rest — fits inside this ring.
 
 The intuition offered is that the base invariants ($3/4$, and the nil-triangle structure generally) are governed by the primes 2 and 3, while certain quadratic relations that appear in the geometry (an "Isosceles Triangle" spread equation) introduce a controlled dose of the prime 5. Nothing wilder ever seems to enter. If true, this points to a kind of *finite generation* phenomenon: the boundary of hyperbolic space, instead of being an unruly infinite mess, behaves like a small, tightly generated algebraic system.
 
@@ -102,3 +147,8 @@ What makes this catalogue compelling isn't any single formula — it's the patte
 ---
 
 *This post summarizes results from J. D. Coady, "Invariant Structures of Three and Four Null Points in Universal Hyperbolic Geometry" (2026), building on the foundational work of N. J. Wildberger on Universal Hyperbolic Geometry.*
+
+## References
+
+::: {#refs}
+:::
