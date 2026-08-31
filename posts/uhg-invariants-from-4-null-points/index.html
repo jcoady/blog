@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Based on research by John D. Coady">
-<meta name="dcterms.date" content="2026-08-29">
+<meta name="dcterms.date" content="2026-08-31">
 
 <title>The Hidden Constants at the Edge of Hyperbolic Space – John Coady’s Blog</title>
 <style>
@@ -22,7 +22,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -40,7 +60,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-2212757b80b1df614b4b011ba39f1668.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-fe7872a82928c9cb84149cb81cc2feaf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -165,7 +185,7 @@ window.Quarto = {
       <h1 class="title">The Hidden Constants at the Edge of Hyperbolic Space</h1>
             <p class="subtitle lead">How three and four null points generate a rigid algebra of universal numbers in Universal Hyperbolic Geometry</p>
                                 <div class="quarto-categories">
-                <div class="quarto-category">mathematics</div>
+                <div class="quarto-category">pure-math</div>
                 <div class="quarto-category">geometry</div>
                 <div class="quarto-category">hyperbolic-geometry</div>
               </div>
@@ -185,7 +205,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">August 29, 2026</p>
+        <p class="date">August 31, 2026</p>
       </div>
     </div>
     
@@ -209,6 +229,7 @@ window.Quarto = {
   <li><a href="#why-does-this-happen-a-conjecture-about-finite-generation" id="toc-why-does-this-happen-a-conjecture-about-finite-generation" class="nav-link" data-scroll-target="#why-does-this-happen-a-conjecture-about-finite-generation">Why does this happen? A conjecture about finite generation</a></li>
   <li><a href="#climbing-a-dimension-from-1627-to-a-3d-family" id="toc-climbing-a-dimension-from-1627-to-a-3d-family" class="nav-link" data-scroll-target="#climbing-a-dimension-from-1627-to-a-3d-family">Climbing a dimension: from <span class="math inline">\(16/27\)</span> to a 3D family</a></li>
   <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">Takeaway</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -222,7 +243,7 @@ window.Quarto = {
 <section id="a-geometry-without-distance" class="level2">
 <h2 class="anchored" data-anchor-id="a-geometry-without-distance">A geometry without distance</h2>
 <p>Most of us learn hyperbolic geometry, if we learn it at all, through models full of circles, curves, and transcendental functions — Poincaré disks, tanh and cosh, limits everywhere. Norman Wildberger’s <strong>Universal Hyperbolic Geometry (UHG)</strong> throws all of that out. It rebuilds hyperbolic geometry on purely algebraic foundations: points and lines are proportions, and the two fundamental measurements — <strong>quadrance</strong> (a stand-in for distance) and <strong>spread</strong> (a stand-in for angle) — are defined by simple rational formulas built from a quadratic form. No transcendentals, no limits. Just projective geometry and arithmetic.</p>
-<p>Sitting inside this framework is a very special set of points: the <strong>null points</strong>, which lie exactly on the quadric <span class="math inline">\(x^2 + y^2 - z^2 = 0\)</span>. These are the points where quadrance and spread blow up — the “boundary” of the geometry, analogous to points at infinity in hyperbolic space. You might expect this boundary to be a wild, undefined no-man’s-land. A recent paper by John D. Coady argues the opposite: configurations of three or four null points generate a <strong>highly structured, finite, and rigid family of rational constants</strong> — numbers that show up again and again no matter which null points you start with.</p>
+<p>Sitting inside this framework is a very special set of points: the <strong>null points</strong>, which lie exactly on the quadric <span class="math inline">\(x^2 + y^2 - z^2 = 0\)</span>. These are the points where quadrance and spread blow up — the “boundary” of the geometry, analogous to points at infinity in hyperbolic space. You might expect this boundary to be a wild, undefined no-man’s-land. A recent paper by John D. Coady argues the opposite: configurations of three or four null points generate a <strong>highly structured, finite, and rigid family of rational constants</strong> — numbers that show up again and again no matter which null points you start with <span class="citation" data-cites="coady2026nullpoints">(<a href="#ref-coady2026nullpoints" role="doc-biblioref">Coady 2026</a>)</span>.</p>
 <p>This post walks through the two central discoveries of that paper, and the surprisingly large catalogue of numbers they generate.</p>
 </section>
 <section id="null-triangles-and-their-orthocenters" class="level2">
@@ -232,14 +253,13 @@ window.Quarto = {
 <p><span class="math display">\[S(h\alpha_i, h\alpha_j) = \frac{3}{4} \quad \text{for every } i \neq j.\]</span></p>
 <p><em>Every</em> nil triangle, regardless of which three null points you choose, produces this exact same spread. It’s a “constant of nature” for the geometry — independent of moduli, immune to how you deform the configuration. The paper calls this the first <strong>primitive universal invariant</strong>.</p>
 <p>Interestingly, this echoes a classical fact from Euclidean geometry: the three lines from a triangle’s centroid to its vertices are always separated by exactly <span class="math inline">\(120°\)</span>, which corresponds to a spread of <span class="math inline">\(3/4\)</span>. The null-triangle orthocenter reproduces that same universal spread — a hyperbolic shadow of a familiar Euclidean fact.</p>
-<section id="geogebra-example-orthocenter-of-nil-triangle-construction" class="level3">
-<h3 class="anchored" data-anchor-id="geogebra-example-orthocenter-of-nil-triangle-construction">Geogebra example: Orthocenter of Nil-Triangle Construction</h3>
+<section id="geogebra-example-nil-triangle-altitude-spreads-are-precisely-equal-to-34" class="level3">
+<h3 class="anchored" data-anchor-id="geogebra-example-nil-triangle-altitude-spreads-are-precisely-equal-to-34">Geogebra example: Nil-Triangle Altitude Spreads are precisely equal to 3/4</h3>
 <div style="text-align: center; margin: 20px 0;">
-<a href="https://www.geogebra.org/m/p2ab7ytz" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model"> <img src="Altitude-Spread.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
-<p style="font-size: 0.9rem; color: #666; margin-top: 8px;">
-<em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points to see metric calculations update.</em>
-</p>
-</a><p><a href="https://www.geogebra.org/m/p2ab7ytz" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model"></a></p>
+  <a href="https://www.geogebra.org/m/p2ab7ytz" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
+    <img src="Altitude-Spread.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
+    <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points to see metric calculations update.</em></p>
+  </a>
 </div>
 </section>
 </section>
@@ -250,6 +270,16 @@ window.Quarto = {
 <p><span class="math display">\[\mathcal{A}(h_i, h_j, h_k) = \frac{16}{27}.\]</span></p>
 <p>Every one of the four possible orthocenter-triangles gives exactly this value. This is the paper’s second primitive invariant, and it doesn’t come from the original four null points directly — it’s a property of the <em>derived</em> orthocentric system.</p>
 <p>What’s striking is that this happens despite the orthocentric system being, in a sense, “unstable”: the individual diagonal spreads of the quadrilateral <span class="math inline">\(h_1h_2h_3h_4\)</span> turn into messy, unsimplifiable rational functions of the configuration’s cross-ratio parameter <span class="math inline">\(\lambda\)</span>. Yet buried inside that mess, the same two absolute constants — <span class="math inline">\(3/4\)</span> and <span class="math inline">\(16/27\)</span> — resurface every time.</p>
+<section id="geogebra-example-invariant-quadrea-of-orthic-triangles" class="level3">
+<h3 class="anchored" data-anchor-id="geogebra-example-invariant-quadrea-of-orthic-triangles">Geogebra example: Invariant quadrea of orthic triangles</h3>
+<div style="text-align: center; margin: 20px 0;">
+  <a href="https://www.geogebra.org/m/t88sk2qp" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
+    <img src="Orthic-Quadrangle.png" alt="Quadrea of Projective Quadrangle 3D Model" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
+    <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points to see metric calculations update.</em></p>
+  </a>
+</div>
+
+</section>
 </section>
 <section id="recovering-a-classical-result" class="level2">
 <h2 class="anchored" data-anchor-id="recovering-a-classical-result">Recovering a classical result</h2>
@@ -259,54 +289,194 @@ window.Quarto = {
 </section>
 <section id="a-whole-catalogue-of-constants" class="level2">
 <h2 class="anchored" data-anchor-id="a-whole-catalogue-of-constants">A whole catalogue of constants</h2>
-<p>Once you start turning the crank — combining null points, orthocenters, poles, reflected points, and diagonal points using the standard UHG toolkit (join, meet, polarity, quadrance, spread, quadrea) — dozens of further universal rational values emerge. A sample from the paper’s catalogue:</p>
+<p>Once you start turning the crank — combining null points, orthocenters, poles, reflected points, and diagonal points using the standard UHG toolkit (join, meet, polarity, quadrance, spread, quadrea) — dozens of further universal rational values emerge. Table 1 of the paper <span class="citation" data-cites="coady2026nullpoints">(<a href="#ref-coady2026nullpoints" role="doc-biblioref">Coady 2026</a>)</span> lays out the full catalogue as it currently stands:</p>
 <table class="caption-top table">
+<caption>Preliminary catalogue of universal rational metrical invariants of three or four null points, reproduced from Table 1 of Coady (2026) <span class="citation" data-cites="coady2026nullpoints">(<a href="#ref-coady2026nullpoints" role="doc-biblioref">Coady 2026</a>)</span>. Here <span class="math inline">\(b_i\)</span> denotes the foot of an altitude, <span class="math inline">\(l_i \equiv L_i^{\perp}\)</span> is the pole of the side opposite <span class="math inline">\(\alpha_i\)</span>, <span class="math inline">\(l_i'\)</span> is the reflection of <span class="math inline">\(l_i\)</span> through the orthocenter <span class="math inline">\(h\)</span>, and <span class="math inline">\(e, f, g\)</span> are the diagonal points of the nil quadrangle. <span class="math inline">\(\mathcal{A}\)</span>, <span class="math inline">\(\mathcal{B}\)</span>, and <span class="math inline">\(M\)</span>/<span class="math inline">\(L\)</span> denote quadrea and quadreal quantities respectively.</caption>
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Value</th>
-<th>What it measures</th>
+<th>Geometric construction</th>
+<th>Status</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><span class="math inline">\(4/3\)</span></td>
-<td>quadrance from orthocenter <span class="math inline">\(h\)</span> to the pole of the opposite side</td>
+<td><span class="math inline">\(q(h, l_i) = 4/3\)</span> for a triply nil triangle <span class="math inline">\(\alpha_1\alpha_2\alpha_3\)</span>, where <span class="math inline">\(h\)</span> is the orthocenter, <span class="math inline">\(L_i = \alpha_j\alpha_k\)</span>, and <span class="math inline">\(l_i := L_i^{\perp}\)</span></td>
+<td>Proven analytically</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(-16/9\)</span></td>
-<td>quadrance between a pole and its reflection through <span class="math inline">\(h\)</span></td>
+<td><span class="math inline">\(16/27\)</span></td>
+<td>Quadrea of orthic triangle <span class="math inline">\(h_ih_jh_k\)</span></td>
+<td>Proven symbolically</td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\(-1/3\)</span></td>
-<td>quadrance from <span class="math inline">\(h\)</span> to the foot of an altitude</td>
+<td><span class="math inline">\(48\)</span></td>
+<td><span class="math inline">\(PR + RT + TP\)</span></td>
+<td>Proven symbolically</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(16/25\)</span></td>
-<td>spread between lines joining pairs of altitude-feet</td>
+<td><span class="math inline">\(64\)</span></td>
+<td><span class="math inline">\(PRT\)</span></td>
+<td>Proven symbolically</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(-16/9\)</span></td>
+<td>quadrance <span class="math inline">\(q(l_i, l_i')\)</span></td>
+<td>Proven symbolically</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(-9/16\)</span></td>
+<td>spread <span class="math inline">\(S(l_il_j', l_j'l_k)\)</span>, <span class="math inline">\(S(l_i'l_j, l_i'l_k)\)</span></td>
+<td>Proven symbolically</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(8/9\)</span></td>
+<td>quadrance <span class="math inline">\(q(l_i, l_j')\)</span> for <span class="math inline">\(i \neq j\)</span>, quadreal <span class="math inline">\(L(h, l_i, l_j')\)</span></td>
+<td>Proven symbolically</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(9/8\)</span></td>
+<td>spread <span class="math inline">\(S(hl_j, l_jl_k')\)</span>, <span class="math inline">\(S(hl_j', l_j'l_k)\)</span></td>
+<td>Proven symbolically</td>
 </tr>
 <tr class="odd">
 <td><span class="math inline">\(32/27\)</span></td>
-<td>quadrea of a mixed pole/orthocenter triangle</td>
+<td>quadrea <span class="math inline">\(\mathcal{B}(h, l_i, l_j', l_k)\)</span>, <span class="math inline">\(\mathcal{B}(h, l_i', l_j, l_k')\)</span></td>
+<td>Proven symbolically</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(27/32\)</span></td>
+<td>quadreal <span class="math inline">\(M(h, l_i, l_j', l_k)\)</span>, <span class="math inline">\(M(h, l_i', l_j, l_k')\)</span></td>
+<td>Proven symbolically</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(-1/3\)</span></td>
+<td>quadrance <span class="math inline">\(q(h, b_i)\)</span></td>
+<td>Proven analytically</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(-5/4\)</span></td>
+<td>quadrance <span class="math inline">\(q(b_i, b_j)\)</span> for <span class="math inline">\(i \neq j\)</span></td>
+<td>Proven analytically</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(1\)</span></td>
+<td>quadrance <span class="math inline">\(q(b_i, l_i)\)</span>, quadrea <span class="math inline">\(\mathcal{A}(b_i, b_j, b_k)\)</span></td>
+<td>Proven analytically</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(2\)</span></td>
+<td>quadrance <span class="math inline">\(q(b_i, l_j)\)</span> for <span class="math inline">\(i \neq j\)</span></td>
+<td>Computationally verified</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(10/9\)</span></td>
+<td>quadrance <span class="math inline">\(q(b_i, l_j')\)</span> for <span class="math inline">\(i \neq j\)</span></td>
+<td>Computationally verified</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(9/10\)</span></td>
+<td>spread <span class="math inline">\(S(b_il_i, b_il_j')\)</span></td>
+<td>Computationally verified</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(25/9\)</span></td>
+<td>quadrance <span class="math inline">\(q(b_i, l_i')\)</span></td>
+<td>Computationally verified</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(16/25\)</span></td>
+<td>spread <span class="math inline">\(S(b_ib_j, b_jb_k)\)</span></td>
+<td>Proven analytically</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(1/5\)</span></td>
+<td>spread <span class="math inline">\(S(hb_j, b_jb_k)\)</span></td>
+<td>Computationally verified</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(1/12\)</span></td>
+<td>quadrea <span class="math inline">\(\mathcal{A}(h, b_j, b_k)\)</span></td>
+<td>Computationally verified</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(5/12\)</span></td>
+<td>quadrea <span class="math inline">\(\mathcal{B}(h, b_i, b_j, b_k)\)</span></td>
+<td>Computationally verified</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(27/100\)</span></td>
+<td>quadreal <span class="math inline">\(M(h, b_i, b_j, b_k)\)</span></td>
+<td>Computationally verified</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(16/27\)</span></td>
+<td>syzygy <span class="math inline">\(\mathcal{A}_e\mathcal{A}_f + \mathcal{A}_f\mathcal{A}_g + \mathcal{A}_g\mathcal{A}_e\)</span></td>
+<td>Computationally verified</td>
 </tr>
 <tr class="even">
 <td><span class="math inline">\(64/729\)</span></td>
-<td>product of three quadrea values from the orthic system</td>
+<td>syzygy <span class="math inline">\(\mathcal{A}_e\mathcal{A}_f\mathcal{A}_g\)</span></td>
+<td>Computationally verified</td>
 </tr>
 <tr class="odd">
+<td><span class="math inline">\(4/27\)</span></td>
+<td><span class="math inline">\((\mathcal{A}_e\mathcal{A}_f\mathcal{A}_g) / (\mathcal{A}_e\mathcal{A}_f + \mathcal{A}_f\mathcal{A}_g + \mathcal{A}_g\mathcal{A}_e)\)</span></td>
+<td>Computationally verified</td>
+</tr>
+<tr class="even">
 <td><span class="math inline">\(8/27\)</span></td>
-<td>quadrea of a quadrangle formed by a diagonal point and three orthocenters</td>
+<td>quadrangle quadrea of 1 diagonal point and 3 orthocenters</td>
+<td>Computationally verified</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(2/3\)</span></td>
+<td>harmonic mean of halved diagonal spreads</td>
+<td>Computationally verified</td>
 </tr>
 </tbody>
 </table>
-<p>None of these depend on which null points you started with. They’re all pinned down purely by the <em>incidence structure</em> of the configuration — which points lie on which lines, and how polarity connects them.</p>
+<p>Every entry here is independent of which null points you started with — pinned down purely by the <em>incidence structure</em> of the configuration: which points lie on which lines, and how polarity connects them. Notice, too, that most entries are either proven outright (analytically or via symbolic simplification in the canonical <span class="math inline">\(\lambda\)</span>-parametrisation) or checked computationally across large numbers of random configurations; only a handful of derived quantities in the catalogue remain at the “computationally verified” stage rather than a full symbolic proof.</p>
+<div id="fig-niltriangle1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-niltriangle1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="nil-triangle1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-niltriangle1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Invariants related to the orthocenter <span class="math inline">\(h\)</span> of the nil-triangle <span class="math inline">\(\alpha_1\alpha_2\alpha_3\)</span>. The orthocenter is the common meet of the altitude lines (or just altitudes) <span class="math inline">\(N_1 \equiv \alpha_1l_1\)</span>, <span class="math inline">\(N_2 \equiv \alpha_2l_2\)</span> and <span class="math inline">\(N_3 \equiv \alpha_3l_3\)</span>, where <span class="math inline">\(L_1 \equiv \alpha_2\alpha_3\)</span>, <span class="math inline">\(L_2 \equiv \alpha_1\alpha_3\)</span> and <span class="math inline">\(L_3 \equiv \alpha_1\alpha_2\)</span> and <span class="math inline">\(l_i \equiv L_i^{\perp}\)</span> is the pole of <span class="math inline">\(L_i\)</span>. <span class="math inline">\(l_i^{\prime}\)</span> is the reflection of <span class="math inline">\(l_i\)</span> in the orthocenter <span class="math inline">\(h\)</span>.
+</figcaption>
+</figure>
+</div>
+<div id="fig-niltriangle2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-niltriangle2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="nil-triangle2.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-niltriangle2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Invariants related to the orthocenter <span class="math inline">\(h\)</span> of the nil-triangle <span class="math inline">\(\alpha_1\alpha_2\alpha_3\)</span> <span class="citation" data-cites="wildberger2010universalhyperbolicgeometryii">Wildberger (<a href="#ref-wildberger2010universalhyperbolicgeometryii" role="doc-biblioref">2010</a>)</span>. The orthocenter is the common meet of the altitude lines (or just altitudes) <span class="math inline">\(N_1 \equiv \alpha_1 l_1\)</span>, <span class="math inline">\(N_2 \equiv \alpha_2 l_2\)</span>, and <span class="math inline">\(N_3 \equiv \alpha_3 l_3\)</span>, where <span class="math inline">\(L_1 \equiv \alpha_2\alpha_3\)</span>, <span class="math inline">\(L_2 \equiv \alpha_1\alpha_3\)</span>, and <span class="math inline">\(L_3 \equiv \alpha_1\alpha_2\)</span>, and <span class="math inline">\(l_i \equiv L_i^{\perp}\)</span> is the pole of <span class="math inline">\(L_i\)</span>. Here, <span class="math inline">\(l_i^{\prime}\)</span> is the reflection of <span class="math inline">\(l_i\)</span> in the orthocenter <span class="math inline">\(h\)</span>.
+</figcaption>
+</figure>
+</div>
+<div id="fig-nilquadrangle1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-nilquadrangle1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="nil-quadrangle1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nilquadrangle1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Some invariants related to the nil quadrangle <span class="math inline">\(\overline{\alpha_1\alpha_2\alpha_3\alpha_4}\)</span> and the associated orthic quadrangle <span class="math inline">\(\overline{h_1h_2h_3h_4}\)</span> constructed from the 4 nil-triangles <span class="math inline">\(\overline{\alpha_i\alpha_j\alpha_k}\)</span>. The quadrance from a diagonal point to each orthocenter are equal, that is <span class="math inline">\(q(e,h_i)=q(e,h_j)\)</span>, <span class="math inline">\(q(f,h_i)=q(f,h_j)\)</span>, and <span class="math inline">\(q(g,h_i)=q(g,h_j)\)</span> for <span class="math inline">\(i \neq j\)</span>. Also, <span class="math inline">\(\mathcal{A}_e = \mathcal{A}(e,h_2,h_3) = \mathcal{A}(e,h_4,h_1)\)</span>, <span class="math inline">\(\mathcal{A}_f = \mathcal{A}(f,h_2,h_3) = \mathcal{A}(f,h_4,h_1)\)</span>, and <span class="math inline">\(\mathcal{A}_g = \mathcal{A}(g,h_1,h_2) = \mathcal{A}(g,h_2,h_3)\)</span>.
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="why-does-this-happen-a-conjecture-about-finite-generation" class="level2">
 <h2 class="anchored" data-anchor-id="why-does-this-happen-a-conjecture-about-finite-generation">Why does this happen? A conjecture about finite generation</h2>
-<p>The paper’s boldest claim is structural rather than computational: it conjectures that <strong>every</strong> universal rational invariant obtainable this way lives inside a very small extension of the integers — specifically the “5-smooth” localization <span class="math inline">\(\mathbb{Z}[1/2, 1/3, 1/5]\)</span>, the ring of fractions whose denominators only involve the primes 2, 3, and 5. Empirically, every single value in the catalogue — <span class="math inline">\(3/4\)</span>, <span class="math inline">\(16/27\)</span>, <span class="math inline">\(48\)</span>, <span class="math inline">\(64\)</span>, and all the rest — fits inside this ring.</p>
+<p>The paper’s boldest claim is structural rather than computational: it conjectures that <strong>every</strong> universal rational invariant obtainable this way lives inside a very small extension of the integers — specifically the “5-smooth” localization <span class="math inline">\(\mathbb{Z}[1/2, 1/3, 1/5]\)</span>, the ring of fractions whose denominators only involve the primes 2, 3, and 5. Empirically, every single value in the catalogue above — <span class="math inline">\(3/4\)</span>, <span class="math inline">\(16/27\)</span>, <span class="math inline">\(48\)</span>, <span class="math inline">\(64\)</span>, and all the rest — fits inside this ring.</p>
 <p>The intuition offered is that the base invariants (<span class="math inline">\(3/4\)</span>, and the nil-triangle structure generally) are governed by the primes 2 and 3, while certain quadratic relations that appear in the geometry (an “Isosceles Triangle” spread equation) introduce a controlled dose of the prime 5. Nothing wilder ever seems to enter. If true, this points to a kind of <em>finite generation</em> phenomenon: the boundary of hyperbolic space, instead of being an unruly infinite mess, behaves like a small, tightly generated algebraic system.</p>
 </section>
 <section id="climbing-a-dimension-from-1627-to-a-3d-family" class="level2">
@@ -321,6 +491,17 @@ window.Quarto = {
 <p>What makes this catalogue compelling isn’t any single formula — it’s the pattern. A configuration of three or four points, sitting exactly on the boundary where the usual metrical machinery of distance and angle <em>fails</em> to be defined, turns out to encode a small, closed, rational algebra of constants. <span class="math inline">\(3/4\)</span> and <span class="math inline">\(16/27\)</span> behave like fundamental constants of this boundary geometry, with <span class="math inline">\(48\)</span>, <span class="math inline">\(64\)</span>, and dozens of other values falling out as their algebraic consequences. It’s a nice reminder that “undefined” and “unstructured” are not the same thing — sometimes the most rigid mathematics lives exactly at the edge.</p>
 <hr>
 <p><em>This post summarizes results from J. D. Coady, “Invariant Structures of Three and Four Null Points in Universal Hyperbolic Geometry” (2026), building on the foundational work of N. J. Wildberger on Universal Hyperbolic Geometry.</em></p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-coady2026nullpoints" class="csl-entry" role="listitem">
+Coady, John D. 2026. <span>“Invariant Structures of Three and Four Null Points in Universal Hyperbolic Geometry: A Catalogue of Universal Rational Metrical Invariants,”</span> June. <a href="https://doi.org/10.5281/zenodo.20511328">https://doi.org/10.5281/zenodo.20511328</a>.
+</div>
+<div id="ref-wildberger2010universalhyperbolicgeometryii" class="csl-entry" role="listitem">
+Wildberger, N. J. 2010. <span>“Universal Hyperbolic Geometry II: A Pictorial Overview.”</span> <a href="https://arxiv.org/abs/1012.0880">https://arxiv.org/abs/1012.0880</a>.
+</div>
+</div>
 
 
 </section>
