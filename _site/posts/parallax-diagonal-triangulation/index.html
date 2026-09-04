@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Based on research by John D. Coady">
+<meta name="dcterms.date" content="2026-09-03">
+
+<title>Triangulating the Diagonal Triangle: Quadrea Invariants and the Six Faces of a Cross-Ratio – John Coady’s Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-fe7872a82928c9cb84149cb81cc2feaf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">John Coady’s Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">All Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../math.html"> 
+<span class="menu-text">Pure Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics.html"> 
+<span class="menu-text">Math Physics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0009-0008-6020-5733"> 
+<span class="menu-text"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID iD" style="height:20px; width:20px; vertical-align:-3px;"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://x.com/johndavidcoady"> <i class="bi bi-twitter-x" role="img" aria-label="X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jcoady"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Triangulating the Diagonal Triangle: Quadrea Invariants and the Six Faces of a Cross-Ratio</h1>
+            <p class="subtitle lead">A follow-on to <em>From Null Quadrangles to xy = 1</em></p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">pure-math</div>
+                <div class="quarto-category">geometry</div>
+                <div class="quarto-category">hyperbolic-geometry</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Based on research by John D. Coady </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">September 3, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#picking-up-where-we-left-off" id="toc-picking-up-where-we-left-off" class="nav-link active" data-scroll-target="#picking-up-where-we-left-off">Picking up where we left off</a></li>
+  <li><a href="#setting-the-stage-a-completely-right-diagonal-triangle" id="toc-setting-the-stage-a-completely-right-diagonal-triangle" class="nav-link" data-scroll-target="#setting-the-stage-a-completely-right-diagonal-triangle">Setting the stage: a completely right diagonal triangle</a></li>
+  <li><a href="#walking-the-chain-of-quadrances" id="toc-walking-the-chain-of-quadrances" class="nav-link" data-scroll-target="#walking-the-chain-of-quadrances">Walking the chain of quadrances</a></li>
+  <li><a href="#the-six-faces-of-a-cross-ratio" id="toc-the-six-faces-of-a-cross-ratio" class="nav-link" data-scroll-target="#the-six-faces-of-a-cross-ratio">The six faces of a cross-ratio</a></li>
+  <li><a href="#an-invariant-quadrea-of-exactly-one-four-times-over" id="toc-an-invariant-quadrea-of-exactly-one-four-times-over" class="nav-link" data-scroll-target="#an-invariant-quadrea-of-exactly-one-four-times-over">An invariant quadrea of exactly one, four times over</a></li>
+  <li><a href="#doubly-right-quadrangles-quadrea-zero" id="toc-doubly-right-quadrangles-quadrea-zero" class="nav-link" data-scroll-target="#doubly-right-quadrangles-quadrea-zero">Doubly-right quadrangles: quadrea zero</a></li>
+  <li><a href="#singly-right-quadrangles-quadrea-minus-one" id="toc-singly-right-quadrangles-quadrea-minus-one" class="nav-link" data-scroll-target="#singly-right-quadrangles-quadrea-minus-one">Singly-right quadrangles: quadrea minus one</a></li>
+  <li><a href="#two-invariant-constants-zero-and-minus-one" id="toc-two-invariant-constants-zero-and-minus-one" class="nav-link" data-scroll-target="#two-invariant-constants-zero-and-minus-one">Two invariant constants, zero and minus one</a></li>
+  <li><a href="#takeaway" id="toc-takeaway" class="nav-link" data-scroll-target="#takeaway">Takeaway</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="picking-up-where-we-left-off" class="level2">
+<h2 class="anchored" data-anchor-id="picking-up-where-we-left-off">Picking up where we left off</h2>
+<p>The <a href="https://jcoady.github.io/blog/posts/reciprocal-parallax-symmetry/">previous post</a> started with a null quadrangle, built its fully-right diagonal triangle, and showed that a pair of “complementary parallax triangles” hanging off one vertex of that diagonal triangle carry reciprocal quadrances <span class="math inline">\(q\)</span> and <span class="math inline">\(1/q\)</span>. This post extends that picture all the way around the diagonal triangle, and asks what happens when we triangulate it with the seven points that result.</p>
+<p>The punchline is twofold. First, the <em>entire</em> diagonal triangle can be cut into four smaller triangles whose projective quadreas are each exactly <span class="math inline">\(1\)</span>, glued against a central triangle whose quadrea is exactly <span class="math inline">\(-4\)</span> — and the five numbers sum to zero. Second, every quadrance that shows up anywhere in the construction turns out to be one of the six classical values of the anharmonic group of a single cross-ratio <span class="math inline">\(q\)</span>. The reciprocal symmetry <span class="math inline">\(q \leftrightarrow 1/q\)</span> from the last post was only one face of a much richer six-fold symmetry hiding in the configuration.</p>
+</section>
+<section id="setting-the-stage-a-completely-right-diagonal-triangle" class="level2">
+<h2 class="anchored" data-anchor-id="setting-the-stage-a-completely-right-diagonal-triangle">Setting the stage: a completely right diagonal triangle</h2>
+<p>We start, as before, with a null quadrangle and form its diagonal triangle — except this time we label its three vertices <span class="math inline">\(a_3, a_5, a_7\)</span>. This diagonal triangle is <strong>completely right</strong>: all three side quadrances equal <span class="math inline">\(1\)</span>,</p>
+<p><span class="math display">\[q(a_3,a_5) = q(a_5,a_7) = q(a_3,a_7) = 1,\]</span></p>
+<p>and all three vertex spreads equal <span class="math inline">\(1\)</span> as well. Every side is perpendicular to the line joining the other two vertices, and every side has the same unit quadrance — the most symmetric triangle UHG has to offer.</p>
+<p>Now take a null point <span class="math inline">\(a_1\)</span> lying on the null circle, chosen to be one of the vertices of the original null quadrangle that produced this diagonal triangle. Building the two complementary right triangles at <span class="math inline">\(a_3\)</span> exactly as in the previous post reproduces the same parallax configuration:</p>
+<p><span class="math display">\[q(a_2,a_3) = q, \qquad q(a_3,a_4) = \frac{1}{q}.\]</span></p>
+<p>The new content of this post is what happens when we keep going — using the other two vertices <span class="math inline">\(a_5\)</span> and <span class="math inline">\(a_7\)</span> of the diagonal triangle to generate two more points, <span class="math inline">\(a_6\)</span> and, together with <span class="math inline">\(a_2\)</span> and <span class="math inline">\(a_4\)</span>, close the whole figure into a seven-point configuration built entirely by triangulating the diagonal triangle <span class="math inline">\(a_3a_5a_7\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="parallax-diagonal-triangulation.svg" class="img-fluid figure-img"></p>
+<figcaption>Figure 1: The full seven-point parallax configuration, triangulating the completely right diagonal triangle <span class="math inline">\(a_3a_5a_7\)</span>.</figcaption>
+</figure>
+</div>
+</section>
+<section id="walking-the-chain-of-quadrances" class="level2">
+<h2 class="anchored" data-anchor-id="walking-the-chain-of-quadrances">Walking the chain of quadrances</h2>
+<p>The key tool throughout is the <strong>Triple Quad Formula</strong> (TQF), which governs any three collinear points <span class="math inline">\(p,q,r\)</span> with quadrances <span class="math inline">\(q_1=q(p,q)\)</span>, <span class="math inline">\(q_2=q(q,r)\)</span>, <span class="math inline">\(q_3=q(p,r)\)</span>:</p>
+<p><span class="math display">\[(q_1+q_2+q_3)^2 = 2(q_1^2+q_2^2+q_3^2) + 4q_1q_2q_3.\]</span></p>
+<p>Whenever one of the three quadrances is exactly <span class="math inline">\(1\)</span>, this collapses to a perfect square, and the other two become simple affine complements of one another.</p>
+<p><strong>From <span class="math inline">\(a_3,a_4\)</span> to <span class="math inline">\(a_4,a_5\)</span>.</strong> Since <span class="math inline">\(q(a_3,a_5)=1\)</span> (a side of the diagonal triangle) and <span class="math inline">\(q(a_3,a_4)=1/q\)</span>, feeding <span class="math inline">\(q_1 = 1/q\)</span>, <span class="math inline">\(q_3=1\)</span> into the TQF forces <span class="math inline">\((q_2 - (1-1/q))^2=0\)</span>, i.e.</p>
+<p><span class="math display">\[q(a_4,a_5) = 1-\frac{1}{q}.\]</span></p>
+<p><strong>From <span class="math inline">\(a_2,a_3\)</span> to <span class="math inline">\(a_2,a_7\)</span>.</strong> By the identical argument, using <span class="math inline">\(q(a_3,a_7)=1\)</span> and <span class="math inline">\(q(a_2,a_3)=q\)</span>,</p>
+<p><span class="math display">\[q(a_2,a_7) = 1-q.\]</span></p>
+<p><strong>Crossing over to <span class="math inline">\(a_6\)</span> via the spread law.</strong> The vertex <span class="math inline">\(a_3\)</span> of the diagonal triangle is the pole of the opposite side <span class="math inline">\(a_5a_7\)</span>, so the line <span class="math inline">\(a_3a_7\)</span> is perpendicular to <span class="math inline">\(a_5a_7\)</span>, and the spread at <span class="math inline">\(a_7\)</span> in triangle <span class="math inline">\(a_3a_6a_7\)</span> is <span class="math inline">\(1\)</span>. Applying the Spread Law to that triangle,</p>
+<p><span class="math display">\[\frac{S}{q(a_6,a_7)} = \frac{S(a_3a_6,a_6a_7)}{q(a_3,a_7)} = \frac{S(a_3a_7,a_6a_7)}{q(a_3,a_6)} = \frac{1}{1},\]</span></p>
+<p>using <span class="math inline">\(q(a_3,a_7)=q(a_3,a_6)=1\)</span>. So <span class="math inline">\(q(a_6,a_7) = S\)</span>, and since this spread obeys the same right-parallax relation <span class="math inline">\(q=(S-1)/S\)</span> from the earlier post — now solved for <span class="math inline">\(S\)</span> in terms of the original parallax quadrance <span class="math inline">\(q\)</span> — we get</p>
+<p><span class="math display">\[q(a_6,a_7) = \frac{1}{1-q}.\]</span></p>
+<p><strong>Closing the loop at <span class="math inline">\(a_5,a_6\)</span>.</strong> Finally, <span class="math inline">\(a_5\)</span> and <span class="math inline">\(a_7\)</span> are the perpendicular pair with <span class="math inline">\(q(a_5,a_7)=1\)</span>, so the same collapsed TQF argument used above (this time on the collinear triple <span class="math inline">\(a_5,a_6,a_7\)</span>) gives</p>
+<p><span class="math display">\[q(a_5,a_6) = 1-q(a_6,a_7) = 1-\frac{1}{1-q}.\]</span></p>
+</section>
+<section id="the-six-faces-of-a-cross-ratio" class="level2">
+<h2 class="anchored" data-anchor-id="the-six-faces-of-a-cross-ratio">The six faces of a cross-ratio</h2>
+<p>Simplifying <span class="math inline">\(q(a_5,a_6)\)</span> gives <span class="math inline">\(\dfrac{q}{q-1}\)</span>, and collecting every quadrance derived above:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Segment</th>
+<th>Quadrance</th>
+<th>Cross-ratio form</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(a_2a_3\)</span></td>
+<td><span class="math inline">\(q\)</span></td>
+<td><span class="math inline">\(\lambda\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(a_3a_4\)</span></td>
+<td><span class="math inline">\(1/q\)</span></td>
+<td><span class="math inline">\(1/\lambda\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(a_4a_5\)</span></td>
+<td><span class="math inline">\(1-1/q\)</span></td>
+<td><span class="math inline">\((\lambda-1)/\lambda\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(a_2a_7\)</span></td>
+<td><span class="math inline">\(1-q\)</span></td>
+<td><span class="math inline">\(1-\lambda\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(a_6a_7\)</span></td>
+<td><span class="math inline">\(1/(1-q)\)</span></td>
+<td><span class="math inline">\(1/(1-\lambda)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(a_5a_6\)</span></td>
+<td><span class="math inline">\(q/(q-1)\)</span></td>
+<td><span class="math inline">\(\lambda/(\lambda-1)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>These are precisely the six values of the classical <strong>anharmonic group</strong> generated by permuting a cross-ratio <span class="math inline">\(\lambda = q\)</span>:</p>
+<p><span class="math display">\[q,\quad \frac{1}{q},\quad 1-q,\quad \frac{1}{1-q},\quad \frac{q}{q-1},\quad \frac{q-1}{q}.\]</span></p>
+<p>Every quadrance produced by triangulating the diagonal triangle is one of these six values — nothing else appears. The reciprocal law <span class="math inline">\(q\leftrightarrow 1/q\)</span> from the earlier post is just one of the three involutions in this group (the other two being <span class="math inline">\(q\leftrightarrow 1-q\)</span> and <span class="math inline">\(q\leftrightarrow q/(q-1)\)</span>); the full six-point construction realizes the whole <span class="math inline">\(S_3\)</span> symmetry of the cross-ratio at once, with each of the six segments of the figure carrying a different one of its six values.</p>
+</section>
+<section id="an-invariant-quadrea-of-exactly-one-four-times-over" class="level2">
+<h2 class="anchored" data-anchor-id="an-invariant-quadrea-of-exactly-one-four-times-over">An invariant quadrea of exactly one, four times over</h2>
+<p>The seven points triangulate the diagonal triangle <span class="math inline">\(a_3a_5a_7\)</span> into four small triangles meeting at the central point of the figure. Each of these four triangles has a right angle where two of its sides meet a segment of unit quadrance, and in every case the <strong>quadrea</strong> <span class="math inline">\(\mathcal{A} = q_1q_2S_3\)</span> collapses the same way it did in the previous post:</p>
+<p><span class="math display">\[\mathcal{A}(a_2,a_3,a_4) = q\cdot\frac1q\cdot 1 = 1,\]</span></p>
+<p>and identical computations — swapping in the corresponding reciprocal pair of quadrances at each right angle — give</p>
+<p><span class="math display">\[\mathcal{A}(a_4,a_5,a_6) = 1, \qquad \mathcal{A}(a_2,a_6,a_7) = 1.\]</span></p>
+<p>The fourth triangle is the original diagonal triangle itself, <span class="math inline">\(a_3a_5a_7\)</span>, whose quadrea is likewise <span class="math inline">\(1\)</span> since all three sides and all three spreads are exactly <span class="math inline">\(1\)</span>:</p>
+<p><span class="math display">\[\mathcal{A}(a_3,a_5,a_7) = 1\cdot1\cdot1 = 1.\]</span></p>
+<p>So all <strong>four</strong> triangles that triangulate the outer edge of the figure have unit quadrea, regardless of <span class="math inline">\(q\)</span>.</p>
+<p><strong>The central triangle.</strong> The fifth triangle in the picture, <span class="math inline">\(a_2a_4a_6\)</span>, sits in the middle where the other four meet, and each of its three sides is shared with one of the adjacent right triangles. That means each side quadrance of the central triangle can be read off directly from the <strong>Projective Pythagorean Theorem</strong>: whenever a spread of <span class="math inline">\(1\)</span> sits between two points <span class="math inline">\(B\)</span> flanked by <span class="math inline">\(A\)</span> and <span class="math inline">\(C\)</span>,</p>
+<p><span class="math display">\[q(A,C) = q(A,B) + q(B,C) - q(A,B)\,q(B,C).\]</span></p>
+<p>Applying this across each of the three right angles adjacent to the central triangle:</p>
+<p><span class="math display">\[q(a_2,a_4) = q(a_2,a_3) + q(a_3,a_4) - q(a_2,a_3)\,q(a_3,a_4),\]</span> <span class="math display">\[q(a_4,a_6) = q(a_4,a_5) + q(a_5,a_6) - q(a_4,a_5)\,q(a_5,a_6),\]</span> <span class="math display">\[q(a_2,a_6) = q(a_2,a_7) + q(a_6,a_7) - q(a_2,a_7)\,q(a_6,a_7).\]</span></p>
+<p>Each right-hand side plugs in one of the reciprocal pairs from the cross-ratio table above — <span class="math inline">\((q,\,1/q)\)</span>, <span class="math inline">\(((q-1)/q,\,q/(q-1))\)</span>, and <span class="math inline">\((1-q,\,1/(1-q))\)</span> respectively — so all three sides of the central triangle are determined purely in terms of <span class="math inline">\(q\)</span>:</p>
+<p><span class="math display">\[Q_1 = q(a_2,a_4) = q-1+\frac1q, \quad Q_2 = q(a_4,a_6) = \frac{q^2-q+1}{q(q-1)}, \quad Q_3 = q(a_2,a_6) = \frac{-q^2+q-1}{q-1}.\]</span></p>
+<p>Two more invariants fall out immediately once these are collected: <strong>the three side quadrances of the central triangle always sum to zero</strong>, <span class="math inline">\(Q_1+Q_2+Q_3=0\)</span>, and their complements always multiply to one, <span class="math inline">\((1-Q_1)(1-Q_2)(1-Q_3)=1\)</span> — both identities hold for every value of <span class="math inline">\(q\)</span>.</p>
+<p>That is exactly what’s needed to finish the job with the genuinely projective <strong>Cross Law</strong> (Wildberger, <em>Universal Hyperbolic Geometry III</em>, Thm. 50), the projective analogue of the Cosine Law. For a triangle with quadrances <span class="math inline">\(q_1,q_2,q_3\)</span>, spread <span class="math inline">\(S_1\)</span> opposite <span class="math inline">\(q_1\)</span>, and quadrea <span class="math inline">\(\mathcal{A}=q_2q_3S_1\)</span> (the Quadrea Theorem), the Cross Law states</p>
+<p><span class="math display">\[\big(\mathcal{A} - q_1-q_2-q_3+2\big)^2 = 4(1-q_1)(1-q_2)(1-q_3).\]</span></p>
+<p>Substituting <span class="math inline">\(q_1+q_2+q_3=0\)</span> and <span class="math inline">\((1-q_1)(1-q_2)(1-q_3)=1\)</span> for the central triangle collapses this to</p>
+<p><span class="math display">\[(\mathcal{A}+2)^2 = 4,\]</span></p>
+<p>so <span class="math inline">\(\mathcal{A}(a_2,a_4,a_6)\)</span> can only be <span class="math inline">\(0\)</span> or <span class="math inline">\(-4\)</span> — and since the central triangle is manifestly non-degenerate, the geometrically realized root is</p>
+<p><span class="math display">\[\mathcal{A}(a_2,a_4,a_6) = -4.\]</span></p>
+<p>Summing every triangle quadrea in the triangulation of the diagonal triangle,</p>
+<p><span class="math display">\[\mathcal{A}(a_2a_3a_4) + \mathcal{A}(a_4a_5a_6) + \mathcal{A}(a_2a_6a_7) + \mathcal{A}(a_3a_5a_7) - \mathcal{A}(a_2a_4a_6) = 1+1+1+1-4 = 0,\]</span></p>
+<p>taking the central triangle with a minus sign, as its orientation runs opposite to the four outer triangles. The whole triangulated figure balances to zero — the four unit “petals” exactly cancel the central <span class="math inline">\(-4\)</span>.</p>
+</section>
+<section id="doubly-right-quadrangles-quadrea-zero" class="level2">
+<h2 class="anchored" data-anchor-id="doubly-right-quadrangles-quadrea-zero">Doubly-right quadrangles: quadrea zero</h2>
+<p>Grouping the seven points into quadrangles instead of triangles turns up a second family of invariants. The quadrangles <span class="math inline">\(a_2a_3a_5a_6\)</span>, <span class="math inline">\(a_4a_5a_7a_2\)</span>, and <span class="math inline">\(a_6a_7a_3a_4\)</span> are each <strong>doubly-right</strong>: two adjacent spreads of the quadrangle are equal to <span class="math inline">\(1\)</span>.</p>
+<p>For a doubly-right quadrangle with the three side quadrances <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span> running around the sides adjacent to the two right spreads, the projective quadrea is given by</p>
+<p><span class="math display">\[\mathcal{A} = ab+bc-abc.\]</span></p>
+<p>In each of our three quadrangles the middle quadrance is <span class="math inline">\(b=1\)</span> (a side shared with the diagonal triangle), which reduces the formula to</p>
+<p><span class="math display">\[\mathcal{A} = a+c-ac.\]</span></p>
+<p>Reading off the quadrances from the table above — each pair <span class="math inline">\((a,c)\)</span> is one of the reciprocal pairs generated by the anharmonic group, such as <span class="math inline">\((q,\,1/q)\)</span> or <span class="math inline">\((1-q,\,1/(1-q))\)</span> — the relation <span class="math inline">\(a+c=ac\)</span> holds identically, since dividing through by <span class="math inline">\(ac\)</span> gives <span class="math inline">\(1/a + 1/c = 1\)</span>, which is exactly the complementary-spread relation the whole construction was built from. So</p>
+<p><span class="math display">\[\mathcal{A}(a_2a_3a_5a_6) = \mathcal{A}(a_4a_5a_7a_2) = \mathcal{A}(a_6a_7a_3a_4) = 0\]</span></p>
+<p>for every value of <span class="math inline">\(q\)</span>: these three quadrangles are invariantly flat, in the projective quadrea sense, no matter where <span class="math inline">\(a_1\)</span> sits on the null circle.</p>
+</section>
+<section id="singly-right-quadrangles-quadrea-minus-one" class="level2">
+<h2 class="anchored" data-anchor-id="singly-right-quadrangles-quadrea-minus-one">Singly-right quadrangles: quadrea minus one</h2>
+<p>A third family — <span class="math inline">\(a_2a_3a_4a_6\)</span>, <span class="math inline">\(a_4a_5a_7a_2\)</span>, and <span class="math inline">\(a_6a_7a_3a_4\)</span> — is only <strong>singly-right</strong>: a single spread of the quadrangle, at one vertex, equals <span class="math inline">\(1\)</span>. For these, the quadrea is just the signed sum of the two triangle quadreas meeting at that right-angled vertex.</p>
+<p>Take <span class="math inline">\(a_2a_3a_4a_6\)</span> as the worked example. The spread at <span class="math inline">\(a_3\)</span> is <span class="math inline">\(1\)</span>, so the quadrangle splits into triangles <span class="math inline">\(a_2a_3a_6\)</span> and <span class="math inline">\(a_3a_4a_6\)</span> at that vertex. Writing <span class="math inline">\(S=1/(1-q)\)</span> for the spread computed above,</p>
+<p><span class="math display">\[\mathcal{A}(a_2,a_3,a_6) = q\cdot S\cdot 1 = q\cdot\frac{1}{1-q} = \frac{q}{1-q},\]</span></p>
+<p><span class="math display">\[\mathcal{A}(a_3,a_4,a_6) = \frac1q\cdot(1-S)\cdot 1 = \frac1q\left(1-\frac{1}{1-q}\right) = \frac1q\cdot\frac{-q}{1-q} = \frac{-1}{1-q}.\]</span></p>
+<p>Adding the two triangle quadreas:</p>
+<p><span class="math display">\[\mathcal{A}(a_2a_3a_4a_6) = \frac{q}{1-q} - \frac{1}{1-q} = \frac{q-1}{1-q} = -1.\]</span></p>
+<p>The same computation, run at the appropriate right-angled vertex of the other two quadrangles, gives the identical constant. So every singly-right quadrangle in the figure has projective quadrea exactly <span class="math inline">\(-1\)</span>, again independent of <span class="math inline">\(q\)</span>.</p>
+</section>
+<section id="two-invariant-constants-zero-and-minus-one" class="level2">
+<h2 class="anchored" data-anchor-id="two-invariant-constants-zero-and-minus-one">Two invariant constants, zero and minus one</h2>
+<p>Putting the triangle and quadrangle results together, the diagonal triangle’s triangulation carries exactly two invariant quadrea values beyond the unit quadreas of its four component triangles:</p>
+<ul>
+<li><strong>Doubly-right quadrangles</strong> — two right spreads — always have quadrea <span class="math inline">\(\mathbf{0}\)</span>.</li>
+<li><strong>Singly-right quadrangles</strong> — one right spread — always have quadrea <span class="math inline">\(\mathbf{-1}\)</span>.</li>
+</ul>
+<p>Both invariants trace back to the same source as the unit triangle quadreas and the six-fold cross-ratio symmetry: the single complementary relation <span class="math inline">\(1/a+1/c=1\)</span> that links every reciprocal pair of quadrances produced by the completely right diagonal triangle. Change <span class="math inline">\(q\)</span>, and every point in the figure moves — but these quadreas, like the quadrances themselves cycling through the six values of the anharmonic group, never do.</p>
+<div style="text-align: center; margin: 20px 0;">
+  <a href="https://www.geogebra.org/m/wfhhb5tn" target="_blank" rel="noopener noreferrer" title="Click to launch interactive 3D model">
+    <img src="Parallax-Diagonal-Triangle.png" alt="Parallax Diagonal Triangle Invariants" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;">
+    <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points on blue circle to see metric calculations update.</em></p>
+  </a>
+</div>
+</section>
+<section id="takeaway" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway">Takeaway</h2>
+<p>Triangulating the completely right diagonal triangle with a single extra null point <span class="math inline">\(a_1\)</span> generates six segments whose quadrances are exactly the six values of the anharmonic group of a single cross-ratio <span class="math inline">\(q\)</span>, four outer triangles of unit quadrea balanced against one central triangle of quadrea <span class="math inline">\(-4\)</span>, and two further invariant constants — <span class="math inline">\(0\)</span> for doubly-right quadrangles, <span class="math inline">\(-1\)</span> for singly-right ones — that hold for every position of <span class="math inline">\(a_1\)</span> on the null circle. What looked in the previous post like a single reciprocal symmetry <span class="math inline">\(q \leftrightarrow 1/q\)</span> turns out to be the visible edge of the full six-element cross-ratio symmetry group acting on the whole configuration at once.</p>
+<hr>
+<p><em>This post extends the results of J. D. Coady, “From Null Quadrangles to the Hyperbola xy = 1: Reciprocal Parallax Symmetry in Universal Hyperbolic Geometry” (2026), building on the foundational work of N. J. Wildberger on Universal Hyperbolic Geometry and Chromogeometry.</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jcoady\.github\.io\/blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="jcoady/blog" data-repo-id="R_kgDOUEMSRA" data-category="General" data-category-id="DIC_kwDOUEMSRM4DEZKl" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
+</div> <!-- /content -->
+
+
+
+
+</body></html>
