@@ -186,4 +186,6 @@ Triangulating the completely right diagonal triangle with a single extra null po
 
 ---
 
+**Full paper:** [Triangulating the Diagonal Triangle: Cross-Ratio Symmetry and Quadrea Invariants in Universal Hyperbolic Geometry](https://doi.org/10.5281/zenodo.22288766), John D. Coady, Zenodo, 2026.
+
 *This post extends the results of J. D. Coady, "From Null Quadrangles to the Hyperbola xy = 1: Reciprocal Parallax Symmetry in Universal Hyperbolic Geometry" (2026), building on the foundational work of N. J. Wildberger on Universal Hyperbolic Geometry and Chromogeometry.*
