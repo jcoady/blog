@@ -2,6 +2,7 @@
   {
     "listing": "/physics.html",
     "items": [
+      "/posts/finitist-quantum-gravity/index.html",
       "/posts/from-cross-ratio-orbits-to-su3-invariants/index.html",
       "/posts/from-galois-to-ghost-parity/index.html",
       "/posts/no-infinities-allowed/index.html",
@@ -11,6 +12,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/finitist-quantum-gravity/index.html",
       "/posts/from-cross-ratio-orbits-to-su3-invariants/index.html",
       "/posts/parallax-diagonal-triangulation/index.html",
       "/posts/reciprocal-parallax-symmetry/index.html",
@@ -28,6 +30,7 @@
   {
     "listing": "/math.html",
     "items": [
+      "/posts/finitist-quantum-gravity/index.html",
       "/posts/from-cross-ratio-orbits-to-su3-invariants/index.html",
       "/posts/parallax-diagonal-triangulation/index.html",
       "/posts/reciprocal-parallax-symmetry/index.html",
