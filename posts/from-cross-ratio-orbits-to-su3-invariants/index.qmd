@@ -1,31 +1,28 @@
 ---
 title: "From Cross-Ratio Orbits to SU(3) Invariants in Universal Hyperbolic Geometry"
 author: "John D. Coady"
-date: "2026-09-05"
+date: 2026-09-05
 categories: [pure-math, geometry, hyperbolic-geometry, mathematical-physics]
 description: "How the quadratic cover f(x) = 4x(1-x) collapses S3 cross-ratio orbits onto Wildberger's 48/64 locus and links central field components to Lie-algebraic Casimirs."
-toc: true
-format:
-  html:
-    code-fold: show
-    html-math-method: katex
 ---
 
 ## Picking up where we left off
 
 This is the third post in an ongoing series exploring the algebra hiding inside a very simple picture: four null points sitting on a conic, and the seven-point figure you get when you triangulate the diagonal triangle they generate.
 
-- In [**Post 1: Reciprocal Parallax Symmetry in UHG**](https://jcoady.github.io/blog/posts/reciprocal-parallax-symmetry/), we met the four null points, their self-polar diagonal triangle, and the first hint that its sides carry a rigid, cross-ratio-independent quadrance of exactly $1$.
+- In [**Post 1: Reciprocal Parallax Symmetry in UHG**](https://jcoady.github.io/blog/posts/reciprocal-parallax-symmetry/), we met the four null points, their self-polar diagonal triangle, and the first hint that its sides carry a rigid, cross-ratio-independent quadrance of exactly 1.
 - In [**Post 2: Parallax Diagonal Triangulation**](https://jcoady.github.io/blog/posts/parallax-diagonal-triangulation/), we triangulated that diagonal triangle outward, picked up six outer parallax segments, and found that their quadrances trace out the full six-element anharmonic orbit of a single cross-ratio parameter $q$.
 
 Both of those posts stayed close to the raw geometry — joins, meets, poles, quadrances. This post is where the payoff shows up: the same six-element orbit, run through one deliberately simple quadratic map, folds down onto a rigid numerical target that Wildberger proved decades ago, and along the way hands us something that looks unmistakably like the invariant structure of $\mathfrak{su}(3)$.
 
 The full write-up, with every derivation carried out in detail, is on Zenodo:
 
-> **From Cross-Ratio Orbits to $SU(3)$ Invariants in Universal Hyperbolic Geometry**
+> **From Cross-Ratio Orbits to SU(3) Invariants in Universal Hyperbolic Geometry**
 > John D. Coady, 2026. [doi.org/10.5281/zenodo.22398942](https://doi.org/10.5281/zenodo.22398942)
 
 This post is the tour.
+
+A note on notation, carried forward from this point in the series: capital $Q$ denotes a Rational Trigonometry quadrance — the raw value of the ambient quadratic form on a single homogeneous representative — which is not invariant under choice of representative. Lowercase $q$ denotes a UHG quadrance — the projectively invariant ratio between two points. The trace-free triple below, $q_1,q_2,q_3$, is built entirely from quadrances of this second kind, so it is labeled accordingly.
 
 ## Two tiers, one cross-ratio
 
@@ -39,7 +36,7 @@ $$
 
 Six numbers, permuted among themselves by the six elements of $S_3$, arranged as three complementary pairs.
 
-**Tier 1** is the macroscopic layer: the diagonal spreads $P$, $R$, $T$ that live on the *original* four-point quadrangle, satisfying Wildberger's classical **Theorem 44** — the "48/64 theorem":
+**Tier 1** is the macroscopic layer: the diagonal spreads $P, R, T$ that live on the *original* four-point quadrangle, satisfying Wildberger's classical **Theorem 44** — the "48/64 theorem":
 
 $$
 PR + RT + TP = 48, \qquad PRT = 64.
@@ -49,7 +46,7 @@ The question this post answers: is there a clean, purely algebraic bridge from T
 
 ## The quadratic folding map
 
-Pick one representative from each of the three complementary pairs in $\mathcal{O}_q$ — say $q_1 = q$, $q_2 = 1/q$, $q_3 = 1/(1-q)$ — and feed each one through
+Pick one representative from each of the three complementary pairs in $\mathcal{O}_q$ — say $q_a = q$, $q_b = 1/q$, $q_c = 1/(1-q)$ — and feed each one through
 
 $$
 f(x) = 4x(1-x).
@@ -71,7 +68,7 @@ T \equiv 4\left(\frac{1}{q}\right)\!\left(1-\frac{1}{q}\right) = -\frac{4(1-q)}{
 P \equiv 4\left(\frac{1}{1-q}\right)\!\left(1-\frac{1}{1-q}\right) = -\frac{4q}{(1-q)^2}.
 $$
 
-Here's the key structural fact: $f(x) = f(1-x)$, identically. So it doesn't matter which member of each complementary pair you started from — $f$ can't tell $q$ from $1-q$, or $1/q$ from $(q-1)/q$, or $1/(1-q)$ from $q/(q-1)$. That single symmetry is what turns a **6**-element orbit into a well-defined **3**-element set $\{P, R, T\}$. It's a genuine $2$-to-$1$ branched algebraic cover, no analysis required — just the involution $x \mapsto 1-x$ acting underneath a quadratic.
+Here's the key structural fact: $f(x) = f(1-x)$, identically. So it doesn't matter which member of each complementary pair you started from — $f$ can't tell $q$ from $1-q$, or $1/q$ from $(q-1)/q$, or $1/(1-q)$ from $q/(q-1)$. That single symmetry is what turns a **6**-element orbit into a well-defined **3**-element set $\{P, R, T\}$. It's a genuine 2-to-1 branched algebraic cover, no analysis required — just the involution $x \mapsto 1-x$ acting underneath a quadratic.
 
 ![Four null points on the conic, their self-polar diagonal triangle $\overline{a_3a_5a_7}$ (classically labeled $\overline{efg}$), and the diagonal spreads $P$, $R$, $T$.](diagonal-triangle-PRT.svg)
 
@@ -96,30 +93,31 @@ That means $\{P, R, T\}$, built purely from the microscopic Tier 2 quadrances, s
 
 ![The null quadrangle frame with the Tier 1 diagonal spreads $P$, $R$, $T$, each arising from an isosceles sub-triangle configuration via Theorem 32 with $S=0$.](complementary-parallax-PRT.svg)
 
-## The $SU(3)$-flavored central triangle
+## The SU(3)-flavored central triangle
 
 Tier 2's orbit does more than fold onto $(P,R,T)$. Back in Post 2, triangulating the diagonal triangle also produced a **central triangle** $\overline{a_2a_4a_6}$, built from the auxiliary points of the seven-point frame. Its three side-quadrances, courtesy of the Projective Pythagorean Theorem, are:
 
 $$
-Q_1(q) = \frac{q^2-q+1}{q}, \qquad
-Q_2(q) = \frac{q^2-q+1}{q(q-1)}, \qquad
-Q_3(q) = -\frac{q^2-q+1}{q-1}.
+q_1(q) = \frac{q^2-q+1}{q}, \qquad
+q_2(q) = \frac{q^2-q+1}{q(q-1)}, \qquad
+q_3(q) = -\frac{q^2-q+1}{q-1}.
 $$
 
-![The central triangle $\overline{a_2a_4a_6}$ formed by the auxiliary points of the 7-point frame; its side quadrances are the trace-free field components $Q_1(q), Q_2(q), Q_3(q)$.](central-triangle.svg)
 
-These three quantities satisfy a trace-free condition, $Q_1+Q_2+Q_3\equiv 0$ — the same shape as three color charges summing to zero on the Cartan subalgebra of $\mathfrak{su}(3)$. That single constraint is what makes the rest of the structure feel so Lie-algebraic: with $e_1=0$, only two independent symmetric invariants remain, $e_2$ and $e_3$, and those are exactly the quadratic and cubic Casimirs:
+![The central triangle $\overline{a_2a_4a_6}$ formed by the auxiliary points of the 7-point frame; its side quadrances are the trace-free field components $q_1(q), q_2(q), q_3(q)$.](central-triangle.svg)
+
+These three quantities satisfy a trace-free condition, $q_1+q_2+q_3\equiv 0$ — the same shape as three color charges summing to zero on the Cartan subalgebra of $\mathfrak{su}(3)$. That single constraint is what makes the rest of the structure feel so Lie-algebraic: with $e_1=0$, only two independent symmetric invariants remain, $e_2$ and $e_3$, and those are exactly the quadratic and cubic Casimirs:
 
 $$
-C_2(q) \equiv Q_1^2+Q_2^2+Q_3^2 = \frac{1}{128}\,j(q), \qquad
-C_3(q) \equiv Q_1 Q_2 Q_3 = -\frac{1}{256}\,j(q),
+C_2(q) \equiv q_1^2+q_2^2+q_3^2 = \frac{1}{128}\,j(q), \qquad
+C_3(q) \equiv q_1 q_2 q_3 = -\frac{1}{256}\,j(q),
 $$
 
-where $j(q) = \dfrac{256(q^2-q+1)^3}{q^2(q-1)^2}$ is the classical Klein $j$-invariant. A rank-2 Lie algebra's invariant ring is freely generated by exactly two Casimirs — and here, two independent invariants fall directly out of a trace-free triple built from nothing but a cross-ratio and the Projective Pythagorean Theorem. We want to be careful about how far to push this: the geometry is exact and provable; the $SU(3)$ language is offered as structural motivation, not as a physical derivation.
+where $j(q) = \dfrac{256(q^2-q+1)^3}{q^2(q-1)^2}$ is the classical Klein $j$-invariant. A rank-2 Lie algebra's invariant ring is freely generated by exactly two Casimirs — and here, two independent invariants fall directly out of a trace-free triple built from nothing but a cross-ratio and the Projective Pythagorean Theorem. We want to be careful about how far to push this: the geometry is exact and provable; the SU(3) language is offered as structural motivation, not as a physical derivation.
 
 ## What happens at the boundary
 
-Push $q \to 0$ and the three orbit representatives scatter: $q_1 \to 0$, $q_2 \to \infty$, $q_3 \to 1$. Individually, that sends $R \to 0$, $P \to 0$, and $T \to -\infty$ — but the product $PRT$ doesn't blink. The identity $PRT \equiv 64$ is exact for every $q$ in the domain, so the divergence in $T$ and the vanishing of $P,R$ are locked together by construction, not by a coincidence of limits.
+Push $q \to 0$ and the three orbit representatives scatter: $q_a \to 0$, $q_b \to \infty$, $q_c \to 1$. Individually, that sends $R \to 0$, $P \to 0$, and $T \to -\infty$ — but the product $PRT$ doesn't blink. The identity $PRT \equiv 64$ is exact for every $q$ in the domain, so the divergence in $T$ and the vanishing of $P,R$ are locked together by construction, not by a coincidence of limits.
 
 Meanwhile $C_2(q) \to +\infty$ and $C_3(q) \to -\infty$ — the Casimirs blow up exactly at the same null-point collisions where the original quadrangle degenerates. It's a clean picture of boundary behavior with no analysis, no $\varepsilon$–$\delta$, and no continuum limit anywhere in sight: just rational functions doing what rational functions do near their poles.
 
@@ -127,7 +125,7 @@ Meanwhile $C_2(q) \to +\infty$ and $C_3(q) \to -\infty$ — the Casimirs blow up
 
 Everything above is exact rational algebra, which means it's exactly the kind of thing a computer algebra system can verify in a few lines. Here's a self-contained `sympy` script that checks the three central identities from this post — run it yourself and watch nothing get rounded.
 
-```{python}
+```python
 from sympy import symbols, simplify, Rational
 
 q = symbols('q')
@@ -143,18 +141,18 @@ PR_RT_TP = simplify(P*R + R*T + T*P)
 print("PRT           =", PRT)          # expect 64
 print("PR + RT + TP  =", PR_RT_TP)      # expect 48
 
-# --- SU(3)-flavored central field components ---
-Q1 = (q**2 - q + 1) / q
-Q2 = (q**2 - q + 1) / (q*(q - 1))
-Q3 = -(q**2 - q + 1) / (q - 1)
+# --- SU(3)-flavored central field components (UHG quadrances) ---
+q1 = (q**2 - q + 1) / q
+q2 = (q**2 - q + 1) / (q*(q - 1))
+q3 = -(q**2 - q + 1) / (q - 1)
 
-trace = simplify(Q1 + Q2 + Q3)
-print("Q1 + Q2 + Q3  =", trace)         # expect 0
+trace = simplify(q1 + q2 + q3)
+print("q1 + q2 + q3  =", trace)         # expect 0
 
 # --- Casimirs vs. the Klein j-invariant ---
 j = 256*(q**2 - q + 1)**3 / (q**2*(q - 1)**2)
-C2 = simplify(Q1**2 + Q2**2 + Q3**2)
-C3 = simplify(Q1*Q2*Q3)
+C2 = simplify(q1**2 + q2**2 + q3**2)
+C3 = simplify(q1*q2*q3)
 
 print("C2 - j/128    =", simplify(C2 - j/128))   # expect 0
 print("C3 + j/256    =", simplify(C3 + j/256))   # expect 0
@@ -164,18 +162,30 @@ for name, val in [("PRT", PRT), ("PR+RT+TP", PR_RT_TP), ("trace", trace)]:
     print(f"{name} at q=2:", val.subs(q, Rational(2)))
 ```
 
-Run this and you should see `PRT = 64`, `PR + RT + TP = 48`, and `Q1 + Q2 + Q3 = 0` fall out symbolically — not approximately, not just at $q=2$, but as identities holding across the whole domain.
+```
+PRT           = 64
+PR + RT + TP  = 48
+q1 + q2 + q3  = 0
+C2 - j/128    = 0
+C3 + j/256    = 0
+PRT at q=2: 64
+PR+RT+TP at q=2: 48
+trace at q=2: 0
+```
+
+Run this and you should see `PRT = 64`, `PR + RT + TP = 48`, and `q1 + q2 + q3 = 0` fall out symbolically — not approximately, not just at $q=2$, but as identities holding across the whole domain.
 
 ## Where this leaves us
 
-Three posts in, the pattern is holding up: start from nothing but four null points and a cross-ratio, and the projective incidence geometry — joins, meets, poles, quadrances, spreads — hands back rigid numerical constants (Wildberger's $48/64$) and a trace-free triple whose invariant theory mirrors a rank-2 Lie algebra, all without ever leaving the world of rational functions over a general field.
+Three posts in, the pattern is holding up: start from nothing but four null points and a cross-ratio, and the projective incidence geometry — joins, meets, poles, quadrances, spreads — hands back rigid numerical constants (Wildberger's 48/64) and a trace-free triple whose invariant theory mirrors a rank-2 Lie algebra, all without ever leaving the world of rational functions over a general field.
 
-Next up in the series: pushing this central triangle further and seeing how much of the $SU(3)$ analogy survives contact with an actual root system.
+Next up in the series: pushing this central triangle further and seeing how much of the SU(3) analogy survives contact with an actual root system.
 
-**Full paper:** [From Cross-Ratio Orbits to $SU(3)$ Invariants in Universal Hyperbolic Geometry](https://doi.org/10.5281/zenodo.22398942), John D. Coady, Zenodo, 2026.
+**Full paper:** [From Cross-Ratio Orbits to SU(3) Invariants in Universal Hyperbolic Geometry](https://doi.org/10.5281/zenodo.22398942), John D. Coady, Zenodo, 2026.
+
 
 **Series so far:**
 
 1. [Reciprocal Parallax Symmetry in UHG](https://jcoady.github.io/blog/posts/reciprocal-parallax-symmetry/)
 2. [Parallax Diagonal Triangulation](https://jcoady.github.io/blog/posts/parallax-diagonal-triangulation/)
-3. From Cross-Ratio Orbits to $SU(3)$ Invariants *(this post)*
+3. From Cross-Ratio Orbits to SU(3) Invariants *(this post)*

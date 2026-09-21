@@ -104,22 +104,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -259,7 +245,7 @@ window.Quarto = {
   <li><a href="#two-tiers-one-cross-ratio" id="toc-two-tiers-one-cross-ratio" class="nav-link" data-scroll-target="#two-tiers-one-cross-ratio">Two tiers, one cross-ratio</a></li>
   <li><a href="#the-quadratic-folding-map" id="toc-the-quadratic-folding-map" class="nav-link" data-scroll-target="#the-quadratic-folding-map">The quadratic folding map</a></li>
   <li><a href="#landing-exactly-on-48-and-64" id="toc-landing-exactly-on-48-and-64" class="nav-link" data-scroll-target="#landing-exactly-on-48-and-64">Landing exactly on 48 and 64</a></li>
-  <li><a href="#the-su3-flavored-central-triangle" id="toc-the-su3-flavored-central-triangle" class="nav-link" data-scroll-target="#the-su3-flavored-central-triangle">The <span class="math inline">SU(3)</span>-flavored central triangle</a></li>
+  <li><a href="#the-su3-flavored-central-triangle" id="toc-the-su3-flavored-central-triangle" class="nav-link" data-scroll-target="#the-su3-flavored-central-triangle">The SU(3)-flavored central triangle</a></li>
   <li><a href="#what-happens-at-the-boundary" id="toc-what-happens-at-the-boundary" class="nav-link" data-scroll-target="#what-happens-at-the-boundary">What happens at the boundary</a></li>
   <li><a href="#check-it-yourself" id="toc-check-it-yourself" class="nav-link" data-scroll-target="#check-it-yourself">Check it yourself</a></li>
   <li><a href="#where-this-leaves-us" id="toc-where-this-leaves-us" class="nav-link" data-scroll-target="#where-this-leaves-us">Where this leaves us</a></li>
@@ -277,108 +263,106 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="picking-up-where-we-left-off">Picking up where we left off</h2>
 <p>This is the third post in an ongoing series exploring the algebra hiding inside a very simple picture: four null points sitting on a conic, and the seven-point figure you get when you triangulate the diagonal triangle they generate.</p>
 <ul>
-<li>In <a href="https://jcoady.github.io/blog/posts/reciprocal-parallax-symmetry/"><strong>Post 1: Reciprocal Parallax Symmetry in UHG</strong></a>, we met the four null points, their self-polar diagonal triangle, and the first hint that its sides carry a rigid, cross-ratio-independent quadrance of exactly <span class="math inline">1</span>.</li>
-<li>In <a href="https://jcoady.github.io/blog/posts/parallax-diagonal-triangulation/"><strong>Post 2: Parallax Diagonal Triangulation</strong></a>, we triangulated that diagonal triangle outward, picked up six outer parallax segments, and found that their quadrances trace out the full six-element anharmonic orbit of a single cross-ratio parameter <span class="math inline">q</span>.</li>
+<li>In <a href="https://jcoady.github.io/blog/posts/reciprocal-parallax-symmetry/"><strong>Post 1: Reciprocal Parallax Symmetry in UHG</strong></a>, we met the four null points, their self-polar diagonal triangle, and the first hint that its sides carry a rigid, cross-ratio-independent quadrance of exactly 1.</li>
+<li>In <a href="https://jcoady.github.io/blog/posts/parallax-diagonal-triangulation/"><strong>Post 2: Parallax Diagonal Triangulation</strong></a>, we triangulated that diagonal triangle outward, picked up six outer parallax segments, and found that their quadrances trace out the full six-element anharmonic orbit of a single cross-ratio parameter <span class="math inline">\(q\)</span>.</li>
 </ul>
-<p>Both of those posts stayed close to the raw geometry — joins, meets, poles, quadrances. This post is where the payoff shows up: the same six-element orbit, run through one deliberately simple quadratic map, folds down onto a rigid numerical target that Wildberger proved decades ago, and along the way hands us something that looks unmistakably like the invariant structure of <span class="math inline">\mathfrak{su}(3)</span>.</p>
+<p>Both of those posts stayed close to the raw geometry — joins, meets, poles, quadrances. This post is where the payoff shows up: the same six-element orbit, run through one deliberately simple quadratic map, folds down onto a rigid numerical target that Wildberger proved decades ago, and along the way hands us something that looks unmistakably like the invariant structure of <span class="math inline">\(\mathfrak{su}(3)\)</span>.</p>
 <p>The full write-up, with every derivation carried out in detail, is on Zenodo:</p>
 <blockquote class="blockquote">
-<p><strong>From Cross-Ratio Orbits to <span class="math inline">SU(3)</span> Invariants in Universal Hyperbolic Geometry</strong> John D. Coady, 2026. <a href="https://doi.org/10.5281/zenodo.22398942">doi.org/10.5281/zenodo.22398942</a></p>
+<p><strong>From Cross-Ratio Orbits to SU(3) Invariants in Universal Hyperbolic Geometry</strong> John D. Coady, 2026. <a href="https://doi.org/10.5281/zenodo.22398942">doi.org/10.5281/zenodo.22398942</a></p>
 </blockquote>
 <p>This post is the tour.</p>
+<p>A note on notation, carried forward from this point in the series: capital <span class="math inline">\(Q\)</span> denotes a Rational Trigonometry quadrance — the raw value of the ambient quadratic form on a single homogeneous representative — which is not invariant under choice of representative. Lowercase <span class="math inline">\(q\)</span> denotes a UHG quadrance — the projectively invariant ratio between two points. The trace-free triple below, <span class="math inline">\(q_1,q_2,q_3\)</span>, is built entirely from quadrances of this second kind, so it is labeled accordingly.</p>
 </section>
 <section id="two-tiers-one-cross-ratio" class="level2">
 <h2 class="anchored" data-anchor-id="two-tiers-one-cross-ratio">Two tiers, one cross-ratio</h2>
-<p>Everything in this series is organized into two tiers, both driven by a single free parameter <span class="math inline">q \in \mathbb{P}^1(\mathbb{F}) \setminus \{0,1,\infty\}</span> — the cross-ratio of the original four null points.</p>
-<p><strong>Tier 2</strong> is the microscopic layer: the six outer parallax quadrances from Post 2, forming the anharmonic <span class="math inline">S_3</span> orbit</p>
-<p><span class="math display">
+<p>Everything in this series is organized into two tiers, both driven by a single free parameter <span class="math inline">\(q \in \mathbb{P}^1(\mathbb{F}) \setminus \{0,1,\infty\}\)</span> — the cross-ratio of the original four null points.</p>
+<p><strong>Tier 2</strong> is the microscopic layer: the six outer parallax quadrances from Post 2, forming the anharmonic <span class="math inline">\(S_3\)</span> orbit</p>
+<p><span class="math display">\[
 \mathcal{O}_q = \left\{ \{q,\, 1-q\},\ \left\{\tfrac{1}{q},\, \tfrac{q-1}{q}\right\},\ \left\{\tfrac{1}{1-q},\, \tfrac{q}{q-1}\right\} \right\}.
-</span></p>
-<p>Six numbers, permuted among themselves by the six elements of <span class="math inline">S_3</span>, arranged as three complementary pairs.</p>
-<p><strong>Tier 1</strong> is the macroscopic layer: the diagonal spreads <span class="math inline">P</span>, <span class="math inline">R</span>, <span class="math inline">T</span> that live on the <em>original</em> four-point quadrangle, satisfying Wildberger’s classical <strong>Theorem 44</strong> — the “48/64 theorem”:</p>
-<p><span class="math display">
+\]</span></p>
+<p>Six numbers, permuted among themselves by the six elements of <span class="math inline">\(S_3\)</span>, arranged as three complementary pairs.</p>
+<p><strong>Tier 1</strong> is the macroscopic layer: the diagonal spreads <span class="math inline">\(P, R, T\)</span> that live on the <em>original</em> four-point quadrangle, satisfying Wildberger’s classical <strong>Theorem 44</strong> — the “48/64 theorem”:</p>
+<p><span class="math display">\[
 PR + RT + TP = 48, \qquad PRT = 64.
-</span></p>
+\]</span></p>
 <p>The question this post answers: is there a clean, purely algebraic bridge from Tier 2 to Tier 1? It turns out there is, and it’s disarmingly simple.</p>
 </section>
 <section id="the-quadratic-folding-map" class="level2">
 <h2 class="anchored" data-anchor-id="the-quadratic-folding-map">The quadratic folding map</h2>
-<p>Pick one representative from each of the three complementary pairs in <span class="math inline">\mathcal{O}_q</span> — say <span class="math inline">q_1 = q</span>, <span class="math inline">q_2 = 1/q</span>, <span class="math inline">q_3 = 1/(1-q)</span> — and feed each one through</p>
-<p><span class="math display">
+<p>Pick one representative from each of the three complementary pairs in <span class="math inline">\(\mathcal{O}_q\)</span> — say <span class="math inline">\(q_a = q\)</span>, <span class="math inline">\(q_b = 1/q\)</span>, <span class="math inline">\(q_c = 1/(1-q)\)</span> — and feed each one through</p>
+<p><span class="math display">\[
 f(x) = 4x(1-x).
-</span></p>
-<p>If that formula looks familiar, it should: it’s the logistic map at its most chaotic parameter value, <span class="math inline">r=4</span>. We’re not iterating it here — there’s no dynamics, no orbit of iterates — but it’s worth noting <em>why</em> this particular quadratic shows up. Wildberger’s <strong>Theorem 32</strong> (UHG II) gives the quadrance opposite an isosceles pair in terms of the shared quadrance <span class="math inline">q</span> and spread <span class="math inline">S</span>:</p>
-<p><span class="math display">
+\]</span></p>
+<p>If that formula looks familiar, it should: it’s the logistic map at its most chaotic parameter value, <span class="math inline">\(r=4\)</span>. We’re not iterating it here — there’s no dynamics, no orbit of iterates — but it’s worth noting <em>why</em> this particular quadratic shows up. Wildberger’s <strong>Theorem 32</strong> (UHG II) gives the quadrance opposite an isosceles pair in terms of the shared quadrance <span class="math inline">\(q\)</span> and spread <span class="math inline">\(S\)</span>:</p>
+<p><span class="math display">\[
 q_3 = \frac{4(1-S)\,q(1-q)}{(1-Sq)^2}.
-</span></p>
-<p>Set <span class="math inline">S=0</span> — the right-angled special case — and this collapses exactly to <span class="math inline">q_3 = 4q(1-q)</span>. So <span class="math inline">f</span> isn’t an arbitrary choice; it’s what the Isosceles Triangle theorem hands you for free once you specialize to a right spread.</p>
+\]</span></p>
+<p>Set <span class="math inline">\(S=0\)</span> — the right-angled special case — and this collapses exactly to <span class="math inline">\(q_3 = 4q(1-q)\)</span>. So <span class="math inline">\(f\)</span> isn’t an arbitrary choice; it’s what the Isosceles Triangle theorem hands you for free once you specialize to a right spread.</p>
 <p>Define:</p>
-<p><span class="math display">
+<p><span class="math display">\[
 R \equiv 4q(1-q), \qquad
 T \equiv 4\left(\frac{1}{q}\right)\!\left(1-\frac{1}{q}\right) = -\frac{4(1-q)}{q^2}, \qquad
 P \equiv 4\left(\frac{1}{1-q}\right)\!\left(1-\frac{1}{1-q}\right) = -\frac{4q}{(1-q)^2}.
-</span></p>
-<p>Here’s the key structural fact: <span class="math inline">f(x) = f(1-x)</span>, identically. So it doesn’t matter which member of each complementary pair you started from — <span class="math inline">f</span> can’t tell <span class="math inline">q</span> from <span class="math inline">1-q</span>, or <span class="math inline">1/q</span> from <span class="math inline">(q-1)/q</span>, or <span class="math inline">1/(1-q)</span> from <span class="math inline">q/(q-1)</span>. That single symmetry is what turns a <strong>6</strong>-element orbit into a well-defined <strong>3</strong>-element set <span class="math inline">\{P, R, T\}</span>. It’s a genuine <span class="math inline">2</span>-to-<span class="math inline">1</span> branched algebraic cover, no analysis required — just the involution <span class="math inline">x \mapsto 1-x</span> acting underneath a quadratic.</p>
+\]</span></p>
+<p>Here’s the key structural fact: <span class="math inline">\(f(x) = f(1-x)\)</span>, identically. So it doesn’t matter which member of each complementary pair you started from — <span class="math inline">\(f\)</span> can’t tell <span class="math inline">\(q\)</span> from <span class="math inline">\(1-q\)</span>, or <span class="math inline">\(1/q\)</span> from <span class="math inline">\((q-1)/q\)</span>, or <span class="math inline">\(1/(1-q)\)</span> from <span class="math inline">\(q/(q-1)\)</span>. That single symmetry is what turns a <strong>6</strong>-element orbit into a well-defined <strong>3</strong>-element set <span class="math inline">\(\{P, R, T\}\)</span>. It’s a genuine 2-to-1 branched algebraic cover, no analysis required — just the involution <span class="math inline">\(x \mapsto 1-x\)</span> acting underneath a quadratic.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="diagonal-triangle-PRT.svg" class="img-fluid figure-img"></p>
-<figcaption>Four null points on the conic, their self-polar diagonal triangle <span class="math inline">\overline{a_3a_5a_7}</span> (classically labeled <span class="math inline">\overline{efg}</span>), and the diagonal spreads <span class="math inline">P</span>, <span class="math inline">R</span>, <span class="math inline">T</span>.</figcaption>
+<figcaption>Four null points on the conic, their self-polar diagonal triangle <span class="math inline">\(\overline{a_3a_5a_7}\)</span> (classically labeled <span class="math inline">\(\overline{efg}\)</span>), and the diagonal spreads <span class="math inline">\(P\)</span>, <span class="math inline">\(R\)</span>, <span class="math inline">\(T\)</span>.</figcaption>
 </figure>
 </div>
 </section>
 <section id="landing-exactly-on-48-and-64" class="level2">
 <h2 class="anchored" data-anchor-id="landing-exactly-on-48-and-64">Landing exactly on 48 and 64</h2>
-<p>The remarkable part isn’t that <span class="math inline">f</span> collapses the orbit — it’s <em>where</em> it lands. Multiply the three definitions together and the denominators cancel outright:</p>
-<p><span class="math display">
+<p>The remarkable part isn’t that <span class="math inline">\(f\)</span> collapses the orbit — it’s <em>where</em> it lands. Multiply the three definitions together and the denominators cancel outright:</p>
+<p><span class="math display">\[
 PRT = \big[4q(1-q)\big]\cdot\left[-\frac{4(1-q)}{q^2}\right]\cdot\left[-\frac{4q}{(1-q)^2}\right]
 = \frac{64\,q^2(1-q)^2}{q^2(1-q)^2} \equiv 64.
-</span></p>
-<p>The symmetric sum takes a little more bookkeeping but resolves just as cleanly. Putting everything over <span class="math inline">q(1-q)</span>:</p>
-<p><span class="math display">
+\]</span></p>
+<p>The symmetric sum takes a little more bookkeeping but resolves just as cleanly. Putting everything over <span class="math inline">\(q(1-q)\)</span>:</p>
+<p><span class="math display">\[
 PR + RT + TP = \frac{16\big(-q^3 - (1-q)^3 + 1\big)}{q(1-q)} = \frac{16 \cdot 3q(1-q)}{q(1-q)} \equiv 48,
-</span></p>
-<p>using the fact that <span class="math inline">-q^3 - (1-q)^3 + 1 = 3q(1-q)</span> identically. Both reductions hold for <em>every</em> <span class="math inline">q</span> in the domain — not at special points, not approximately, but as exact rational identities.</p>
-<p>That means <span class="math inline">\{P, R, T\}</span>, built purely from the microscopic Tier 2 quadrances, sits exactly on the invariant locus <span class="math inline">PR+RT+TP=48,\ PRT=64</span> that Wildberger’s Theorem 44 assigns to the diagonal spreads of the original null quadrangle. The isosceles sub-triangle construction is illustrated below.</p>
+\]</span></p>
+<p>using the fact that <span class="math inline">\(-q^3 - (1-q)^3 + 1 = 3q(1-q)\)</span> identically. Both reductions hold for <em>every</em> <span class="math inline">\(q\)</span> in the domain — not at special points, not approximately, but as exact rational identities.</p>
+<p>That means <span class="math inline">\(\{P, R, T\}\)</span>, built purely from the microscopic Tier 2 quadrances, sits exactly on the invariant locus <span class="math inline">\(PR+RT+TP=48,\ PRT=64\)</span> that Wildberger’s Theorem 44 assigns to the diagonal spreads of the original null quadrangle. The isosceles sub-triangle construction is illustrated below.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="complementary-parallax-PRT.svg" class="img-fluid figure-img"></p>
-<figcaption>The null quadrangle frame with the Tier 1 diagonal spreads <span class="math inline">P</span>, <span class="math inline">R</span>, <span class="math inline">T</span>, each arising from an isosceles sub-triangle configuration via Theorem 32 with <span class="math inline">S=0</span>.</figcaption>
+<figcaption>The null quadrangle frame with the Tier 1 diagonal spreads <span class="math inline">\(P\)</span>, <span class="math inline">\(R\)</span>, <span class="math inline">\(T\)</span>, each arising from an isosceles sub-triangle configuration via Theorem 32 with <span class="math inline">\(S=0\)</span>.</figcaption>
 </figure>
 </div>
 </section>
 <section id="the-su3-flavored-central-triangle" class="level2">
-<h2 class="anchored" data-anchor-id="the-su3-flavored-central-triangle">The <span class="math inline">SU(3)</span>-flavored central triangle</h2>
-<p>Tier 2’s orbit does more than fold onto <span class="math inline">(P,R,T)</span>. Back in Post 2, triangulating the diagonal triangle also produced a <strong>central triangle</strong> <span class="math inline">\overline{a_2a_4a_6}</span>, built from the auxiliary points of the seven-point frame. Its three side-quadrances, courtesy of the Projective Pythagorean Theorem, are:</p>
-<p><span class="math display">
-Q_1(q) = \frac{q^2-q+1}{q}, \qquad
-Q_2(q) = \frac{q^2-q+1}{q(q-1)}, \qquad
-Q_3(q) = -\frac{q^2-q+1}{q-1}.
-</span></p>
+<h2 class="anchored" data-anchor-id="the-su3-flavored-central-triangle">The SU(3)-flavored central triangle</h2>
+<p>Tier 2’s orbit does more than fold onto <span class="math inline">\((P,R,T)\)</span>. Back in Post 2, triangulating the diagonal triangle also produced a <strong>central triangle</strong> <span class="math inline">\(\overline{a_2a_4a_6}\)</span>, built from the auxiliary points of the seven-point frame. Its three side-quadrances, courtesy of the Projective Pythagorean Theorem, are:</p>
+<p><span class="math display">\[
+q_1(q) = \frac{q^2-q+1}{q}, \qquad
+q_2(q) = \frac{q^2-q+1}{q(q-1)}, \qquad
+q_3(q) = -\frac{q^2-q+1}{q-1}.
+\]</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="central-triangle.svg" class="img-fluid figure-img"></p>
-<figcaption>The central triangle <span class="math inline">\overline{a_2a_4a_6}</span> formed by the auxiliary points of the 7-point frame; its side quadrances are the trace-free field components <span class="math inline">Q_1(q), Q_2(q), Q_3(q)</span>.</figcaption>
+<figcaption>The central triangle <span class="math inline">\(\overline{a_2a_4a_6}\)</span> formed by the auxiliary points of the 7-point frame; its side quadrances are the trace-free field components <span class="math inline">\(q_1(q), q_2(q), q_3(q)\)</span>.</figcaption>
 </figure>
 </div>
-<p>These three quantities satisfy a trace-free condition, <span class="math inline">Q_1+Q_2+Q_3\equiv 0</span> — the same shape as three color charges summing to zero on the Cartan subalgebra of <span class="math inline">\mathfrak{su}(3)</span>. That single constraint is what makes the rest of the structure feel so Lie-algebraic: with <span class="math inline">e_1=0</span>, only two independent symmetric invariants remain, <span class="math inline">e_2</span> and <span class="math inline">e_3</span>, and those are exactly the quadratic and cubic Casimirs:</p>
-<p><span class="math display">
-C_2(q) \equiv Q_1^2+Q_2^2+Q_3^2 = \frac{1}{128}\,j(q), \qquad
-C_3(q) \equiv Q_1 Q_2 Q_3 = -\frac{1}{256}\,j(q),
-</span></p>
-<p>where <span class="math inline">j(q) = \dfrac{256(q^2-q+1)^3}{q^2(q-1)^2}</span> is the classical Klein <span class="math inline">j</span>-invariant. A rank-2 Lie algebra’s invariant ring is freely generated by exactly two Casimirs — and here, two independent invariants fall directly out of a trace-free triple built from nothing but a cross-ratio and the Projective Pythagorean Theorem. We want to be careful about how far to push this: the geometry is exact and provable; the <span class="math inline">SU(3)</span> language is offered as structural motivation, not as a physical derivation.</p>
+<p>These three quantities satisfy a trace-free condition, <span class="math inline">\(q_1+q_2+q_3\equiv 0\)</span> — the same shape as three color charges summing to zero on the Cartan subalgebra of <span class="math inline">\(\mathfrak{su}(3)\)</span>. That single constraint is what makes the rest of the structure feel so Lie-algebraic: with <span class="math inline">\(e_1=0\)</span>, only two independent symmetric invariants remain, <span class="math inline">\(e_2\)</span> and <span class="math inline">\(e_3\)</span>, and those are exactly the quadratic and cubic Casimirs:</p>
+<p><span class="math display">\[
+C_2(q) \equiv q_1^2+q_2^2+q_3^2 = \frac{1}{128}\,j(q), \qquad
+C_3(q) \equiv q_1 q_2 q_3 = -\frac{1}{256}\,j(q),
+\]</span></p>
+<p>where <span class="math inline">\(j(q) = \dfrac{256(q^2-q+1)^3}{q^2(q-1)^2}\)</span> is the classical Klein <span class="math inline">\(j\)</span>-invariant. A rank-2 Lie algebra’s invariant ring is freely generated by exactly two Casimirs — and here, two independent invariants fall directly out of a trace-free triple built from nothing but a cross-ratio and the Projective Pythagorean Theorem. We want to be careful about how far to push this: the geometry is exact and provable; the SU(3) language is offered as structural motivation, not as a physical derivation.</p>
 </section>
 <section id="what-happens-at-the-boundary" class="level2">
 <h2 class="anchored" data-anchor-id="what-happens-at-the-boundary">What happens at the boundary</h2>
-<p>Push <span class="math inline">q \to 0</span> and the three orbit representatives scatter: <span class="math inline">q_1 \to 0</span>, <span class="math inline">q_2 \to \infty</span>, <span class="math inline">q_3 \to 1</span>. Individually, that sends <span class="math inline">R \to 0</span>, <span class="math inline">P \to 0</span>, and <span class="math inline">T \to -\infty</span> — but the product <span class="math inline">PRT</span> doesn’t blink. The identity <span class="math inline">PRT \equiv 64</span> is exact for every <span class="math inline">q</span> in the domain, so the divergence in <span class="math inline">T</span> and the vanishing of <span class="math inline">P,R</span> are locked together by construction, not by a coincidence of limits.</p>
-<p>Meanwhile <span class="math inline">C_2(q) \to +\infty</span> and <span class="math inline">C_3(q) \to -\infty</span> — the Casimirs blow up exactly at the same null-point collisions where the original quadrangle degenerates. It’s a clean picture of boundary behavior with no analysis, no <span class="math inline">\varepsilon</span>–<span class="math inline">\delta</span>, and no continuum limit anywhere in sight: just rational functions doing what rational functions do near their poles.</p>
+<p>Push <span class="math inline">\(q \to 0\)</span> and the three orbit representatives scatter: <span class="math inline">\(q_a \to 0\)</span>, <span class="math inline">\(q_b \to \infty\)</span>, <span class="math inline">\(q_c \to 1\)</span>. Individually, that sends <span class="math inline">\(R \to 0\)</span>, <span class="math inline">\(P \to 0\)</span>, and <span class="math inline">\(T \to -\infty\)</span> — but the product <span class="math inline">\(PRT\)</span> doesn’t blink. The identity <span class="math inline">\(PRT \equiv 64\)</span> is exact for every <span class="math inline">\(q\)</span> in the domain, so the divergence in <span class="math inline">\(T\)</span> and the vanishing of <span class="math inline">\(P,R\)</span> are locked together by construction, not by a coincidence of limits.</p>
+<p>Meanwhile <span class="math inline">\(C_2(q) \to +\infty\)</span> and <span class="math inline">\(C_3(q) \to -\infty\)</span> — the Casimirs blow up exactly at the same null-point collisions where the original quadrangle degenerates. It’s a clean picture of boundary behavior with no analysis, no <span class="math inline">\(\varepsilon\)</span>–<span class="math inline">\(\delta\)</span>, and no continuum limit anywhere in sight: just rational functions doing what rational functions do near their poles.</p>
 </section>
 <section id="check-it-yourself" class="level2">
 <h2 class="anchored" data-anchor-id="check-it-yourself">Check it yourself</h2>
 <p>Everything above is exact rational algebra, which means it’s exactly the kind of thing a computer algebra system can verify in a few lines. Here’s a self-contained <code>sympy</code> script that checks the three central identities from this post — run it yourself and watch nothing get rounded.</p>
-<div id="f1659d56" class="cell" data-execution_count="1">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> symbols, simplify, Rational</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> symbols, simplify, Rational</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> symbols(<span class="st">'q'</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -393,18 +377,18 @@ C_3(q) \equiv Q_1 Q_2 Q_3 = -\frac{1}{256}\,j(q),
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"PRT           ="</span>, PRT)          <span class="co"># expect 64</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"PR + RT + TP  ="</span>, PR_RT_TP)      <span class="co"># expect 48</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SU(3)-flavored central field components ---</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>Q1 <span class="op">=</span> (q<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> q <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> q</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Q2 <span class="op">=</span> (q<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> q <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> (q<span class="op">*</span>(q <span class="op">-</span> <span class="dv">1</span>))</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>Q3 <span class="op">=</span> <span class="op">-</span>(q<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> q <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> (q <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SU(3)-flavored central field components (UHG quadrances) ---</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>q1 <span class="op">=</span> (q<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> q <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> q</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>q2 <span class="op">=</span> (q<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> q <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> (q<span class="op">*</span>(q <span class="op">-</span> <span class="dv">1</span>))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>q3 <span class="op">=</span> <span class="op">-</span>(q<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> q <span class="op">+</span> <span class="dv">1</span>) <span class="op">/</span> (q <span class="op">-</span> <span class="dv">1</span>)</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>trace <span class="op">=</span> simplify(Q1 <span class="op">+</span> Q2 <span class="op">+</span> Q3)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Q1 + Q2 + Q3  ="</span>, trace)         <span class="co"># expect 0</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>trace <span class="op">=</span> simplify(q1 <span class="op">+</span> q2 <span class="op">+</span> q3)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"q1 + q2 + q3  ="</span>, trace)         <span class="co"># expect 0</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Casimirs vs. the Klein j-invariant ---</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>j <span class="op">=</span> <span class="dv">256</span><span class="op">*</span>(q<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> q <span class="op">+</span> <span class="dv">1</span>)<span class="op">**</span><span class="dv">3</span> <span class="op">/</span> (q<span class="op">**</span><span class="dv">2</span><span class="op">*</span>(q <span class="op">-</span> <span class="dv">1</span>)<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>C2 <span class="op">=</span> simplify(Q1<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Q2<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Q3<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>C3 <span class="op">=</span> simplify(Q1<span class="op">*</span>Q2<span class="op">*</span>Q3)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>C2 <span class="op">=</span> simplify(q1<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> q2<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> q3<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>C3 <span class="op">=</span> simplify(q1<span class="op">*</span>q2<span class="op">*</span>q3)</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"C2 - j/128    ="</span>, simplify(C2 <span class="op">-</span> j<span class="op">/</span><span class="dv">128</span>))   <span class="co"># expect 0</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"C3 + j/256    ="</span>, simplify(C3 <span class="op">+</span> j<span class="op">/</span><span class="dv">256</span>))   <span class="co"># expect 0</span></span>
@@ -412,30 +396,26 @@ C_3(q) \equiv Q_1 Q_2 Q_3 = -\frac{1}{256}\,j(q),
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># spot-check at a rational point, q = 2</span></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, val <span class="kw">in</span> [(<span class="st">"PRT"</span>, PRT), (<span class="st">"PR+RT+TP"</span>, PR_RT_TP), (<span class="st">"trace"</span>, trace)]:</span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> at q=2:"</span>, val.subs(q, Rational(<span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
 <pre><code>PRT           = 64
 PR + RT + TP  = 48
-Q1 + Q2 + Q3  = 0
+q1 + q2 + q3  = 0
 C2 - j/128    = 0
 C3 + j/256    = 0
 PRT at q=2: 64
 PR+RT+TP at q=2: 48
 trace at q=2: 0</code></pre>
-</div>
-</div>
-<p>Run this and you should see <code>PRT = 64</code>, <code>PR + RT + TP = 48</code>, and <code>Q1 + Q2 + Q3 = 0</code> fall out symbolically — not approximately, not just at <span class="math inline">q=2</span>, but as identities holding across the whole domain.</p>
+<p>Run this and you should see <code>PRT = 64</code>, <code>PR + RT + TP = 48</code>, and <code>q1 + q2 + q3 = 0</code> fall out symbolically — not approximately, not just at <span class="math inline">\(q=2\)</span>, but as identities holding across the whole domain.</p>
 </section>
 <section id="where-this-leaves-us" class="level2">
 <h2 class="anchored" data-anchor-id="where-this-leaves-us">Where this leaves us</h2>
-<p>Three posts in, the pattern is holding up: start from nothing but four null points and a cross-ratio, and the projective incidence geometry — joins, meets, poles, quadrances, spreads — hands back rigid numerical constants (Wildberger’s <span class="math inline">48/64</span>) and a trace-free triple whose invariant theory mirrors a rank-2 Lie algebra, all without ever leaving the world of rational functions over a general field.</p>
-<p>Next up in the series: pushing this central triangle further and seeing how much of the <span class="math inline">SU(3)</span> analogy survives contact with an actual root system.</p>
-<p><strong>Full paper:</strong> <a href="https://doi.org/10.5281/zenodo.22398942">From Cross-Ratio Orbits to <span class="math inline">SU(3)</span> Invariants in Universal Hyperbolic Geometry</a>, John D. Coady, Zenodo, 2026.</p>
+<p>Three posts in, the pattern is holding up: start from nothing but four null points and a cross-ratio, and the projective incidence geometry — joins, meets, poles, quadrances, spreads — hands back rigid numerical constants (Wildberger’s 48/64) and a trace-free triple whose invariant theory mirrors a rank-2 Lie algebra, all without ever leaving the world of rational functions over a general field.</p>
+<p>Next up in the series: pushing this central triangle further and seeing how much of the SU(3) analogy survives contact with an actual root system.</p>
+<p><strong>Full paper:</strong> <a href="https://doi.org/10.5281/zenodo.22398942">From Cross-Ratio Orbits to SU(3) Invariants in Universal Hyperbolic Geometry</a>, John D. Coady, Zenodo, 2026.</p>
 <p><strong>Series so far:</strong></p>
 <ol type="1">
 <li><a href="https://jcoady.github.io/blog/posts/reciprocal-parallax-symmetry/">Reciprocal Parallax Symmetry in UHG</a></li>
 <li><a href="https://jcoady.github.io/blog/posts/parallax-diagonal-triangulation/">Parallax Diagonal Triangulation</a></li>
-<li>From Cross-Ratio Orbits to <span class="math inline">SU(3)</span> Invariants <em>(this post)</em></li>
+<li>From Cross-Ratio Orbits to SU(3) Invariants <em>(this post)</em></li>
 </ol>
 
 

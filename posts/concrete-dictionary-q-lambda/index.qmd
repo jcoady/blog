@@ -12,7 +12,7 @@ This is the fifth post in the series exploring the algebra hiding inside a very 
 
 - **Post 1** ([From Null Quadrangles to xy = 1](https://jcoady.github.io/blog/posts/reciprocal-parallax-symmetry/)) built the fully-right diagonal triangle $\overline{efg}$ from four null points $\alpha_1,\alpha_2,\alpha_3,\alpha_4$, relabeled $e$ as $a_3$ and $\alpha_4$ as $a_1$, and derived the reciprocal law $q_{23}\,q_{34}=1$.
 - **Post 2** ([Parallax Diagonal Triangulation](https://jcoady.github.io/blog/posts/parallax-diagonal-triangulation/)) triangulated the diagonal triangle outward and found six segments carrying the full six-element anharmonic orbit of a single parameter $q$.
-- **Posts 3-4** built the central-triangle trace-free triple $(Q_1,Q_2,Q_3)$ from $q$ and tied its $S_3$ symmetry to the $A_2$ root system.
+- **Posts 3-4** built the central-triangle trace-free triple $(q_1,q_2,q_3)$ from $q$ and tied its $S_3$ symmetry to the $A_2$ root system.
 
 Every one of these posts treats $q$ as an abstract free parameter. This post asks a concrete question instead: given an explicit, coordinatized null quadrangle — the kind used in the companion paper *Invariant Quadrea of Orthocenter Triangles from Four Null Points*, where four points are parametrized by a cross-ratio $\lambda$ — what, exactly, is $q$ in terms of $\lambda$? The answer is about as clean as these things get: $q$ is literally the *reciprocal* of the cross-ratio. Getting there required being careful about a subtlety that's easy to gloss over — which we walk through below — and, separately, testing a conjecture about the orbit's origin that turned out to be wrong, which is worth showing rather than hiding.
 
@@ -24,10 +24,10 @@ $$
 \alpha_1=\alpha(-1),\quad \alpha_2=\alpha(0),\quad \alpha_3=\alpha(1),
 $$
 
-with the fourth point $\alpha_4$ left to move along the same family. The one thing worth being careful about here: the affine parameter you plug into $\alpha(\cdot)$ for $\alpha_4$ is **not automatically** the cross-ratio $\lambda \equiv (\alpha_1,\alpha_2:\alpha_3,\alpha_4)$. Using the standard cross-ratio formula for affine parameters,
+with the fourth point $\alpha_4$ left to move along the same family. The one thing worth being careful about here: the affine parameter you plug into $\alpha(\cdot)$ for $\alpha_4$ is **not automatically** the cross-ratio $\lambda \equiv (\alpha_1,\alpha_2{:}\alpha_3,\alpha_4)$. Using the standard cross-ratio formula for affine parameters,
 
 $$
-(\alpha_1,\alpha_2:\alpha_3,\alpha_4) = \frac{(t_1-t_3)(t_2-t_4)}{(t_1-t_4)(t_2-t_3)},
+(\alpha_1,\alpha_2{:}\alpha_3,\alpha_4) = \frac{(t_1-t_3)(t_2-t_4)}{(t_1-t_4)(t_2-t_3)},
 $$
 
 setting $t_4$ equal to some free parameter $t$ directly gives cross-ratio $2t/(1+t)$ — a genuine Möbius function of $t$, but not $t$ itself. To make $\lambda$ *actually* the cross-ratio, we instead solve for the affine parameter that produces it:
@@ -36,7 +36,7 @@ $$
 t_4 = \frac{\lambda}{2-\lambda}, \qquad\text{so that}\qquad \alpha_4 = \alpha\!\left(\frac{\lambda}{2-\lambda}\right).
 $$
 
-With that substitution confirmed exactly (verified below), $\lambda$ is honestly the cross-ratio $(\alpha_1,\alpha_2:\alpha_3,\alpha_4)$ — not merely a coordinate that happens to parametrize the same family.
+With that substitution confirmed exactly (verified below), $\lambda$ is honestly the cross-ratio $(\alpha_1,\alpha_2{:}\alpha_3,\alpha_4)$ — not merely a coordinate that happens to parametrize the same family.
 
 Following Post 1's construction, form the diagonal points
 
@@ -205,6 +205,7 @@ Every identity holds exactly, symbolically, across the whole domain — no numer
 ## Try it yourself in GeoGebra
 
 The interior/exterior structure behind Post 1's Theorem 2 and Post 2's monodromy claims is easy to see directly, without any symbolic algebra. Fix three null points on the null circle and let the fourth one move freely; at every moment, exactly one of the three diagonal points sits inside the circle, and passing the moving point across one of the three fixed points swaps which diagonal point that is. Over one full revolution, each of the three diagonal points takes its turn as the interior one exactly once.
+
 
 ```{=html}
 <div style="text-align: center; margin: 20px 0;">
