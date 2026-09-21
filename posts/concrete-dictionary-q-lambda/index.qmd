@@ -206,15 +206,15 @@ Every identity holds exactly, symbolically, across the whole domain — no numer
 
 The interior/exterior structure behind Post 1's Theorem 2 and Post 2's monodromy claims is easy to see directly, without any symbolic algebra. Fix three null points on the null circle and let the fourth one move freely; at every moment, exactly one of the three diagonal points sits inside the circle, and passing the moving point across one of the three fixed points swaps which diagonal point that is. Over one full revolution, each of the three diagonal points takes its turn as the interior one exactly once.
 
-
 ```{=html}
 <div style="text-align: center; margin: 20px 0;">
   <a href="https://www.geogebra.org/m/dnapybjg" target="_blank" rel="noopener noreferrer" title="Diagonal Triangle of a Null Quadrangle">
     <img src="Null-Point-Revolution-Diagonal-Triangle.png" alt="Parallax Diagonal Triangle Invariants" style="width: 100%; max-width: 800px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer;" />
-    <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the points on blue circle to see metric calculations update.</em></p>
+    <p style="font-size: 0.9rem; color: #666; margin-top: 8px;"><em>Click image to launch the interactive GeoGebra 3D applet in a new window. Click and drag the the green point on the blue circle to see metric calculations update.</em></p>
   </a>
 </div>
 ```
+
 
 **To build your own copy:**
 
