@@ -3,6 +3,7 @@
     "listing": "/physics.html",
     "items": [
       "/posts/finitist-quantum-gravity/index.html",
+      "/posts/trace-free-triples-to-A2-root-system/index.html",
       "/posts/from-cross-ratio-orbits-to-su3-invariants/index.html",
       "/posts/from-galois-to-ghost-parity/index.html",
       "/posts/no-infinities-allowed/index.html",
@@ -10,16 +11,17 @@
     ]
   },
   {
-    "listing": "/index.html",
+    "listing": "/math.html",
     "items": [
       "/posts/finitist-quantum-gravity/index.html",
+      "/posts/concrete-dictionary-q-lambda/index.html",
+      "/posts/concrete-dictionary-q-lambda/original.html",
+      "/posts/trace-free-triples-to-A2-root-system/index.html",
       "/posts/from-cross-ratio-orbits-to-su3-invariants/index.html",
       "/posts/parallax-diagonal-triangulation/index.html",
       "/posts/reciprocal-parallax-symmetry/index.html",
       "/posts/uhg-invariants-from-4-null-points/index.html",
-      "/posts/from-galois-to-ghost-parity/index.html",
       "/posts/quadrea-projective-quadrangle/index.html",
-      "/posts/no-infinities-allowed/index.html",
       "/posts/projective-trigonometry-tetrahedron/index.html",
       "/posts/projective-quadrume/index.html",
       "/posts/orthic-mass-gap-null-tetrahedra/index.html",
@@ -28,14 +30,19 @@
     ]
   },
   {
-    "listing": "/math.html",
+    "listing": "/index.html",
     "items": [
       "/posts/finitist-quantum-gravity/index.html",
+      "/posts/concrete-dictionary-q-lambda/index.html",
+      "/posts/concrete-dictionary-q-lambda/original.html",
+      "/posts/trace-free-triples-to-A2-root-system/index.html",
       "/posts/from-cross-ratio-orbits-to-su3-invariants/index.html",
       "/posts/parallax-diagonal-triangulation/index.html",
       "/posts/reciprocal-parallax-symmetry/index.html",
       "/posts/uhg-invariants-from-4-null-points/index.html",
+      "/posts/from-galois-to-ghost-parity/index.html",
       "/posts/quadrea-projective-quadrangle/index.html",
+      "/posts/no-infinities-allowed/index.html",
       "/posts/projective-trigonometry-tetrahedron/index.html",
       "/posts/projective-quadrume/index.html",
       "/posts/orthic-mass-gap-null-tetrahedra/index.html",
