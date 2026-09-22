@@ -1,0 +1,153 @@
+---
+title: "Points as Matrices: A Constructive sl(2) Dictionary for Null Quadrangles"
+author: "John D. Coady"
+date: 2026-09-06
+categories: [pure-math, geometry, hyperbolic-geometry, lie-theory]
+description: "Wildberger's identification of projective points with trace-zero sl(2) matrices turns UHG's join operation into the literal Lie bracket and its quadrance into the trace form -- verified as exact identities -- and shows the Jacobi identity is the reason three altitudes of a nil-triangle always meet."
+---
+
+## Picking up where we left off
+
+This is the sixth post in the series exploring the algebra hiding inside a very simple picture: four null points on a conic, and the seven-point figure their diagonal triangle generates.
+
+- **Posts 1-2** built the diagonal triangle and its outward triangulation, producing a six-element anharmonic orbit of a cross-ratio $q$.
+- **Posts 3-4** found a trace-free triple $(q_1,q_2,q_3)$ in this orbit, showed the anharmonic $S_3$ acts on it by exact coordinate permutation, and used Schur's lemma and Serre's theorem to identify the resulting Lie algebra as $\mathfrak{sl}_3(\mathbb{C})/\mathfrak{su}(3)$.
+- **Post 5** pinned down an explicit dictionary between the abstract parameter $q$ and the raw cross-ratio $\lambda$ of a concretely coordinatized null quadrangle.
+
+Every one of those results was earned by matching invariants: the Cartan matrix, the Casimirs, the classification. None of them constructed an actual Lie bracket out of the geometry's own operations. This post closes that specific gap for the rank-1 case, using a construction from N. J. Wildberger's UHG lecture series that identifies projective points with trace-zero $2\times2$ matrices, join with the Lie bracket, and reflection with conjugation:
+
+{{< video https://youtu.be/f68eYuDCsjw >}}
+
+
+## Points as matrices
+
+The ambient space of UHG's projective plane is $\mathbb{R}^{2,1}$, with quadratic form $Q(x,y,z)=x^2+y^2-z^2$. Identify a vector $(x,y,z)$ with the trace-zero matrix
+
+$$
+M(x,y,z) = \begin{pmatrix} x & y+z \\ y-z & -x \end{pmatrix} \in \mathfrak{sl}_2(\mathbb{R}).
+$$
+
+A direct computation gives $\det M(v) = -Q(v)$, so **null points correspond exactly to nilpotent matrices** — the null circle is the nilpotent cone of $\mathfrak{sl}_2(\mathbb{R})$, viewed through its own trace form. Every one of this series' null points $\alpha_1,\ldots,\alpha_4$ is, under this dictionary, a literal nilpotent element of a Lie algebra, not merely a point satisfying an algebraic condition that happens to resemble one.
+
+## Join is the Lie bracket, quadrance is the trace form
+
+Computing the commutator directly:
+$$
+[M(a),M(b)] = -2\,M\big(\mathrm{join}(a,b)\big)
+$$
+holds as an exact symbolic identity for arbitrary points $a,b$ — a fixed scalar multiple across all three coordinates, which is all projective equivalence requires. Likewise,
+$$
+Q(v) = \tfrac12\,\mathrm{tr}\big(M(v)^2\big), \qquad B(u,v) = \tfrac12\,\mathrm{tr}\big(M(u)M(v)\big)
+$$
+reproduce UHG's quadratic and bilinear forms with **zero symbolic discrepancy**. So the trace form on $\mathfrak{sl}_2$ isn't merely proportional to the UHG metric — under this identification, it *is* the UHG metric.
+
+This survives the full iterated construction. Building the diagonal-triangle vertex $e$ two ways — via UHG's join formula, and via the nested Lie bracket $e_{\text{lie}} = [[M(\alpha_1),M(\alpha_2)],[M(\alpha_3),M(\alpha_4)]]$ — gives the same projective point (a fixed scalar ratio of $-8$ across all coordinates, for the $\lambda$-parametrized quadrangle from Post 5). Computing the fully-right property purely from the trace form on these Lie-bracket points reproduces
+$$
+q(e_{\text{lie}},f_{\text{lie}}) = q(f_{\text{lie}},g_{\text{lie}}) = q(e_{\text{lie}},g_{\text{lie}}) = 1
+$$
+exactly, using nothing but matrix multiplication and trace — no UHG-specific machinery at all.
+
+## The Jacobi identity proves the orthocenter exists
+
+This dictionary gives a genuinely constructive proof of a classical UHG fact: three altitudes of a triangle are concurrent. The altitude from $p$ in the triangle $pqr$ is $N_p = \mathrm{join}(p,\ \mathrm{join}(q,r))$ (using the self-duality of pole and polar). Translating into brackets, $N_p \leftrightarrow [M(p),[M(q),M(r)]]$, and cyclically for $N_q, N_r$. The **Jacobi identity**,
+$$
+[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0,
+$$
+with $X=M(p), Y=M(q), Z=M(r)$, says exactly that
+$$
+N_p + N_q + N_r = 0.
+$$
+Three lines with homogeneous coordinate vectors summing to zero are automatically concurrent — this is precisely the linear-dependence condition for three lines to share a point. So the orthocenter's existence isn't a separate fact to prove case by case; it *is* the Jacobi identity, restated in projective coordinates.
+
+I verified this two ways. First, symbolically, for fully generic points $p,q,r$: $N_p+N_q+N_r=(0,0,0)$ exactly, both via the UHG join formula and via the Lie bracket. Second, on the genuine (non-degenerate) orthocenters $h_1,h_2,h_3$ from the four-null-point configuration of the companion paper *Invariant Quadrea of Orthocenter Triangles*: the same identity holds, confirming concurrence on a real example rather than only in the abstract.
+
+One instructive pitfall along the way: applying this check to the *diagonal* triangle $e,f,g$ instead gives $N_e=N_f=N_g=(0,0,0)$ individually — a trivial, vacuous confirmation. That triangle is self-polar (Post 1), so each vertex's polar *is* the opposite side already, meaning the altitude construction degenerates to $\mathrm{join}$ of a point with a scalar multiple of itself, which is always zero. Self-polar triangles are exactly the case where this construction is not meaningful — worth flagging, since it's an easy way to convince yourself a check has passed when it has actually failed to run at all.
+
+## What this does, and does not, establish
+
+This is a genuine, load-bearing upgrade for the **rank-1** part of the story. The entire ambient space of every construction in this series — all four null points, the diagonal triangle, the outward triangulation — sits inside $\mathrm{ad}(\mathfrak{sl}_2)$, the adjoint representation of $\mathfrak{sl}_2(\mathbb{R})$, with join realized as the actual bracket and quadrance as the actual trace form. That is a constructive fact, not a classificatory one: no appeal to Serre's theorem or an abstract uniqueness argument was needed, only direct computation.
+
+It says nothing new about $\mathfrak{su}(3)$. $\mathfrak{sl}_2$ is rank 1; the Cartan matrix from Posts 3-4 is rank 2. Nothing here manufactures an 8-dimensional space or a genuine $\mathfrak{sl}_3$ bracket out of the geometry — the earlier Serre's-theorem link (which identifies *which* Lie algebra the invariant data belongs to, without constructing it) remains the only bridge to $\mathfrak{su}(3)$ established so far. Whether the trace-free triples found since Post 4 can be built the same constructive way — as an explicit combination of iterated $\mathfrak{sl}_2$ brackets landing in a genuine $\mathfrak{sl}_3$ Cartan element, rather than packaged by hand into a diagonal matrix — remains open.
+
+## Check it yourself
+
+```python
+from sympy import symbols, simplify, Matrix, Rational
+
+x1,y1,z1,x2,y2,z2,x3,y3,z3 = symbols('x1 y1 z1 x2 y2 z2 x3 y3 z3')
+p, q, r = (x1,y1,z1), (x2,y2,z2), (x3,y3,z3)
+
+def join(a, b):
+    xa,ya,za = a; xb,yb,zb = b
+    return (ya*zb - yb*za, za*xb - zb*xa, xb*ya - xa*yb)
+
+def M(v):
+    x, y, z = v
+    return Matrix([[x, y+z], [y-z, -x]])
+
+def vec_from_M(mat):
+    x = mat[0,0]; s = mat[0,1]; d = mat[1,0]
+    return (x, (s+d)/2, (s-d)/2)
+
+def bracket_vec(u, v):
+    return tuple(simplify(c) for c in vec_from_M(simplify(M(u)*M(v) - M(v)*M(u))))
+
+# join vs bracket
+Ma, Mb = M(p), M(q)
+bracket = simplify(Ma*Mb - Mb*Ma)
+w = tuple(simplify(c) for c in vec_from_M(bracket))
+j = join(p, q)
+print("bracket -> vector:", w)
+print("join(p,q):        ", j)
+
+# Q and B via trace form
+def Q(v):
+    x, y, z = v
+    return x**2 + y**2 - z**2
+
+def Q_trace(v):
+    return simplify(Rational(1,2)*(M(v)*M(v)).trace())
+
+def B_uhg(u, v):
+    xu,yu,zu = u; xv,yv,zv = v
+    return xu*xv + yu*yv - zu*zv
+
+def B_trace(u, v):
+    return simplify(Rational(1,2)*(M(u)*M(v)).trace())
+
+print("\nQ_trace(p) - Q(p) =", simplify(Q_trace(p) - Q(p)))
+print("B_trace(p,q) - B_uhg(p,q) =", simplify(B_trace(p,q) - B_uhg(p,q)))
+
+# Jacobi identity => altitude concurrence
+def altitude(a, b, c):
+    return join(a, join(b, c))
+
+Np, Nq, Nr = altitude(p,q,r), altitude(q,r,p), altitude(r,p,q)
+total = tuple(simplify(Np[i] + Nq[i] + Nr[i]) for i in range(3))
+print("\nN_p + N_q + N_r =", total, " (Jacobi identity)")
+```
+
+```
+bracket -> vector: (-2*y1*z2 + 2*y2*z1, 2*x1*z2 - 2*x2*z1, 2*x1*y2 - 2*x2*y1)
+join(p,q):         (y1*z2 - y2*z1, -x1*z2 + x2*z1, -x1*y2 + x2*y1)
+
+Q_trace(p) - Q(p) = 0
+B_trace(p,q) - B_uhg(p,q) = 0
+
+N_p + N_q + N_r = (0, 0, 0)  (Jacobi identity)
+```
+
+The bracket and join agree up to the constant factor $-2$ across every coordinate, the trace form matches UHG's metric exactly, and the Jacobi identity produces concurrence directly — all as symbolic identities, holding for arbitrary points, not special cases.
+
+## Where this leaves us
+
+The rank-1 backbone of this entire series — every join, every quadrance, every concurrence argument — now has a fully constructive home inside $\mathfrak{sl}_2(\mathbb{R})$ and its adjoint representation, verified rather than assumed. The rank-2 story from Posts 3-4 still rests on classification (Serre's theorem) rather than construction. Closing that gap — finding an explicit combination of iterated $\mathfrak{sl}_2$ brackets that produces a genuine $\mathfrak{sl}_3$ Cartan element, rather than one assembled by hand from three separately-computed quadrances — remains the open problem this series has not yet solved.
+
+**Series so far:**
+
+1. [From Null Quadrangles to xy = 1](https://jcoady.github.io/blog/posts/reciprocal-parallax-symmetry/)
+2. [Parallax Diagonal Triangulation](https://jcoady.github.io/blog/posts/parallax-diagonal-triangulation/)
+3. [From Cross-Ratio Orbits to SU(3) Invariants](https://jcoady.github.io/blog/posts/from-cross-ratio-orbits-to-su3-invariants/)
+4. [From Trace-Free Triples to the A2 Root System](https://jcoady.github.io/blog/posts/trace-free-triples-to-a2-root-system/)
+5. [A Concrete Dictionary: Connecting q to λ](https://jcoady.github.io/blog/posts/concrete-dictionary-q-lambda/)
+6. Points as Matrices: A Constructive sl(2) Dictionary *(this post)*
