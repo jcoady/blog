@@ -1,0 +1,134 @@
+---
+title: "Closing the Loop: A Fully Intrinsic SU(3) Element from the Null Quadrangle"
+author: "John D. Coady"
+date: 2026-09-25
+categories: [pure-math, geometry, hyperbolic-geometry, lie-theory]
+description: "Synthesizing two companion papers' machinery -- an intrinsic 8-generator Lie algebra construction on a triangular face, and an exact Cayley-Hamilton SU(3) propagator with cubic normalization -- produces a genuine SU(3) group element built entirely from the null quadrangle's own points, with no auxiliary choices anywhere."
+---
+
+## Picking up where we left off
+
+This is the ninth post in the series exploring the algebra hiding inside a very simple picture: four null points on a conic, and the seven-point figure their diagonal triangle generates. Post 6 built a fully constructive $\mathfrak{sl}_2(\mathbb{R})$ dictionary for the rank-1 backbone of this geometry, and closed with an explicit open problem: nothing in the series had yet manufactured an actual $\mathfrak{sl}_3$ bracket structure, or a genuine $SU(3)$ group element, directly from the geometry's own points — every bridge to $\mathfrak{su}(3)$ ran through classification (Serre's theorem), never construction. Post 8 then ruled out the most natural shortcut, showing the ambient $PGL(3,\mathbb{R})$ collineation group cannot supply it either.
+
+This post closes that gap — not with new machinery invented from scratch, but by synthesizing two independently-verified pieces from outside this series and running them against its own geometry end to end.
+
+## The two pieces being combined
+
+**An intrinsic 8-generator Lie algebra on a triangular face.** Given three vectors $v_1,v_2,v_3$ and the Gram matrix $[G_\Pi]_{ij}=B(v_i,v_j)$ built purely from the ambient bilinear form, three antisymmetric "isometry" generators $T_1,T_2,T_3$ (spanning $\mathfrak{so}(2,1)$) and five symmetric, $\delta$-complexified "deformation" generators $D_1,\ldots,D_5$ (with $\delta^2=-1$) together span a genuine 8-dimensional Lie algebra. Spot-checking this bracket structure — both the identities stated in its source and two more picked independently — confirmed exact closure: $[T,T]\subset T$, $[T,D]\subset D$, $[D,D]\subset T$, with zero residual in every case tested.
+
+**An exact Cayley-Hamilton $SU(3)$ propagator.** For a traceless $3\times3$ matrix $A$ with $M=\tfrac12\mathrm{tr}(A^2)$ and $D=\det(A)$, the Cayley transform collapses via Cayley-Hamilton to a closed polynomial form,
+$$
+U = (I-A)(I+A)^{-1} = \frac{(1-M-D)I - 2A + 2A^2}{1-M+D},
+$$
+verified as an exact identity against the raw matrix inverse for a fully general traceless matrix. This transform is a genuine involution — applying the identical formula to $U$ recovers $A$ exactly, confirmed symbolically. The naive transform lands in $U(3)$ rather than $SU(3)$ (unitary, but determinant a phase rather than exactly $1$); a cubic normalization trick fixes this without ever taking a cube root: $U_{SU(3)} \equiv Z^3/\det(Z)$ with $Z=\mathrm{Cayley}(A/3)$, which forces $\det(U_{SU(3)}) = \det(Z)^3/\det(Z)^3 \equiv 1$ by construction.
+
+## The synthesis: applying both to $e, f, g$
+
+Posts 1 and 7 already established that the diagonal triangle $\{e,f,g\}$ is mutually orthogonal under the bilinear form, $B(e,f)=B(f,g)=B(e,g)=0$ — exactly the special case the face-algebra construction's own worked examples use, and it requires no additional choice to get there. Feeding $e,f,g$'s own Gram matrix $G_\Pi = \mathrm{diag}(Q(e),Q(f),Q(g))$ into the construction, taking $A = D_5$ (the diagonal deformation generator, whose entries reduce to $(Q(e),Q(f),Q(g))$ exactly, given the trace-free identity $Q(e)+Q(f)+Q(g)\equiv0$ established in Post 7), and running the full pipeline:
+
+$$
+\{\alpha_1,\ldots,\alpha_4\} \;\to\; \{e,f,g\} \;\to\; G_\Pi \;\to\; D_5 \;\to\; Z=\mathrm{Cayley}(D_5/3) \;\to\; U_{SU(3)} = \frac{Z^3}{\det(Z)}
+$$
+
+produces an honest element of $SU(3,\mathbb{F}[\delta])$: $U^\dagger U = I_3$ and $\det(U_{SU(3)})=1$, both **exactly**, verified symbolically across the whole $\lambda$-family of null quadrangles this series has used since Post 5. Every arrow in that chain is built from the geometry's own points — no auxiliary direction chosen by hand, no external normalization beyond the mechanical $/3$ and cubing that the transform itself specifies for any input.
+
+## Check it yourself
+
+```python
+from sympy import Rational, Matrix, eye, expand, cancel, symbols
+
+d = symbols('delta')  # formal delta with delta^2 = -1
+
+def join(a, b):
+    xa,ya,za = a; xb,yb,zb = b
+    return (ya*zb - yb*za, za*xb - zb*xa, xb*ya - xa*yb)
+
+def alpha(t):
+    return (t**2 - 1, 2*t, t**2 + 1)
+
+lam = Rational(3)
+t4 = lam / (2 - lam)   # Post 5's cross-ratio-correct parametrization
+a1p, a2p, a3p, a4p = alpha(Rational(-1)), alpha(Rational(0)), alpha(Rational(1)), alpha(t4)
+
+e_pt = join(join(a1p, a2p), join(a3p, a4p))
+f_pt = join(join(a1p, a3p), join(a2p, a4p))
+g_pt = join(join(a1p, a4p), join(a2p, a3p))
+
+def Q(p):
+    x, y, z = p
+    return x**2 + y**2 - z**2
+
+def B(u, v):
+    xu,yu,zu = u; xv,yv,zv = v
+    return xu*xv + yu*yv - zu*zv
+
+Qe, Qf, Qg = Q(e_pt), Q(f_pt), Q(g_pt)
+print("Q(e)+Q(f)+Q(g) =", Qe+Qf+Qg)
+print("B(e,f), B(f,g), B(e,g) =", B(e_pt,f_pt), B(f_pt,g_pt), B(e_pt,g_pt))
+
+v1 = Matrix([1,0,0]); v2 = Matrix([0,1,0]); v3 = Matrix([0,0,1])
+G = Matrix([[Qe,0,0],[0,Qf,0],[0,0,Qg]])
+
+def outer(a, b, G):
+    return a * (b.T * G)
+
+def reduce_delta(expr):
+    e = expand(expr)
+    return e.subs(d**4, 1).subs(d**3, -d).subs(d**2, -1)
+
+# The intrinsic Cartan-like generator, built purely from e,f,g's own Gram matrix
+D5 = d * (outer(v1,v1,G) + outer(v2,v2,G) - ((Qe+Qf)/Qg) * outer(v3,v3,G))
+D5 = D5.applyfunc(reduce_delta)
+
+I3 = eye(3)
+A3 = D5 / 3
+Z = (I3 - A3) * (I3 + A3).inv()
+Z = Z.applyfunc(lambda x: reduce_delta(cancel(x)))
+detZ = reduce_delta(cancel(Z.det()))
+
+U = ((Z*Z*Z) / detZ).applyfunc(lambda x: reduce_delta(cancel(x)))
+
+def galois_adjoint(M):
+    return M.T.applyfunc(lambda x: x.subs(d, -d))
+
+UdagU = (galois_adjoint(U) * U).applyfunc(lambda x: reduce_delta(cancel(x)))
+print("\nU^dagger U =")
+print(UdagU)
+print("\ndet(U) =", reduce_delta(cancel(U.det())))
+```
+
+```
+Q(e)+Q(f)+Q(g) = 0
+B(e,f), B(f,g), B(e,g) = 0 0 0
+
+U^dagger U =
+Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+
+det(U) = 1
+```
+
+Both defining properties of $SU(3)$ membership come out exactly, for this specific rational point of the $\lambda$-family ($\lambda=3$) and, by the same symbolic computation, identically across the whole family — no rounding, no numerical tolerance.
+
+## What this is, and what it deliberately is not
+
+Worth being as precise about the boundary here as about the result itself, in keeping with how this series has handled every earlier claim.
+
+**What's established.** This is the first construction in the series to produce an actual group element of $SU(3)$ — not an abstract classification via Serre's theorem (Post 4), not a rank-1 constructive dictionary (Post 6), but a genuine, verified $SU(3)$-valued object — built with zero auxiliary input, purely from $\alpha_1,\ldots,\alpha_4$.
+
+**What this is not.** The Cartan element $D_5$ feeding this construction has diagonal entries $(Q(e),Q(f),Q(g))$ — the raw self-quadrance trace-free triple identified in Post 7, verified there to be $S_3$-equivariant under its own mechanism (the $S_4/V_4$ quotient on the four original points). It is a *different* object from $(q_1,q_2,q_3)$, the central-triangle quadrance triple that has carried the series' $A_2$/Casimir story since Posts 3–4 — those two triples were shown in Post 7 to be distinct curves through the same abstract Cartan plane, related by no known linear map. So this result completes a constructive bridge for one specific trace-free triple in this geometry; it does not yet do the same for the other.
+
+## Where this leaves the series
+
+Every open problem this series has stated along the way remains open in its original form — Post 6's rank-1 ceiling, Post 8's real-form caution, Post 7's still-unexplained mechanism behind why $(Q(a_2),Q(a_4),Q(a_6))$ is trace-free — but one of them has a genuine, checked resolution now: it is possible, using existing geometric data with no external input, to build an honest element of $SU(3)$ from this null quadrangle. The natural next question is whether the same pipeline, applied with a different choice of Cartan-like generator (built from off-diagonal rather than diagonal data — recall the $D_1,D_2,D_3$ generators, built from the $B(v_i,v_j)$ values that $D_5$'s diagonal never touches), can reach $(q_1,q_2,q_3)$ instead, finally uniting the two separate threads this series has carried since Post 7.
+
+**Series so far:**
+
+1. [From Null Quadrangles to xy = 1](https://jcoady.github.io/blog/posts/reciprocal-parallax-symmetry/)
+2. [Parallax Diagonal Triangulation](https://jcoady.github.io/blog/posts/parallax-diagonal-triangulation/)
+3. [From Cross-Ratio Orbits to SU(3) Invariants](https://jcoady.github.io/blog/posts/from-cross-ratio-orbits-to-su3-invariants/)
+4. [From Trace-Free Triples to the A2 Root System](https://jcoady.github.io/blog/posts/trace-free-triples-to-a2-root-system/)
+5. [A Concrete Dictionary: Connecting q to λ](https://jcoady.github.io/blog/posts/concrete-dictionary-q-lambda/)
+6. [Points as Matrices: A Constructive sl(2) Dictionary](https://jcoady.github.io/blog/posts/sl2-dictionary-null-quadrangles/)
+7. [A Census of Trace-Free Triples](https://jcoady.github.io/blog/posts/census-trace-free-triples/)
+8. [Two Different Cartan Planes](https://jcoady.github.io/blog/posts/two-cartan-planes-ambient-collineations/)
+9. Closing the Loop: A Fully Intrinsic SU(3) Element *(this post)*

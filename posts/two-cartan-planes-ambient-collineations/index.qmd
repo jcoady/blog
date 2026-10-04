@@ -1,0 +1,108 @@
+---
+title: "Two Different Cartan Planes: Why the Ambient Collineations Can't Sweep the Cross-Ratio"
+author: "John D. Coady"
+date: 2026-09-06
+categories: [pure-math, geometry, hyperbolic-geometry, lie-theory]
+description: "A precise account of why su(3)'s compact real form doesn't match UHG's signature, and a verified proof that the diagonal stabilizer of three fixed null points in the ambient PGL(3,R) cannot be the source of the cross-ratio's variation -- closing off a tempting but incorrect shortcut to a constructive su(3) bridge."
+---
+
+## Picking up where we left off
+
+This is the eighth post in the series exploring the algebra hiding inside a very simple picture: four null points on a conic, and the seven-point figure their diagonal triangle generates. Post 6 built a fully constructive $\mathfrak{sl}_2(\mathbb{R})$ dictionary for the rank-1 backbone of the whole construction, and closed with an explicit open problem: nothing so far manufactures an actual $\mathfrak{sl}_3$ bracket structure out of the geometry itself, only a classification (via Serre's theorem) of which abstract Lie algebra the invariant data belongs to.
+
+A natural-looking shortcut presents itself here: the four null points sit inside the ambient projective plane $\mathbb{P}^2$, whose full collineation group is $PGL(3,\mathbb{R})$ with Lie algebra $\mathfrak{sl}_3(\mathbb{R})$ — genuinely 8-dimensional, genuinely present. Could the diagonal subgroup stabilizing three of the four null points be the missing constructive bridge — literally sweeping the fourth point along the conic as the cross-ratio $\lambda$ varies, with the trace-free plane $\mathfrak{h}$ from Post 4 as its Cartan subalgebra? This post checks that shortcut directly, and shows precisely why it fails — along with a sharper, more precise version of the "SU(3) caution" the series has carried since Post 3.
+
+## Which real form does UHG actually point to?
+
+$\mathfrak{su}(3)$, $\mathfrak{sl}_3(\mathbb{R})$, and $\mathfrak{su}(2,1)$ all share the same complexification:
+$$
+\mathfrak{su}(3)\otimes\mathbb{C} \;\cong\; \mathfrak{sl}_3(\mathbb{R})\otimes\mathbb{C} \;\cong\; \mathfrak{su}(2,1)\otimes\mathbb{C} \;\cong\; \mathfrak{sl}_3(\mathbb{C}),
+$$
+but they are different real forms, corresponding to different real geometric symmetries:
+
+- **$\mathfrak{sl}_3(\mathbb{R})$** — the algebra of real trace-zero $3\times3$ matrices, acting as the full collineation group of $\mathbb{RP}^2$. This is the algebra that genuinely transforms the real null points, secants, and diagonal points of this series' constructions.
+- **$\mathfrak{su}(2,1)$** — the isometry algebra of a Hermitian form of signature $(2,1)$ over $\mathbb{C}$. UHG's defining quadratic form, $Q(x,y,z)=x^2+y^2-z^2$, has exactly this signature.
+- **$\mathfrak{su}(3)$** — the isometry algebra of a *positive-definite* Hermitian form, $|z_1|^2+|z_2|^2+|z_3|^2$. This form has no nonzero real null vectors at all, and $SU(3)$ is compact.
+
+UHG is fundamentally non-compact — null boundaries, an unbounded plane, light-cone structure — which is the geometric signature of $(2,1)$, not of a positive-definite form. So the real Lie algebra that genuinely acts on this geometry is $\mathfrak{sl}_3(\mathbb{R})$ (as the ambient collineation group) or $\mathfrak{su}(2,1)$ (if the isometries preserving $Q$ are extended to complex coordinates) — not the compact $\mathfrak{su}(3)$. This sharpens, with a precise algebraic reason, the caution Post 3 stated informally: every result in this series that reaches "$\mathfrak{su}(3)$" does so through the shared complexification $\mathfrak{sl}_3(\mathbb{C})$ and Serre's theorem, not through any real isometry of the actual plane.
+
+## The candidate bridge: does the ambient diagonal stabilizer sweep $\lambda$?
+
+Fix three null points $\alpha_1,\alpha_2,\alpha_3$ as a projective reference triangle — the coordinate vertices $[1:0:0],[0:1:0],[0:0:1]$. In this basis, the subgroup of $PGL(3,\mathbb{R})$ stabilizing all three points is the 2-parameter diagonal group $D=\mathrm{diag}(d_1,d_2,d_3)$, which is exactly the kind of object that *looks* like it should serve as an ambient version of the Cartan subgroup. If moving the fourth null point $\alpha_4$ along the conic — the operation that generates the whole $\lambda$-family this series has been built on — could be realized as motion within this diagonal group, that would be a genuine, constructive bridge between the ambient $\mathfrak{sl}_3(\mathbb{R})$ and the abstract $A_2$ weight-space plane from Post 4.
+
+It cannot, for two independent reasons, both directly checkable.
+
+**Reason 1: three fixed points force any UHG isometry to the identity.** UHG's isometry group $SO(2,1)$ acts on the null circle exactly as $PGL(2,\mathbb{R})$ acts on $\mathbb{P}^1$, and $PGL(2,\mathbb{R})$ is *sharply 3-transitive*: a Möbius transformation fixing three distinct points is forced to be the identity. Solving directly for a transformation $(at+b)/(ct+d)$ fixing $t=-1,0,1$ gives $b=c=0$ and $a=d$ — the identity map, with no freedom left over. So no nontrivial UHG isometry fixes $\alpha_1,\alpha_2,\alpha_3$ at all; varying $\lambda$ continuously necessarily steps outside the isometry group entirely.
+
+**Reason 2: the ambient diagonal group's intersection with the conic-preserving transformations is finite, not continuous.** This is the more surprising check. For $D=\mathrm{diag}(d_1,d_2,d_3)$ to preserve the conic $Q(x,y,z)=x^2+y^2-z^2=0$ (i.e. $D^\top M D = cM$ for the matrix $M=\mathrm{diag}(1,1,-1)$ and some scalar $c$), direct computation gives
+$$
+D^\top M D = \mathrm{diag}(d_1^2,\, d_2^2,\, -d_3^2),
+$$
+which is proportional to $M$ exactly when $d_1^2=d_2^2=d_3^2$. That is *two* independent equations on the diagonal group's two projective parameters, so the solution set is generically zero-dimensional: not the trivial group, but a finite Klein four-group of sign-flip reflections — $I$, $\mathrm{diag}(1,-1,-1)$, $\mathrm{diag}(-1,1,-1)$, $\mathrm{diag}(-1,-1,1)$, modulo the overall projective scalar. These are genuine UHG isometries (the standard coordinate-axis reflections), but they form a *discrete* group of order 4. A finite group cannot trace a continuous path, so even accounting for this correction, the 2-parameter ambient diagonal group cannot be the source of a continuously-varying $\lambda(t)$.
+
+Both routes converge on the same conclusion: nothing in the diagonal stabilizer of $\alpha_1,\alpha_2,\alpha_3$ — whether restricted to genuine UHG isometries or considered within the full ambient $PGL(3,\mathbb{R})$ — can sweep $\alpha_4$ continuously along the conic. The candidate bridge fails, cleanly and for two independent, verifiable reasons.
+
+## The two Cartan objects, kept separate
+
+This resolves into a precise statement of something the series has gestured at since Post 4's "two different 3-spaces" caveat, now sharpened into two explicitly distinct objects that must not be conflated:
+
+**Object 1 — the ambient collineation Cartan subgroup.** The 2-parameter diagonal subgroup $D=\mathrm{diag}(d_1,d_2,d_3)$ of $PGL(3,\mathbb{R})$, stabilizing the reference triangle $\alpha_1,\alpha_2,\alpha_3$ and acting linearly on points $[x:y:z]$ of the whole ambient plane. Its intersection with the conic-preserving isometries is the finite Klein four-group just found — nowhere near enough to generate a continuous family.
+
+**Object 2 — the moduli/weight-space Cartan plane.** The abstract plane $\mathfrak{h}=\{(q_1,q_2,q_3): q_1+q_2+q_3=0\}$ from Post 4, which does *not* act on point coordinates at all. It is constructed algebraically from the cross-ratio $\lambda$ via $q=1/\lambda$ and the formulas $q_1(q),q_2(q),q_3(q)$ of Post 3, and it traces a genuine curve as $\lambda$ varies — with $\alpha_4$ staying on the conic throughout, since nothing about that construction ever requires an ambient collineation to move it there.
+
+Conflating these two objects would amount to claiming that the cross-ratio's variation is literally generated by an ambient plane collineation $D(t)\in PGL(3,\mathbb{R})$. It demonstrably is not — the check above rules it out directly, rather than leaving it as an assumption.
+
+## Check it yourself
+
+```python
+from sympy import symbols, solve, Eq, diag
+
+# --- Reason 1: 3-transitivity obstruction ---
+a, b, c, d = symbols('a b c d')
+# Mobius transformation (a*t+b)/(c*t+d) fixing t=0, 1, -1
+# t=0 forces b=0; solve the remaining two fixed-point conditions
+eq1 = Eq(a, c + d)        # from t=1
+eq2 = Eq(-a, -(-c + d))   # from t=-1
+sol = solve([eq1, eq2], [a, c])
+print("Fixing three points forces:", sol, " (b=0, so the map is the identity)")
+
+# --- Reason 2: diagonal stabilizer vs. conic-preserving isometries ---
+d1, d2, d3 = symbols('d1 d2 d3', real=True)
+M = diag(1, 1, -1)          # Q(x,y,z) = x^2 + y^2 - z^2
+D = diag(d1, d2, d3)
+DtMD = D.T * M * D
+print("\nD^T M D =", DtMD)
+print("Proportional to M only when d1^2 = d2^2 = d3^2 -- a finite (order-4) group, not continuous")
+
+# Explicit nontrivial example that DOES preserve the conic (a genuine reflection):
+D_refl = diag(1, -1, 1)
+print("\nD = diag(1,-1,1):  D^T M D =", D_refl.T * M * D_refl, " -- proportional to M:", D_refl.T*M*D_refl == M)
+```
+
+```
+Fixing three points forces: {a: d, c: 0}  (b=0, so the map is the identity)
+
+D^T M D = Matrix([[d1**2, 0, 0], [0, d2**2, 0], [0, 0, -d3**2]])
+Proportional to M only when d1^2 = d2^2 = d3^2 -- a finite (order-4) group, not continuous
+
+D = diag(1,-1,1):  D^T M D = Matrix([[1, 0, 0], [0, 1, 0], [0, 0, -1]])  -- proportional to M: True
+```
+
+Both checks confirm the claims exactly: fixing three points collapses any Möbius transformation to the identity, and the conic-preserving diagonal matrices form a finite reflection group rather than a continuous family — with an explicit nontrivial example, $\mathrm{diag}(1,-1,1)$, confirming the group is genuinely bigger than just $\{I\}$ even though it's still far too small to matter here.
+
+## Where this leaves us
+
+The ambient $\mathfrak{sl}_3(\mathbb{R})$ collineation algebra is genuinely present in this geometry — it's simply the algebra of the whole projective plane the construction lives in — but it does not offer a shortcut to a constructive bridge with the abstract $A_2$ weight-space plane from Post 4. The diagonal stabilizer of three fixed null points, the most natural ambient candidate for such a bridge, is ruled out for two independent, verified reasons: it collapses to the identity within the UHG isometry group, and even within the larger ambient collineation group it meets the conic-preserving transformations in only a finite reflection group, never a continuum.
+
+This doesn't close the door on a constructive $\mathfrak{sl}_3$ bridge — it closes off one specific, tempting candidate for it. The open problem from Post 6 stands exactly as before: whether the trace-free triples of this series admit any direct, constructive realization inside the ambient projective geometry remains unresolved, and this post's contribution is narrowing the search by ruling out the most obvious wrong turn.
+
+**Series so far:**
+
+1. [From Null Quadrangles to xy = 1](https://jcoady.github.io/blog/posts/reciprocal-parallax-symmetry/)
+2. [Parallax Diagonal Triangulation](https://jcoady.github.io/blog/posts/parallax-diagonal-triangulation/)
+3. [From Cross-Ratio Orbits to SU(3) Invariants](https://jcoady.github.io/blog/posts/from-cross-ratio-orbits-to-su3-invariants/)
+4. [From Trace-Free Triples to the A2 Root System](https://jcoady.github.io/blog/posts/trace-free-triples-to-a2-root-system/)
+5. [A Concrete Dictionary: Connecting q to λ](https://jcoady.github.io/blog/posts/concrete-dictionary-q-lambda/)
+6. [Points as Matrices: A Constructive sl(2) Dictionary](https://jcoady.github.io/blog/posts/sl2-dictionary-null-quadrangles/)
+7. [A Census of Trace-Free Triples](https://jcoady.github.io/blog/posts/census-trace-free-triples/)
+8. Two Different Cartan Planes *(this post)*
