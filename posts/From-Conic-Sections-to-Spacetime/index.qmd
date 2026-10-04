@@ -1,202 +1,170 @@
 ---
-title: "From Conic Sections in $\\mathbb{CP}^2$ to $(1+3)$D Spacetime in $2 \\times 2$ Matrices"
-subtitle: "How Complexification and Projectivization Unify Plane Geometry and Finitist Quantum Spacetime"
+title: "From Conic Sections to Spacetime in 2×2 Matrices"
+pagetitle: "From Conic Sections to Spacetime in 2×2 Matrices"
+subtitle: "Two uses of the same algebraic ideas: adjoin √−1, factor a quadratic form, and projectivize"
 author: "John D. Coady"
 date: "2026-10-04"
+categories: [pure-math, geometry, hyperbolic-geometry, mathematical-physics]
+description: "How the classical story of conics (complexify, then projectivize) runs closely parallel to a 2×2 Hermitian-matrix model of (1+3)D spacetime over a finite field."
 format:
   html:
     toc: true
-    toc-depth: 3
-    code-fold: show
+    toc-depth: 2
     number-sections: false
-categories: [pure-math, geometry, hyperbolic-geometry, mathematical-physics]
 ---
 
-## 1. A Tale of Two Unifications
-
-At first glance, few topics seem farther apart than high-school conic sections and the quantum geometry of relativistic spacetime:
-
-1. **Problem A (Classical Geometry):** Why do ellipses, hyperbolas, and parabolas look drastically different in Euclidean space, yet modern algebraic geometers claim they are the exact same curve?
-2. **Problem B (Quantum Gravity & Spacetime):** Why can $(1+3)$-dimensional Lorentzian spacetime and the group $\mathrm{SO}(1,3)$ be governed by $2 \times 2$ matrices over a finite field without transcendental functions, matrix exponentials, or singular charts?
-
-Recently, a popular lecture walked viewers through the algebraic machinery that unifies conics: writing quadratic forms as symmetric $2 \times 2$ matrices, extending coordinates from $\mathbb{R}$ to $\mathbb{C}$, and adding "points at infinity" to build the complex projective plane $\mathbb{CP}^2$.
-
-{{< video https://youtu.be/FLXuHL1L-LI?si=j74ncvZninenXxY_ >}}
-
-
-Simultaneously, John D. Coady's research paper, [*A Projective $2 \times 2$ Rotor Architecture for $(1+3)$D Discrete Spacetime: Holonomies, Ghost Parity, and the Double-Cover Anchor Map*](https://doi.org/10.5281/zenodo.23091444), addresses the architecture of discrete spacetime. 
-
-Remarkably, **both works rely on the exact same algebraic engine**:
-$$\text{Affine Quadratic Forms} \xrightarrow{\quad\text{Complexify / Field Extension}\quad} \text{Split Geometries} \xrightarrow{\quad\text{Projectivize}\quad} \text{Singularity-Free Space}$$
-
-Let's explore how the geometric tricks used to turn an ellipse into a parabola provide the exact mathematical blueprint for computing spacetime holonomies in $2 \times 2$ matrices.
-
----
-
-## 2. The 2D Blueprint: The Secret Life of Conics
-
-In the video, the presenter begins with the general second-degree Cartesian equation:
-$$ax^2 + bxy + cy^2 + dx + ey + f = 0, \quad (a, b, c) \neq (0, 0, 0)$$
-
-The degree-two terms control the geometry, while the linear terms simply move the curve around. Writing the homogeneous quadratic part as a vector-matrix-vector product gives:
-
-$$\begin{pmatrix} x & y \end{pmatrix} \begin{pmatrix} a & b/2 \\ b/2 & c \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix}, \quad A = \begin{pmatrix} a & b/2 \\ b/2 & c \end{pmatrix}$$
-
-The determinant of $A$ connects directly to the high-school discriminant:
-$$\det(A) = ac - \frac{b^2}{4} = -\frac{1}{4}(b^2 - 4ac)$$
-
-By the **Spectral Theorem**, any real symmetric matrix can be diagonalized by an orthogonal rotation matrix $P$. In the video's worked example, $5x^2 + 4xy + 5y^2 = 9$ is rotated by $45^\circ$ ($\pi/4$) into the canonical unrotated ellipse $\frac{u^2}{9/7} + \frac{v^2}{3} = 1$.
-
-### The Real Trichotomy ($\mathbb{R}^2$)
-Over the real numbers, conics are locked into three rigid geometric and topological compartments:
-
-| Conic | Determinant | Discriminant | Topology |
-| :--- | :--- | :--- | :--- |
-| **Ellipse** | $\det A > 0$ | $b^2 - 4ac < 0$ | Compact, closed, 1 connected component |
-| **Hyperbola** | $\det A < 0$ | $b^2 - 4ac > 0$ | Unbounded (2 directions), 2 disconnected branches |
-| **Parabola** | $\det A = 0$ | $b^2 - 4ac = 0$ | Unbounded (1 direction), 1 connected component |
-
-### Step 1: Complexification ($\mathbb{R}^2 \to \mathbb{C}^2$)
-What happens if $(x, y) \in \mathbb{C}^2$? Consider the unit circle/ellipse:
-$$x^2 + y^2 = 1$$
-
-Substitute $y \mapsto iy$. The equation becomes:
-$$x^2 + (iy)^2 = 1 \implies x^2 - y^2 = 1$$
-
-In an instant, the **ellipse becomes a hyperbola**. Over $\mathbb{C}$, the signature distinction between positive-definite ($++$) and indefinite ($+-$) evaporates:
-
-* Factoring $x^2 + y^2 = (x+iy)(x-iy) = 1$ with $u = x+iy$ and $v = x-iy$ gives $uv = 1 \implies v = 1/u$.
-* Topologically, this is the **punctured complex plane** $\mathbb{C}^\times = \mathbb{C} \setminus \{0\}$.
-* But what about the parabola $y = x^2$? That curve is parametrized by $x \in \mathbb{C}$, meaning it is homeomorphic to the **full complex plane** $\mathbb{C}$.
-
-Over $\mathbb{C}^2$, the ellipse and hyperbola have merged, but the parabola remains distinct because $\mathbb{C} \not\cong \mathbb{C} \setminus \{0\}$.
-
-### Step 2: Projectivization ($\mathbb{C}^2 \to \mathbb{CP}^2$)
-To bridge the final gap, we introduce projective coordinates $[x : y : z] \in \mathbb{CP}^2$, where $[x : y : z] = [\lambda x : \lambda y : \lambda z]$ for $\lambda \neq 0$:
-* **Affine Chart ($z \neq 0$):** Dividing by $z$ yields $[x/z : y/z : 1] = [X : Y : 1] \cong \mathbb{C}^2$.
-* **Line at Infinity ($z = 0$):** The directions $[x : y : 0]$ form the line $\ell_\infty \cong \mathbb{CP}^1$.
-
-Now, homogenize the equations by inserting $z$:
-* **Projective Ellipse:** $x^2 + y^2 = z^2$
-* **Projective Parabola:** $yz = x^2$
-
-Can we transform one into the other? Rearrange the ellipse:
-$$x^2 = z^2 - y^2 = (z - y)(z + y)$$
-
-Define a linear change of projective coordinates:
-$$X = x, \quad Y = z - y, \quad Z = z + y$$
-
-Under this linear substitution, the equation becomes:
-$$X^2 = YZ$$
-
-::: {.callout-tip}
-## The Geometric Punchline
-In $\mathbb{CP}^2$, **every non-degenerate conic is identical**. Adding the line at infinity fills the "puncture" in $\mathbb{C} \setminus \{0\}$, compactifying both curves into a projective line $\mathbb{CP}^1$ (the Riemann sphere).
+::: {.callout-note}
+**Sources.** The conic material follows Michael Penn's video [*There is only one conic section*](https://youtu.be/FLXuHL1L-LI). The spacetime material is from my preprint [*A Projective 2×2 Rotor Architecture for (1+3)D Discrete Spacetime: Holonomies, Ghost Parity, and the Double-Cover Anchor Map*](https://doi.org/10.5281/zenodo.23138782) (Zenodo, 2026), which includes the verification script `verify_rotor_model.py`. The two topics are connected by analogy; I say below where the analogy is exact and where it is only suggestive.
 :::
 
----
+## 1. Two stories with a shared ingredient
 
-## 3. The 4D Engine: Discrete Spacetime in $2 \times 2$ Matrices
+**Story A (classical geometry).** Ellipses, hyperbolas and parabolas look very different over the reals, yet in the complex projective plane they are projectively equivalent.
 
-Now consider the physics side. In Coady’s paper, the goal is to build a discrete, exact model of $(1+3)\mathrm{D}$ relativistic spacetime over finite fields $\mathbb{F}_p$ ($p \equiv 3 \pmod 4$), inspired by N. J. Wildberger’s rational trigonometry.
+**Story B (discrete spacetime).** The group $SO(1,3)$ of Lorentz transformations can be described exactly, over a finite field $\mathbb{F}_p$ with $p \equiv 3 \pmod 4$, using $2\times 2$ matrices with entries in the quadratic extension $\mathbb{F}_p[i]$.
 
-The moment you attempt this in 4D, you run into three major roadblocks:
-1. **The Curse of Dimension:** Standard Lorentz rotations in $4 \times 4$ matrices involve cubic/quartic Cayley inversions and transcendental functions ($\cosh, \sinh, \exp$).
-2. **The Witt-Index Obstruction:** The Lorentzian metric on $\mathbb{F}_p^4$ has signature $(+ - - -)$ and Witt index 1 (elliptic type). But $M_2(\mathbb{F}_p)$ with the determinant has signature $(++ - -)$ and Witt index 2 (split type). Witt’s theorem strictly forbids any linear isometry between the two!
-3. **The Affine Anchor Breakdown:** Composing rotations via affine Lie algebra generators (anchors) fails at half-turns and composition denominators ($1 - \langle u, v \rangle = 0$).
+The shared ingredient is simple: **adjoining $\sqrt{-1}$ makes a sum of two squares factor as a product**, $x^2 + y^2 = (x+iy)(x-iy)$, and **homogenizing** puts all the resulting quadrics on equal footing. These are closely parallel moves, not the same machinery. The rest of this post tracks the parallel, and flags where it stops.
 
-How does Coady solve all three? **By following the exact same playbook as the conic video.**
+{{< video https://youtu.be/FLXuHL1L-LI >}}
 
-### The Dimension–Degree Coincidence
-Why $2 \times 2$ matrices? In Appendix A of the paper, Coady highlights a remarkable fact:
+## 2. The conic story
 
-$$\text{In } M_n(F), \quad \deg(\det M) = n$$
+### The real trichotomy
 
-* For $n = 3$, the determinant is cubic (volume).
-* For $n = 4$, the determinant is quartic (hyper-volume).
-* **Only for $n = 2$ does the determinant polynomial have degree 2—matching metric quadrance!**
+Start with the general conic $ax^2 + bxy + cy^2 + dx + ey + f = 0$ with $(a,b,c) \neq (0,0,0)$. The quadratic part controls the shape, and the linear terms only move the curve around. Write the quadratic part as
 
-Because $2 \times 2$ determinants are quadratic forms, matrix multiplicativity $\det(AB) = \det(A)\det(B)$ automatically gives metric isometries for free via the rotor sandwich:
-$$X \mapsto \frac{GXG^\dagger}{\det G}$$
+$$
+\begin{pmatrix} x & y \end{pmatrix}
+\begin{pmatrix} a & b/2 \\ b/2 & c \end{pmatrix}
+\begin{pmatrix} x \\ y \end{pmatrix},
+\qquad
+\det A = ac - \tfrac{b^2}{4} = -\tfrac14\,(b^2 - 4ac).
+$$
 
-### Step 1: The Galois Field Extension ($y \mapsto iy$ in Spacetime)
-Just as the video substituted $y \mapsto iy$ to turn an ellipse into a hyperbola, Coady overcomes the Witt-index obstruction by extending $\mathbb{F}_p$ to the quadratic Galois extension:
-$$K = \mathbb{F}_p[i] = \mathbb{F}_p[T]/(T^2 + 1) \cong \mathbb{F}_{p^2}$$
+By the spectral theorem, a real symmetric matrix is diagonalized by an orthogonal change of basis. For the video's example $5x^2 + 4xy + 5y^2 = 9$, the eigenvalues are 3 and 7, the rotation is by $45^\circ$, and the curve becomes $7u^2 + 3v^2 = 9$, i.e. $\frac{u^2}{9/7} + \frac{v^2}{3} = 1$.
 
-Instead of looking at all of $M_2(\mathbb{F}_p)$, he restricts to the $\mathbb{F}_p$-vector space of **Hermitian matrices** $\mathrm{Herm}_{\mathbb{F}_p} \subset M_2(K)$:
-$$X(x) = x_0 I_2 + \mathbf{x} \cdot \boldsymbol{\sigma} = \begin{pmatrix} x_0 + x_3 & x_1 - ix_2 \\ x_1 + ix_2 & x_0 - x_3 \end{pmatrix}$$
+| Conic | $\det A$ | $b^2 - 4ac$ | Topology over $\mathbb{R}$ |
+|---|---|---|---|
+| Ellipse | $>0$ | $<0$ | compact, 1 component |
+| Hyperbola | $<0$ | $>0$ | unbounded, 2 branches |
+| Parabola | $=0$ | $=0$ | unbounded in one direction, 1 component |
 
-Taking the determinant:
-$$\det X(x) = (x_0 + x_3)(x_0 - x_3) - (x_1 - ix_2)(x_1 + ix_2) = x_0^2 - x_1^2 - x_2^2 - x_3^2 = Q(x)$$
+### Step 1: complexify
 
-The field determinant over $K$ natively reproduces the $(1,3)$ Minkowski metric, solving the Witt-index obstruction!
+Over $\mathbb{C}$, substituting $y \mapsto iy$ turns $x^2 + y^2 = 1$ into $x^2 - y^2 = 1$: ellipse and hyperbola merge. With $u = x+iy$ and $v = x-iy$ the curve is $uv = 1$, which is the punctured plane $\mathbb{C}^\times$. The parabola $y = x^2$ is parametrized by $x \in \mathbb{C}$, so it is all of $\mathbb{C}$. Since $\mathbb{C}$ and $\mathbb{C}^\times$ are not homeomorphic, the parabola is still different.
 
-### Step 2: The Projective Rotor Quadric ($X^2 = YZ$ in 8 Dimensions)
-Next, how do we parametrize Lorentz transformations without transcendentals or division-by-zero singularities? 
+### Step 2: projectivize
 
-In the video, the projective conic in split coordinates was:
-$$X^2 = YZ \implies YZ - X^2 = 0$$
+Pass to $\mathbb{CP}^2$ with coordinates $[x:y:z]$ and homogenize:
 
-In Coady’s paper, a general rotor in $M_2(K)$ is written as $G_R = xI_2 + \mathbf{z} \cdot \boldsymbol{\sigma}$, where $x = a + ip$ and $\mathbf{z} = \boldsymbol{\kappa} + i\boldsymbol{\rho}$. Computing its determinant gives:
-$$\det G_R = (a^2 - p^2 - \boldsymbol{\kappa}^2 + \boldsymbol{\rho}^2) + 2i(ap - \boldsymbol{\kappa} \cdot \boldsymbol{\rho})$$
+- ellipse: $x^2 + y^2 = z^2$
+- parabola: $yz = x^2$
 
-To guarantee that $G_R$ induces an $\mathbb{F}_p$-valued Lorentz transformation, $\det G_R$ must lie in $\mathbb{F}_p$, meaning the imaginary part must vanish:
-$$ap = \boldsymbol{\kappa} \cdot \boldsymbol{\rho}$$
+Rearranging, $x^2 = (z-y)(z+y)$. Setting $X = x$, $Y = z - y$, $Z = z + y$ gives $X^2 = YZ$. So the two conics are related by a linear change of projective coordinates. The ellipse and hyperbola ($\mathbb{C}^\times$) pick up two points at infinity, the parabola ($\mathbb{C}$) picks up one, and all three become a copy of $\mathbb{CP}^1$, the Riemann sphere. More precisely: every non-degenerate conic in $\mathbb{CP}^2$ is *projectively equivalent* to every other.
 
-This defines the **projective rotor quadric** $\mathcal{Q}(\mathbb{F}_p) \subset \mathbb{P}^7(\mathbb{F}_p)$:
-$$\mathcal{Q}(\mathbb{F}_p) \equiv \left\{ [a : \boldsymbol{\kappa} : \boldsymbol{\rho} : p] \in \mathbb{P}^7(\mathbb{F}_p) : ap = \boldsymbol{\kappa} \cdot \boldsymbol{\rho} \right\}$$
+### A finite-field echo
 
-Look closely at $ap = \boldsymbol{\kappa} \cdot \boldsymbol{\rho}$. It is the exact 8-dimensional generalization of the projective parabola $YZ = X^2$! By projectivizing into $\mathbb{P}^7$, the space of rotors is closed under polynomial multiplication. 
+The same dichotomy shows up over $\mathbb{F}_p$ with $p \equiv 3 \pmod 4$, where $-1$ is a non-square. The curve $x^2 + y^2 = 1$ has $p+1$ points and $x^2 - y^2 = 1$ has $p - 1$ points (check $p = 3$: 4 points and 2 points). They are genuinely different over $\mathbb{F}_p$, and become equivalent after adjoining $i$, which is exactly the situation in Story B. This is a standard point-count, not something from the paper.
 
-The troublesome half-turns (where affine charts blow up) are simply the **points at infinity** where $a = p = 0$:
-$$[0 : \boldsymbol{\kappa} : \boldsymbol{\rho} : 0] \quad \text{with} \quad \boldsymbol{\kappa} \cdot \boldsymbol{\rho} = 0$$
+## 3. The spacetime story
 
----
+My preprint builds an exact model of $(1+3)$-dimensional Lorentz geometry over $\mathbb{F}_p$, in the spirit of N. J. Wildberger's rational trigonometry: no angles, no rapidities, no transcendental functions, only field operations.
 
-## 4. The Rosetta Stone: Video vs. Paper
+### The Witt-index obstruction, and what it does and doesn't say
 
-The conceptual parallel between the two frameworks can be summarized as follows:
+The form $x_0^2 - x_1^2 - x_2^2 - x_3^2$ over $\mathbb{F}_p$ ($p \equiv 3 \pmod 4$) has Witt index 1 ("elliptic"). The determinant on $M_2(\mathbb{F}_p)$ has Witt index 2 ("split"). So there is no linear isometry between the Lorentz form and $(M_2(\mathbb{F}_p), \det)$. An earlier paper in this series proved that and built a $4\times 4$ Clifford-algebra engine instead.
 
-| Concept | The Conic Video | The Rotor Spacetime Paper |
-| :--- | :--- | :--- |
-| **Quadratic Arena** | $v^T A v$ in $\mathbb{R}^2$ with $2 \times 2$ matrix $A$ | Spacetime interval $Q(x) = \det X(x)$ in $\mathrm{Herm}_{\mathbb{F}_p} \subset M_2(K)$ |
-| **Determinant Role** | $\det A = ac - b^2/4$ fixes the conic's shape | $\det G_R$ governs the rotor norm and Lorentz invariance |
-| **Complexification** | Adjoining $i$ ($y \mapsto iy$) turns ellipses into hyperbolas | Adjoining $i$ ($\mathbb{F}_p \to \mathbb{F}_p[i]$) overcomes the Witt-index obstruction |
-| **Affine Breakdown** | Unbounded branches vanish off to infinity | Cayley map $(I-A)^{-1}$ fails for half-turns ($\operatorname{tr}\Lambda = 0$) |
-| **Projectivization** | $[x : y : z] \in \mathbb{CP}^2$ adds the line at infinity $\ell_\infty$ | $[a : \boldsymbol{\kappa} : \boldsymbol{\rho} : p] \in \mathbb{P}^7(\mathbb{F}_p)$ adds the Klein quadric of half-turns |
-| **Split Null Form** | $x^2 = (z-y)(z+y) \implies X^2 = YZ$ | $\operatorname{Im}(\det G_R) = 0 \implies ap = \boldsymbol{\kappa} \cdot \boldsymbol{\rho}$ |
-| **Trichotomy** | Ellipse, Hyperbola, Parabola | Elliptic (rotations), Hyperbolic (boosts), Parabolic (null-rotations) |
+The obstruction only excludes embeddings into $M_2(\mathbb{F}_p)$. It says nothing about a *different* quadratic space. Take $K = \mathbb{F}_p[i] \cong \mathbb{F}_{p^2}$ and the four-dimensional $\mathbb{F}_p$-space of Hermitian matrices in $M_2(K)$:
 
----
+$$
+X(x) = \begin{pmatrix} x_0 + x_3 & x_1 - i x_2 \\ x_1 + i x_2 & x_0 - x_3 \end{pmatrix},
+\qquad
+\det X(x) = x_0^2 - x_1^2 - x_2^2 - x_3^2 .
+$$
 
-## 5. The Physical Payoff: Why This Matters for Quantum Gravity
+This is a hyperbolic plane plus an anisotropic plane, so it has Witt index 1 and discriminant $-1$, matching the Lorentz form. Nothing is "bypassed" and no theorem is violated; the paper simply uses a different quadratic space than the one the obstruction excludes. (The earlier paper even noted that extending scalars was not ruled out.)
 
-Why go through all this algebraic geometry? In discrete spacetime models (such as Regge calculus or causal dynamical triangulations), computing curvature around closed simplicial loops (Wilson loops) traditionally requires composing rotation matrices using angles, rapidities, and trigonometric functions:
+### Rotors and the rotor quadric
 
-1. **Floating-point errors accumulate:** Every $\cos(\theta)$ and $\operatorname{artanh}(\beta)$ evaluation introduces numerical drift that violates metric conservation.
-2. **Infinite index over $\mathbb{Q}$ and $\mathbb{F}_p$:** Wildberger showed that classical unit quaternions miss an infinite subgroup of rational rotations. Projective proportions capture 100% of them.
-3. **The Anchor-Doubling Law:** In Version 4 of Coady's framework, composing anchors directly using Wildberger's formula yielded an empirical match of only $\approx 11\%$. Recognizing that the spin-cover $\mathrm{SL}(2, K)$ and the vector group $\mathrm{SO}(1,3)$ live in two projectively related charts:
-   $$\boldsymbol{\zeta}' = \frac{2\boldsymbol{\zeta}}{1 + \boldsymbol{\zeta} \cdot \boldsymbol{\zeta}}, \quad T^2 = 1 - p$$
-   resolved the anomaly completely, producing **100.00% exact agreement across $1.7 \times 10^6$ test pairs**.
-4. **Ghost Parity and Quadrume:** In discrete 4-simplices (tetrahedra), Coady shows that the open reflection product $R_\gamma = X(v_1)X(v_2)^\vee X(v_3)X(v_4)^\vee$ has determinant:
-   $$\det(R_\gamma) = \prod_{i=1}^4 Q(v_i) \equiv N_\gamma$$
-   Its spinor norm character $\chi_p(N_\gamma) = \varepsilon(\gamma)$ couples directly to the geometric quadrume $\mathcal{V}(\gamma)$:
-   $$\chi_p(\mathcal{V}(\gamma)) = -\varepsilon(\gamma)$$
-   This provides an exact, discrete realization of the **Bateman–Turok ghost-parity mechanism**, decoupling negative-norm ghost states in discrete quantum mechanics without requiring continuous limits.
+A general element of $M_2(K)$ is $G = xI + \mathbf{z}\cdot\boldsymbol{\sigma}$ with $x = a + ip$ and $\mathbf{z} = \boldsymbol{\kappa} + i\boldsymbol{\rho}$. Its determinant is
 
----
+$$
+\det G = (a^2 - p^2 - \boldsymbol{\kappa}^2 + \boldsymbol{\rho}^2) + 2i\,(ap - \boldsymbol{\kappa}\cdot\boldsymbol{\rho}).
+$$
 
-## 6. Conclusion: The Geometry Was There All Along
+It is $\mathbb{F}_p$-valued exactly when $ap = \boldsymbol{\kappa}\cdot\boldsymbol{\rho}$. That equation defines the **rotor quadric** in $\mathbb{P}^7(\mathbb{F}_p)$. Each non-null rotor acts on Hermitian matrices by $X \mapsto G X G^\dagger / N$ with $N = a^2 - p^2 - \boldsymbol{\kappa}^2 + \boldsymbol{\rho}^2$, and this gives an isomorphism with $SO(1,3;\mathbb{F}_p)$. (The isomorphism is proved in the companion paper on rational rotations of four-dimensional relativistic space.)
 
-The next time you see a conic section being manipulated by an orthogonal matrix on a chalkboard, take a closer look. 
+**How close is the analogy with $X^2 = YZ$?** Both are split quadrics given by a product-form equation, and in both cases passing to projective coordinates lets everything be treated uniformly. But they are not the same object: $YZ = X^2$ is a rank-3 conic in $\mathbb{P}^2$ obtained by factoring a difference of squares, while $ap = \boldsymbol{\kappa}\cdot\boldsymbol{\rho}$ is a rank-8 split quadric in $\mathbb{P}^7$ obtained by requiring an imaginary part to vanish. Calling one a "generalization" of the other would be too strong.
 
-The algebraic trick of factoring $z^2 - y^2 = (z-y)(z+y)$, adding a projective coordinate at infinity, and extending numbers by $\sqrt{-1}$ is not just high-school algebra or a curiosity of complex analysis. It is the very mathematical scaffolding that allows relativistic physics, spinor double-covers, and quantum holonomies to be computed with exact, rational precision inside $2 \times 2$ matrices.
+### Points at infinity: the half-turns
 
----
+The affine description of a rotation by its "anchor" $\boldsymbol{\zeta} = \mathbf{z}/x$ breaks down when $x = a + ip = 0$. In the rotor picture these are simply the points with $a = p = 0$ (and so $\boldsymbol{\kappa}\cdot\boldsymbol{\rho} = 0$), which are the **half-turns**. They are ordinary points of the rotor quadric; the projective description does not "add" them, it just makes them visible as part of the group. Over $\mathbb{F}_7$ there are exactly $p^4 + p^2 = 2{,}450$ of them, out of $|SO(1,3;\mathbb{F}_7)| = 117{,}600$. Both numbers were confirmed by direct enumeration.
 
-### References & Further Reading
+## 4. Side by side
 
-* Coady, J. D. (2026). *A Projective $2 \times 2$ Rotor Architecture for $(1+3)$D Discrete Spacetime: Holonomies, Ghost Parity, and the Double-Cover Anchor Map*. [DOI:10.5281/zenodo.23091444](https://doi.org/10.5281/zenodo.23091444).
-* Wildberger, N. J. (2005). *Divine Proportions: Rational Trigonometry to Universal Geometry*. Wild Egg Books.
-* Wildberger, N. J. (2025). *The Anchor to Cap Map Replaces Exp for SL(2)*. Unpublished draft manuscript.
-* Bateman, S., & Turok, N. (2026). *Escape from Ostrogradsky via Hidden Ghost Parity*. arXiv:2607.00096 [hep-th].
+| Concept | Conics | Rotor spacetime |
+|---|---|---|
+| Quadratic object | $v^TAv$ with a symmetric $2\times 2$ matrix | $Q(x) = \det X(x)$ on Hermitian matrices in $M_2(K)$ |
+| Role of $\det$ | $\det A$ decides the type | $\det G$ is the rotor norm, $\mathbb{F}_p$-valued on the quadric |
+| Adjoining $i$ | $x^2+y^2 = (x+iy)(x-iy)$ merges ellipse and hyperbola | $K = \mathbb{F}_p[i]$ makes a $2\times 2$ model of the Lorentz form possible |
+| What breaks in affine charts | branches run off to infinity | anchors fail at half-turns; many anchors have no rational cap |
+| Projective step | add the line at infinity in $\mathbb{CP}^2$ | use rotors $[a:\boldsymbol{\kappa}:\boldsymbol{\rho}:p] \in \mathbb{P}^7$, where the group product is a polynomial map |
+| Equivalence statement | all non-degenerate conics are projectively equivalent | $SO(1,3;\mathbb{F}_p) \cong$ non-null points of the rotor quadric |
+
+The table is a map of parallels, not a dictionary of equalities.
+
+## 5. What the preprint establishes
+
+All numerical claims below come from one script, `verify_rotor_model.py` (exact finite-field arithmetic, no floating-point tolerances in the algebra), whose output is reproduced in the Zenodo record.
+
+**Anchor recovery.** For a Lorentz transformation $\Lambda$ with $\operatorname{tr}\Lambda \neq 0$, the six-component anchor is
+$$
+A(\Lambda) = \frac{2\Lambda_{\mathrm{as}}}{\operatorname{tr}\Lambda},
+\qquad \Lambda_{\mathrm{as}} = \tfrac12\left(\Lambda - \eta\Lambda^T\eta\right),
+$$
+with no matrix inversion. This is a chart statement: it recovers the unique anchor whose cap is $\Lambda$. If your element is already a $2\times 2$ spinor $xI + \mathbf{z}\cdot\boldsymbol{\sigma}$, the anchor is just $\mathbf{z}/x$.
+
+**Not every anchor has a rational cap.** A cap exists over $\mathbb{F}_p$ only if $(1-\alpha)^2 + \beta^2$ is a non-zero square, where $\zeta\cdot\zeta = \alpha + i\beta$. Over $\mathbb{F}_7$, among all $7^6 = 117{,}649$ anchors, 57,575 admit a rational cap, 57,624 do not, and 2,450 lie on the excluded locus $\zeta\cdot\zeta = 1$. So the anchor charts still have genuine exceptional sets. What is total is the projective rotor product.
+
+**Anchor doubling.** The spinor Cayley map $\mathrm{ca}(\zeta) = (I+\zeta\cdot\sigma)(I-\zeta\cdot\sigma)^{-1} \in SL(2,K)$ induces, by conjugation, a Lorentz rotation whose anchor is
+$$
+\zeta' = \frac{2\zeta}{1 + \zeta\cdot\zeta},
+$$
+so the spin chart and the vector chart differ by a nonlinear doubling, as in $SU(2) \to SO(3)$.
+
+**The 11% anomaly, stated carefully.** An earlier preprint composed $(1+2)$-dimensional edge anchors with Wildberger's anchor product and found the predicted trace matched the real $2\times 2$ computation only about 11% of the time. The corrected comparison uses doubled anchors and the sign-free quantity $T^2$, which in $(1+2)$ dimensions satisfies $T^2 = 1 - p$ with $p$ the half spread. (The $(1+3)$ analogues are $w^2 = 1 - \pi$ and $N_{K/\mathbb{F}_p}(w) = 1 - s$.) Over primes 7, 11, 13 and 17, all 1.7 million valid test pairs agree exactly. By contrast, the older target $(1-2p)^2$ agrees only 70%, 38%, 35% and 24% of the time. This corrects a failure mode of the same type and explains why it fails; it does not reproduce the original 11% figure, which came from a different script. The test is in $(1+2)$ dimensions.
+
+**Edge transports and holonomy.** For non-null vertices $u, v$, the preprint defines an edge transport $U_{uv} = G_{uv}^2/\det G_{uv}$ with $G_{uv} = X(u)X(v)^\vee$. The square is a modeling choice (an ansatz): the unsquared product around a closed loop telescopes to a central scalar, i.e. a flat connection. The squared transport rotates by twice the reflection-pair angle and is not a transport carrying $[u]$ to $[v]$, so it should not be read as a derivation of curvature. Over $\mathbb{F}_7$ (350 non-null points, 68,600 admissible ordered edges), exhaustively enumerating ordered admissible 4-cycles with the first vertex fixed to one representative per square class gives 4,597,908 cycles per class; 99.757% have non-trivial holonomy. The remaining 0.243% may be coplanar configurations: in a random sample of 9,097 non-coplanar cycles, none was trivial. That is evidence, not a proof; an exhaustive non-coplanar count is left for later work.
+
+**Ghost parity, as an analogy.** The $\mathbb{Z}_2$ grading $\varepsilon = \prod_{i=1}^4 \chi_p(Q(v_i))$ on a tetrahedron's four vertices is the spinor-norm character of an open reflection chain, and it is tied to the projective quadrume by $\chi_p(\mathcal{V}) = -\varepsilon$. This is an algebraic analogue of the ghost-parity grading that Bateman and Turok use in higher-derivative quantum field theory. It is close to a definition, and sector decoupling in the dynamics holds by construction through the mutation rule. In their setting the corresponding statement is a nontrivial theorem about an interacting theory, which this model does not reproduce.
+
+## 6. What this does and does not claim
+
+**It gives:** a compact $2\times 2$ description of the finite-field Lorentz group, exact counts that were checked by enumeration, a clear account of why one numerical comparison failed, and a reproducible script.
+
+**It does not give:** curvature from holonomy, a justification of the squared transport beyond calling it an ansatz, the Bateman–Turok positivity result (finite fields have no ordering, so "positive" is meaningless here), or any continuum limit. The relation between the projective quadrume and Regge-type curvature, and the large-$p$ limit, are listed as open problems.
+
+## 7. Try it
+
+Download the Zenodo record at [doi:10.5281/zenodo.23138782](https://doi.org/10.5281/zenodo.23138782) and run
+
+```bash
+pip install numpy
+python verify_rotor_model.py
+```
+
+Expect 100.00% agreement in Part 1 at every prime, 99.757% non-trivial holonomy in Part 2, and the anchor counts 57,575 / 57,624 / 2,450 in Part 3. The random-sample figures depend on NumPy's generator, so digits in those lines may shift across major NumPy versions.
+
+## References
+
+1. J. D. Coady, *A Projective 2×2 Rotor Architecture for (1+3)D Discrete Spacetime: Holonomies, Ghost Parity, and the Double-Cover Anchor Map*, Zenodo (2026). [doi:10.5281/zenodo.23138782](https://doi.org/10.5281/zenodo.23138782).
+2. J. D. Coady, *Rational Rotations of Four Dimensional Relativistic Space: Projective Rotors, Anchors and Caps over a General Field*, preprint (2 Oct 2026). [doi:10.5281/zenodo.23091444](https://doi.org/10.5281/zenodo.23091444).
+3. J. D. Coady, *A Unified Finitist Indefinite-Hermitian Framework for 3+1D Spacetime*, preprint (2 Sept 2026). [doi:10.5281/zenodo.21998460](https://doi.org/10.5281/zenodo.21998460).
+4. J. D. Coady, *A Candidate Finitist Indefinite Hermitian Model with Ghost-Parity Symmetry*, preprint, v4 (29 Sept 2026). [doi:10.5281/zenodo.21464405](https://doi.org/10.5281/zenodo.21464405).
+5. S. Bateman and N. Turok, *Escape from Ostrogradsky via Hidden Ghost Parity*, preprint (2026). [arXiv:2607.00096](https://arxiv.org/abs/2607.00096).
+6. N. J. Wildberger, *Universal Hyperbolic Geometry I: Trigonometry*, Geometriae Dedicata 163 (2013). [arXiv:0909.1377](https://arxiv.org/abs/0909.1377).
+7. N. J. Wildberger, *The Anchor to Cap Map Replaces Exp for SL(2)*, 13 Aug 2025. Unpublished draft manuscript, presented in a members-only [Wild Egg Maths lecture](https://www.youtube.com/watch?v=xJee9s-r4cQ); no persistent identifier.
+8. N. J. Wildberger, *Rational Rotations of Three Dimensional Relativistic Space*, Sept 2026. Unpublished draft manuscript, presented in a members-only [Wild Egg Maths lecture](https://www.youtube.com/watch?v=S34umGqB1I4); no persistent identifier.
+9. Michael Penn, *There is only one conic section* (video). [youtu.be/FLXuHL1L-LI](https://youtu.be/FLXuHL1L-LI).
+
+*Code and analysis for the preprint were developed with AI assistance (Claude, Anthropic), as disclosed in the paper.*
