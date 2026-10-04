@@ -3,15 +3,13 @@ title: "From Conic Sections in $\\mathbb{CP}^2$ to $(1+3)$D Spacetime in $2 \\ti
 subtitle: "How Complexification and Projectivization Unify Plane Geometry and Finitist Quantum Spacetime"
 author: "John D. Coady"
 date: "2026-10-04"
-categories: [pure-math, geometry, hyperbolic-geometry, mathematical-physics]
 format:
   html:
     toc: true
     toc-depth: 3
-    theme: cosmo
     code-fold: show
-    math: mathjax
-categories: [projective-geometry, mathematical-physics, discrete-spacetime, finite-fields, lie-algebras]
+    number-sections: false
+categories: [pure-math, geometry, hyperbolic-geometry, mathematical-physics]
 ---
 
 ## 1. A Tale of Two Unifications
@@ -22,6 +20,9 @@ At first glance, few topics seem farther apart than high-school conic sections a
 2. **Problem B (Quantum Gravity & Spacetime):** Why can $(1+3)$-dimensional Lorentzian spacetime and the group $\mathrm{SO}(1,3)$ be governed by $2 \times 2$ matrices over a finite field without transcendental functions, matrix exponentials, or singular charts?
 
 Recently, a popular lecture walked viewers through the algebraic machinery that unifies conics: writing quadratic forms as symmetric $2 \times 2$ matrices, extending coordinates from $\mathbb{R}$ to $\mathbb{C}$, and adding "points at infinity" to build the complex projective plane $\mathbb{CP}^2$.
+
+{{< video https://youtu.be/FLXuHL1L-LI?si=j74ncvZninenXxY_ >}}
+
 
 Simultaneously, John D. Coady's research paper, [*A Projective $2 \times 2$ Rotor Architecture for $(1+3)$D Discrete Spacetime: Holonomies, Ghost Parity, and the Double-Cover Anchor Map*](https://doi.org/10.5281/zenodo.23091444), addresses the architecture of discrete spacetime. 
 
