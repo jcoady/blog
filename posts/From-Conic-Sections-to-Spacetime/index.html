@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="John D. Coady">
+<meta name="dcterms.date" content="2026-10-04">
+
+<title>From Conic Sections in \mathbb{CP}^2 to (1+3)D Spacetime in 2 \times 2 Matrices – John Coady's Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-fe7872a82928c9cb84149cb81cc2feaf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">John Coady’s Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">All Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../math.html"> 
+<span class="menu-text">Pure Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics.html"> 
+<span class="menu-text">Math Physics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0009-0008-6020-5733"> 
+<span class="menu-text"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID iD" style="height:20px; width:20px; vertical-align:-3px;"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://x.com/johndavidcoady"> <i class="bi bi-twitter-x" role="img" aria-label="X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jcoady"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">From Conic Sections in <span class="math inline">\(\mathbb{CP}^2\)</span> to <span class="math inline">\((1+3)\)</span>D Spacetime in <span class="math inline">\(2 \times 2\)</span> Matrices</h1>
+            <p class="subtitle lead">How Complexification and Projectivization Unify Plane Geometry and Finitist Quantum Spacetime</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">pure-math</div>
+                <div class="quarto-category">geometry</div>
+                <div class="quarto-category">hyperbolic-geometry</div>
+                <div class="quarto-category">mathematical-physics</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>John D. Coady </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 4, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-tale-of-two-unifications" id="toc-a-tale-of-two-unifications" class="nav-link active" data-scroll-target="#a-tale-of-two-unifications">1. A Tale of Two Unifications</a></li>
+  <li><a href="#the-2d-blueprint-the-secret-life-of-conics" id="toc-the-2d-blueprint-the-secret-life-of-conics" class="nav-link" data-scroll-target="#the-2d-blueprint-the-secret-life-of-conics">2. The 2D Blueprint: The Secret Life of Conics</a>
+  <ul class="collapse">
+  <li><a href="#the-real-trichotomy-mathbbr2" id="toc-the-real-trichotomy-mathbbr2" class="nav-link" data-scroll-target="#the-real-trichotomy-mathbbr2">The Real Trichotomy (<span class="math inline">\(\mathbb{R}^2\)</span>)</a></li>
+  <li><a href="#step-1-complexification-mathbbr2-to-mathbbc2" id="toc-step-1-complexification-mathbbr2-to-mathbbc2" class="nav-link" data-scroll-target="#step-1-complexification-mathbbr2-to-mathbbc2">Step 1: Complexification (<span class="math inline">\(\mathbb{R}^2 \to \mathbb{C}^2\)</span>)</a></li>
+  <li><a href="#step-2-projectivization-mathbbc2-to-mathbbcp2" id="toc-step-2-projectivization-mathbbc2-to-mathbbcp2" class="nav-link" data-scroll-target="#step-2-projectivization-mathbbc2-to-mathbbcp2">Step 2: Projectivization (<span class="math inline">\(\mathbb{C}^2 \to \mathbb{CP}^2\)</span>)</a></li>
+  </ul></li>
+  <li><a href="#the-4d-engine-discrete-spacetime-in-2-times-2-matrices" id="toc-the-4d-engine-discrete-spacetime-in-2-times-2-matrices" class="nav-link" data-scroll-target="#the-4d-engine-discrete-spacetime-in-2-times-2-matrices">3. The 4D Engine: Discrete Spacetime in <span class="math inline">\(2 \times 2\)</span> Matrices</a>
+  <ul class="collapse">
+  <li><a href="#the-dimensiondegree-coincidence" id="toc-the-dimensiondegree-coincidence" class="nav-link" data-scroll-target="#the-dimensiondegree-coincidence">The Dimension–Degree Coincidence</a></li>
+  <li><a href="#step-1-the-galois-field-extension-y-mapsto-iy-in-spacetime" id="toc-step-1-the-galois-field-extension-y-mapsto-iy-in-spacetime" class="nav-link" data-scroll-target="#step-1-the-galois-field-extension-y-mapsto-iy-in-spacetime">Step 1: The Galois Field Extension (<span class="math inline">\(y \mapsto iy\)</span> in Spacetime)</a></li>
+  <li><a href="#step-2-the-projective-rotor-quadric-x2-yz-in-8-dimensions" id="toc-step-2-the-projective-rotor-quadric-x2-yz-in-8-dimensions" class="nav-link" data-scroll-target="#step-2-the-projective-rotor-quadric-x2-yz-in-8-dimensions">Step 2: The Projective Rotor Quadric (<span class="math inline">\(X^2 = YZ\)</span> in 8 Dimensions)</a></li>
+  </ul></li>
+  <li><a href="#the-rosetta-stone-video-vs.-paper" id="toc-the-rosetta-stone-video-vs.-paper" class="nav-link" data-scroll-target="#the-rosetta-stone-video-vs.-paper">4. The Rosetta Stone: Video vs.&nbsp;Paper</a></li>
+  <li><a href="#the-physical-payoff-why-this-matters-for-quantum-gravity" id="toc-the-physical-payoff-why-this-matters-for-quantum-gravity" class="nav-link" data-scroll-target="#the-physical-payoff-why-this-matters-for-quantum-gravity">5. The Physical Payoff: Why This Matters for Quantum Gravity</a></li>
+  <li><a href="#conclusion-the-geometry-was-there-all-along" id="toc-conclusion-the-geometry-was-there-all-along" class="nav-link" data-scroll-target="#conclusion-the-geometry-was-there-all-along">6. Conclusion: The Geometry Was There All Along</a>
+  <ul class="collapse">
+  <li><a href="#references-further-reading" id="toc-references-further-reading" class="nav-link" data-scroll-target="#references-further-reading">References &amp; Further Reading</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="a-tale-of-two-unifications" class="level2">
+<h2 class="anchored" data-anchor-id="a-tale-of-two-unifications">1. A Tale of Two Unifications</h2>
+<p>At first glance, few topics seem farther apart than high-school conic sections and the quantum geometry of relativistic spacetime:</p>
+<ol type="1">
+<li><strong>Problem A (Classical Geometry):</strong> Why do ellipses, hyperbolas, and parabolas look drastically different in Euclidean space, yet modern algebraic geometers claim they are the exact same curve?</li>
+<li><strong>Problem B (Quantum Gravity &amp; Spacetime):</strong> Why can <span class="math inline">\((1+3)\)</span>-dimensional Lorentzian spacetime and the group <span class="math inline">\(\mathrm{SO}(1,3)\)</span> be governed by <span class="math inline">\(2 \times 2\)</span> matrices over a finite field without transcendental functions, matrix exponentials, or singular charts?</li>
+</ol>
+<p>Recently, a popular lecture walked viewers through the algebraic machinery that unifies conics: writing quadratic forms as symmetric <span class="math inline">\(2 \times 2\)</span> matrices, extending coordinates from <span class="math inline">\(\mathbb{R}\)</span> to <span class="math inline">\(\mathbb{C}\)</span>, and adding “points at infinity” to build the complex projective plane <span class="math inline">\(\mathbb{CP}^2\)</span>.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/FLXuHL1L-LI?si=j74ncvZninenXxY_" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>Simultaneously, John D. Coady’s research paper, <a href="https://doi.org/10.5281/zenodo.23091444"><em>A Projective <span class="math inline">\(2 \times 2\)</span> Rotor Architecture for <span class="math inline">\((1+3)\)</span>D Discrete Spacetime: Holonomies, Ghost Parity, and the Double-Cover Anchor Map</em></a>, addresses the architecture of discrete spacetime.</p>
+<p>Remarkably, <strong>both works rely on the exact same algebraic engine</strong>: <span class="math display">\[\text{Affine Quadratic Forms} \xrightarrow{\quad\text{Complexify / Field Extension}\quad} \text{Split Geometries} \xrightarrow{\quad\text{Projectivize}\quad} \text{Singularity-Free Space}\]</span></p>
+<p>Let’s explore how the geometric tricks used to turn an ellipse into a parabola provide the exact mathematical blueprint for computing spacetime holonomies in <span class="math inline">\(2 \times 2\)</span> matrices.</p>
+<hr>
+</section>
+<section id="the-2d-blueprint-the-secret-life-of-conics" class="level2">
+<h2 class="anchored" data-anchor-id="the-2d-blueprint-the-secret-life-of-conics">2. The 2D Blueprint: The Secret Life of Conics</h2>
+<p>In the video, the presenter begins with the general second-degree Cartesian equation: <span class="math display">\[ax^2 + bxy + cy^2 + dx + ey + f = 0, \quad (a, b, c) \neq (0, 0, 0)\]</span></p>
+<p>The degree-two terms control the geometry, while the linear terms simply move the curve around. Writing the homogeneous quadratic part as a vector-matrix-vector product gives:</p>
+<p><span class="math display">\[\begin{pmatrix} x &amp; y \end{pmatrix} \begin{pmatrix} a &amp; b/2 \\ b/2 &amp; c \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix}, \quad A = \begin{pmatrix} a &amp; b/2 \\ b/2 &amp; c \end{pmatrix}\]</span></p>
+<p>The determinant of <span class="math inline">\(A\)</span> connects directly to the high-school discriminant: <span class="math display">\[\det(A) = ac - \frac{b^2}{4} = -\frac{1}{4}(b^2 - 4ac)\]</span></p>
+<p>By the <strong>Spectral Theorem</strong>, any real symmetric matrix can be diagonalized by an orthogonal rotation matrix <span class="math inline">\(P\)</span>. In the video’s worked example, <span class="math inline">\(5x^2 + 4xy + 5y^2 = 9\)</span> is rotated by <span class="math inline">\(45^\circ\)</span> (<span class="math inline">\(\pi/4\)</span>) into the canonical unrotated ellipse <span class="math inline">\(\frac{u^2}{9/7} + \frac{v^2}{3} = 1\)</span>.</p>
+<section id="the-real-trichotomy-mathbbr2" class="level3">
+<h3 class="anchored" data-anchor-id="the-real-trichotomy-mathbbr2">The Real Trichotomy (<span class="math inline">\(\mathbb{R}^2\)</span>)</h3>
+<p>Over the real numbers, conics are locked into three rigid geometric and topological compartments:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Conic</th>
+<th style="text-align: left;">Determinant</th>
+<th style="text-align: left;">Discriminant</th>
+<th style="text-align: left;">Topology</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Ellipse</strong></td>
+<td style="text-align: left;"><span class="math inline">\(\det A &gt; 0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(b^2 - 4ac &lt; 0\)</span></td>
+<td style="text-align: left;">Compact, closed, 1 connected component</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Hyperbola</strong></td>
+<td style="text-align: left;"><span class="math inline">\(\det A &lt; 0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(b^2 - 4ac &gt; 0\)</span></td>
+<td style="text-align: left;">Unbounded (2 directions), 2 disconnected branches</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Parabola</strong></td>
+<td style="text-align: left;"><span class="math inline">\(\det A = 0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(b^2 - 4ac = 0\)</span></td>
+<td style="text-align: left;">Unbounded (1 direction), 1 connected component</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-1-complexification-mathbbr2-to-mathbbc2" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-complexification-mathbbr2-to-mathbbc2">Step 1: Complexification (<span class="math inline">\(\mathbb{R}^2 \to \mathbb{C}^2\)</span>)</h3>
+<p>What happens if <span class="math inline">\((x, y) \in \mathbb{C}^2\)</span>? Consider the unit circle/ellipse: <span class="math display">\[x^2 + y^2 = 1\]</span></p>
+<p>Substitute <span class="math inline">\(y \mapsto iy\)</span>. The equation becomes: <span class="math display">\[x^2 + (iy)^2 = 1 \implies x^2 - y^2 = 1\]</span></p>
+<p>In an instant, the <strong>ellipse becomes a hyperbola</strong>. Over <span class="math inline">\(\mathbb{C}\)</span>, the signature distinction between positive-definite (<span class="math inline">\(++\)</span>) and indefinite (<span class="math inline">\(+-\)</span>) evaporates:</p>
+<ul>
+<li>Factoring <span class="math inline">\(x^2 + y^2 = (x+iy)(x-iy) = 1\)</span> with <span class="math inline">\(u = x+iy\)</span> and <span class="math inline">\(v = x-iy\)</span> gives <span class="math inline">\(uv = 1 \implies v = 1/u\)</span>.</li>
+<li>Topologically, this is the <strong>punctured complex plane</strong> <span class="math inline">\(\mathbb{C}^\times = \mathbb{C} \setminus \{0\}\)</span>.</li>
+<li>But what about the parabola <span class="math inline">\(y = x^2\)</span>? That curve is parametrized by <span class="math inline">\(x \in \mathbb{C}\)</span>, meaning it is homeomorphic to the <strong>full complex plane</strong> <span class="math inline">\(\mathbb{C}\)</span>.</li>
+</ul>
+<p>Over <span class="math inline">\(\mathbb{C}^2\)</span>, the ellipse and hyperbola have merged, but the parabola remains distinct because <span class="math inline">\(\mathbb{C} \not\cong \mathbb{C} \setminus \{0\}\)</span>.</p>
+</section>
+<section id="step-2-projectivization-mathbbc2-to-mathbbcp2" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-projectivization-mathbbc2-to-mathbbcp2">Step 2: Projectivization (<span class="math inline">\(\mathbb{C}^2 \to \mathbb{CP}^2\)</span>)</h3>
+<p>To bridge the final gap, we introduce projective coordinates <span class="math inline">\([x : y : z] \in \mathbb{CP}^2\)</span>, where <span class="math inline">\([x : y : z] = [\lambda x : \lambda y : \lambda z]\)</span> for <span class="math inline">\(\lambda \neq 0\)</span>: * <strong>Affine Chart (<span class="math inline">\(z \neq 0\)</span>):</strong> Dividing by <span class="math inline">\(z\)</span> yields <span class="math inline">\([x/z : y/z : 1] = [X : Y : 1] \cong \mathbb{C}^2\)</span>. * <strong>Line at Infinity (<span class="math inline">\(z = 0\)</span>):</strong> The directions <span class="math inline">\([x : y : 0]\)</span> form the line <span class="math inline">\(\ell_\infty \cong \mathbb{CP}^1\)</span>.</p>
+<p>Now, homogenize the equations by inserting <span class="math inline">\(z\)</span>: * <strong>Projective Ellipse:</strong> <span class="math inline">\(x^2 + y^2 = z^2\)</span> * <strong>Projective Parabola:</strong> <span class="math inline">\(yz = x^2\)</span></p>
+<p>Can we transform one into the other? Rearrange the ellipse: <span class="math display">\[x^2 = z^2 - y^2 = (z - y)(z + y)\]</span></p>
+<p>Define a linear change of projective coordinates: <span class="math display">\[X = x, \quad Y = z - y, \quad Z = z + y\]</span></p>
+<p>Under this linear substitution, the equation becomes: <span class="math display">\[X^2 = YZ\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The Geometric Punchline
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In <span class="math inline">\(\mathbb{CP}^2\)</span>, <strong>every non-degenerate conic is identical</strong>. Adding the line at infinity fills the “puncture” in <span class="math inline">\(\mathbb{C} \setminus \{0\}\)</span>, compactifying both curves into a projective line <span class="math inline">\(\mathbb{CP}^1\)</span> (the Riemann sphere).</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="the-4d-engine-discrete-spacetime-in-2-times-2-matrices" class="level2">
+<h2 class="anchored" data-anchor-id="the-4d-engine-discrete-spacetime-in-2-times-2-matrices">3. The 4D Engine: Discrete Spacetime in <span class="math inline">\(2 \times 2\)</span> Matrices</h2>
+<p>Now consider the physics side. In Coady’s paper, the goal is to build a discrete, exact model of <span class="math inline">\((1+3)\mathrm{D}\)</span> relativistic spacetime over finite fields <span class="math inline">\(\mathbb{F}_p\)</span> (<span class="math inline">\(p \equiv 3 \pmod 4\)</span>), inspired by N. J. Wildberger’s rational trigonometry.</p>
+<p>The moment you attempt this in 4D, you run into three major roadblocks: 1. <strong>The Curse of Dimension:</strong> Standard Lorentz rotations in <span class="math inline">\(4 \times 4\)</span> matrices involve cubic/quartic Cayley inversions and transcendental functions (<span class="math inline">\(\cosh, \sinh, \exp\)</span>). 2. <strong>The Witt-Index Obstruction:</strong> The Lorentzian metric on <span class="math inline">\(\mathbb{F}_p^4\)</span> has signature <span class="math inline">\((+ - - -)\)</span> and Witt index 1 (elliptic type). But <span class="math inline">\(M_2(\mathbb{F}_p)\)</span> with the determinant has signature <span class="math inline">\((++ - -)\)</span> and Witt index 2 (split type). Witt’s theorem strictly forbids any linear isometry between the two! 3. <strong>The Affine Anchor Breakdown:</strong> Composing rotations via affine Lie algebra generators (anchors) fails at half-turns and composition denominators (<span class="math inline">\(1 - \langle u, v \rangle = 0\)</span>).</p>
+<p>How does Coady solve all three? <strong>By following the exact same playbook as the conic video.</strong></p>
+<section id="the-dimensiondegree-coincidence" class="level3">
+<h3 class="anchored" data-anchor-id="the-dimensiondegree-coincidence">The Dimension–Degree Coincidence</h3>
+<p>Why <span class="math inline">\(2 \times 2\)</span> matrices? In Appendix A of the paper, Coady highlights a remarkable fact:</p>
+<p><span class="math display">\[\text{In } M_n(F), \quad \deg(\det M) = n\]</span></p>
+<ul>
+<li>For <span class="math inline">\(n = 3\)</span>, the determinant is cubic (volume).</li>
+<li>For <span class="math inline">\(n = 4\)</span>, the determinant is quartic (hyper-volume).</li>
+<li><strong>Only for <span class="math inline">\(n = 2\)</span> does the determinant polynomial have degree 2—matching metric quadrance!</strong></li>
+</ul>
+<p>Because <span class="math inline">\(2 \times 2\)</span> determinants are quadratic forms, matrix multiplicativity <span class="math inline">\(\det(AB) = \det(A)\det(B)\)</span> automatically gives metric isometries for free via the rotor sandwich: <span class="math display">\[X \mapsto \frac{GXG^\dagger}{\det G}\]</span></p>
+</section>
+<section id="step-1-the-galois-field-extension-y-mapsto-iy-in-spacetime" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-the-galois-field-extension-y-mapsto-iy-in-spacetime">Step 1: The Galois Field Extension (<span class="math inline">\(y \mapsto iy\)</span> in Spacetime)</h3>
+<p>Just as the video substituted <span class="math inline">\(y \mapsto iy\)</span> to turn an ellipse into a hyperbola, Coady overcomes the Witt-index obstruction by extending <span class="math inline">\(\mathbb{F}_p\)</span> to the quadratic Galois extension: <span class="math display">\[K = \mathbb{F}_p[i] = \mathbb{F}_p[T]/(T^2 + 1) \cong \mathbb{F}_{p^2}\]</span></p>
+<p>Instead of looking at all of <span class="math inline">\(M_2(\mathbb{F}_p)\)</span>, he restricts to the <span class="math inline">\(\mathbb{F}_p\)</span>-vector space of <strong>Hermitian matrices</strong> <span class="math inline">\(\mathrm{Herm}_{\mathbb{F}_p} \subset M_2(K)\)</span>: <span class="math display">\[X(x) = x_0 I_2 + \mathbf{x} \cdot \boldsymbol{\sigma} = \begin{pmatrix} x_0 + x_3 &amp; x_1 - ix_2 \\ x_1 + ix_2 &amp; x_0 - x_3 \end{pmatrix}\]</span></p>
+<p>Taking the determinant: <span class="math display">\[\det X(x) = (x_0 + x_3)(x_0 - x_3) - (x_1 - ix_2)(x_1 + ix_2) = x_0^2 - x_1^2 - x_2^2 - x_3^2 = Q(x)\]</span></p>
+<p>The field determinant over <span class="math inline">\(K\)</span> natively reproduces the <span class="math inline">\((1,3)\)</span> Minkowski metric, solving the Witt-index obstruction!</p>
+</section>
+<section id="step-2-the-projective-rotor-quadric-x2-yz-in-8-dimensions" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-the-projective-rotor-quadric-x2-yz-in-8-dimensions">Step 2: The Projective Rotor Quadric (<span class="math inline">\(X^2 = YZ\)</span> in 8 Dimensions)</h3>
+<p>Next, how do we parametrize Lorentz transformations without transcendentals or division-by-zero singularities?</p>
+<p>In the video, the projective conic in split coordinates was: <span class="math display">\[X^2 = YZ \implies YZ - X^2 = 0\]</span></p>
+<p>In Coady’s paper, a general rotor in <span class="math inline">\(M_2(K)\)</span> is written as <span class="math inline">\(G_R = xI_2 + \mathbf{z} \cdot \boldsymbol{\sigma}\)</span>, where <span class="math inline">\(x = a + ip\)</span> and <span class="math inline">\(\mathbf{z} = \boldsymbol{\kappa} + i\boldsymbol{\rho}\)</span>. Computing its determinant gives: <span class="math display">\[\det G_R = (a^2 - p^2 - \boldsymbol{\kappa}^2 + \boldsymbol{\rho}^2) + 2i(ap - \boldsymbol{\kappa} \cdot \boldsymbol{\rho})\]</span></p>
+<p>To guarantee that <span class="math inline">\(G_R\)</span> induces an <span class="math inline">\(\mathbb{F}_p\)</span>-valued Lorentz transformation, <span class="math inline">\(\det G_R\)</span> must lie in <span class="math inline">\(\mathbb{F}_p\)</span>, meaning the imaginary part must vanish: <span class="math display">\[ap = \boldsymbol{\kappa} \cdot \boldsymbol{\rho}\]</span></p>
+<p>This defines the <strong>projective rotor quadric</strong> <span class="math inline">\(\mathcal{Q}(\mathbb{F}_p) \subset \mathbb{P}^7(\mathbb{F}_p)\)</span>: <span class="math display">\[\mathcal{Q}(\mathbb{F}_p) \equiv \left\{ [a : \boldsymbol{\kappa} : \boldsymbol{\rho} : p] \in \mathbb{P}^7(\mathbb{F}_p) : ap = \boldsymbol{\kappa} \cdot \boldsymbol{\rho} \right\}\]</span></p>
+<p>Look closely at <span class="math inline">\(ap = \boldsymbol{\kappa} \cdot \boldsymbol{\rho}\)</span>. It is the exact 8-dimensional generalization of the projective parabola <span class="math inline">\(YZ = X^2\)</span>! By projectivizing into <span class="math inline">\(\mathbb{P}^7\)</span>, the space of rotors is closed under polynomial multiplication.</p>
+<p>The troublesome half-turns (where affine charts blow up) are simply the <strong>points at infinity</strong> where <span class="math inline">\(a = p = 0\)</span>: <span class="math display">\[[0 : \boldsymbol{\kappa} : \boldsymbol{\rho} : 0] \quad \text{with} \quad \boldsymbol{\kappa} \cdot \boldsymbol{\rho} = 0\]</span></p>
+<hr>
+</section>
+</section>
+<section id="the-rosetta-stone-video-vs.-paper" class="level2">
+<h2 class="anchored" data-anchor-id="the-rosetta-stone-video-vs.-paper">4. The Rosetta Stone: Video vs.&nbsp;Paper</h2>
+<p>The conceptual parallel between the two frameworks can be summarized as follows:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Concept</th>
+<th style="text-align: left;">The Conic Video</th>
+<th style="text-align: left;">The Rotor Spacetime Paper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Quadratic Arena</strong></td>
+<td style="text-align: left;"><span class="math inline">\(v^T A v\)</span> in <span class="math inline">\(\mathbb{R}^2\)</span> with <span class="math inline">\(2 \times 2\)</span> matrix <span class="math inline">\(A\)</span></td>
+<td style="text-align: left;">Spacetime interval <span class="math inline">\(Q(x) = \det X(x)\)</span> in <span class="math inline">\(\mathrm{Herm}_{\mathbb{F}_p} \subset M_2(K)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Determinant Role</strong></td>
+<td style="text-align: left;"><span class="math inline">\(\det A = ac - b^2/4\)</span> fixes the conic’s shape</td>
+<td style="text-align: left;"><span class="math inline">\(\det G_R\)</span> governs the rotor norm and Lorentz invariance</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Complexification</strong></td>
+<td style="text-align: left;">Adjoining <span class="math inline">\(i\)</span> (<span class="math inline">\(y \mapsto iy\)</span>) turns ellipses into hyperbolas</td>
+<td style="text-align: left;">Adjoining <span class="math inline">\(i\)</span> (<span class="math inline">\(\mathbb{F}_p \to \mathbb{F}_p[i]\)</span>) overcomes the Witt-index obstruction</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Affine Breakdown</strong></td>
+<td style="text-align: left;">Unbounded branches vanish off to infinity</td>
+<td style="text-align: left;">Cayley map <span class="math inline">\((I-A)^{-1}\)</span> fails for half-turns (<span class="math inline">\(\operatorname{tr}\Lambda = 0\)</span>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Projectivization</strong></td>
+<td style="text-align: left;"><span class="math inline">\([x : y : z] \in \mathbb{CP}^2\)</span> adds the line at infinity <span class="math inline">\(\ell_\infty\)</span></td>
+<td style="text-align: left;"><span class="math inline">\([a : \boldsymbol{\kappa} : \boldsymbol{\rho} : p] \in \mathbb{P}^7(\mathbb{F}_p)\)</span> adds the Klein quadric of half-turns</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Split Null Form</strong></td>
+<td style="text-align: left;"><span class="math inline">\(x^2 = (z-y)(z+y) \implies X^2 = YZ\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\operatorname{Im}(\det G_R) = 0 \implies ap = \boldsymbol{\kappa} \cdot \boldsymbol{\rho}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Trichotomy</strong></td>
+<td style="text-align: left;">Ellipse, Hyperbola, Parabola</td>
+<td style="text-align: left;">Elliptic (rotations), Hyperbolic (boosts), Parabolic (null-rotations)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="the-physical-payoff-why-this-matters-for-quantum-gravity" class="level2">
+<h2 class="anchored" data-anchor-id="the-physical-payoff-why-this-matters-for-quantum-gravity">5. The Physical Payoff: Why This Matters for Quantum Gravity</h2>
+<p>Why go through all this algebraic geometry? In discrete spacetime models (such as Regge calculus or causal dynamical triangulations), computing curvature around closed simplicial loops (Wilson loops) traditionally requires composing rotation matrices using angles, rapidities, and trigonometric functions:</p>
+<ol type="1">
+<li><strong>Floating-point errors accumulate:</strong> Every <span class="math inline">\(\cos(\theta)\)</span> and <span class="math inline">\(\operatorname{artanh}(\beta)\)</span> evaluation introduces numerical drift that violates metric conservation.</li>
+<li><strong>Infinite index over <span class="math inline">\(\mathbb{Q}\)</span> and <span class="math inline">\(\mathbb{F}_p\)</span>:</strong> Wildberger showed that classical unit quaternions miss an infinite subgroup of rational rotations. Projective proportions capture 100% of them.</li>
+<li><strong>The Anchor-Doubling Law:</strong> In Version 4 of Coady’s framework, composing anchors directly using Wildberger’s formula yielded an empirical match of only <span class="math inline">\(\approx 11\%\)</span>. Recognizing that the spin-cover <span class="math inline">\(\mathrm{SL}(2, K)\)</span> and the vector group <span class="math inline">\(\mathrm{SO}(1,3)\)</span> live in two projectively related charts: <span class="math display">\[\boldsymbol{\zeta}' = \frac{2\boldsymbol{\zeta}}{1 + \boldsymbol{\zeta} \cdot \boldsymbol{\zeta}}, \quad T^2 = 1 - p\]</span> resolved the anomaly completely, producing <strong>100.00% exact agreement across <span class="math inline">\(1.7 \times 10^6\)</span> test pairs</strong>.</li>
+<li><strong>Ghost Parity and Quadrume:</strong> In discrete 4-simplices (tetrahedra), Coady shows that the open reflection product <span class="math inline">\(R_\gamma = X(v_1)X(v_2)^\vee X(v_3)X(v_4)^\vee\)</span> has determinant: <span class="math display">\[\det(R_\gamma) = \prod_{i=1}^4 Q(v_i) \equiv N_\gamma\]</span> Its spinor norm character <span class="math inline">\(\chi_p(N_\gamma) = \varepsilon(\gamma)\)</span> couples directly to the geometric quadrume <span class="math inline">\(\mathcal{V}(\gamma)\)</span>: <span class="math display">\[\chi_p(\mathcal{V}(\gamma)) = -\varepsilon(\gamma)\]</span> This provides an exact, discrete realization of the <strong>Bateman–Turok ghost-parity mechanism</strong>, decoupling negative-norm ghost states in discrete quantum mechanics without requiring continuous limits.</li>
+</ol>
+<hr>
+</section>
+<section id="conclusion-the-geometry-was-there-all-along" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-the-geometry-was-there-all-along">6. Conclusion: The Geometry Was There All Along</h2>
+<p>The next time you see a conic section being manipulated by an orthogonal matrix on a chalkboard, take a closer look.</p>
+<p>The algebraic trick of factoring <span class="math inline">\(z^2 - y^2 = (z-y)(z+y)\)</span>, adding a projective coordinate at infinity, and extending numbers by <span class="math inline">\(\sqrt{-1}\)</span> is not just high-school algebra or a curiosity of complex analysis. It is the very mathematical scaffolding that allows relativistic physics, spinor double-covers, and quantum holonomies to be computed with exact, rational precision inside <span class="math inline">\(2 \times 2\)</span> matrices.</p>
+<hr>
+<section id="references-further-reading" class="level3">
+<h3 class="anchored" data-anchor-id="references-further-reading">References &amp; Further Reading</h3>
+<ul>
+<li>Coady, J. D. (2026). <em>A Projective <span class="math inline">\(2 \times 2\)</span> Rotor Architecture for <span class="math inline">\((1+3)\)</span>D Discrete Spacetime: Holonomies, Ghost Parity, and the Double-Cover Anchor Map</em>. <a href="https://doi.org/10.5281/zenodo.23091444">DOI:10.5281/zenodo.23091444</a>.</li>
+<li>Wildberger, N. J. (2005). <em>Divine Proportions: Rational Trigonometry to Universal Geometry</em>. Wild Egg Books.</li>
+<li>Wildberger, N. J. (2025). <em>The Anchor to Cap Map Replaces Exp for SL(2)</em>. Unpublished draft manuscript.</li>
+<li>Bateman, S., &amp; Turok, N. (2026). <em>Escape from Ostrogradsky via Hidden Ghost Parity</em>. arXiv:2607.00096 [hep-th].</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jcoady\.github\.io\/blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="jcoady/blog" data-repo-id="R_kgDOUEMSRA" data-category="General" data-category-id="DIC_kwDOUEMSRM4DEZKl" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
+</div> <!-- /content -->
+
+
+
+
+</body></html>
