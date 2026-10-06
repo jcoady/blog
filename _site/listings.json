@@ -2,8 +2,9 @@
   {
     "listing": "/physics.html",
     "items": [
-      "/posts/Spacetime-in-2×2-Matrices/index.html",
       "/posts/From-Conic-Sections-to-Spacetime/index.html",
+      "/posts/Spacetime-in-2×2-Matrices/index.html",
+      "/posts/From-Conic-Sections-to-Spacetime/oldindex.html",
       "/posts/finitist-quantum-gravity/index.html",
       "/posts/trace-free-triples-to-A2-root-system/index.html",
       "/posts/from-cross-ratio-orbits-to-su3-invariants/index.html",
@@ -15,8 +16,9 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/Spacetime-in-2×2-Matrices/index.html",
       "/posts/From-Conic-Sections-to-Spacetime/index.html",
+      "/posts/Spacetime-in-2×2-Matrices/index.html",
+      "/posts/From-Conic-Sections-to-Spacetime/oldindex.html",
       "/posts/intrinsic-su3-element-null-quadrangle/index.html",
       "/posts/finitist-quantum-gravity/index.html",
       "/posts/sl2-dictionary-null-quadrangles/index.html",
@@ -40,8 +42,9 @@
   {
     "listing": "/math.html",
     "items": [
-      "/posts/Spacetime-in-2×2-Matrices/index.html",
       "/posts/From-Conic-Sections-to-Spacetime/index.html",
+      "/posts/Spacetime-in-2×2-Matrices/index.html",
+      "/posts/From-Conic-Sections-to-Spacetime/oldindex.html",
       "/posts/intrinsic-su3-element-null-quadrangle/index.html",
       "/posts/finitist-quantum-gravity/index.html",
       "/posts/sl2-dictionary-null-quadrangles/index.html",

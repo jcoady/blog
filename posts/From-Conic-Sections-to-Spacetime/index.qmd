@@ -3,7 +3,7 @@ title: "From Conic Sections to Spacetime in 2×2 Matrices"
 pagetitle: "From Conic Sections to Spacetime in 2×2 Matrices"
 subtitle: "Two uses of the same algebraic ideas: adjoin √−1, factor a quadratic form, and projectivize"
 author: "John D. Coady"
-date: "2026-10-04"
+date: "2026-10-06"
 categories: [pure-math, geometry, hyperbolic-geometry, mathematical-physics]
 description: "How the classical story of conics (complexify, then projectivize) runs closely parallel to a 2×2 Hermitian-matrix model of (1+3)D spacetime over a finite field."
 format:
@@ -100,6 +100,50 @@ It is $\mathbb{F}_p$-valued exactly when $ap = \boldsymbol{\kappa}\cdot\boldsymb
 
 The affine description of a rotation by its "anchor" $\boldsymbol{\zeta} = \mathbf{z}/x$ breaks down when $x = a + ip = 0$. In the rotor picture these are simply the points with $a = p = 0$ (and so $\boldsymbol{\kappa}\cdot\boldsymbol{\rho} = 0$), which are the **half-turns**. They are ordinary points of the rotor quadric; the projective description does not "add" them, it just makes them visible as part of the group. Over $\mathbb{F}_7$ there are exactly $p^4 + p^2 = 2{,}450$ of them, out of $|SO(1,3;\mathbb{F}_7)| = 117{,}600$. Both numbers were confirmed by direct enumeration.
 
+### Where does the $i$ come from? Building $K$ from dihedrons
+
+A reader might object that adjoining $i$ borrows the complex numbers. It doesn't, and the reason connects to Wildberger's dihedrons.
+
+**No prior theory of $\mathbb{C}$ is used.** The field $K = \mathbb{F}_p[T]/(T^2+1)$ is defined from $\mathbb{F}_p$ alone: pairs $a + bT$ with $T^2 = -1$. It is a field exactly when $-1$ is a non-square, i.e. $p \equiv 3 \pmod 4$.
+
+**The same field sits inside $M_2(\mathbb{F}_p)$.** Wildberger's *dihedrons* are simply the matrix algebra $M_2(F)$ over a field $F$, with basis $I$, $\mathbf{i}$, $\mathbf{j}$, $\mathbf{k}$ where $\mathbf{i}^2 = -I$ and $\mathbf{j}^2 = \mathbf{k}^2 = +I$. Take the "blue" unit
+
+$$
+\mathbf{i} = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}, \qquad \mathbf{i}^2 = -I,
+\qquad
+\mathbb{C}_b = \left\{ aI + b\,\mathbf{i} = \begin{pmatrix} a & b \\ -b & a \end{pmatrix} \right\}.
+$$
+
+Its determinant is $a^2 + b^2$, which is zero only at $a = b = 0$ when $p \equiv 3 \pmod 4$, so every non-zero element is invertible: $\mathbb{C}_b$ is a field, isomorphic to $\mathbb{F}_{p^2}$. The same trick gives any quadratic extension $\mathbb{F}_q(\sqrt{k})$ through the companion matrix $\begin{pmatrix} 0 & 1 \\ k & 0 \end{pmatrix}$. Wildberger's remark that quaternions need $\mathbb{C}$ before they can be written as $2\times 2$ matrices is sharpest over $\mathbb{R}$ and $\mathbb{Q}$. Over a finite field the quaternion algebra also becomes $M_2(\mathbb{F}_p)$, using exactly the identity $a^2 + b^2 = -1$ that the paper uses for its signature isometry.
+
+**So is the rotor $2\times 2$ or $4\times 4$?** It depends on what you call one entry:
+
+- If an entry may be an element of $K$ (a pair $a + bi$), the rotor is a **$2\times 2$ matrix over $K$**.
+- If every entry must be a plain $\mathbb{F}_p$ number, replace each $K$-entry by its $2\times 2$ block (using $i \mapsto \mathbf{i}$). The same rotor becomes a **$4\times 4$ matrix over $\mathbb{F}_p$**.
+
+Both versions hold the same eight $\mathbb{F}_p$ numbers. In the second, Hermitian conjugation becomes the ordinary transpose, since $\mathbf{i}^T = -\mathbf{i}$.
+
+A cleaner way to say it: $M_2(K) \cong M_2(\mathbb{F}_p) \otimes \mathbb{C}_b$, so a rotor is a *pair of dihedrons* $(A, B)$,
+
+$$
+G = A + \varepsilon B, \qquad \varepsilon^2 = -1,\ \varepsilon \text{ central},
+\qquad
+(A_1 + \varepsilon B_1)(A_2 + \varepsilon B_2) = (A_1A_2 - B_1B_2) + \varepsilon(A_1B_2 + B_1A_2).
+$$
+
+Concretely, $G = A \otimes I_2 + B \otimes \mathbf{i}$ (Kronecker products). Spacetime vectors are the Hermitian ones: a symmetric dihedron plus $\varepsilon$ times a skew one,
+
+$$
+X(x) = \begin{pmatrix} x_0 + x_3 & x_1 \\ x_1 & x_0 - x_3 \end{pmatrix}
++ \varepsilon\, x_2 \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}.
+$$
+
+**Why not just call it $4\times 4$ and move on?** Because the cheap formulas live at the $2\times 2$ block level. The block determinant gives the spacetime interval, and the block adjugate gives the inverse. If you instead take the determinant of the flattened $4\times 4$ matrix you get $Q(x)^2$, not $Q(x)$: for the regular representation of a field extension, the determinant is the *field norm* of the block determinant. Likewise $Z^2 = (\mathbf{z}\cdot\mathbf{z})I$ is a quadratic relation over $K$, but over $\mathbb{F}_p$ the same matrix satisfies a degree-4 polynomial, because $\mathbf{z}\cdot\mathbf{z}$ lies in $K$, not in $\mathbb{F}_p$. So the representation is a storage choice and the algorithm decides the cost.
+
+**Can a (1+3) rotor be a $2\times 2$ matrix over $\mathbb{F}_p$ alone?** No. $M_2(\mathbb{F}_p)$ has only four $\mathbb{F}_p$-coordinates and carries the split form of Witt index 2. Over $\mathbb{F}_p$, dihedrons describe the $(1+2)$ case ($SO(1,2)$), which is Wildberger's theory. The $(1+3)$ case needs the eight-dimensional algebra $M_2(K)$.
+
+I checked the block-matrix statements above ($X = X^T$ in the $4\times 4$ form, multiplicativity of the embedding, and $\det_4 X = Q^2$) over $\mathbb{F}_7$ with 500 random cases each, in a short separate script that is not part of the deposited `verify_rotor_model.py`.
+
 ## 4. Side by side
 
 | Concept | Conics | Rotor spacetime |
@@ -107,6 +151,7 @@ The affine description of a rotation by its "anchor" $\boldsymbol{\zeta} = \math
 | Quadratic object | $v^TAv$ with a symmetric $2\times 2$ matrix | $Q(x) = \det X(x)$ on Hermitian matrices in $M_2(K)$ |
 | Role of $\det$ | $\det A$ decides the type | $\det G$ is the rotor norm, $\mathbb{F}_p$-valued on the quadric |
 | Adjoining $i$ | $x^2+y^2 = (x+iy)(x-iy)$ merges ellipse and hyperbola | $K = \mathbb{F}_p[i]$ makes a $2\times 2$ model of the Lorentz form possible |
+| Where $i$ comes from | complex numbers, assumed | built from $\mathbb{F}_p$: $T^2+1$, or the blue dihedron $\mathbf{i} \in M_2(\mathbb{F}_p)$ |
 | What breaks in affine charts | branches run off to infinity | anchors fail at half-turns; many anchors have no rational cap |
 | Projective step | add the line at infinity in $\mathbb{CP}^2$ | use rotors $[a:\boldsymbol{\kappa}:\boldsymbol{\rho}:p] \in \mathbb{P}^7$, where the group product is a polynomial map |
 | Equivalence statement | all non-degenerate conics are projectively equivalent | $SO(1,3;\mathbb{F}_p) \cong$ non-null points of the rotor quadric |
@@ -165,6 +210,7 @@ Expect 100.00% agreement in Part 1 at every prime, 99.757% non-trivial holonomy 
 6. N. J. Wildberger, *Universal Hyperbolic Geometry I: Trigonometry*, Geometriae Dedicata 163 (2013). [arXiv:0909.1377](https://arxiv.org/abs/0909.1377).
 7. N. J. Wildberger, *The Anchor to Cap Map Replaces Exp for SL(2)*, 13 Aug 2025. Unpublished draft manuscript, presented in a members-only [Wild Egg Maths lecture](https://www.youtube.com/watch?v=xJee9s-r4cQ); no persistent identifier.
 8. N. J. Wildberger, *Rational Rotations of Three Dimensional Relativistic Space*, Sept 2026. Unpublished draft manuscript, presented in a members-only [Wild Egg Maths lecture](https://www.youtube.com/watch?v=S34umGqB1I4); no persistent identifier.
-9. Michael Penn, *There is only one conic section* (video). [youtu.be/FLXuHL1L-LI](https://youtu.be/FLXuHL1L-LI).
+9. N. J. Wildberger, *Famous Math Problems 21c: The geometry of the Dihedrons (and Quaternions)*, video lecture (2020). [add link]
+10. Michael Penn, *There is only one conic section* (video). [youtu.be/FLXuHL1L-LI](https://youtu.be/FLXuHL1L-LI).
 
 *Code and analysis for the preprint were developed with AI assistance (Claude, Anthropic), as disclosed in the paper.*
