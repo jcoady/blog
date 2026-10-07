@@ -1,0 +1,251 @@
+---
+title: "Lorentz Boosts Without Square Roots: Rational Rotations of 4D Spacetime"
+subtitle: "A projective 2×2 rotor architecture over general fields"
+author: "John D. Coady"
+date: "2026-10-07"
+categories: [pure-math, geometry, hyperbolic-geometry, mathematical-physics, algebra]
+description: "How to compute exact Lorentz transformations over the rationals (or a finite field) using only 2×2 matrices and one division. No angles, no rapidities, no square roots."
+image: thumbnail.png
+toc: true
+toc-depth: 2
+number-sections: false
+format:
+  html:
+    code-fold: true
+    html-math-method: mathjax
+    link-external-newwindow: true
+bibliography: references.bib
+---
+
+::: {.callout-note}
+This post summarizes the paper *Rational Rotations of Four-Dimensional Relativistic Space: A Projective $2\times2$ Rotor Architecture over General Fields* (Zenodo DOI: [10.5281/zenodo.23222798](https://doi.org/10.5281/zenodo.23222798)). Proofs live in the paper; here I focus on the ideas and a worked example.
+:::
+
+## The itch
+
+Textbook special relativity is full of transcendental machinery: rapidities $\varphi$, $\cosh$ and $\sinh$, matrix exponentials, and unit vectors that need square roots. But a boost with velocity $\beta = 4/5$ has the perfectly rational matrix
+
+$$
+\Lambda = \begin{pmatrix}
+5/3 & 4/3 & 0 & 0 \\
+4/3 & 5/3 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}.
+$$
+
+Nothing about it is transcendental. So why should we need transcendental functions to *talk about* it?
+
+N. J. Wildberger's rational trigonometry program shows that for 3D Euclidean space, $\mathrm{SO}(3)$, and 3D relativistic space, $\mathrm{SO}(1,2)$, rotations can be handled with rational arithmetic over any field, using quadrances, spreads, and the rational **Cayley cap**
+$$\operatorname{ca}(A) = (I + A)(I - A)^{-1}.$$
+This paper extends the program to the physically relevant case: **$(1+3)$-dimensional spacetime** and the Lorentz group $\mathrm{SO}(1,3;F)$ over any field $F$ with
+
+$$
+\operatorname{char}(F) \neq 2 \quad\text{and}\quad -1 \notin (F^\times)^2 .
+$$
+
+That covers $\mathbb{Q}$, every ordered field, and finite fields $\mathbb{F}_q$ with $q \equiv 3 \pmod 4$.
+
+## The obstruction: Witt index
+
+In 3D relativity the natural arena is $M_2(F)$, the algebra of $2\times2$ matrices (Wildberger calls them *dihedrons*), with the determinant as quadratic form. Can we do the same thing in 4D?
+
+Not directly. The Minkowski form $Q(x) = x_0^2 - x_1^2 - x_2^2 - x_3^2$ on $F^4$ has **Witt index 1**: light rays are the largest totally isotropic subspaces. But $(M_2(F), \det)$ has **Witt index 2**, since matrices with a zero second column form a 2-dimensional isotropic subspace. By Witt cancellation the two quadratic spaces are not isometric, so no linear change of coordinates turns spacetime into $2\times2$ matrices over $F$.
+
+## The fix: a quadratic extension living inside $M_2(F)$
+
+The standard physicist's trick is to use $2\times 2$ **Hermitian** matrices over $\mathbb{C}$. Here we do the same over $K = F[T]/(T^2+1)$, but without assuming $\mathbb{C}$ at all. The key observation is that $K$ already lives inside $M_2(F)$:
+
+$$
+\mathbf{i} = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}, \qquad \mathbf{i}^2 = -I_2,
+\qquad
+\mathbb{C}_b = \left\{ \begin{pmatrix} a & b \\ -b & a \end{pmatrix} \right\} \cong K .
+$$
+
+Since $-1$ is a nonsquare, $\det(aI + b\mathbf{i}) = a^2 + b^2$ vanishes only at $0$, so every nonzero element is invertible and $\mathbb{C}_b$ is a field. These are the **Blue Dihedrons**. Complex conjugation becomes plain matrix transposition.
+
+### Spacetime as Hermitian matrices
+
+A four-vector $x$ is identified with a Hermitian matrix over $K$ using the Pauli basis:
+
+$$
+X(x) = \begin{pmatrix} x_0 + x_3 & x_1 - i x_2 \\ x_1 + i x_2 & x_0 - x_3 \end{pmatrix},
+\qquad
+\det\nolimits_K X(x) = x_0^2 - x_1^2 - x_2^2 - x_3^2 .
+$$
+
+The determinant is exactly the spacetime quadrance. The Witt index of $(\operatorname{Herm}_F, \det_K)$ is $1$, with anisotropic kernel $\langle -1,-1\rangle$, so the obstruction is resolved: Hermitian matrices are the right $2\times2$ model of Minkowski space.
+
+### Nested dihedrons and a determinant subtlety
+
+Replacing each entry of a $2\times 2$ matrix over $K$ by its $2\times2$ blue-dihedron block gives an embedding $M_2(K) \hookrightarrow M_4(F)$. Under it:
+
+- Hermitian transposition $X^\dagger$ becomes ordinary transposition, so Hermitian matrices become symmetric $4\times4$ matrices over $F$.
+- The **full** $4\times 4$ determinant is $Q(x)^2$, a degree-4 object. The quantity you actually want, $Q(x)$, comes from taking the determinant at the $2\times2$ block level, *inside* the commutative subfield $\mathbb{C}_b$.
+
+So the practical rule is: store rotors as $4 \times 4$ matrices over $F$ if you like, but do the algebra block by block.
+
+## Rotors: a projective quadric that covers the Lorentz group
+
+Write a $2\times2$ rotor in Pauli coordinates as
+
+$$
+G_R = x I_2 + \mathbf{z}\cdot\boldsymbol{\sigma}, \qquad x = a + ip,\quad \mathbf{z} = \boldsymbol{\kappa} + i\boldsymbol{\rho}.
+$$
+
+Its $K$-determinant lies in $F$ exactly when the **rotor condition** holds:
+
+$$
+a\,p = \boldsymbol{\kappa}\cdot\boldsymbol{\rho}.
+$$
+
+Then $\det_K G_R = N(R) = a^2 - p^2 - \boldsymbol{\kappa}^2 + \boldsymbol{\rho}^2$, called the rotor norm. The points $[a:\boldsymbol\kappa:\boldsymbol\rho:p] \in \mathbb{P}^7(F)$ satisfying the rotor condition with $N(R)\neq0$ form the **projective rotor quadric** $\mathcal{Q}^*(F)$.
+
+Each rotor acts on spacetime by a normalized congruence:
+
+$$
+\mathscr{L}_R : X \longmapsto \frac{G_R\, X\, G_R^\dagger}{N(R)} .
+$$
+
+The main structural theorem says:
+
+$$
+\mathcal{Q}^*(F) \;\cong\; \operatorname{GSpin}(1,3)(F)/F^\times \;\xrightarrow{\ \sim\ }\; \mathrm{SO}(1,3;F).
+$$
+
+Two ingredients make this work:
+
+1. A **Clifford–Hermitian intertwining lemma**. The Clifford adjugation (reversion) and the Hermitian conjugate are different operations, but the canonical Clifford action $v \mapsto g v g^{-1}$ matches the congruence action $X \mapsto GXG^\dagger/\det_K G$ under the isometry $v \mapsto \psi(v e_0)$.
+2. **Hilbert's Theorem 90**, which gives $H^1(F,\mathbb{G}_m) = 1$ and therefore *surjectivity* onto all of $\mathrm{SO}(1,3;F)$. Every Lorentz transformation over $F$ has a rotor over $F$.
+
+The trace is also rational and tidy:
+
+$$
+\operatorname{tr}(\mathscr{L}_R) = \frac{4(a^2 + p^2)}{N(R)} .
+$$
+
+## A concrete example over $\mathbb{Q}$
+
+Take $(a,p) = (2,0)$, $\boldsymbol\kappa = (1,0,0)$, $\boldsymbol\rho = 0$. The rotor condition holds trivially ($0 = 0$) and $N(R) = 4 - 1 = 3$. The rotor is $G = 2I_2 + \sigma_1$, and one computation,
+
+$$
+\mathscr{L}_R(I_2) = \frac{(2 + \sigma_1)^2}{3} = \frac{5}{3} I_2 + \frac{4}{3}\sigma_1,
+$$
+
+reads off the first column of the matrix $\Lambda$ at the top of this post. Using only integer arithmetic and one division by 3, we've produced the exact boost with $\beta = 4/5$. The trace check: $\tfrac{5}{3}+\tfrac{5}{3}+1+1 = \tfrac{16}{3} = \tfrac{4\cdot 4}{3}$ ✓.
+
+Here is a quick sanity check in Python with exact rational arithmetic:
+
+```{python}
+from fractions import Fraction as Fr
+
+Lam = [[Fr(5,3), Fr(4,3), 0, 0],
+       [Fr(4,3), Fr(5,3), 0, 0],
+       [0, 0, 1, 0],
+       [0, 0, 0, 1]]
+eta = [1, -1, -1, -1]
+
+# Check Lam^T eta Lam == eta exactly
+n = 4
+check = [[sum(Lam[k][i] * eta[k] * Lam[k][j] for k in range(n))
+          for j in range(n)] for i in range(n)]
+print(all(check[i][j] == (eta[i] if i == j else 0)
+          for i in range(n) for j in range(n)))
+print("trace =", sum(Lam[i][i] for i in range(n)))
+```
+
+## Recovering the anchor, with no matrix inversion
+
+The Cayley cap in 3D goes from an *anchor* (a Lie algebra element) to a group element, and its inverse requires solving a linear system. In the Lorentz setting the paper gives a direct formula. Define the $\eta$-antisymmetric part of a Lorentz matrix
+
+$$
+\Lambda_{\mathrm{as}} = \tfrac12\left(\Lambda - \eta \Lambda^{T}\eta\right).
+$$
+
+Then, whenever $\operatorname{tr}(\Lambda)\neq 0$,
+
+$$
+\boxed{\,A(\boldsymbol\zeta) = \frac{2\,\Lambda_{\mathrm{as}}}{\operatorname{tr}(\Lambda)}\,}
+\qquad\text{with rotor anchor}\qquad \boldsymbol\zeta = \frac{\mathbf{z}}{x}\in K^3 .
+$$
+
+Here $A(\boldsymbol\zeta)$ is the $4\times4$ Lie algebra element built from $\boldsymbol\zeta = \boldsymbol\kappa + i\boldsymbol\rho$: the $\boldsymbol\kappa$ part gives boost generators, the $\boldsymbol\rho$ part gives rotation generators. The formula works because $\Lambda_{\mathrm{as}} = 2A(\bar x \mathbf{z})/N(R)$ and $\bar x\mathbf z = |x|^2\boldsymbol\zeta$, so the $|x|^2$ and $N(R)$ factors cancel against the trace.
+
+**Check on our example.** For the $\beta=4/5$ boost, $\Lambda_{\mathrm{as}}$ has $4/3$ in the $(0,1)$ and $(1,0)$ slots, so
+
+$$
+\frac{2\cdot 4/3}{16/3} = \frac12 ,
+$$
+
+which is exactly $\boldsymbol\zeta = (1/2, 0, 0) = \mathbf{z}/x$ for $G = 2 + \sigma_1$. Physically, $1/2 = \tanh(\varphi/2)$ where $\tanh\varphi = 4/5$, so the rotor anchor is the "half-rapidity tangent", but we never had to compute a rapidity to get it.
+
+A few properties worth knowing:
+
+- **Two-to-one.** $A(-\Lambda) = A(\Lambda)$, so an anchor determines $\Lambda$ only up to the sign $\pm\Lambda$.
+- **Which anchors occur?** An anchor $\boldsymbol\zeta$ with $d = 1 - \boldsymbol\zeta\cdot\boldsymbol\zeta \ne 0$ comes from a rotor iff the field norm $N_{K/F}(d)$ is a square in $F^\times$. This is Hilbert 90 again.
+- **The trace-zero locus** is exactly the non-central involutions ($\Lambda^2 = I$, $\Lambda\neq\pm I$), which have eigenvalue multiplicities $2+2$.
+
+## The doubling law and Rodrigues composition
+
+The *spin* group $\operatorname{Spin}(1,3)(F)\cong \mathrm{SL}(2,K)$ has its own Cayley cap,
+
+$$
+U_{\mathrm{spin}}(\boldsymbol\zeta) = (I + \boldsymbol\zeta\cdot\boldsymbol\sigma)(I - \boldsymbol\zeta\cdot\boldsymbol\sigma)^{-1}
+= \frac{(1+\boldsymbol\zeta\cdot\boldsymbol\zeta) I + 2\,\boldsymbol\zeta\cdot\boldsymbol\sigma}{1 - \boldsymbol\zeta\cdot\boldsymbol\zeta}.
+$$
+
+Feed it through the machinery above and the induced Lorentz transformation has rotor anchor
+
+$$
+\boldsymbol\zeta' = \frac{2\boldsymbol\zeta}{1 + \boldsymbol\zeta\cdot\boldsymbol\zeta},
+$$
+
+the **anchor-doubling law**. It is the rational analogue of the double-angle formula $\tan\theta = 2\tan(\theta/2)/(1-\tan^2(\theta/2))$ (with a hyperbolic sign flip, hence the $+$ here). With $\boldsymbol\zeta = (1/2,0,0)$ it gives $\boldsymbol\zeta' = (4/5, 0, 0)$.
+
+Composition of rotors is just multiplication of $(I+\boldsymbol\zeta\cdot\boldsymbol\sigma)(I+\boldsymbol\omega\cdot\boldsymbol\sigma)$, which yields a **Rodrigues-type formula**:
+
+$$
+\boldsymbol\zeta_{12} = \frac{\boldsymbol\zeta + \boldsymbol\omega + i\,(\boldsymbol\zeta\times\boldsymbol\omega)}{1 + \boldsymbol\zeta\cdot\boldsymbol\omega}.
+$$
+
+As a bonus, the doubling law has a clean corollary: $1 - \boldsymbol\zeta'\cdot\boldsymbol\zeta' = \left(\tfrac{1-\boldsymbol\zeta\cdot\boldsymbol\zeta}{1+\boldsymbol\zeta\cdot\boldsymbol\zeta}\right)^2$, a perfect square, so its field norm is automatically a square, matching the image criterion above.
+
+## Spin vs. rotor: an arithmetic obstruction over $\mathbb{Q}$
+
+If rotors cover all of $\mathrm{SO}(1,3;F)$, what does the smaller group $\mathrm{SL}(2,K)=\operatorname{Spin}(1,3)(F)$ cover? Precisely the **spinor-norm-trivial** subgroup $\ker\chi$, where
+
+$$
+\chi:\ \mathrm{SO}(1,3;F)\to F^\times/(F^\times)^2,\qquad \mathscr{L}_R \mapsto [N(R)] .
+$$
+
+Over $\mathbb{Q}$ this is a big difference. For any $c\in\mathbb{Q}^\times$, the rotor with $a = \tfrac{c+1}{2}$, $\kappa_1 = \tfrac{c-1}{2}$ and everything else zero satisfies the rotor condition and has $N(R) = c$. So $\chi$ is surjective onto $\mathbb{Q}^\times/(\mathbb{Q}^\times)^2$, an infinite group (generated by $-1$ and all the primes). Consequently, the Lorentz transformations that admit a rational rotor of norm exactly $1$ form a subgroup of **infinite index** in $\mathrm{SO}(1,3;\mathbb{Q})$.
+
+Our running example is a case in point: $N(R) = 3$ is not a rational square, so the $\beta = 4/5$ boost is *not* in the image of $\mathrm{SL}(2,\mathbb{Q}(i))$ under this map. You need the more general $\operatorname{GSpin}$ rotor, which is exactly why the projective quadric formulation is the right one.
+
+## Why this is nice
+
+| Classical approach | This approach |
+|---|---|
+| Angles, rapidities, $\cosh$/$\sinh$ | Quadrances and rational rotor coordinates |
+| Matrix exponential | Rational Cayley cap |
+| Unit vectors (square roots) | Projective rotors, scale freely by $F^\times$ |
+| Needs $\mathbb{R}$ or $\mathbb{C}$ | Works over $\mathbb{Q}$, ordered fields, $\mathbb{F}_q$ with $q\equiv 3 \bmod 4$ |
+| Recover generator via logarithm | Closed formula $2\Lambda_{\mathrm{as}}/\operatorname{tr}\Lambda$ |
+
+Everything is exact, and every map is rational with explicitly controlled denominators ($N(R)$, $\operatorname{tr}\Lambda$, $1\pm\boldsymbol\zeta\cdot\boldsymbol\zeta$, $1+\boldsymbol\zeta\cdot\boldsymbol\omega$). That is attractive for exact symbolic computation, for finite-field models of discrete spacetime, and for anyone who simply likes their relativity without calculus.
+
+## Caveats and notation
+
+- $\mathrm{SO}(1,3;F)$ is used as a label for the orthogonal group of $Q(x) = x_0^2-x_1^2-x_2^2-x_3^2$; over a general field there is no "signature" in the ordered-field sense.
+- The cited Wildberger sources are unpublished draft lectures and manuscripts, cited descriptively.
+- The construction is companion to an earlier discrete-spacetime treatment over $\mathbb{F}_p[i]$ [@Coady2026Rotor].
+
+## References
+
+Full references are in the paper. Key ones:
+
+- N. J. Wildberger, *Divine Proportions: Rational Trigonometry to Universal Geometry*, Wild Egg Books, 2005.
+- T. Y. Lam, *Introduction to Quadratic Forms over Fields*, AMS, 2005.
+- R. Penrose and W. Rindler, *Spinors and Space-Time, Vol. 1*, Cambridge University Press, 1984.
+- B. Casselman, *Clifford Algebras and Spinors*, UBC lecture notes, 2021.
+- J. D. Coady, *A Projective $2\times2$ Rotor Architecture for $(1+3)$D Discrete Spacetime*, preprint, 2026. DOI: [10.5281/zenodo.23138782](https://doi.org/10.5281/zenodo.23138782).
