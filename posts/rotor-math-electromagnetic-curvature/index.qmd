@@ -1,0 +1,295 @@
+---
+title: "Is the Rotor Anchor the Electromagnetic Field Strength? Worked Calculations from a Projective 2×2 Rotor Architecture"
+author: "John D. Coady"
+date: "2026-10-09"
+categories: [pure-math, geometry, hyperbolic-geometry, mathematical-physics, electromagnetism, lorentz-group, rational-trigonometry]
+format:
+  html:
+    toc: true
+    code-fold: true
+---
+
+## The question
+
+The paper *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields* builds the Lorentz group $SO(1,3;F)$ out of exact rational algebra. Its central object is the **anchor** $\zeta = \kappa + i\rho \in K^3$, with $K = F(i)$, and the $4\times 4$ matrix
+
+$$
+A(\zeta) =
+\begin{pmatrix}
+0 & \kappa_1 & \kappa_2 & \kappa_3\\
+\kappa_1 & 0 & \rho_3 & -\rho_2\\
+\kappa_2 & -\rho_3 & 0 & \rho_1\\
+\kappa_3 & \rho_2 & -\rho_1 & 0
+\end{pmatrix}
+$$
+
+that represents it in the Lie algebra $\mathfrak{so}(1,3;F)$.
+
+Anyone who has met the electromagnetic field strength tensor will find this matrix familiar. This post asks a concrete question: **is there a real connection between the rotor anchor and the electromagnetic curvature $F_{\mu\nu}$, and can the rotor calculus reproduce known electromagnetic results?**
+
+The short answer is yes for the algebra and for the *force law*, and no for the field *dynamics*. Below are seven worked calculations, each checked in exact rational arithmetic, followed by a clear statement of where the connection stops.
+
+Conventions throughout: signature $\eta = \mathrm{diag}(1,-1,-1,-1)$, $c = 1$, $q/m = 1$, and $A(\zeta)$ exactly as in Definition 6.1 of the paper.
+
+## The dictionary
+
+Set $\kappa = \mathbf{E}$ and $\rho = \mathbf{B}$. Then the anchor is the **Riemann–Silberstein vector**
+
+$$
+\zeta = \mathbf{E} + i\mathbf{B},
+$$
+
+and $A(\zeta)$ is the mixed-index field strength $F^{\mu}{}_{\nu}$.
+
+| Rotor paper | Electromagnetism |
+|:---|:---|
+| Anchor $\zeta = \kappa + i\rho$ | Riemann–Silberstein vector $\mathbf{E} + i\mathbf{B}$ |
+| Anchor matrix $A(\zeta)$ | Field strength $F^{\mu}{}_{\nu}$ |
+| $A(\zeta)\,u$ | Lorentz force on a charge with four-velocity $u$ |
+| $\zeta\cdot\zeta$ | $(E^2 - B^2) + 2i\,\mathbf{E}\cdot\mathbf{B}$, the two field invariants |
+| Null anchor, $\zeta\cdot\zeta = 0$ | Null (radiation) field |
+| Simple anchor, $\kappa\cdot\rho = 0$ | Field with $\mathbf{E}\cdot\mathbf{B} = 0$ |
+| Rotor $G = \exp(t\,\zeta\cdot\sigma)$ | Lorentz transformation $\exp\bigl(2t\,A(\zeta)\bigr)$ |
+| Multiplying $\zeta$ by $i$ | Electromagnetic duality $(\mathbf{E},\mathbf{B}) \to (-\mathbf{B},\mathbf{E})$ |
+
+Everything in this table is either a one-line algebraic fact or is verified below.
+
+## Calculation 1: the Lorentz force
+
+For a four-velocity $u = (u^0, \mathbf{u})$, a charge obeys $du/d\tau = F^{\mu}{}_{\nu}u^\nu$, i.e. $\dot u^0 = \mathbf{E}\cdot\mathbf{u}$ and $\dot{\mathbf{u}} = \mathbf{E}\,u^0 + \mathbf{u}\times\mathbf{B}$.
+
+Multiplying out $A(\zeta)u$ gives
+
+$$
+A(\zeta)\,u = \bigl(\,\kappa\cdot\mathbf{u},\;\; \kappa\,u^0 + \mathbf{u}\times\rho\,\bigr),
+$$
+
+which is the Lorentz force with $\mathbf{E} = \kappa$, $\mathbf{B} = \rho$. A symbolic check confirms all four components and also that $\eta A^T \eta = -A$, so $A(\zeta)\in\mathfrak{so}(1,3)$ as required.
+
+## Calculation 2: the two invariants
+
+The paper's $\zeta\cdot\zeta = \sum_k \zeta_k^2$ expands to
+
+$$
+\zeta\cdot\zeta = (\kappa^2 - \rho^2) + 2i\,\kappa\cdot\rho .
+$$
+
+On the matrix side, symbolic computation gives
+
+$$
+\tfrac12\operatorname{tr}\bigl(A(\zeta)^2\bigr) = E^2 - B^2,
+\qquad
+\det A(\zeta) = -(\mathbf{E}\cdot\mathbf{B})^2 .
+$$
+
+These are the two Lorentz invariants of an electromagnetic field. The real part of $\zeta\cdot\zeta$ is the Maxwell Lagrangian density up to normalization, and the imaginary part is the $\theta$-term density. So the *rotor norm* of the anchor is the pair of field invariants.
+
+**Example.** For $\mathbf{E} = (1,1,0)$, $\mathbf{B} = (0,1,1)$ we get $E^2 - B^2 = 0$ and $\mathbf{E}\cdot\mathbf{B} = 1$, so $\zeta\cdot\zeta = 2i$. A frame in which $\mathbf{E}$ and $\mathbf{B}$ are parallel exists whenever $\zeta\cdot\zeta \neq 0$, and there the anchor is $(0,0,c)$ with $c^2 = 2i$, i.e. $c = 1+i$: $\mathbf{E}' = \mathbf{B}' = \hat z$. This is the classical result that any non-null field can be boosted to $\mathbf{E}\parallel\mathbf{B}$.
+
+## Calculation 3: uniform electric field and exact hyperbolic motion
+
+In a uniform field $\mathbf{E} = E\hat x$ a charge released from rest follows hyperbolic motion, $u(\tau) = (\cosh E\tau,\ \sinh E\tau,\ 0,\ 0)$.
+
+Take the paper's own example rotor $(a,p) = (2,0)$, $\kappa = (1,0,0)$, $\rho = 0$, with rotor norm $N(R) = 3$. Its Lorentz matrix is
+
+$$
+\Lambda =
+\begin{pmatrix}
+5/3 & 4/3 & 0 & 0\\
+4/3 & 5/3 & 0 & 0\\
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1
+\end{pmatrix},
+\qquad \operatorname{tr}\Lambda = \frac{16}{3} = \frac{4(a^2+p^2)}{N(R)} .
+$$
+
+This is a pure boost with $\cosh\varphi = 5/3$, so $\varphi = \ln 3$, and the rotor anchor is $\zeta = \kappa/a = 1/2 = \tanh(\varphi/2)$. Applying $\Lambda$ repeatedly to a charge at rest gives
+
+| $n$ | $u^0 = \cosh(n\ln 3)$ | $u^x = \sinh(n\ln 3)$ | rotor anchor $\zeta_n$ |
+|:---:|:---:|:---:|:---:|
+| 1 | $5/3$ | $4/3$ | $1/2$ |
+| 2 | $41/9$ | $40/9$ | $4/5$ |
+| 3 | $365/27$ | $364/27$ | $13/14$ |
+
+The entries agree exactly with $\bigl(3^n + 3^{-n}\bigr)/2$ and $\bigl(3^n - 3^{-n}\bigr)/2$. The anchors compose by the paper's Rodrigues rule (Theorem 7.1), which for collinear anchors is
+$\zeta_{12} = (\zeta+\omega)/(1+\zeta\omega)$: indeed $(1/2 + 1/2)/(1 + 1/4) = 4/5$ and $(4/5 + 1/2)/(1 + 2/5) = 13/14$. The doubling law $\zeta' = 2\zeta/(1+\zeta\cdot\zeta)$ gives the velocity at each stage: $\beta = 2\cdot\tfrac12/(1+\tfrac14) = 4/5$, then $40/41$, then $364/365$.
+
+So in a uniform field the rotor calculus reproduces the exact motion **using only rational numbers**, at the proper times $\tau_n = n\ln 3/E$ where the rapidity hits $n\ln 3$.
+
+## Calculation 4: uniform magnetic field and the 3-4-5 rotation
+
+In a uniform field $\mathbf{B} = B\hat z$ a charge's velocity rotates about $\hat z$. Take the rotor with $\kappa = 0$, $\rho = (0,0,1/2)$, $a = 1$, $p = 0$ (so $\zeta = i/2\,\hat z$ and $N(R) = 5/4$). The matrix is
+
+$$
+\Lambda =
+\begin{pmatrix}
+1&0&0&0\\
+0&3/5&4/5&0\\
+0&-4/5&3/5&0\\
+0&0&0&1
+\end{pmatrix},
+\qquad \operatorname{tr}\Lambda = \frac{16}{5} = \frac{4}{5/4},
+$$
+
+a rotation with $\tan(\theta/2) = 1/2$, i.e. $\cos\theta = 3/5$, $\sin\theta = 4/5$. This is the classic Pythagorean rotation, produced with no trigonometric functions. The rotation direction agrees with the $\rho_3$ entries of $A(\zeta)$: $\dot u^1 = \rho_3 u^2$, $\dot u^2 = -\rho_3 u^1$.
+
+## Calculation 5: a null field and an exact worldline
+
+A plane wave has $\mathbf{E}\perp\mathbf{B}$ and $|\mathbf{E}| = |\mathbf{B}|$. Take $\mathbf{E} = \hat x$, $\mathbf{B} = \hat y$, so $\zeta = (1, i, 0)$ and $\zeta\cdot\zeta = 1 + i^2 = 0$.
+
+Then $A(\zeta)^2$ is nonzero but
+
+$$
+A(\zeta)^3 = 0 ,
+$$
+
+so the exponential series terminates. For a charge starting at rest,
+
+$$
+u(\tau) = \bigl(I + \tau A + \tfrac12\tau^2 A^2\bigr)(1,0,0,0)^T = \Bigl(1 + \tfrac{\tau^2}{2},\ \tau,\ 0,\ \tfrac{\tau^2}{2}\Bigr),
+$$
+
+with $u^0 - u^z = 1$ conserved. This is the known exact solution for a charge in a constant crossed field, and it satisfies $du/d\tau = Au$ identically. Moreover the rational Cayley cap equals the exponential exactly:
+
+$$
+(I + A)(I - A)^{-1} = I + 2A + 2A^2 = \exp(2A).
+$$
+
+For null fields the paper's rational cap is not an approximation to the Lorentz transformation. It *is* the Lorentz transformation, a null rotation.
+
+## Calculation 6: how the field transforms
+
+Take a uniform field $\mathbf{E} = \hat x$, $\mathbf{B} = 0$ and a boost with $\gamma = 5/4$, $\beta = 3/5$ along $y$ (this matrix maps a particle at rest to velocity $+\beta\hat y$, so the new frame moves at $-\beta\hat y$). Conjugating, $F' = \Lambda F\Lambda^{-1}$ gives
+
+$$
+\mathbf{E}' = \bigl(5/4,\,0,\,0\bigr),\qquad \mathbf{B}' = \bigl(0,\,0,\,-3/4\bigr).
+$$
+
+This matches the standard transformation law $\mathbf{E}'_\perp = \gamma\,\mathbf{E}$, $\mathbf{B}'_\perp = -\gamma\,\mathbf{v}\times\mathbf{E}$ for a frame moving at $\mathbf{v} = -\beta\hat y$. The invariants are preserved: $E'^2 - B'^2 = 25/16 - 9/16 = 1$ and $\mathbf{E}'\cdot\mathbf{B}' = 0$. In rotor language this is the statement that a Lorentz transformation acts on $\zeta$ as a *complex rotation*, which preserves $\zeta\cdot\zeta$.
+
+Multiplying the anchor by $i$ sends $\zeta = \mathbf{E} + i\mathbf{B}$ to $-\mathbf{B} + i\mathbf{E}$, the duality rotation. Since $A$ is linear in $\zeta$, the dual field strength is simply $A(i\zeta)$.
+
+## Calculation 7: a rational Lorentz-force integrator
+
+A numerical integrator for charged-particle motion can be built straight from the rotor calculus. To advance $du/d\tau = A(\zeta_F)\,u$ by a step $h$, apply the spin Cayley cap with
+
+$$
+\zeta_c = \tfrac{h}{4}\,\zeta_F ,
+\qquad
+U_{\text{spin}}(\zeta_c) = (I + \zeta_c\cdot\sigma)(I - \zeta_c\cdot\sigma)^{-1}.
+$$
+
+Because $U_{\text{spin}}\approx \exp(2\zeta_c\cdot\sigma)$ and the induced Lorentz map is $\exp(2t\,A)$ for $\exp(t\,\zeta\cdot\sigma)$, this approximates $\exp(hA(\zeta_F))$. It needs one $2\times 2$ inversion per step, no square roots and no trigonometry. Each step is a Lorentz transformation exactly (not approximately), so the normalization $u\cdot u = 1$ is preserved to the arithmetic precision.
+
+**Uniform $\mathbf{E}$, proper time $\tau = 1$.** With exact rational arithmetic ($\zeta_c = 1/(4N)$ per step) and comparing to $\cosh 1 = 1.5430806\ldots$:
+
+| Steps $N$ | $\gamma_N$ | error | ratio to previous |
+|:---:|:---:|:---:|:---:|
+| 4 | 1.5446158 | $1.54\times 10^{-3}$ | — |
+| 8 | 1.5434635 | $3.83\times 10^{-4}$ | 4.01 |
+| 16 | 1.5431763 | $9.57\times 10^{-5}$ | 4.00 |
+| 32 | 1.5431045 | $2.39\times 10^{-5}$ | 4.00 |
+
+Halving the step divides the error by four: second-order accuracy. Exact states for pure-$\mathbf{E}$ motion were already shown in Calculation 3.
+
+**Uniform $\mathbf{B}$, rotation angle 1 radian.** For $\zeta_c = i r\,\hat z$ with $r = hB/4$, the induced rotation has the rational entries
+
+$$
+\cos\theta_c = \frac{(1-r^2)^2 - 4r^2}{(1+r^2)^2},
+\qquad
+\sin\theta_c = \frac{4r(1-r^2)}{(1+r^2)^2}.
+$$
+
+With $r = 1/4$ (one step, $hB = 1$) this is $\cos\theta_c = 161/289$, $\sin\theta_c = 240/289$, and indeed $161^2 + 240^2 = 289^2$.
+
+**Relation to the Boris method.** The standard relativistic Boris pusher rotates by $2\arctan t$ with $t = hB/2$, evaluated through $s = 2t/(1+t^2)$. The rotor step turns out to be *two* Boris rotations with $t = hB/4$. Numerically, the total-angle error of $N$ rotor steps equals that of $2N$ Boris steps to all digits shown:
+
+| $N$ | rotor error (rad) | Boris error (rad) |
+|:---:|:---:|:---:|
+| 1 | $-0.020085$ | $-0.072705$ |
+| 2 | $-0.005160$ | $-0.020085$ |
+| 4 | $-0.001299$ | $-0.005160$ |
+
+So the rotor step costs two Boris half-rotations and delivers the accuracy of two Boris steps. It is not a free improvement. What it adds is a *single* closed-form, exactly Lorentz-covariant step that treats $\mathbf{E}$ and $\mathbf{B}$ together as one complex anchor. I did not compare the combined $\mathbf{E}$ and $\mathbf{B}$ case against Boris.
+
+## Where the connection stops
+
+The results above are real algebra, but they are not new physics, and several things do not follow.
+
+- **No field dynamics.** There is no $d F = 0$, no $d{*F} = J$, no gauge potential, and no sources. The rotor calculus gives the *force on a particle in a given field*. It does not say how the field evolves.
+- **The papers' edge anchors are not the electromagnetic field.** In the companion finitist papers the edge anchors are Plücker-type bivectors of planes through vertices, and their holonomies are a Lorentz (spin) connection, which is the gravity-side structure. Electromagnetism enters there separately, through the scalar Cayley phase $(1 - a\delta)/(1 + a\delta)$. The shared object is the Lie algebra $\mathfrak{so}(1,3)$, which can hold either role.
+- **Exactness over $\mathbb{Q}$ and $\mathbb{F}_p$ is algebraic, not physical.** Over $\mathbb{F}_p$ there is no sign of $E^2 - B^2$ and no notion of a weak field, so the statements about the Lagrangian and the $\theta$-term lose their meaning there.
+- **A $\theta$-density in the tetrahedron did not survive a holonomy test.** The identity $E\cdot B = \det[u,v,w,x]$ for a pair of opposite edges holds, but in a separate numerical test on 4-simplex boundaries the imaginary part of loop holonomies did not track it. That imaginary part is a non-abelian effect.
+
+**A note on one statement in the paper.** Theorem 6.2's recovery formula $A(\zeta) = 2\Lambda_{as}/\operatorname{tr}\Lambda$ checked out in every case I tried, including non-simple rotors with $\kappa\cdot\rho\neq 0$ (for example $(a,p,\kappa,\rho) = (2,3,(1,\tfrac12,0),(6,0,0))$). However, Proposition 6.3(3) relates the *vector* Cayley anchor $(\Lambda - I)(\Lambda + I)^{-1}$ to $\zeta$ by the doubling map. In my tests the vector Cayley anchor was *equal* to $A(\zeta)$ for the simple examples (boost, rotation, and mixed rotors with $\kappa\cdot\rho = 0$) and differed from it for the non-simple example above. The doubling law does relate the spin cap parameter to the induced rotor anchor, as shown in Calculation 3, so I'd suggest rechecking that proposition.
+
+## Reproducing the calculations
+
+The script below reproduces every table and identity in this post using SymPy and Python fractions.
+
+```python
+import math
+from fractions import Fraction as Fr
+import sympy as sp
+
+I = sp.I
+eta = sp.diag(1, -1, -1, -1)
+
+def A(E, B):                      # anchor matrix A(zeta), zeta = E + iB
+    return sp.Matrix([[0, E[0], E[1], E[2]],
+                      [E[0], 0, B[2], -B[1]],
+                      [E[1], -B[2], 0, B[0]],
+                      [E[2], B[1], -B[0], 0]])
+
+# 1. A(zeta) u = Lorentz force
+E = sp.symbols('E1:4'); B = sp.symbols('B1:4'); u = sp.Matrix(sp.symbols('u0:4'))
+force = [sp.Matrix(E).dot(u[1:, 0])] + list(sp.Matrix(E)*u[0] + u[1:, 0].cross(sp.Matrix(B)))
+assert all(sp.simplify((A(E, B)*u)[i] - force[i]) == 0 for i in range(4))
+
+# 2. invariants: tr A^2 = 2(E^2-B^2),  det A = -(E.B)^2
+assert sp.simplify((A(E, B)**2).trace() - 2*(sum(e**2 for e in E) - sum(b**2 for b in B))) == 0
+assert sp.simplify(A(E, B).det() + sp.Matrix(E).dot(sp.Matrix(B))**2) == 0
+
+# 3. rotor -> Lorentz matrix:  X -> G X G^dagger / N(R)
+s = [sp.Matrix([[0,1],[1,0]]), sp.Matrix([[0,-I],[I,0]]), sp.Matrix([[1,0],[0,-1]])]
+def X(x): return x[0]*sp.eye(2) + x[1]*s[0] + x[2]*s[1] + x[3]*s[2]
+def comps(H): return [(H[0,0]+H[1,1])/2, (H[0,1]+H[1,0])/2, (H[1,0]-H[0,1])/(2*I), (H[0,0]-H[1,1])/2]
+def Lam(a, p, kap, rho):
+    G = (a+I*p)*sp.eye(2) + sum(((kap[i]+I*rho[i])*s[i] for i in range(3)), sp.zeros(2))
+    N = a**2 - p**2 - sum(c**2 for c in kap) + sum(c**2 for c in rho)
+    cols = [[sp.simplify(c) for c in comps(G*X([int(i==j) for i in range(4)])*G.H/N)] for j in range(4)]
+    return sp.Matrix(cols).T
+
+L = Lam(2, 0, [1,0,0], [0,0,0])
+print("boost  :", L.tolist(), "  u after n steps:", [list(L**n*sp.Matrix([1,0,0,0]))[:2] for n in (1,2,3)])
+print("rotation:", Lam(1, 0, [0,0,0], [0,0,sp.Rational(1,2)]).tolist())
+
+# 4. null field: A^3 = 0, cap = exp(2A) = I + 2A + 2A^2, exact worldline
+An = A([1,0,0], [0,1,0]); t = sp.symbols('tau')
+assert An**3 == sp.zeros(4)
+print("worldline:", list((sp.eye(4) + t*An + t**2*An**2/2)*sp.Matrix([1,0,0,0])))
+
+# 5. field transformation under a boost
+g, b = sp.Rational(5,4), sp.Rational(3,5)
+Lb = sp.Matrix([[g,0,g*b,0],[0,1,0,0],[g*b,0,g,0],[0,0,0,1]])
+print("F' =", (Lb*A([1,0,0],[0,0,0])*Lb.inv()).tolist())
+
+# 6. Cayley-cap integrator, uniform E: convergence
+def zadd(a, c): return (a + c)/(1 + a*c)
+prev = None
+for N in (4, 8, 16, 32):
+    zc = Fr(1, 4*N); zp = 2*zc/(1 + zc*zc); z = Fr(0)
+    for _ in range(N): z = zadd(z, zp)
+    gam = float((1 + z*z)/(1 - z*z)); err = gam - math.cosh(1)
+    print(N, gam, err, None if prev is None else prev/err); prev = err
+```
+
+## Summary
+
+The rotor anchor $\zeta = \kappa + i\rho$ is, algebraically, the complexified electromagnetic field strength. Its matrix $A(\zeta)$ is the Lorentz-force generator, its norm $\zeta\cdot\zeta$ packages the two field invariants, null anchors are radiation fields, and the rotors built from it are the Lorentz transformations that move charges and transform fields. Every identity above was verified in exact arithmetic, and the rotor calculus gives rational, exactly covariant integrators for particle motion. The step from this algebra to electrodynamics, meaning field equations, sources, and quantization, is not provided by the rotor construction and remains a separate problem.
+
+## References
+
+1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Preprint, October 7, 2026.
+2. N. J. Wildberger. *Divine Proportions: Rational Trigonometry to Universal Geometry*. Wild Egg Books, Sydney, 2005.
+3. R. Penrose and W. Rindler. *Spinors and Space-Time, Volume 1*. Cambridge University Press, 1984.

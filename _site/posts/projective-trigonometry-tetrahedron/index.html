@@ -352,11 +352,24 @@ E_{k,l} \equiv \frac{h_i}{h_{i,j}} = \frac{h_i \cdot q(a_k,a_l)}{A_j}
 \]</span></p>
 </blockquote>
 <p>This identity holds across arbitrary fields and bilinear-form signatures — including indefinite Lorentzian metrics — with no positive-definiteness assumption required anywhere in the proof.</p>
-<p>The paper also notes that the <strong>dihedral cross</strong> <span class="math inline">\(C(E_{12}) \equiv 1 - E_{12}\)</span>, familiar from Universal Hyperbolic Geometry, can be written entirely as a rational function of the ambient bilinear products <span class="math inline">\(B(v_i,v_j)\)</span> — no square roots or field extensions needed:</p>
+<p>The paper also notes that the <strong>dihedral cross</strong> <span class="math inline">\(\mathcal{C}(E_{12}) \equiv 1 - E_{12}\)</span>, familiar from Universal Hyperbolic Geometry, can be written entirely as a rational function of the ambient bilinear products <span class="math inline">\(B(v_i,v_j)\)</span> — no square roots or field extensions needed. Let <span class="math inline">\(G_4\)</span> be the Gram matrix of the tetrahedron and let <span class="math inline">\(C_{ij}\)</span> be the <span class="math inline">\((i,j)\)</span> cofactor of <span class="math inline">\(G_4\)</span>, so that <span class="math inline">\(\operatorname{adj}(G_4) = (C_{ij})\)</span> (symmetric, since <span class="math inline">\(G_4\)</span> is). For an edge <span class="math inline">\(a_ka_l\)</span> with complementary vertices <span class="math inline">\(\{i,j\} = \{1,2,3,4\}\setminus\{k,l\}\)</span>,</p>
 <p><span class="math display">\[
-1 - E_{12} = \frac{\big(B(v_1,v_2)B(v_3,v_4) - B(v_1,v_3)B(v_2,v_4) - B(v_1,v_4)B(v_2,v_3)\big)^2}{Q(v_1)Q(v_2)Q(v_3)Q(v_4)\,A_3A_4}
+1 - E_{kl} = \frac{C_{ij}^{\,2}}{C_{ii}\,C_{jj}}
 \]</span></p>
-<p>which, in terms of the point products <span class="math inline">\(p_{ij} \equiv B(v_i,v_j)^2/(Q(v_i)Q(v_j)) = 1 - q_{ij}\)</span>, is exactly the algebraic expansion of <span class="math inline">\((\sqrt{p_{12}p_{34}} - \sqrt{p_{13}p_{24}} - \sqrt{p_{14}p_{23}})^2\)</span> — a nice echo of the classical Ptolemy-type relations that show up throughout UHG.</p>
+<p>Here <span class="math inline">\(C_{ii} = \det G_3(\{v_x\}_{x\neq i}) = A_i \prod_{x\neq i} Q(v_x)\)</span> is the <span class="math inline">\(3\times 3\)</span> Gram determinant of the face opposite <span class="math inline">\(a_i\)</span>, so <span class="math inline">\(C_{ii}C_{jj} = A_iA_j\,Q(v_k)Q(v_l)\prod_{x=1}^{4}Q(v_x)\)</span>.</p>
+<p>This agrees with the definition above. By Jacobi’s complementary-minor identity,</p>
+<p><span class="math display">\[
+C_{ii}C_{jj} - C_{ij}^{\,2} = \det(G_4)\,\bigl(Q(v_k)Q(v_l) - B(v_k,v_l)^2\bigr) = \det(G_4)\,Q(v_k)Q(v_l)\,q_{kl},
+\]</span></p>
+<p>and dividing by <span class="math inline">\(C_{ii}C_{jj}\)</span> recovers <span class="math inline">\(E_{kl} = q_{kl}\mathcal{V}/(A_iA_j)\)</span>. Geometrically, if <span class="math inline">\(n_i, n_j\)</span> are the dual vectors of the faces opposite <span class="math inline">\(a_i, a_j\)</span>, then <span class="math inline">\(E_{kl} = q(n_i, n_j)\)</span>, so <span class="math inline">\(1 - E_{kl}\)</span> is the point product of the two dual points.</p>
+<p>For the edge <span class="math inline">\(12\)</span>, writing <span class="math inline">\(B_{ij} \equiv B(v_i,v_j)\)</span> and <span class="math inline">\(Q_i \equiv Q(v_i)\)</span>, this reads</p>
+<p><span class="math display">\[
+1 - E_{12} = \frac{C_{34}^{\,2}}{Q_1Q_2\,Q_1Q_2Q_3Q_4\,A_3A_4},
+\]</span></p>
+<p><span class="math display">\[
+C_{34} = B_{12}^{2}B_{34} - B_{12}B_{13}B_{24} - B_{12}B_{14}B_{23} + Q_2\,B_{13}B_{14} + Q_1\,B_{23}B_{24} - Q_1Q_2\,B_{34}.
+\]</span></p>
+<p>Note that the numerator is cubic in the bilinear products and involves the vertex quadrances <span class="math inline">\(Q_1, Q_2\)</span> explicitly. It is <em>not</em> the square of the simpler-looking expression <span class="math inline">\(B_{12}B_{34} - B_{13}B_{24} - B_{14}B_{23}\)</span>, and it is not an expansion of <span class="math inline">\((\sqrt{p_{12}p_{34}} - \sqrt{p_{13}p_{24}} - \sqrt{p_{14}p_{23}})^2\)</span> in the point products <span class="math inline">\(p_{ij} = B_{ij}^2/(Q_iQ_j)\)</span>. All of this was verified in exact rational arithmetic on the test tetrahedron below.</p>
 <p>Because the bilinear form need not be positive definite, quadrances, the quadrume, and the altitudes can and do come out <em>negative</em> in indefinite signatures. Rational trigonometry embraces this rather than working around it with absolute values, which keeps every identity purely polynomial and sign-consistent. In the Euclidean limit — positive-definite <span class="math inline">\(B\)</span> — the invariant <span class="math inline">\(\sqrt{|\mathcal{Q}_k|}\)</span> recovers (up to a conventional scale) the classical simplex volume via the Cayley–Menger determinant, so nothing from the familiar Euclidean picture is lost; it’s simply subsumed as a special case.</p>
 </section>
 <section id="exact-rational-verification-with-sympy" class="level2">
@@ -366,7 +379,7 @@ E_{k,l} \equiv \frac{h_i}{h_{i,j}} = \frac{h_i \cdot q(a_k,a_l)}{A_j}
 <p><span class="math display">\[
 a_1 = [-3:3:1:5],\quad a_2=[4:0:1:5],\quad a_3=[2:-4:1:5],\quad a_4=[1:0:3:5]
 \]</span></p>
-<p>with vector quadrances <span class="math inline">\(Q(v_1)=44\)</span>, <span class="math inline">\(Q(v_2)=42\)</span>, <span class="math inline">\(Q(v_3)=46\)</span>, <span class="math inline">\(Q(v_4)=35\)</span>. As expected in an indefinite signature, several of the resulting invariants come out negative — this is a genuine feature, not a bug, of working projectively over a non-Euclidean metric.</p>
+<p>with vector quadrances <span class="math inline">\(Q(v_1)=-6\)</span>, <span class="math inline">\(Q(v_2)=-8\)</span>, <span class="math inline">\(Q(v_3)=-4\)</span>, <span class="math inline">\(Q(v_4)=-15\)</span>. As expected in an indefinite signature, several of the resulting invariants come out negative — this is a genuine feature, not a bug, of working projectively over a non-Euclidean metric.</p>
 <p>The quadrume evaluates exactly to <span class="math inline">\(\mathcal{V} = -1445/36 \approx -40.139\)</span>, and the four factorizations <span class="math inline">\(\mathcal{V} = A_k \times h_k\)</span> check out exactly:</p>
 <table class="caption-top table">
 <thead>
@@ -405,6 +418,7 @@ a_1 = [-3:3:1:5],\quad a_2=[4:0:1:5],\quad a_3=[2:-4:1:5],\quad a_4=[1:0:3:5]
 </tbody>
 </table>
 <p>The solid spreads resolve to <span class="math inline">\(S_1 = 289/80678\)</span>, <span class="math inline">\(S_2 = 425/3276\)</span>, <span class="math inline">\(S_3 = 17/1218\)</span>, <span class="math inline">\(S_4 = 75/107\)</span>, and dividing each by its opposite three edge quadrances reproduces the same constant, <span class="math inline">\(\mathcal{V}/\prod q_{ab} = -15/282373\)</span>, for all four vertices exactly as the Solid Spread Law predicts. The Alternate Spreads Theorem’s four cyclic ratios each evaluate to exactly <span class="math inline">\(1\)</span>, and all three opposite-edge dihedral spread ratios collapse to the same value <span class="math inline">\(21675/4241996 = \mathcal{V}^2/(A_1A_2A_3A_4)\)</span>.</p>
+<p>The six dihedral spreads themselves are <span class="math inline">\(E_{12} = 325/421\)</span>, <span class="math inline">\(E_{13} = 29/44\)</span>, <span class="math inline">\(E_{14} = 30923/37048\)</span>, <span class="math inline">\(E_{23} = 175/687\)</span>, <span class="math inline">\(E_{24} = 368475/385636\)</span>, and <span class="math inline">\(E_{34} = 4913/5038\)</span>. Each satisfies the cofactor formula <span class="math inline">\(1 - E_{kl} = C_{ij}^2/(C_{ii}C_{jj})\)</span> exactly.</p>
 <p>Nothing here is approximate — every quantity is an exact element of <span class="math inline">\(\mathbb{Q}\)</span>, and every identity is checked as exact equality of rational numbers (or, in the symbolic version, as vanishing of a difference of polynomials under <code>sympy.simplify</code>). That is precisely the spirit of rational trigonometry: replace transcendental trigonometric identities, which are only ever checkable numerically, with polynomial identities that a computer algebra system can <em>prove</em>.</p>
 </section>
 <section id="discussion-and-outlook" class="level2">

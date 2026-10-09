@@ -5,7 +5,6 @@ author: "John D. Coady"
 date: "2026-10-07"
 categories: [pure-math, geometry, hyperbolic-geometry, mathematical-physics, algebra]
 description: "How to compute exact Lorentz transformations over the rationals (or a finite field) using only 2×2 matrices and one division. No angles, no rapidities, no square roots."
-image: thumbnail.png
 toc: true
 toc-depth: 2
 number-sections: false

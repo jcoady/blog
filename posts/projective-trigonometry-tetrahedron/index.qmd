@@ -180,13 +180,33 @@ Substituting $h_i = \mathcal{V}/A_i$ from the Quadrume Factorization Theorem tur
 
 This identity holds across arbitrary fields and bilinear-form signatures — including indefinite Lorentzian metrics — with no positive-definiteness assumption required anywhere in the proof.
 
-The paper also notes that the **dihedral cross** $C(E_{12}) \equiv 1 - E_{12}$, familiar from Universal Hyperbolic Geometry, can be written entirely as a rational function of the ambient bilinear products $B(v_i,v_j)$ — no square roots or field extensions needed:
+The paper also notes that the **dihedral cross** $\mathcal{C}(E_{12}) \equiv 1 - E_{12}$, familiar from Universal Hyperbolic Geometry, can be written entirely as a rational function of the ambient bilinear products $B(v_i,v_j)$ — no square roots or field extensions needed. Let $G_4$ be the Gram matrix of the tetrahedron and let $C_{ij}$ be the $(i,j)$ cofactor of $G_4$, so that $\operatorname{adj}(G_4) = (C_{ij})$ (symmetric, since $G_4$ is). For an edge $a_ka_l$ with complementary vertices $\{i,j\} = \{1,2,3,4\}\setminus\{k,l\}$,
 
 $$
-1 - E_{12} = \frac{\big(B(v_1,v_2)B(v_3,v_4) - B(v_1,v_3)B(v_2,v_4) - B(v_1,v_4)B(v_2,v_3)\big)^2}{Q(v_1)Q(v_2)Q(v_3)Q(v_4)\,A_3A_4}
+1 - E_{kl} = \frac{C_{ij}^{\,2}}{C_{ii}\,C_{jj}}
 $$
 
-which, in terms of the point products $p_{ij} \equiv B(v_i,v_j)^2/(Q(v_i)Q(v_j)) = 1 - q_{ij}$, is exactly the algebraic expansion of $(\sqrt{p_{12}p_{34}} - \sqrt{p_{13}p_{24}} - \sqrt{p_{14}p_{23}})^2$ — a nice echo of the classical Ptolemy-type relations that show up throughout UHG.
+Here $C_{ii} = \det G_3(\{v_x\}_{x\neq i}) = A_i \prod_{x\neq i} Q(v_x)$ is the $3\times 3$ Gram determinant of the face opposite $a_i$, so $C_{ii}C_{jj} = A_iA_j\,Q(v_k)Q(v_l)\prod_{x=1}^{4}Q(v_x)$.
+
+This agrees with the definition above. By Jacobi's complementary-minor identity,
+
+$$
+C_{ii}C_{jj} - C_{ij}^{\,2} = \det(G_4)\,\bigl(Q(v_k)Q(v_l) - B(v_k,v_l)^2\bigr) = \det(G_4)\,Q(v_k)Q(v_l)\,q_{kl},
+$$
+
+and dividing by $C_{ii}C_{jj}$ recovers $E_{kl} = q_{kl}\mathcal{V}/(A_iA_j)$. Geometrically, if $n_i, n_j$ are the dual vectors of the faces opposite $a_i, a_j$, then $E_{kl} = q(n_i, n_j)$, so $1 - E_{kl}$ is the point product of the two dual points.
+
+For the edge $12$, writing $B_{ij} \equiv B(v_i,v_j)$ and $Q_i \equiv Q(v_i)$, this reads
+
+$$
+1 - E_{12} = \frac{C_{34}^{\,2}}{Q_1Q_2\,Q_1Q_2Q_3Q_4\,A_3A_4},
+$$
+
+$$
+C_{34} = B_{12}^{2}B_{34} - B_{12}B_{13}B_{24} - B_{12}B_{14}B_{23} + Q_2\,B_{13}B_{14} + Q_1\,B_{23}B_{24} - Q_1Q_2\,B_{34}.
+$$
+
+Note that the numerator is cubic in the bilinear products and involves the vertex quadrances $Q_1, Q_2$ explicitly. It is *not* the square of the simpler-looking expression $B_{12}B_{34} - B_{13}B_{24} - B_{14}B_{23}$, and it is not an expansion of $(\sqrt{p_{12}p_{34}} - \sqrt{p_{13}p_{24}} - \sqrt{p_{14}p_{23}})^2$ in the point products $p_{ij} = B_{ij}^2/(Q_iQ_j)$. All of this was verified in exact rational arithmetic on the test tetrahedron below.
 
 Because the bilinear form need not be positive definite, quadrances, the quadrume, and the altitudes can and do come out *negative* in indefinite signatures. Rational trigonometry embraces this rather than working around it with absolute values, which keeps every identity purely polynomial and sign-consistent. In the Euclidean limit — positive-definite $B$ — the invariant $\sqrt{|\mathcal{Q}_k|}$ recovers (up to a conventional scale) the classical simplex volume via the Cayley–Menger determinant, so nothing from the familiar Euclidean picture is lost; it's simply subsumed as a special case.
 
@@ -200,7 +220,7 @@ $$
 a_1 = [-3:3:1:5],\quad a_2=[4:0:1:5],\quad a_3=[2:-4:1:5],\quad a_4=[1:0:3:5]
 $$
 
-with vector quadrances $Q(v_1)=44$, $Q(v_2)=42$, $Q(v_3)=46$, $Q(v_4)=35$. As expected in an indefinite signature, several of the resulting invariants come out negative — this is a genuine feature, not a bug, of working projectively over a non-Euclidean metric.
+with vector quadrances $Q(v_1)=-6$, $Q(v_2)=-8$, $Q(v_3)=-4$, $Q(v_4)=-15$. As expected in an indefinite signature, several of the resulting invariants come out negative — this is a genuine feature, not a bug, of working projectively over a non-Euclidean metric.
 
 The quadrume evaluates exactly to $\mathcal{V} = -1445/36 \approx -40.139$, and the four factorizations $\mathcal{V} = A_k \times h_k$ check out exactly:
 
@@ -212,6 +232,8 @@ The quadrume evaluates exactly to $\mathcal{V} = -1445/36 \approx -40.139$, and 
 | 4 | $289/2$ | $-5/18$ | $-1445/36$ |
 
 The solid spreads resolve to $S_1 = 289/80678$, $S_2 = 425/3276$, $S_3 = 17/1218$, $S_4 = 75/107$, and dividing each by its opposite three edge quadrances reproduces the same constant, $\mathcal{V}/\prod q_{ab} = -15/282373$, for all four vertices exactly as the Solid Spread Law predicts. The Alternate Spreads Theorem's four cyclic ratios each evaluate to exactly $1$, and all three opposite-edge dihedral spread ratios collapse to the same value $21675/4241996 = \mathcal{V}^2/(A_1A_2A_3A_4)$.
+
+The six dihedral spreads themselves are $E_{12} = 325/421$, $E_{13} = 29/44$, $E_{14} = 30923/37048$, $E_{23} = 175/687$, $E_{24} = 368475/385636$, and $E_{34} = 4913/5038$. Each satisfies the cofactor formula $1 - E_{kl} = C_{ij}^2/(C_{ii}C_{jj})$ exactly.
 
 Nothing here is approximate — every quantity is an exact element of $\mathbb{Q}$, and every identity is checked as exact equality of rational numbers (or, in the symbolic version, as vanishing of a difference of polynomials under `sympy.simplify`). That is precisely the spirit of rational trigonometry: replace transcendental trigonometric identities, which are only ever checkable numerically, with polynomial identities that a computer algebra system can *prove*.
 
