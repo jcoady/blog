@@ -290,6 +290,6 @@ The rotor anchor $\zeta = \kappa + i\rho$ is, algebraically, the complexified el
 
 ## References
 
-1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Preprint, October 7, 2026.
+1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Preprint, October 7, 2026. DOI: [10.5281/zenodo.23222798](https://doi.org/10.5281/zenodo.23222798).
 2. N. J. Wildberger. *Divine Proportions: Rational Trigonometry to Universal Geometry*. Wild Egg Books, Sydney, 2005.
 3. R. Penrose and W. Rindler. *Spinors and Space-Time, Volume 1*. Cambridge University Press, 1984.
