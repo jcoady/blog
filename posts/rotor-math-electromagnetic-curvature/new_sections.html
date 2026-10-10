@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>new_sections – John Coady's Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-fe7872a82928c9cb84149cb81cc2feaf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">John Coady’s Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">All Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../math.html"> 
+<span class="menu-text">Pure Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics.html"> 
+<span class="menu-text">Math Physics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0009-0008-6020-5733"> 
+<span class="menu-text"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID iD" style="height:20px; width:20px; vertical-align:-3px;"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://x.com/johndavidcoady"> <i class="bi bi-twitter-x" role="img" aria-label="X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jcoady"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#calculation-8-flux-through-a-plaquette-and-the-duality-u1" id="toc-calculation-8-flux-through-a-plaquette-and-the-duality-u1" class="nav-link active" data-scroll-target="#calculation-8-flux-through-a-plaquette-and-the-duality-u1">Calculation 8: flux through a plaquette, and the duality U(1)</a>
+  <ul class="collapse">
+  <li><a href="#the-duality-u1" id="toc-the-duality-u1" class="nav-link" data-scroll-target="#the-duality-u1">The duality U(1)</a></li>
+  </ul></li>
+  <li><a href="#calculation-9-the-gauge-u1-as-a-cayley-phase-lattice" id="toc-calculation-9-the-gauge-u1-as-a-cayley-phase-lattice" class="nav-link" data-scroll-target="#calculation-9-the-gauge-u1-as-a-cayley-phase-lattice">Calculation 9: the gauge U(1) as a Cayley phase lattice</a>
+  <ul class="collapse">
+  <li><a href="#exact-identities" id="toc-exact-identities" class="nav-link" data-scroll-target="#exact-identities">Exact identities</a></li>
+  <li><a href="#the-action-and-which-potential-to-use" id="toc-the-action-and-which-potential-to-use" class="nav-link" data-scroll-target="#the-action-and-which-potential-to-use">The action, and which potential to use</a></li>
+  <li><a href="#what-this-does-and-does-not-give" id="toc-what-this-does-and-does-not-give" class="nav-link" data-scroll-target="#what-this-does-and-does-not-give">What this does and does not give</a></li>
+  </ul></li>
+  <li><a href="#reproducing-calculations-8-and-9" id="toc-reproducing-calculations-8-and-9" class="nav-link" data-scroll-target="#reproducing-calculations-8-and-9">Reproducing Calculations 8 and 9</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<!--
+INSERTION GUIDE
+1. Paste "Calculation 8" and "Calculation 9" below Calculation 7 and above "Where the connection stops".
+2. Paste the "Reproducing Calculations 8 and 9" block below your existing "Reproducing the calculations" block.
+3. Optional edits to existing text are listed in the comment at the very end of this file.
+-->
+<section id="calculation-8-flux-through-a-plaquette-and-the-duality-u1" class="level2">
+<h2 class="anchored" data-anchor-id="calculation-8-flux-through-a-plaquette-and-the-duality-u1">Calculation 8: flux through a plaquette, and the duality U(1)</h2>
+<p>So far the anchor has appeared as the <em>generator</em> that acts on a charge’s velocity. The field strength has a second job: it is the <strong>curvature of the U(1) gauge connection</strong>, <span class="math inline">\(F = dA\)</span>, and as a curvature it is evaluated on surfaces. This calculation shows where the rotor machinery meets that second job.</p>
+<p><strong>Setup.</strong> Two vertices <span class="math inline">\(u = (u^0,\mathbf{u})\)</span> and <span class="math inline">\(v = (v^0,\mathbf{v})\)</span> span a parallelogram. The edge bivector of the companion finitist papers (the Plücker coordinates of the plane through <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span>) is</p>
+<p><span class="math display">\[
+z_{uv} = \bigl(v^0\,\mathbf{u} - u^0\,\mathbf{v}\bigr) \;-\; i\,(\mathbf{u}\times\mathbf{v}) \;\in K^3 ,
+\]</span></p>
+<p>bilinear in <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span>. The flux of the field through the parallelogram is the field strength contracted with its area bivector,</p>
+<p><span class="math display">\[
+\Phi_F(u,v) = F_{\mu\nu}\,u^\mu v^\nu = B\bigl(u,\,A(\zeta_F)\,v\bigr), \qquad B(x,y) = x^{T}\eta\,y,
+\]</span></p>
+<p>where <span class="math inline">\(A(\zeta_F)\)</span> is the mixed-index <span class="math inline">\(F^{\mu}{}_{\nu}\)</span> and the index is lowered with <span class="math inline">\(\eta\)</span>.</p>
+<p><strong>The identity.</strong> With the complex bilinear pairing <span class="math inline">\(\zeta_F\cdot z = \sum_k \zeta_{F,k}\,z_k\)</span> (no conjugation) and the dual field <span class="math inline">\({*F}:(\mathbf{E},\mathbf{B})\to(-\mathbf{B},\mathbf{E})\)</span>,</p>
+<p><span class="math display">\[
+\boxed{\;\zeta_F\cdot z_{uv} \;=\; -\,\Phi_F(u,v) \;+\; i\,\Phi_{*F}(u,v)\;}
+\]</span></p>
+<p>The real part is minus the flux of <span class="math inline">\(F\)</span> through the plane of <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span>. The imaginary part is the flux of the dual field, which is what a magnetic charge would couple to. Both sides are polynomial in the components, so the identity involves no division and holds over any field.</p>
+<p><strong>Worked example.</strong> Take <span class="math inline">\(\mathbf{E} = (1,2,0)\)</span>, <span class="math inline">\(\mathbf{B} = (0,1,1)\)</span>, <span class="math inline">\(u = (2,1,0,0)\)</span>, <span class="math inline">\(v = (2,0,1,1)\)</span>. Then</p>
+<p><span class="math display">\[
+z_{uv} = (2,-2,-2) + i\,(0,1,-1), \qquad
+\zeta_F = (1,2,0) + i\,(0,1,1), \qquad
+\zeta_F\cdot z_{uv} = -2 - 2i .
+\]</span></p>
+<p>On the matrix side, <span class="math inline">\(A(\zeta_F)\,v = (2,2,4,0)\)</span>, so <span class="math inline">\(\Phi_F = B(u, A v) = 2\cdot 2 - 1\cdot 2 = 2\)</span>, which is <span class="math inline">\(-\mathrm{Re}(\zeta_F\cdot z_{uv})\)</span>. For the dual field <span class="math inline">\((-\mathbf{B},\mathbf{E})\)</span> one finds <span class="math inline">\(A'v = (-2,-2,-1,-3)\)</span> and <span class="math inline">\(\Phi_{*F} = 2\cdot(-2) - 1\cdot(-2) = -2\)</span>, which is <span class="math inline">\(\mathrm{Im}(\zeta_F\cdot z_{uv})\)</span>.</p>
+<p><strong>Why this is the U(1) connection.</strong> A charge <span class="math inline">\(q\)</span> carried once around the parallelogram in a uniform field picks up the phase <span class="math inline">\(e^{\,i q \Phi_F}\)</span> (the Aharonov–Bohm or Wilson-loop phase; the sign depends on the coupling convention), because <span class="math inline">\(\oint A = \int F\)</span> by Stokes. So the U(1) holonomy angle of a plaquette is <span class="math inline">\(\Phi_F = -\mathrm{Re}(\zeta_F\cdot z_{uv})\)</span>. The same bivector <span class="math inline">\(z_{uv}\)</span> that generates a Lorentz rotation in the plane of <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> also measures the flux of <span class="math inline">\(F\)</span> through that plane. That is the link between the rotor machinery and the gauge curvature.</p>
+<p>I checked the identity on 400 random samples in each of exact integers, <span class="math inline">\(\mathbb{F}_7\)</span> and <span class="math inline">\(\mathbb{F}_{11}\)</span>: the real part matched <span class="math inline">\(-\Phi_F\)</span> and the imaginary part matched <span class="math inline">\(\Phi_{*F}\)</span> in all 400 cases each time.</p>
+<section id="the-duality-u1" class="level3">
+<h3 class="anchored" data-anchor-id="the-duality-u1">The duality U(1)</h3>
+<p>Multiplying the anchor by a norm-one <span class="math inline">\(\lambda = c + is\)</span> (<span class="math inline">\(c^2 + s^2 = 1\)</span>) rotates the field,</p>
+<p><span class="math display">\[
+\zeta_F \to \lambda\,\zeta_F
+\quad\Longleftrightarrow\quad
+(\mathbf{E},\mathbf{B}) \to (c\mathbf{E} - s\mathbf{B},\; s\mathbf{E} + c\mathbf{B}),
+\]</span></p>
+<p>which is electromagnetic duality, <span class="math inline">\(F \to cF + s\,{*F}\)</span>. Because <span class="math inline">\(\zeta_F\cdot z_{uv}\)</span> is linear in <span class="math inline">\(\zeta_F\)</span>, the flux pair rotates as a doublet:</p>
+<p><span class="math display">\[
+\Phi_F' = c\,\Phi_F + s\,\Phi_{*F}, \qquad \Phi_{*F}' = -s\,\Phi_F + c\,\Phi_{*F}.
+\]</span></p>
+<p>Checked over <span class="math inline">\(\mathbb{F}_7\)</span> and <span class="math inline">\(\mathbb{F}_{11}\)</span> on 400 random fields each:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;"><span class="math inline">\(\mathbb{F}_7\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\mathbb{F}_{11}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">size of the norm-one group (cyclic, <span class="math inline">\(p+1\)</span>)</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(E^2 + B^2 = \sum_k N(\zeta_k)\)</span> invariant</td>
+<td style="text-align: center;">400/400</td>
+<td style="text-align: center;">400/400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\zeta\cdot\zeta \to \lambda^2\,\zeta\cdot\zeta\)</span></td>
+<td style="text-align: center;">400/400</td>
+<td style="text-align: center;">400/400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">flux doublet rotates by <span class="math inline">\(\lambda\)</span></td>
+<td style="text-align: center;">400/400</td>
+<td style="text-align: center;">400/400</td>
+</tr>
+</tbody>
+</table>
+<p>Over <span class="math inline">\(\mathbb{Q}\)</span> I also checked, with exact rotors, that a duality rotation by <span class="math inline">\(\lambda = \tfrac35 + \tfrac45 i\)</span> commutes with a Lorentz transformation: once for a pure boost and once for the non-simple rotor <span class="math inline">\((a,p,\kappa,\rho) = (2,3,(1,\tfrac12,0),(6,0,0))\)</span>. This follows from the fact that Lorentz transformations act on <span class="math inline">\(\zeta\)</span> by complex rotations, which commute with scalar multiplication.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Two different U(1)s
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The duality group is the same group, the norm-one elements of <span class="math inline">\(K\)</span>, in which the Cayley phases <span class="math inline">\((1-a\delta)/(1+a\delta)\)</span> live. But it plays a different role. <strong>Duality</strong> rotates the field <span class="math inline">\((\mathbf{E},\mathbf{B})\)</span> and is a symmetry of the source-free equations. A <strong>gauge</strong> phase rotates the wavefunction of a charged particle and leaves <span class="math inline">\(F\)</span> unchanged. The duality U(1) is intrinsic to the rotor structure. The gauge U(1) is not: it is a connection on a line bundle and must be supplied separately, which is what Calculation 9 does.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="calculation-9-the-gauge-u1-as-a-cayley-phase-lattice" class="level2">
+<h2 class="anchored" data-anchor-id="calculation-9-the-gauge-u1-as-a-cayley-phase-lattice">Calculation 9: the gauge U(1) as a Cayley phase lattice</h2>
+<p>Take the link variable to be the Cayley phase</p>
+<p><span class="math display">\[
+U = \frac{1 - i a}{1 + i a} = e^{-2i\arctan a}, \qquad a \in \mathbb{P}^1 \ (a = \infty \mapsto U = -1),
+\]</span></p>
+<p>the rational parametrization of the circle. Phases multiply by tangent addition, <span class="math inline">\(\mathrm{phase}(a)\,\mathrm{phase}(b) = \mathrm{phase}(a\oplus b)\)</span> with <span class="math inline">\(a \oplus b = (a+b)/(1-ab)\)</span>. The plaquette variable is the ordered product of four link phases, with <span class="math inline">\(a_P\)</span> obtained by tangent addition of the four link values. To connect with Calculation 8, define the lattice flux through a plaquette by <span class="math inline">\(U_P = e^{\,i q\Phi}\)</span>, i.e.&nbsp;<span class="math inline">\(a_P = -\tan(q\Phi/2)\)</span>, so that <span class="math inline">\(a_P \approx -q\Phi/2\)</span> for small flux.</p>
+<section id="exact-identities" class="level3">
+<h3 class="anchored" data-anchor-id="exact-identities">Exact identities</h3>
+<p>On a 3D torus with <span class="math inline">\(L = 3\)</span>, with random link values (including <span class="math inline">\(a = \infty\)</span> over <span class="math inline">\(\mathbb{Q}\)</span>), exact arithmetic gives:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Check</th>
+<th style="text-align: center;"><span class="math inline">\(\mathbb{Q}\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\mathbb{F}_7\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\mathbb{F}_{11}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Stokes: product of all plaquettes of a 2-plane slice <span class="math inline">\(= 1\)</span></td>
+<td style="text-align: center;">9/9</td>
+<td style="text-align: center;">9/9</td>
+<td style="text-align: center;">9/9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bianchi: boundary of every unit cube <span class="math inline">\(= 1\)</span></td>
+<td style="text-align: center;">27/27</td>
+<td style="text-align: center;">27/27</td>
+<td style="text-align: center;">27/27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Wilson term <span class="math inline">\(N(1-U_P) = 4a_P^2/(1+a_P^2)\)</span></td>
+<td style="text-align: center;">81/81</td>
+<td style="text-align: center;">81/81</td>
+<td style="text-align: center;">81/81</td>
+</tr>
+</tbody>
+</table>
+<p>A fuller 4D run (an <span class="math inline">\(L = 3\)</span> torus, all rectangles up to <span class="math inline">\(2\times2\)</span>, in the companion script <code>cayley_u1_lattice.py</code>) gives plaquette gauge invariance 486/486, rectangle Stokes 1944/1944, Bianchi 324/324 in all three fields. Over <span class="math inline">\(\mathbb{F}_p\)</span> the map from <span class="math inline">\(\mathbb{P}^1(\mathbb{F}_p)\)</span> to the norm-one group of <span class="math inline">\(\mathbb{F}_p[i]\)</span> is a bijection onto <span class="math inline">\(p+1\)</span> elements (8 for <span class="math inline">\(p=7\)</span>, 12 for <span class="math inline">\(p=11\)</span>) and a homomorphism on all <span class="math inline">\((p+1)^2\)</span> pairs.</p>
+<p>In field language these are the <strong>homogeneous Maxwell equations</strong>: Stokes says <span class="math inline">\(\oint A = \int F\)</span>, and Bianchi says <span class="math inline">\(dF = 0\)</span> (Faraday’s law and <span class="math inline">\(\nabla\cdot\mathbf{B} = 0\)</span>). They hold exactly, in rational and finite-field arithmetic. This is not a surprise: the group is abelian and the Cayley map is an isomorphism onto the circle group, and <span class="math inline">\(F\)</span> is <em>defined</em> as the plaquette product, so <span class="math inline">\(dF = 0\)</span> is an identity of the construction and not a dynamical statement.</p>
+</section>
+<section id="the-action-and-which-potential-to-use" class="level3">
+<h3 class="anchored" data-anchor-id="the-action-and-which-potential-to-use">The action, and which potential to use</h3>
+<p>The Wilson term is rational in the Cayley variable:</p>
+<p><span class="math display">\[
+1 - \mathrm{Re}\,U = \frac{2a^2}{1+a^2} = \tfrac12 N(1 - U),
+\]</span></p>
+<p>so over <span class="math inline">\(\mathbb{F}_p\)</span> it has a canonical <span class="math inline">\(\mathbb{F}_p\)</span>-valued analogue. Compare it with the quadratic “Cayley <span class="math inline">\(F^2\)</span>” action <span class="math inline">\(\sum a_P^2\)</span> on a smooth periodic field in the real regime (<span class="math inline">\(A_0 = 0.5\cos 2\pi x_1\)</span>, <span class="math inline">\(A_2 = 0.5\cos 2\pi x_3\)</span> on an <span class="math inline">\(L^4\)</span> torus with <span class="math inline">\(\epsilon = 1/L\)</span>; continuum <span class="math inline">\(\sum_{\mu&lt;\nu}\!\int F_{\mu\nu}^2 = 9.8696\)</span>, so the target is <span class="math inline">\(W \to 4.9348\)</span>):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(L\)</span></th>
+<th style="text-align: center;">Wilson <span class="math inline">\(W = \sum(1-\cos\theta_P)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(2\sum a_P^2\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(W/(2C)\)</span></th>
+<th style="text-align: center;"><span class="math inline">\((W - E/2)/(E/2)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3.99479</td>
+<td style="text-align: center;">4.01044</td>
+<td style="text-align: center;">0.99610</td>
+<td style="text-align: center;"><span class="math inline">\(-0.190\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4.68562</td>
+<td style="text-align: center;">4.68763</td>
+<td style="text-align: center;">0.99957</td>
+<td style="text-align: center;"><span class="math inline">\(-0.0505\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">4.87166</td>
+<td style="text-align: center;">4.87180</td>
+<td style="text-align: center;">0.99997</td>
+<td style="text-align: center;"><span class="math inline">\(-0.0128\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Both actions converge to the continuum <span class="math inline">\(F^2\)</span> energy with <span class="math inline">\(O(\epsilon^2)\)</span> error (the last column times <span class="math inline">\(L^2\)</span> settles near <span class="math inline">\(-3.3\)</span>). Their ratio differs from 1 only at <span class="math inline">\(O(\epsilon^4)\)</span>, because per plaquette <span class="math inline">\(2a^2/(1-\cos\theta) = 1 + \theta^2/4 + \cdots\)</span> and <span class="math inline">\(\theta = O(\epsilon^2)\)</span>. At strong coupling they are different theories. For a single plaquette, with Wilson weight <span class="math inline">\(e^{-\beta(1-\cos\theta)}\)</span> and Cayley weight <span class="math inline">\(e^{-2\beta a^2}\)</span>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(\beta\)</span></th>
+<th style="text-align: center;">Wilson <span class="math inline">\(\langle\cos\theta\rangle = I_1/I_0\)</span></th>
+<th style="text-align: center;">Cayley <span class="math inline">\(F^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.25</td>
+<td style="text-align: center;">0.1240</td>
+<td style="text-align: center;">0.5251</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.4464</td>
+<td style="text-align: center;">0.7464</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">0.8934</td>
+<td style="text-align: center;">0.9186</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">0.98995</td>
+<td style="text-align: center;">0.99024</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The half-trace potential is not the Maxwell action
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\(U(1)\)</span> is embedded in <span class="math inline">\(SL(2)\)</span> as <span class="math inline">\(\mathrm{diag}(U,\bar U)\)</span>, the half-trace of the holonomy is <span class="math inline">\(w = \mathrm{Re}\,U\)</span>, and the potential <span class="math inline">\(N(1-w) = (1-w)^2\)</span> used in the finitist papers becomes <span class="math inline">\((1-\mathrm{Re}\,U)^2 = 4a^4/(1+a^2)^2 \approx \theta^4/4\)</span>. That is <strong>quartic</strong> in the plaquette angle and vanishes in the continuum limit, instead of reproducing <span class="math inline">\(F^2\)</span>. I checked the <span class="math inline">\(SU(2)\)</span> version on a smooth non-commuting field: summed over the lattice it scales like <span class="math inline">\(\epsilon^4\)</span> and approaches <span class="math inline">\(\tfrac14\int\sum(F^aF^a)^2\)</span>, not the Yang–Mills energy. For a statement about electromagnetism, use <span class="math inline">\(1-\mathrm{Re}\,U = \tfrac12 N(1-U)\)</span> (Wilson) or <span class="math inline">\(\sum a_P^2\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="what-this-does-and-does-not-give" class="level3">
+<h3 class="anchored" data-anchor-id="what-this-does-and-does-not-give">What this does and does not give</h3>
+<ul>
+<li><strong>Gives:</strong> an exact, rational U(1) lattice gauge theory in which the plaquette flux is the curvature of Calculation 8, with exact Stokes and Bianchi identities over <span class="math inline">\(\mathbb{Q}\)</span> and <span class="math inline">\(\mathbb{F}_p\)</span>, and the correct <span class="math inline">\(F^2\)</span> continuum limit.</li>
+<li><strong>Does not give:</strong> the inhomogeneous equations <span class="math inline">\(d{*F} = J\)</span> (Gauss’s law and Ampère’s law), which would need a dual lattice and a Hodge star; any dynamics for the potential; or a continuum comparison over <span class="math inline">\(\mathbb{F}_p\)</span>, where there is no ordering and no notion of a weak field. Over <span class="math inline">\(\mathbb{F}_p\)</span> only the exact identities survive.</li>
+<li><strong>Not provided by the rotor machinery:</strong> the gauge structure itself. The rotor calculus supplies the exact arithmetic and the flux pairing with the plaquette bivector. The connection on the line bundle is extra input.</li>
+</ul>
+</section>
+</section>
+<section id="reproducing-calculations-8-and-9" class="level2">
+<h2 class="anchored" data-anchor-id="reproducing-calculations-8-and-9">Reproducing Calculations 8 and 9</h2>
+<p>The script below reproduces every table in Calculations 8 and 9 except the continuum and strong-coupling comparisons (those use <code>cayley_u1_lattice.py</code>). It needs only the standard library and SymPy, and runs in about a second.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">Reproduction script for Calculations 8 and 9 (flux through a plaquette, duality U(1), Cayley U(1) lattice).</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  1. Flux identity   F_{mu nu} u^mu v^nu = B(u, A(zeta_F) v) = -Re(zeta_F . z_uv),   *F-flux = +Im(zeta_F . z_uv)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">        over Z (exact integers) and over F_7, F_11</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  2. Duality U(1)    norm-one lambda = c + i s acts on zeta_F by (E,B) -&gt; (cE - sB, sE + cB)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">        over F_p:  E^2+B^2 invariant, zeta.zeta -&gt; lambda^2 zeta.zeta, flux doublet rotates by lambda</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">        over Q:    commutes with a Lorentz transformation (exact rational rotors)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">  3. Cayley U(1) lattice (3D torus, L = 3): plaquette = ordered product of Cayley phases,</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">        Stokes on a whole plane, Bianchi on every cube, Wilson term N(1-U) = 4 a^2/(1+a^2),</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">        exactly, over Q (Fractions) and over F_7, F_11</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">Needs: sympy (part 2 only).  Colab / terminal: just run it.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">"""</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> itertools</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fractions <span class="im">import</span> Fraction <span class="im">as</span> Fr</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>ETA <span class="op">=</span> [<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Amat(E, B):                                   <span class="co"># anchor matrix A(zeta), zeta = E + iB  (entries: ints, Fractions or sympy)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [[<span class="dv">0</span>, E[<span class="dv">0</span>], E[<span class="dv">1</span>], E[<span class="dv">2</span>]],</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>            [E[<span class="dv">0</span>], <span class="dv">0</span>, B[<span class="dv">2</span>], <span class="op">-</span>B[<span class="dv">1</span>]],</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>            [E[<span class="dv">1</span>], <span class="op">-</span>B[<span class="dv">2</span>], <span class="dv">0</span>, B[<span class="dv">0</span>]],</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>            [E[<span class="dv">2</span>], B[<span class="dv">1</span>], <span class="op">-</span>B[<span class="dv">0</span>], <span class="dv">0</span>]]</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="bu">apply</span>(M, v): <span class="cf">return</span> [<span class="bu">sum</span>(M[i][j] <span class="op">*</span> v[j] <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>)) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>)]</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Bf(x, y): <span class="cf">return</span> <span class="bu">sum</span>(ETA[i] <span class="op">*</span> x[i] <span class="op">*</span> y[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>))</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------------------------------------------ 1. flux --------</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> flux_check(p, n<span class="op">=</span><span class="dv">400</span>, seed<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> random.Random(seed)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    red <span class="op">=</span> (<span class="kw">lambda</span> x: x <span class="op">%</span> p) <span class="cf">if</span> p <span class="cf">else</span> (<span class="kw">lambda</span> x: x)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    okre <span class="op">=</span> okim <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        E <span class="op">=</span> [rng.randint(<span class="op">-</span><span class="dv">9</span>, <span class="dv">9</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)]<span class="op">;</span> B <span class="op">=</span> [rng.randint(<span class="op">-</span><span class="dv">9</span>, <span class="dv">9</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)]</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        u <span class="op">=</span> [rng.randint(<span class="op">-</span><span class="dv">9</span>, <span class="dv">9</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>)]<span class="op">;</span> v <span class="op">=</span> [rng.randint(<span class="op">-</span><span class="dv">9</span>, <span class="dv">9</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>)]</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        flux <span class="op">=</span> Bf(u, <span class="bu">apply</span>(Amat(E, B), v))                              <span class="co"># F_{mu nu} u^mu v^nu</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        dflux <span class="op">=</span> Bf(u, <span class="bu">apply</span>(Amat([<span class="op">-</span>b <span class="cf">for</span> b <span class="kw">in</span> B], E), v))               <span class="co"># flux of the dual field (E,B) -&gt; (-B,E)</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        kap <span class="op">=</span> [v[<span class="dv">0</span>] <span class="op">*</span> u[k] <span class="op">-</span> u[<span class="dv">0</span>] <span class="op">*</span> v[k] <span class="cf">for</span> k <span class="kw">in</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)]            <span class="co"># z_uv = kap + i rho  (rotor-paper edge bivector)</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        cr <span class="op">=</span> [u[<span class="dv">2</span>] <span class="op">*</span> v[<span class="dv">3</span>] <span class="op">-</span> u[<span class="dv">3</span>] <span class="op">*</span> v[<span class="dv">2</span>], u[<span class="dv">3</span>] <span class="op">*</span> v[<span class="dv">1</span>] <span class="op">-</span> u[<span class="dv">1</span>] <span class="op">*</span> v[<span class="dv">3</span>], u[<span class="dv">1</span>] <span class="op">*</span> v[<span class="dv">2</span>] <span class="op">-</span> u[<span class="dv">2</span>] <span class="op">*</span> v[<span class="dv">1</span>]]</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>        rho <span class="op">=</span> [<span class="op">-</span>c <span class="cf">for</span> c <span class="kw">in</span> cr]</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        re <span class="op">=</span> <span class="bu">sum</span>(E[k] <span class="op">*</span> kap[k] <span class="op">-</span> B[k] <span class="op">*</span> rho[k] <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>))       <span class="co"># Re(zeta_F . z_uv)</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        im <span class="op">=</span> <span class="bu">sum</span>(E[k] <span class="op">*</span> rho[k] <span class="op">+</span> B[k] <span class="op">*</span> kap[k] <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>))       <span class="co"># Im(zeta_F . z_uv)</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        okre <span class="op">+=</span> red(re) <span class="op">==</span> red(<span class="op">-</span>flux)</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>        okim <span class="op">+=</span> red(im) <span class="op">==</span> red(dflux)</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> okre, okim, n</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------------------------------------------- 2. duality --------</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> duality_check_Fp(p, n<span class="op">=</span><span class="dv">400</span>, seed<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> random.Random(seed)</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    circle <span class="op">=</span> [(c, s) <span class="cf">for</span> c <span class="kw">in</span> <span class="bu">range</span>(p) <span class="cf">for</span> s <span class="kw">in</span> <span class="bu">range</span>(p) <span class="cf">if</span> (c <span class="op">*</span> c <span class="op">+</span> s <span class="op">*</span> s) <span class="op">%</span> p <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    ok <span class="op">=</span> <span class="bu">dict</span>(norm<span class="op">=</span><span class="dv">0</span>, zz<span class="op">=</span><span class="dv">0</span>, rot<span class="op">=</span><span class="dv">0</span>, flux<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>        E <span class="op">=</span> [rng.randrange(p) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)]<span class="op">;</span> B <span class="op">=</span> [rng.randrange(p) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)]</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>        c, s <span class="op">=</span> rng.choice(circle)</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>        E2 <span class="op">=</span> [(c <span class="op">*</span> e <span class="op">-</span> s <span class="op">*</span> b) <span class="op">%</span> p <span class="cf">for</span> e, b <span class="kw">in</span> <span class="bu">zip</span>(E, B)]<span class="op">;</span> B2 <span class="op">=</span> [(s <span class="op">*</span> e <span class="op">+</span> c <span class="op">*</span> b) <span class="op">%</span> p <span class="cf">for</span> e, b <span class="kw">in</span> <span class="bu">zip</span>(E, B)]</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>        ok[<span class="st">"norm"</span>] <span class="op">+=</span> <span class="bu">sum</span>(e <span class="op">*</span> e <span class="op">+</span> b <span class="op">*</span> b <span class="cf">for</span> e, b <span class="kw">in</span> <span class="bu">zip</span>(E, B)) <span class="op">%</span> p <span class="op">==</span> <span class="bu">sum</span>(e <span class="op">*</span> e <span class="op">+</span> b <span class="op">*</span> b <span class="cf">for</span> e, b <span class="kw">in</span> <span class="bu">zip</span>(E2, B2)) <span class="op">%</span> p</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>        zz <span class="op">=</span> <span class="kw">lambda</span> E, B: (<span class="bu">sum</span>(e <span class="op">*</span> e <span class="op">-</span> b <span class="op">*</span> b <span class="cf">for</span> e, b <span class="kw">in</span> <span class="bu">zip</span>(E, B)) <span class="op">%</span> p, <span class="dv">2</span> <span class="op">*</span> <span class="bu">sum</span>(e <span class="op">*</span> b <span class="cf">for</span> e, b <span class="kw">in</span> <span class="bu">zip</span>(E, B)) <span class="op">%</span> p)</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>        re, im <span class="op">=</span> zz(E, B)                                               <span class="co"># zeta.zeta = re + i im</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>        expected <span class="op">=</span> (((c <span class="op">*</span> c <span class="op">-</span> s <span class="op">*</span> s) <span class="op">*</span> re <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> c <span class="op">*</span> s <span class="op">*</span> im) <span class="op">%</span> p, (<span class="dv">2</span> <span class="op">*</span> c <span class="op">*</span> s <span class="op">*</span> re <span class="op">+</span> (c <span class="op">*</span> c <span class="op">-</span> s <span class="op">*</span> s) <span class="op">*</span> im) <span class="op">%</span> p)   <span class="co"># lambda^2 * zeta.zeta</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>        ok[<span class="st">"zz"</span>] <span class="op">+=</span> zz(E2, B2) <span class="op">==</span> expected</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>        <span class="co"># flux doublet (Phi, Phi_dual) for a random plaquette (u, v)</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>        u <span class="op">=</span> [rng.randrange(p) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>)]<span class="op">;</span> v <span class="op">=</span> [rng.randrange(p) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>)]</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>        fl <span class="op">=</span> <span class="kw">lambda</span> E, B: (Bf(u, <span class="bu">apply</span>(Amat(E, B), v)) <span class="op">%</span> p, Bf(u, <span class="bu">apply</span>(Amat([<span class="op">-</span>b <span class="cf">for</span> b <span class="kw">in</span> B], E), v)) <span class="op">%</span> p)</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>        P, Pd <span class="op">=</span> fl(E, B)<span class="op">;</span> P2, Pd2 <span class="op">=</span> fl(E2, B2)</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>        ok[<span class="st">"flux"</span>] <span class="op">+=</span> (P2 <span class="op">==</span> (c <span class="op">*</span> P <span class="op">+</span> s <span class="op">*</span> Pd) <span class="op">%</span> p) <span class="kw">and</span> (Pd2 <span class="op">==</span> (<span class="op">-</span>s <span class="op">*</span> P <span class="op">+</span> c <span class="op">*</span> Pd) <span class="op">%</span> p)</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>        ok[<span class="st">"rot"</span>] <span class="op">+=</span> <span class="bu">len</span>(circle) <span class="op">==</span> p <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ok, n, <span class="bu">len</span>(circle)</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> duality_commutes_with_lorentz():</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>    I <span class="op">=</span> sp.I</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>    sig <span class="op">=</span> [sp.Matrix([[<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">1</span>, <span class="dv">0</span>]]), sp.Matrix([[<span class="dv">0</span>, <span class="op">-</span>I], [I, <span class="dv">0</span>]]), sp.Matrix([[<span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>]])]</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> <span class="kw">lambda</span> x: x[<span class="dv">0</span>] <span class="op">*</span> sp.eye(<span class="dv">2</span>) <span class="op">+</span> x[<span class="dv">1</span>] <span class="op">*</span> sig[<span class="dv">0</span>] <span class="op">+</span> x[<span class="dv">2</span>] <span class="op">*</span> sig[<span class="dv">1</span>] <span class="op">+</span> x[<span class="dv">3</span>] <span class="op">*</span> sig[<span class="dv">2</span>]</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>    comps <span class="op">=</span> <span class="kw">lambda</span> H: [(H[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">+</span> H[<span class="dv">1</span>, <span class="dv">1</span>]) <span class="op">/</span> <span class="dv">2</span>, (H[<span class="dv">0</span>, <span class="dv">1</span>] <span class="op">+</span> H[<span class="dv">1</span>, <span class="dv">0</span>]) <span class="op">/</span> <span class="dv">2</span>, (H[<span class="dv">1</span>, <span class="dv">0</span>] <span class="op">-</span> H[<span class="dv">0</span>, <span class="dv">1</span>]) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> I), (H[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">-</span> H[<span class="dv">1</span>, <span class="dv">1</span>]) <span class="op">/</span> <span class="dv">2</span>]</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> Lam(a, p, kap, rho):</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>        G <span class="op">=</span> (a <span class="op">+</span> I <span class="op">*</span> p) <span class="op">*</span> sp.eye(<span class="dv">2</span>) <span class="op">+</span> <span class="bu">sum</span>(((kap[i] <span class="op">+</span> I <span class="op">*</span> rho[i]) <span class="op">*</span> sig[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)), sp.zeros(<span class="dv">2</span>))</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>        N <span class="op">=</span> a <span class="op">**</span> <span class="dv">2</span> <span class="op">-</span> p <span class="op">**</span> <span class="dv">2</span> <span class="op">-</span> <span class="bu">sum</span>(c <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> c <span class="kw">in</span> kap) <span class="op">+</span> <span class="bu">sum</span>(c <span class="op">**</span> <span class="dv">2</span> <span class="cf">for</span> c <span class="kw">in</span> rho)</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>        cols <span class="op">=</span> [[sp.simplify(c) <span class="cf">for</span> c <span class="kw">in</span> comps(G <span class="op">*</span> X([<span class="bu">int</span>(i <span class="op">==</span> j) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>)]) <span class="op">*</span> G.H <span class="op">/</span> N)] <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>)]</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> sp.Matrix(cols).T</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>    c, s <span class="op">=</span> sp.Rational(<span class="dv">3</span>, <span class="dv">5</span>), sp.Rational(<span class="dv">4</span>, <span class="dv">5</span>)                          <span class="co"># lambda = 3/5 + 4i/5, norm one</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>    E <span class="op">=</span> [sp.Rational(<span class="dv">1</span>), sp.Rational(<span class="dv">2</span>), sp.Rational(<span class="dv">0</span>)]<span class="op">;</span> B <span class="op">=</span> [sp.Rational(<span class="dv">0</span>), sp.Rational(<span class="dv">1</span>), sp.Rational(<span class="dv">3</span>)]</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>    rot <span class="op">=</span> <span class="kw">lambda</span> E, B: ([c <span class="op">*</span> e <span class="op">-</span> s <span class="op">*</span> b <span class="cf">for</span> e, b <span class="kw">in</span> <span class="bu">zip</span>(E, B)], [s <span class="op">*</span> e <span class="op">+</span> c <span class="op">*</span> b <span class="cf">for</span> e, b <span class="kw">in</span> <span class="bu">zip</span>(E, B)])</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>    A4 <span class="op">=</span> <span class="kw">lambda</span> E, B: sp.Matrix(Amat(E, B))</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>    extract <span class="op">=</span> <span class="kw">lambda</span> M: ([M[<span class="dv">0</span>, <span class="dv">1</span>], M[<span class="dv">0</span>, <span class="dv">2</span>], M[<span class="dv">0</span>, <span class="dv">3</span>]], [M[<span class="dv">2</span>, <span class="dv">3</span>], M[<span class="dv">3</span>, <span class="dv">1</span>], M[<span class="dv">1</span>, <span class="dv">2</span>]])</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> []</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, rotor <span class="kw">in</span> ((<span class="st">"boost (2,0,(1,0,0),0)"</span>, (<span class="dv">2</span>, <span class="dv">0</span>, [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>])),</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>                        (<span class="st">"non-simple (2,3,(1,1/2,0),(6,0,0))"</span>, (<span class="dv">2</span>, <span class="dv">3</span>, [<span class="dv">1</span>, sp.Rational(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">0</span>], [<span class="dv">6</span>, <span class="dv">0</span>, <span class="dv">0</span>]))):</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>        L <span class="op">=</span> Lam(<span class="op">*</span>rotor)</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>        F1 <span class="op">=</span> L <span class="op">*</span> A4(<span class="op">*</span>rot(E, B)) <span class="op">*</span> L.inv()                                  <span class="co"># rotate by lambda, then Lorentz transform</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>        Ek, Bk <span class="op">=</span> extract(L <span class="op">*</span> A4(E, B) <span class="op">*</span> L.inv())                           <span class="co"># Lorentz transform, then rotate by lambda</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>        F2 <span class="op">=</span> A4(<span class="op">*</span>rot(Ek, Bk))</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>        out.append((name, sp.simplify(F1 <span class="op">-</span> F2) <span class="op">==</span> sp.zeros(<span class="dv">4</span>) <span class="kw">and</span> sp.simplify(L <span class="op">*</span> A4(E, B) <span class="op">*</span> L.inv() <span class="op">-</span> A4(Ek, Bk)) <span class="op">==</span> sp.zeros(<span class="dv">4</span>)))</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------------------------------------- 3. Cayley lattice -----</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Fp:</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(s, v): s.v <span class="op">=</span> <span class="bu">int</span>(v) <span class="op">%</span> Fp.p</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__add__</span>(s, o): <span class="cf">return</span> Fp(s.v <span class="op">+</span> _v(o))</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>    <span class="fu">__radd__</span> <span class="op">=</span> <span class="fu">__add__</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__sub__</span>(s, o): <span class="cf">return</span> Fp(s.v <span class="op">-</span> _v(o))</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__neg__</span>(s): <span class="cf">return</span> Fp(<span class="op">-</span>s.v)</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__mul__</span>(s, o): <span class="cf">return</span> Fp(s.v <span class="op">*</span> _v(o))</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>    <span class="fu">__rmul__</span> <span class="op">=</span> <span class="fu">__mul__</span></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__truediv__</span>(s, o): <span class="cf">return</span> Fp(s.v <span class="op">*</span> <span class="bu">pow</span>(_v(o), <span class="op">-</span><span class="dv">1</span>, Fp.p))</span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__eq__</span>(s, o): <span class="cf">return</span> s.v <span class="op">==</span> _v(o) <span class="op">%</span> Fp.p</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__hash__</span>(s): <span class="cf">return</span> <span class="bu">hash</span>(s.v)</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _v(o): <span class="cf">return</span> o.v <span class="cf">if</span> <span class="bu">isinstance</span>(o, Fp) <span class="cf">else</span> <span class="bu">int</span>(o)</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> lattice_checks(mk, rand, L<span class="op">=</span><span class="dv">3</span>, seed<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> random.Random(seed)</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>    one, zero <span class="op">=</span> mk(<span class="dv">1</span>), mk(<span class="dv">0</span>)</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> phase(a):                                                       <span class="co"># U = (1 - i a)/(1 + i a);  a = None means infinity</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> a <span class="kw">is</span> <span class="va">None</span>: <span class="cf">return</span> (<span class="op">-</span>one, zero)</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>        d <span class="op">=</span> one <span class="op">+</span> a <span class="op">*</span> a</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ((one <span class="op">-</span> a <span class="op">*</span> a) <span class="op">/</span> d, mk(<span class="op">-</span><span class="dv">2</span>) <span class="op">*</span> a <span class="op">/</span> d)</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>    gm <span class="op">=</span> <span class="kw">lambda</span> u, v: (u[<span class="dv">0</span>] <span class="op">*</span> v[<span class="dv">0</span>] <span class="op">-</span> u[<span class="dv">1</span>] <span class="op">*</span> v[<span class="dv">1</span>], u[<span class="dv">0</span>] <span class="op">*</span> v[<span class="dv">1</span>] <span class="op">+</span> u[<span class="dv">1</span>] <span class="op">*</span> v[<span class="dv">0</span>])</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>    gi <span class="op">=</span> <span class="kw">lambda</span> u: (u[<span class="dv">0</span>], <span class="op">-</span>u[<span class="dv">1</span>])                                        <span class="co"># norm one: inverse = conjugate</span></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>    a_of <span class="op">=</span> <span class="kw">lambda</span> u: <span class="va">None</span> <span class="cf">if</span> u[<span class="dv">0</span>] <span class="op">==</span> <span class="op">-</span>one <span class="cf">else</span> <span class="op">-</span>u[<span class="dv">1</span>] <span class="op">/</span> (one <span class="op">+</span> u[<span class="dv">0</span>])</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>    sites <span class="op">=</span> <span class="bu">list</span>(itertools.product(<span class="bu">range</span>(L), repeat<span class="op">=</span><span class="dv">3</span>))</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>    sh <span class="op">=</span> <span class="kw">lambda</span> x, m: <span class="bu">tuple</span>((x[i] <span class="op">+</span> (i <span class="op">==</span> m)) <span class="op">%</span> L <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>))</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>    U <span class="op">=</span> {(x, m): phase(rand(rng)) <span class="cf">for</span> x <span class="kw">in</span> sites <span class="cf">for</span> m <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)}</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>    P <span class="op">=</span> <span class="kw">lambda</span> x, m, n: gm(gm(U[(x, m)], U[(sh(x, m), n)]), gm(gi(U[(sh(x, n), m)]), gi(U[(x, n)])))</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>    ident <span class="op">=</span> (one, zero)</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Stokes on a torus: the product of all plaquettes of a 2-plane (fixed transverse coordinate) is 1</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>    st <span class="op">=</span> tot <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> m, n <span class="kw">in</span> ((<span class="dv">0</span>, <span class="dv">1</span>), (<span class="dv">1</span>, <span class="dv">2</span>), (<span class="dv">2</span>, <span class="dv">0</span>)):</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> ({<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>} <span class="op">-</span> {m, n}).pop()</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(L):</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>            B <span class="op">=</span> ident</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(L):</span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(L):</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>                    x <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]<span class="op">;</span> x[m], x[n], x[r] <span class="op">=</span> i, j, t</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>                    B <span class="op">=</span> gm(B, P(<span class="bu">tuple</span>(x), m, n))</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>            tot <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span> st <span class="op">+=</span> (B <span class="op">==</span> ident)</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Bianchi (dF = 0): boundary of every unit cube</span></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>    bi <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> sites:</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>        B <span class="op">=</span> ident</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> (m, n, o) <span class="kw">in</span> ((<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>), (<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>), (<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)):</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>            B <span class="op">=</span> gm(B, gm(P(x, m, n), gi(P(sh(x, o), m, n))))</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>        bi <span class="op">+=</span> (B <span class="op">==</span> ident)</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Wilson term N(1-U_P) = 4 a_P^2 / (1 + a_P^2)</span></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>    wl <span class="op">=</span> n_pl <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> sites:</span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> m, n <span class="kw">in</span> ((<span class="dv">0</span>, <span class="dv">1</span>), (<span class="dv">1</span>, <span class="dv">2</span>), (<span class="dv">2</span>, <span class="dv">0</span>)):</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>            Up <span class="op">=</span> P(x, m, n)<span class="op">;</span> a <span class="op">=</span> a_of(Up)</span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>            lhs <span class="op">=</span> (one <span class="op">-</span> Up[<span class="dv">0</span>]) <span class="op">*</span> (one <span class="op">-</span> Up[<span class="dv">0</span>]) <span class="op">+</span> Up[<span class="dv">1</span>] <span class="op">*</span> Up[<span class="dv">1</span>]</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>            rhs <span class="op">=</span> mk(<span class="dv">4</span>) <span class="cf">if</span> a <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> mk(<span class="dv">4</span>) <span class="op">*</span> a <span class="op">*</span> a <span class="op">/</span> (one <span class="op">+</span> a <span class="op">*</span> a)</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>            n_pl <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span> wl <span class="op">+=</span> (lhs <span class="op">==</span> rhs)</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (st, tot), (bi, <span class="bu">len</span>(sites)), (wl, n_pl)</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"1. flux identity:  -Re(zeta_F . z_uv) = F_{mu nu} u^mu v^nu ,   Im(zeta_F . z_uv) = flux of the dual field"</span>)</span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> label, p <span class="kw">in</span> ((<span class="st">"Z (exact)"</span>, <span class="va">None</span>), (<span class="st">"F_7"</span>, <span class="dv">7</span>), (<span class="st">"F_11"</span>, <span class="dv">11</span>)):</span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>        r, i, n <span class="op">=</span> flux_check(p)</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"   </span><span class="sc">{</span>label<span class="sc">:&lt;10}</span><span class="ss"> Re: </span><span class="sc">{</span>r<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">   Im: </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">2. duality U(1): zeta_F -&gt; lambda zeta_F,  lambda = c + i s,  c^2 + s^2 = 1"</span>)</span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> p <span class="kw">in</span> (<span class="dv">7</span>, <span class="dv">11</span>):</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>        ok, n, size <span class="op">=</span> duality_check_Fp(p)</span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"   F_</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">: |U(1)| = </span><span class="sc">{</span>size<span class="sc">}</span><span class="ss"> (= p+1);  E^2+B^2 invariant </span><span class="sc">{</span>ok[<span class="st">'norm'</span>]<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">;  zeta.zeta -&gt; lambda^2 zeta.zeta </span><span class="sc">{</span>ok[<span class="st">'zz'</span>]<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">;"</span></span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"  flux doublet rotates by lambda </span><span class="sc">{</span>ok[<span class="st">'flux'</span>]<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, good <span class="kw">in</span> duality_commutes_with_lorentz():</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"   Q: duality rotation commutes with the Lorentz transformation of </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>good<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">3. Cayley U(1) lattice, 3D torus L = 3  (Stokes on whole planes, Bianchi on cubes, Wilson term)"</span>)</span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>    rq <span class="op">=</span> <span class="kw">lambda</span> rng: <span class="va">None</span> <span class="cf">if</span> rng.random() <span class="op">&lt;</span> <span class="fl">0.06</span> <span class="cf">else</span> Fr(rng.randint(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>), rng.randint(<span class="dv">1</span>, <span class="dv">4</span>))</span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>    (s, t), (b, nb), (w, nw) <span class="op">=</span> lattice_checks(Fr, rq)</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"   Q (Fractions): Stokes </span><span class="sc">{</span>s<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>t<span class="sc">}</span><span class="ss">, Bianchi </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>nb<span class="sc">}</span><span class="ss">, Wilson identity </span><span class="sc">{</span>w<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>nw<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> p <span class="kw">in</span> (<span class="dv">7</span>, <span class="dv">11</span>):</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a>        Fp.p <span class="op">=</span> p</span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>        rf <span class="op">=</span> <span class="kw">lambda</span> rng: <span class="va">None</span> <span class="cf">if</span> rng.randrange(p <span class="op">+</span> <span class="dv">1</span>) <span class="op">==</span> p <span class="cf">else</span> Fp(rng.randrange(p))</span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>        (s, t), (b, nb), (w, nw) <span class="op">=</span> lattice_checks(Fp, rf)</span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"   F_</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">: Stokes </span><span class="sc">{</span>s<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>t<span class="sc">}</span><span class="ss">, Bianchi </span><span class="sc">{</span>b<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>nb<span class="sc">}</span><span class="ss">, Wilson identity </span><span class="sc">{</span>w<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>nw<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>main()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<!--
+SUGGESTED EDITS TO THE EXISTING TEXT (not part of the post; delete before rendering)
+
+(a) "The question", second paragraph. Replace
+      "the electromagnetic curvature $F_{\mu\nu}$"
+    with
+      "the electromagnetic field strength $F_{\mu\nu}$ (the curvature of the U(1) gauge connection)"
+    and extend the short answer to:
+      "The short answer is yes for the algebra and the force law, yes for the flux of the field through a plane (Calculation 8) and for an exact U(1) lattice built from Cayley phases (Calculation 9), and no for the field dynamics."
+    Change "seven worked calculations" to "nine worked calculations".
+
+(b) "Where the connection stops", first bullet. Replace with:
+      "- **No field dynamics.** There is no $d{*F} = J$, no sources, and no equation of motion for the potential. The Cayley lattice (Calculation 9) satisfies $dF = 0$ exactly, but that is an identity of the construction ($F = dA$), not dynamics. The rotor calculus gives the force on a particle in a given field, and the flux of a given field through a plane."
+
+(c) Calculation 6, last sentence. "Since $A$ is linear in $\zeta$, the dual field strength is simply $A(i\zeta)$" is slightly loose: $A$ is real-linear in $(\kappa,\rho)$, not $K$-linear, so $A(i\zeta) \neq iA(\zeta)$. Suggested wording:
+      "Since $A$ is real-linear in $(\kappa,\rho)$, the dual field strength is $A(i\zeta)$ (note that $A(i\zeta)\neq iA(\zeta)$: $A$ is a real matrix)."
+
+(d) Summary, add one sentence:
+      "The same bivector that generates a Lorentz rotation in the plane of two vertices also measures the flux of $F$ through that plane, and the Cayley phase gives an exact U(1) lattice in which that flux is the plaquette curvature."
+-->
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jcoady\.github\.io\/blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="jcoady/blog" data-repo-id="R_kgDOUEMSRA" data-category="General" data-category-id="DIC_kwDOUEMSRM4DEZKl" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
+</div> <!-- /content -->
+
+
+
+
+</body></html>
