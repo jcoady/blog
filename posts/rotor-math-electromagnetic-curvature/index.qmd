@@ -1,3 +1,4 @@
+
 ---
 title: "Is the Rotor Anchor the Electromagnetic Field Strength? Worked Calculations from a Projective 2×2 Rotor Architecture"
 author: "John D. Coady"
@@ -25,9 +26,9 @@ $$
 
 that represents it in the Lie algebra $\mathfrak{so}(1,3;F)$.
 
-Anyone who has met the electromagnetic field strength tensor will find this matrix familiar. This post asks a concrete question: **is there a real connection between the rotor anchor and the electromagnetic curvature $F_{\mu\nu}$, and can the rotor calculus reproduce known electromagnetic results?**
+Anyone who has met the electromagnetic field strength tensor will find this matrix familiar. This post asks a concrete question: **is there a real connection between the rotor anchor and the electromagnetic field strength $F_{\mu\nu}$ (the curvature of the U(1) gauge connection), and can the rotor calculus reproduce known electromagnetic results?**
 
-The short answer is yes for the algebra and for the *force law*, and no for the field *dynamics*. Below are seven worked calculations, each checked in exact rational arithmetic, followed by a clear statement of where the connection stops.
+The short answer is yes for the algebra and the *force law*, yes for the *flux* of the field through a plane (Calculation 8) and for an exact U(1) lattice built from Cayley phases (Calculation 9), and no for the field *dynamics*. Below are nine worked calculations, each checked in exact arithmetic, followed by a clear statement of where the connection stops.
 
 Conventions throughout: signature $\eta = \mathrm{diag}(1,-1,-1,-1)$, $c = 1$, $q/m = 1$, and $A(\zeta)$ exactly as in Definition 6.1 of the paper.
 
@@ -199,7 +200,7 @@ $$
 
 This matches the standard transformation law $\mathbf{E}'_\perp = \gamma\,\mathbf{E}$, $\mathbf{B}'_\perp = -\gamma\,\mathbf{v}\times\mathbf{E}$ for a frame moving at $\mathbf{v} = -\beta\hat y$. The invariants are preserved: $E'^2 - B'^2 = 25/16 - 9/16 = 1$ and $\mathbf{E}'\cdot\mathbf{B}' = 0$. In rotor language this is the statement that a Lorentz transformation acts on $\zeta$ as a *complex rotation*, which preserves $\zeta\cdot\zeta$.
 
-Multiplying the anchor by $i$ sends $\zeta = \mathbf{E} + i\mathbf{B}$ to $-\mathbf{B} + i\mathbf{E}$, the duality rotation. Since $A$ is linear in $\zeta$, the dual field strength is simply $A(i\zeta)$.
+Multiplying the anchor by $i$ sends $\zeta = \mathbf{E} + i\mathbf{B}$ to $-\mathbf{B} + i\mathbf{E}$, the duality rotation. Since $A$ is real-linear in $(\kappa,\rho)$, the dual field strength is $A(i\zeta)$ (note that $A(i\zeta)\neq iA(\zeta)$: $A$ is a real matrix).
 
 ## Calculation 7: a rational Lorentz-force integrator
 
@@ -244,20 +245,152 @@ With $r = 1/4$ (one step, $hB = 1$) this is $\cos\theta_c = 161/289$, $\sin\thet
 
 So the rotor step costs two Boris half-rotations and delivers the accuracy of two Boris steps. It is not a free improvement. What it adds is a *single* closed-form, exactly Lorentz-covariant step that treats $\mathbf{E}$ and $\mathbf{B}$ together as one complex anchor. I did not compare the combined $\mathbf{E}$ and $\mathbf{B}$ case against Boris.
 
+## Calculation 8: flux through a plaquette, and the duality U(1)
+
+So far the anchor has appeared as the *generator* that acts on a charge's velocity. The field strength has a second job: it is the **curvature of the U(1) gauge connection**, $F = dA$, and as a curvature it is evaluated on surfaces. This calculation shows where the rotor machinery meets that second job.
+
+**Setup.** Two vertices $u = (u^0,\mathbf{u})$ and $v = (v^0,\mathbf{v})$ span a parallelogram. The edge bivector of the companion finitist papers (the Plücker coordinates of the plane through $u$ and $v$) is
+
+$$
+z_{uv} = \bigl(v^0\,\mathbf{u} - u^0\,\mathbf{v}\bigr) \;-\; i\,(\mathbf{u}\times\mathbf{v}) \;\in K^3 ,
+$$
+
+bilinear in $u$ and $v$. The flux of the field through the parallelogram is the field strength contracted with its area bivector,
+
+$$
+\Phi_F(u,v) = F_{\mu\nu}\,u^\mu v^\nu = B\bigl(u,\,A(\zeta_F)\,v\bigr), \qquad B(x,y) = x^{T}\eta\,y,
+$$
+
+where $A(\zeta_F)$ is the mixed-index $F^{\mu}{}_{\nu}$ and the index is lowered with $\eta$.
+
+**The identity.** With the complex bilinear pairing $\zeta_F\cdot z = \sum_k \zeta_{F,k}\,z_k$ (no conjugation) and the dual field ${*F}:(\mathbf{E},\mathbf{B})\to(-\mathbf{B},\mathbf{E})$,
+
+$$
+\boxed{\;\zeta_F\cdot z_{uv} \;=\; -\,\Phi_F(u,v) \;+\; i\,\Phi_{*F}(u,v)\;}
+$$
+
+The real part is minus the flux of $F$ through the plane of $u$ and $v$. The imaginary part is the flux of the dual field, which is what a magnetic charge would couple to. Both sides are polynomial in the components, so the identity involves no division and holds over any field.
+
+**Worked example.** Take $\mathbf{E} = (1,2,0)$, $\mathbf{B} = (0,1,1)$, $u = (2,1,0,0)$, $v = (2,0,1,1)$. Then
+
+$$
+z_{uv} = (2,-2,-2) + i\,(0,1,-1), \qquad
+\zeta_F = (1,2,0) + i\,(0,1,1), \qquad
+\zeta_F\cdot z_{uv} = -2 - 2i .
+$$
+
+On the matrix side, $A(\zeta_F)\,v = (2,2,4,0)$, so $\Phi_F = B(u, A v) = 2\cdot 2 - 1\cdot 2 = 2$, which is $-\mathrm{Re}(\zeta_F\cdot z_{uv})$. For the dual field $(-\mathbf{B},\mathbf{E})$ one finds $A'v = (-2,-2,-1,-3)$ and $\Phi_{*F} = 2\cdot(-2) - 1\cdot(-2) = -2$, which is $\mathrm{Im}(\zeta_F\cdot z_{uv})$.
+
+**Why this is the U(1) connection.** A charge $q$ carried once around the parallelogram in a uniform field picks up the phase $e^{\,i q \Phi_F}$ (the Aharonov–Bohm or Wilson-loop phase; the sign depends on the coupling convention), because $\oint A = \int F$ by Stokes. So the U(1) holonomy angle of a plaquette is $\Phi_F = -\mathrm{Re}(\zeta_F\cdot z_{uv})$. The same bivector $z_{uv}$ that generates a Lorentz rotation in the plane of $u$ and $v$ also measures the flux of $F$ through that plane. That is the link between the rotor machinery and the gauge curvature.
+
+I checked the identity on 400 random samples in each of exact integers, $\mathbb{F}_7$ and $\mathbb{F}_{11}$: the real part matched $-\Phi_F$ and the imaginary part matched $\Phi_{*F}$ in all 400 cases each time.
+
+### The duality U(1)
+
+Multiplying the anchor by a norm-one $\lambda = c + is$ ($c^2 + s^2 = 1$) rotates the field,
+
+$$
+\zeta_F \to \lambda\,\zeta_F
+\quad\Longleftrightarrow\quad
+(\mathbf{E},\mathbf{B}) \to (c\mathbf{E} - s\mathbf{B},\; s\mathbf{E} + c\mathbf{B}),
+$$
+
+which is electromagnetic duality, $F \to cF + s\,{*F}$. Because $\zeta_F\cdot z_{uv}$ is linear in $\zeta_F$, the flux pair rotates as a doublet:
+
+$$
+\Phi_F' = c\,\Phi_F + s\,\Phi_{*F}, \qquad \Phi_{*F}' = -s\,\Phi_F + c\,\Phi_{*F}.
+$$
+
+Checked over $\mathbb{F}_7$ and $\mathbb{F}_{11}$ on 400 random fields each:
+
+| | $\mathbb{F}_7$ | $\mathbb{F}_{11}$ |
+|:---|:---:|:---:|
+| size of the norm-one group (cyclic, $p+1$) | 8 | 12 |
+| $E^2 + B^2 = \sum_k N(\zeta_k)$ invariant | 400/400 | 400/400 |
+| $\zeta\cdot\zeta \to \lambda^2\,\zeta\cdot\zeta$ | 400/400 | 400/400 |
+| flux doublet rotates by $\lambda$ | 400/400 | 400/400 |
+
+Over $\mathbb{Q}$ I also checked, with exact rotors, that a duality rotation by $\lambda = \tfrac35 + \tfrac45 i$ commutes with a Lorentz transformation: once for a pure boost and once for the non-simple rotor $(a,p,\kappa,\rho) = (2,3,(1,\tfrac12,0),(6,0,0))$. This follows from the fact that Lorentz transformations act on $\zeta$ by complex rotations, which commute with scalar multiplication.
+
+::: {.callout-warning}
+## Two different U(1)s
+The duality group is the same group, the norm-one elements of $K$, in which the Cayley phases $(1-a\delta)/(1+a\delta)$ live. But it plays a different role. **Duality** rotates the field $(\mathbf{E},\mathbf{B})$ and is a symmetry of the source-free equations. A **gauge** phase rotates the wavefunction of a charged particle and leaves $F$ unchanged. The duality U(1) is intrinsic to the rotor structure. The gauge U(1) is not: it is a connection on a line bundle and must be supplied separately, which is what Calculation 9 does.
+:::
+
+## Calculation 9: the gauge U(1) as a Cayley phase lattice
+
+Take the link variable to be the Cayley phase
+
+$$
+U = \frac{1 - i a}{1 + i a} = e^{-2i\arctan a}, \qquad a \in \mathbb{P}^1 \ (a = \infty \mapsto U = -1),
+$$
+
+the rational parametrization of the circle. Phases multiply by tangent addition, $\mathrm{phase}(a)\,\mathrm{phase}(b) = \mathrm{phase}(a\oplus b)$ with $a \oplus b = (a+b)/(1-ab)$. The plaquette variable is the ordered product of four link phases, with $a_P$ obtained by tangent addition of the four link values. To connect with Calculation 8, define the lattice flux through a plaquette by $U_P = e^{\,i q\Phi}$, i.e. $a_P = -\tan(q\Phi/2)$, so that $a_P \approx -q\Phi/2$ for small flux.
+
+### Exact identities
+
+On a 3D torus with $L = 3$, with random link values (including $a = \infty$ over $\mathbb{Q}$), exact arithmetic gives:
+
+| Check | $\mathbb{Q}$ | $\mathbb{F}_7$ | $\mathbb{F}_{11}$ |
+|:---|:---:|:---:|:---:|
+| Stokes: product of all plaquettes of a 2-plane slice $= 1$ | 9/9 | 9/9 | 9/9 |
+| Bianchi: boundary of every unit cube $= 1$ | 27/27 | 27/27 | 27/27 |
+| Wilson term $N(1-U_P) = 4a_P^2/(1+a_P^2)$ | 81/81 | 81/81 | 81/81 |
+
+A fuller 4D run (an $L = 3$ torus, all rectangles up to $2\times2$, in the companion script `cayley_u1_lattice.py`) gives plaquette gauge invariance 486/486, rectangle Stokes 1944/1944, Bianchi 324/324 in all three fields. Over $\mathbb{F}_p$ the map from $\mathbb{P}^1(\mathbb{F}_p)$ to the norm-one group of $\mathbb{F}_p[i]$ is a bijection onto $p+1$ elements (8 for $p=7$, 12 for $p=11$) and a homomorphism on all $(p+1)^2$ pairs.
+
+In field language these are the **homogeneous Maxwell equations**: Stokes says $\oint A = \int F$, and Bianchi says $dF = 0$ (Faraday's law and $\nabla\cdot\mathbf{B} = 0$). They hold exactly, in rational and finite-field arithmetic. This is not a surprise: the group is abelian and the Cayley map is an isomorphism onto the circle group, and $F$ is *defined* as the plaquette product, so $dF = 0$ is an identity of the construction and not a dynamical statement.
+
+### The action, and which potential to use
+
+The Wilson term is rational in the Cayley variable:
+
+$$
+1 - \mathrm{Re}\,U = \frac{2a^2}{1+a^2} = \tfrac12 N(1 - U),
+$$
+
+so over $\mathbb{F}_p$ it has a canonical $\mathbb{F}_p$-valued analogue. Compare it with the quadratic "Cayley $F^2$" action $\sum a_P^2$ on a smooth periodic field in the real regime ($A_0 = 0.5\cos 2\pi x_1$, $A_2 = 0.5\cos 2\pi x_3$ on an $L^4$ torus with $\epsilon = 1/L$; continuum $\sum_{\mu<\nu}\!\int F_{\mu\nu}^2 = 9.8696$, so the target is $W \to 4.9348$):
+
+| $L$ | Wilson $W = \sum(1-\cos\theta_P)$ | $2\sum a_P^2$ | $W/(2C)$ | $(W - E/2)/(E/2)$ |
+|:---:|:---:|:---:|:---:|:---:|
+| 4 | 3.99479 | 4.01044 | 0.99610 | $-0.190$ |
+| 8 | 4.68562 | 4.68763 | 0.99957 | $-0.0505$ |
+| 16 | 4.87166 | 4.87180 | 0.99997 | $-0.0128$ |
+
+Both actions converge to the continuum $F^2$ energy with $O(\epsilon^2)$ error (the last column times $L^2$ settles near $-3.3$). Their ratio differs from 1 only at $O(\epsilon^4)$, because per plaquette $2a^2/(1-\cos\theta) = 1 + \theta^2/4 + \cdots$ and $\theta = O(\epsilon^2)$. At strong coupling they are different theories. For a single plaquette, with Wilson weight $e^{-\beta(1-\cos\theta)}$ and Cayley weight $e^{-2\beta a^2}$:
+
+| $\beta$ | Wilson $\langle\cos\theta\rangle = I_1/I_0$ | Cayley $F^2$ |
+|:---:|:---:|:---:|
+| 0.25 | 0.1240 | 0.5251 |
+| 1 | 0.4464 | 0.7464 |
+| 5 | 0.8934 | 0.9186 |
+| 50 | 0.98995 | 0.99024 |
+
+::: {.callout-warning}
+## The half-trace potential is not the Maxwell action
+If $U(1)$ is embedded in $SL(2)$ as $\mathrm{diag}(U,\bar U)$, the half-trace of the holonomy is $w = \mathrm{Re}\,U$, and the potential $N(1-w) = (1-w)^2$ used in the finitist papers becomes $(1-\mathrm{Re}\,U)^2 = 4a^4/(1+a^2)^2 \approx \theta^4/4$. That is **quartic** in the plaquette angle and vanishes in the continuum limit, instead of reproducing $F^2$. I checked the $SU(2)$ version on a smooth non-commuting field: summed over the lattice it scales like $\epsilon^4$ and approaches $\tfrac14\int\sum(F^aF^a)^2$, not the Yang–Mills energy. For a statement about electromagnetism, use $1-\mathrm{Re}\,U = \tfrac12 N(1-U)$ (Wilson) or $\sum a_P^2$.
+:::
+
+### What this does and does not give
+
+- **Gives:** an exact, rational U(1) lattice gauge theory in which the plaquette flux is the curvature of Calculation 8, with exact Stokes and Bianchi identities over $\mathbb{Q}$ and $\mathbb{F}_p$, and the correct $F^2$ continuum limit.
+- **Does not give:** the inhomogeneous equations $d{*F} = J$ (Gauss's law and Ampère's law), which would need a dual lattice and a Hodge star; any dynamics for the potential; or a continuum comparison over $\mathbb{F}_p$, where there is no ordering and no notion of a weak field. Over $\mathbb{F}_p$ only the exact identities survive.
+- **Not provided by the rotor machinery:** the gauge structure itself. The rotor calculus supplies the exact arithmetic and the flux pairing with the plaquette bivector. The connection on the line bundle is extra input.
+
 ## Where the connection stops
 
 The results above are real algebra, but they are not new physics, and several things do not follow.
 
-- **No field dynamics.** There is no $d F = 0$, no $d{*F} = J$, no gauge potential, and no sources. The rotor calculus gives the *force on a particle in a given field*. It does not say how the field evolves.
+- **No field dynamics.** There is no $d{*F} = J$, no sources, and no equation of motion for the potential. The Cayley lattice (Calculation 9) satisfies $dF = 0$ exactly, but that is an identity of the construction ($F = dA$), not dynamics. The rotor calculus gives the *force on a particle in a given field*, and the flux of a given field through a plane. It does not say how the field evolves.
 - **The papers' edge anchors are not the electromagnetic field.** In the companion finitist papers the edge anchors are Plücker-type bivectors of planes through vertices, and their holonomies are a Lorentz (spin) connection, which is the gravity-side structure. Electromagnetism enters there separately, through the scalar Cayley phase $(1 - a\delta)/(1 + a\delta)$. The shared object is the Lie algebra $\mathfrak{so}(1,3)$, which can hold either role.
 - **Exactness over $\mathbb{Q}$ and $\mathbb{F}_p$ is algebraic, not physical.** Over $\mathbb{F}_p$ there is no sign of $E^2 - B^2$ and no notion of a weak field, so the statements about the Lagrangian and the $\theta$-term lose their meaning there.
 - **A $\theta$-density in the tetrahedron did not survive a holonomy test.** The identity $E\cdot B = \det[u,v,w,x]$ for a pair of opposite edges holds, but in a separate numerical test on 4-simplex boundaries the imaginary part of loop holonomies did not track it. That imaginary part is a non-abelian effect.
 
 **A note on one statement in the paper.** Theorem 6.2's recovery formula $A(\zeta) = 2\Lambda_{as}/\operatorname{tr}\Lambda$ checked out in every case I tried, including non-simple rotors with $\kappa\cdot\rho\neq 0$ (for example $(a,p,\kappa,\rho) = (2,3,(1,\tfrac12,0),(6,0,0))$). Proposition 6.3(3), however, relates the *vector* Cayley anchor $(\Lambda - I)(\Lambda + I)^{-1}$ to $\zeta$ by the doubling map. In my tests the vector Cayley anchor was *equal* to $A(\zeta)$ when $\mathbf{E}\cdot\mathbf{B} = 0$, and differed from it for the non-simple example above. The doubling law does relate the spin cap parameter to the induced rotor anchor (Calculation 3 and the cap section above), so I'd suggest rechecking the exact scope of that proposition.
 
-## Reproducing the calculations
+## Reproducing Calculations 1 to 7
 
-The script below reproduces every table and identity in this post using SymPy and Python fractions.
+The script below reproduces the identities and tables of Calculations 1 to 7 using SymPy and Python fractions. The Boris angle table, the rational-entry check in Calculation 4, and the examples in the closing note on the paper are short hand computations that are not in the script.
 
 ```python
 import math
@@ -316,9 +449,209 @@ for N in (4, 8, 16, 32):
     print(N, gam, err, None if prev is None else prev/err); prev = err
 ```
 
+## Reproducing Calculations 8 and 9
+
+The script below reproduces every table in Calculations 8 and 9 except the continuum and strong-coupling comparisons (those use `cayley_u1_lattice.py`). It needs only the standard library and SymPy, and runs in about a second.
+
+```python
+"""
+Reproduction script for Calculations 8 and 9 (flux through a plaquette, duality U(1), Cayley U(1) lattice).
+
+  1. Flux identity   F_{mu nu} u^mu v^nu = B(u, A(zeta_F) v) = -Re(zeta_F . z_uv),   *F-flux = +Im(zeta_F . z_uv)
+        over Z (exact integers) and over F_7, F_11
+  2. Duality U(1)    norm-one lambda = c + i s acts on zeta_F by (E,B) -> (cE - sB, sE + cB)
+        over F_p:  E^2+B^2 invariant, zeta.zeta -> lambda^2 zeta.zeta, flux doublet rotates by lambda
+        over Q:    commutes with a Lorentz transformation (exact rational rotors)
+  3. Cayley U(1) lattice (3D torus, L = 3): plaquette = ordered product of Cayley phases,
+        Stokes on a whole plane, Bianchi on every cube, Wilson term N(1-U) = 4 a^2/(1+a^2),
+        exactly, over Q (Fractions) and over F_7, F_11
+
+Needs: sympy (part 2 only).  Colab / terminal: just run it.
+"""
+import itertools
+import random
+from fractions import Fraction as Fr
+
+import sympy as sp
+
+ETA = [1, -1, -1, -1]
+
+
+def Amat(E, B):                                   # anchor matrix A(zeta), zeta = E + iB  (entries: ints, Fractions or sympy)
+    return [[0, E[0], E[1], E[2]],
+            [E[0], 0, B[2], -B[1]],
+            [E[1], -B[2], 0, B[0]],
+            [E[2], B[1], -B[0], 0]]
+
+
+def apply(M, v): return [sum(M[i][j] * v[j] for j in range(4)) for i in range(4)]
+def Bf(x, y): return sum(ETA[i] * x[i] * y[i] for i in range(4))
+
+
+# ------------------------------------------------------------ 1. flux --------
+def flux_check(p, n=400, seed=1):
+    rng = random.Random(seed)
+    red = (lambda x: x % p) if p else (lambda x: x)
+    okre = okim = 0
+    for _ in range(n):
+        E = [rng.randint(-9, 9) for _ in range(3)]; B = [rng.randint(-9, 9) for _ in range(3)]
+        u = [rng.randint(-9, 9) for _ in range(4)]; v = [rng.randint(-9, 9) for _ in range(4)]
+        flux = Bf(u, apply(Amat(E, B), v))                              # F_{mu nu} u^mu v^nu
+        dflux = Bf(u, apply(Amat([-b for b in B], E), v))               # flux of the dual field (E,B) -> (-B,E)
+        kap = [v[0] * u[k] - u[0] * v[k] for k in (1, 2, 3)]            # z_uv = kap + i rho  (rotor-paper edge bivector)
+        cr = [u[2] * v[3] - u[3] * v[2], u[3] * v[1] - u[1] * v[3], u[1] * v[2] - u[2] * v[1]]
+        rho = [-c for c in cr]
+        re = sum(E[k] * kap[k] - B[k] * rho[k] for k in range(3))       # Re(zeta_F . z_uv)
+        im = sum(E[k] * rho[k] + B[k] * kap[k] for k in range(3))       # Im(zeta_F . z_uv)
+        okre += red(re) == red(-flux)
+        okim += red(im) == red(dflux)
+    return okre, okim, n
+
+
+# --------------------------------------------------------- 2. duality --------
+def duality_check_Fp(p, n=400, seed=2):
+    rng = random.Random(seed)
+    circle = [(c, s) for c in range(p) for s in range(p) if (c * c + s * s) % p == 1]
+    ok = dict(norm=0, zz=0, rot=0, flux=0)
+    for _ in range(n):
+        E = [rng.randrange(p) for _ in range(3)]; B = [rng.randrange(p) for _ in range(3)]
+        c, s = rng.choice(circle)
+        E2 = [(c * e - s * b) % p for e, b in zip(E, B)]; B2 = [(s * e + c * b) % p for e, b in zip(E, B)]
+        ok["norm"] += sum(e * e + b * b for e, b in zip(E, B)) % p == sum(e * e + b * b for e, b in zip(E2, B2)) % p
+        zz = lambda E, B: (sum(e * e - b * b for e, b in zip(E, B)) % p, 2 * sum(e * b for e, b in zip(E, B)) % p)
+        re, im = zz(E, B)                                               # zeta.zeta = re + i im
+        expected = (((c * c - s * s) * re - 2 * c * s * im) % p, (2 * c * s * re + (c * c - s * s) * im) % p)   # lambda^2 * zeta.zeta
+        ok["zz"] += zz(E2, B2) == expected
+        # flux doublet (Phi, Phi_dual) for a random plaquette (u, v)
+        u = [rng.randrange(p) for _ in range(4)]; v = [rng.randrange(p) for _ in range(4)]
+        fl = lambda E, B: (Bf(u, apply(Amat(E, B), v)) % p, Bf(u, apply(Amat([-b for b in B], E), v)) % p)
+        P, Pd = fl(E, B); P2, Pd2 = fl(E2, B2)
+        ok["flux"] += (P2 == (c * P + s * Pd) % p) and (Pd2 == (-s * P + c * Pd) % p)
+        ok["rot"] += len(circle) == p + 1
+    return ok, n, len(circle)
+
+
+def duality_commutes_with_lorentz():
+    I = sp.I
+    sig = [sp.Matrix([[0, 1], [1, 0]]), sp.Matrix([[0, -I], [I, 0]]), sp.Matrix([[1, 0], [0, -1]])]
+    X = lambda x: x[0] * sp.eye(2) + x[1] * sig[0] + x[2] * sig[1] + x[3] * sig[2]
+    comps = lambda H: [(H[0, 0] + H[1, 1]) / 2, (H[0, 1] + H[1, 0]) / 2, (H[1, 0] - H[0, 1]) / (2 * I), (H[0, 0] - H[1, 1]) / 2]
+
+    def Lam(a, p, kap, rho):
+        G = (a + I * p) * sp.eye(2) + sum(((kap[i] + I * rho[i]) * sig[i] for i in range(3)), sp.zeros(2))
+        N = a ** 2 - p ** 2 - sum(c ** 2 for c in kap) + sum(c ** 2 for c in rho)
+        cols = [[sp.simplify(c) for c in comps(G * X([int(i == j) for i in range(4)]) * G.H / N)] for j in range(4)]
+        return sp.Matrix(cols).T
+
+    c, s = sp.Rational(3, 5), sp.Rational(4, 5)                          # lambda = 3/5 + 4i/5, norm one
+    E = [sp.Rational(1), sp.Rational(2), sp.Rational(0)]; B = [sp.Rational(0), sp.Rational(1), sp.Rational(3)]
+    rot = lambda E, B: ([c * e - s * b for e, b in zip(E, B)], [s * e + c * b for e, b in zip(E, B)])
+    A4 = lambda E, B: sp.Matrix(Amat(E, B))
+    extract = lambda M: ([M[0, 1], M[0, 2], M[0, 3]], [M[2, 3], M[3, 1], M[1, 2]])
+    out = []
+    for name, rotor in (("boost (2,0,(1,0,0),0)", (2, 0, [1, 0, 0], [0, 0, 0])),
+                        ("non-simple (2,3,(1,1/2,0),(6,0,0))", (2, 3, [1, sp.Rational(1, 2), 0], [6, 0, 0]))):
+        L = Lam(*rotor)
+        F1 = L * A4(*rot(E, B)) * L.inv()                                  # rotate by lambda, then Lorentz transform
+        Ek, Bk = extract(L * A4(E, B) * L.inv())                           # Lorentz transform, then rotate by lambda
+        F2 = A4(*rot(Ek, Bk))
+        out.append((name, sp.simplify(F1 - F2) == sp.zeros(4) and sp.simplify(L * A4(E, B) * L.inv() - A4(Ek, Bk)) == sp.zeros(4)))
+    return out
+
+
+# ----------------------------------------------------- 3. Cayley lattice -----
+class Fp:
+    p = 7
+    def __init__(s, v): s.v = int(v) % Fp.p
+    def __add__(s, o): return Fp(s.v + _v(o))
+    __radd__ = __add__
+    def __sub__(s, o): return Fp(s.v - _v(o))
+    def __neg__(s): return Fp(-s.v)
+    def __mul__(s, o): return Fp(s.v * _v(o))
+    __rmul__ = __mul__
+    def __truediv__(s, o): return Fp(s.v * pow(_v(o), -1, Fp.p))
+    def __eq__(s, o): return s.v == _v(o) % Fp.p
+    def __hash__(s): return hash(s.v)
+
+
+def _v(o): return o.v if isinstance(o, Fp) else int(o)
+
+
+def lattice_checks(mk, rand, L=3, seed=3):
+    rng = random.Random(seed)
+    one, zero = mk(1), mk(0)
+
+    def phase(a):                                                       # U = (1 - i a)/(1 + i a);  a = None means infinity
+        if a is None: return (-one, zero)
+        d = one + a * a
+        return ((one - a * a) / d, mk(-2) * a / d)
+
+    gm = lambda u, v: (u[0] * v[0] - u[1] * v[1], u[0] * v[1] + u[1] * v[0])
+    gi = lambda u: (u[0], -u[1])                                        # norm one: inverse = conjugate
+    a_of = lambda u: None if u[0] == -one else -u[1] / (one + u[0])
+    sites = list(itertools.product(range(L), repeat=3))
+    sh = lambda x, m: tuple((x[i] + (i == m)) % L for i in range(3))
+    U = {(x, m): phase(rand(rng)) for x in sites for m in range(3)}
+    P = lambda x, m, n: gm(gm(U[(x, m)], U[(sh(x, m), n)]), gm(gi(U[(sh(x, n), m)]), gi(U[(x, n)])))
+    ident = (one, zero)
+    # Stokes on a torus: the product of all plaquettes of a 2-plane (fixed transverse coordinate) is 1
+    st = tot = 0
+    for m, n in ((0, 1), (1, 2), (2, 0)):
+        r = ({0, 1, 2} - {m, n}).pop()
+        for t in range(L):
+            B = ident
+            for i in range(L):
+                for j in range(L):
+                    x = [0, 0, 0]; x[m], x[n], x[r] = i, j, t
+                    B = gm(B, P(tuple(x), m, n))
+            tot += 1; st += (B == ident)
+    # Bianchi (dF = 0): boundary of every unit cube
+    bi = 0
+    for x in sites:
+        B = ident
+        for (m, n, o) in ((1, 2, 0), (2, 0, 1), (0, 1, 2)):
+            B = gm(B, gm(P(x, m, n), gi(P(sh(x, o), m, n))))
+        bi += (B == ident)
+    # Wilson term N(1-U_P) = 4 a_P^2 / (1 + a_P^2)
+    wl = n_pl = 0
+    for x in sites:
+        for m, n in ((0, 1), (1, 2), (2, 0)):
+            Up = P(x, m, n); a = a_of(Up)
+            lhs = (one - Up[0]) * (one - Up[0]) + Up[1] * Up[1]
+            rhs = mk(4) if a is None else mk(4) * a * a / (one + a * a)
+            n_pl += 1; wl += (lhs == rhs)
+    return (st, tot), (bi, len(sites)), (wl, n_pl)
+
+
+def main():
+    print("1. flux identity:  -Re(zeta_F . z_uv) = F_{mu nu} u^mu v^nu ,   Im(zeta_F . z_uv) = flux of the dual field")
+    for label, p in (("Z (exact)", None), ("F_7", 7), ("F_11", 11)):
+        r, i, n = flux_check(p)
+        print(f"   {label:<10} Re: {r}/{n}   Im: {i}/{n}")
+    print("\n2. duality U(1): zeta_F -> lambda zeta_F,  lambda = c + i s,  c^2 + s^2 = 1")
+    for p in (7, 11):
+        ok, n, size = duality_check_Fp(p)
+        print(f"   F_{p}: |U(1)| = {size} (= p+1);  E^2+B^2 invariant {ok['norm']}/{n};  zeta.zeta -> lambda^2 zeta.zeta {ok['zz']}/{n};"
+              f"  flux doublet rotates by lambda {ok['flux']}/{n}")
+    for name, good in duality_commutes_with_lorentz():
+        print(f"   Q: duality rotation commutes with the Lorentz transformation of {name}: {good}")
+    print("\n3. Cayley U(1) lattice, 3D torus L = 3  (Stokes on whole planes, Bianchi on cubes, Wilson term)")
+    rq = lambda rng: None if rng.random() < 0.06 else Fr(rng.randint(-6, 6), rng.randint(1, 4))
+    (s, t), (b, nb), (w, nw) = lattice_checks(Fr, rq)
+    print(f"   Q (Fractions): Stokes {s}/{t}, Bianchi {b}/{nb}, Wilson identity {w}/{nw}")
+    for p in (7, 11):
+        Fp.p = p
+        rf = lambda rng: None if rng.randrange(p + 1) == p else Fp(rng.randrange(p))
+        (s, t), (b, nb), (w, nw) = lattice_checks(Fp, rf)
+        print(f"   F_{p}: Stokes {s}/{t}, Bianchi {b}/{nb}, Wilson identity {w}/{nw}")
+
+
+main()
+```
+
 ## Summary
 
-The rotor anchor $\zeta = \kappa + i\rho$ is, algebraically, the complexified electromagnetic field strength. Its matrix $A(\zeta)$ is the Lorentz-force generator, its norm $\zeta\cdot\zeta$ packages the two field invariants, null anchors are radiation fields, and the rotors built from it are the Lorentz transformations that move charges and transform fields. Every identity above was verified in exact arithmetic, and the rotor calculus gives rational, exactly covariant integrators for particle motion. The step from this algebra to electrodynamics, meaning field equations, sources, and quantization, is not provided by the rotor construction and remains a separate problem.
+The rotor anchor $\zeta = \kappa + i\rho$ is, algebraically, the complexified electromagnetic field strength. Its matrix $A(\zeta)$ is the Lorentz-force generator, its norm $\zeta\cdot\zeta$ packages the two field invariants, null anchors are radiation fields, and the rotors built from it are the Lorentz transformations that move charges and transform fields. Every identity above was verified in exact arithmetic, and the rotor calculus gives rational, exactly covariant integrators for particle motion. The same bivector that generates a Lorentz rotation in the plane of two vertices also measures the flux of $F$ through that plane, and the Cayley phase gives an exact U(1) lattice in which that flux is the plaquette curvature. The step from this algebra to electrodynamics, meaning field equations, sources, and quantization, is not provided by the rotor construction and remains a separate problem.
 
 ## References
 
