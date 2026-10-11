@@ -337,7 +337,7 @@ On a 3D torus with $L = 3$, with random link values (including $a = \infty$ over
 | Bianchi: boundary of every unit cube $= 1$ | 27/27 | 27/27 | 27/27 |
 | Wilson term $N(1-U_P) = 4a_P^2/(1+a_P^2)$ | 81/81 | 81/81 | 81/81 |
 
-A fuller 4D run (an $L = 3$ torus, all rectangles up to $2\times2$, in the companion script `cayley_u1_lattice.py`) gives plaquette gauge invariance 486/486, rectangle Stokes 1944/1944, Bianchi 324/324 in all three fields. Over $\mathbb{F}_p$ the map from $\mathbb{P}^1(\mathbb{F}_p)$ to the norm-one group of $\mathbb{F}_p[i]$ is a bijection onto $p+1$ elements (8 for $p=7$, 12 for $p=11$) and a homomorphism on all $(p+1)^2$ pairs.
+ A fuller 4D run (an $L = 3$ torus, all rectangles up to $2\times2$, in the companion script [`cayley_u1_lattice.py`](https://github.com/jcoady/blog/blob/main/posts/rotor-math-electromagnetic-curvature/code/cayley_u1_lattice.py)) gives plaquette gauge invariance 486/486, rectangle Stokes 1944/1944, Bianchi 324/324 in all three fields. Over $\mathbb{F}_p$ the map from $\mathbb{P}^1(\mathbb{F}_p)$ to the norm-one group of $\mathbb{F}_p[i]$ is a bijection onto $p+1$ elements (8 for $p=7$, 12 for $p=11$) and a homomorphism on all $(p+1)^2$ pairs.
 
 In field language these are the **homogeneous Maxwell equations**: Stokes says $\oint A = \int F$, and Bianchi says $dF = 0$ (Faraday's law and $\nabla\cdot\mathbf{B} = 0$). They hold exactly, in rational and finite-field arithmetic. This is not a surprise: the group is abelian and the Cayley map is an isomorphism onto the circle group, and $F$ is *defined* as the plaquette product, so $dF = 0$ is an identity of the construction and not a dynamical statement.
 
@@ -368,7 +368,7 @@ Both actions converge to the continuum $F^2$ energy with $O(\epsilon^2)$ error (
 
 ::: {.callout-warning}
 ## The half-trace potential is not the Maxwell action
-If $U(1)$ is embedded in $SL(2)$ as $\mathrm{diag}(U,\bar U)$, the half-trace of the holonomy is $w = \mathrm{Re}\,U$, and the potential $N(1-w) = (1-w)^2$ used in the finitist papers becomes $(1-\mathrm{Re}\,U)^2 = 4a^4/(1+a^2)^2 \approx \theta^4/4$. That is **quartic** in the plaquette angle and vanishes in the continuum limit, instead of reproducing $F^2$. I checked the $SU(2)$ version on a smooth non-commuting field: summed over the lattice it scales like $\epsilon^4$ and approaches $\tfrac14\int\sum(F^aF^a)^2$, not the Yang–Mills energy. For a statement about electromagnetism, use $1-\mathrm{Re}\,U = \tfrac12 N(1-U)$ (Wilson) or $\sum a_P^2$.
+If $U(1)$ is embedded in $SL(2)$ as $\mathrm{diag}(U,\bar U)$, the half-trace of the holonomy is $w = \mathrm{Re}\,U$, and the potential $N(1-w) = (1-w)^2$ used in the finitist papers becomes $(1-\mathrm{Re}\,U)^2 = 4a^4/(1+a^2)^2 \approx \theta^4/4$. That is **quartic** in the plaquette angle and vanishes in the continuum limit, instead of reproducing $F^2$. I checked the $SU(2)$ version on a smooth non-commuting field (see [`cayley_su2_lattice.py`](https://github.com/jcoady/blog/blob/main/posts/rotor-math-electromagnetic-curvature/code/cayley_su2_lattice.py)): summed over the lattice it scales like $\epsilon^4$ and approaches $\tfrac14\int\sum(F^aF^a)^2$, not the Yang–Mills energy. For a statement about electromagnetism, use $1-\mathrm{Re}\,U = \tfrac12 N(1-U)$ (Wilson) or $\sum a_P^2$.
 :::
 
 ### What this does and does not give
@@ -451,7 +451,7 @@ for N in (4, 8, 16, 32):
 
 ## Reproducing Calculations 8 and 9
 
-The script below reproduces every table in Calculations 8 and 9 except the continuum and strong-coupling comparisons (those use `cayley_u1_lattice.py`). It needs only the standard library and SymPy, and runs in about a second.
+The script below reproduces every table in Calculations 8 and 9 except the continuum and strong-coupling comparisons (those use [`cayley_u1_lattice.py`](https://github.com/jcoady/blog/blob/main/posts/rotor-math-electromagnetic-curvature/code/cayley_u1_lattice.py)). It needs only the standard library and SymPy, and runs in about a second.
 
 ```python
 """
