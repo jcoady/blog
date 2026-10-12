@@ -1,8 +1,7 @@
-
 ---
 title: "Is the Rotor Anchor the Electromagnetic Field Strength? Worked Calculations from a Projective 2×2 Rotor Architecture"
 author: "John D. Coady"
-date: "2026-10-09"
+date: "2026-10-11"
 categories: [pure-math, geometry, hyperbolic-geometry, mathematical-physics, electromagnetism, lorentz-group, rational-trigonometry]
 format:
   html:
@@ -28,7 +27,7 @@ that represents it in the Lie algebra $\mathfrak{so}(1,3;F)$.
 
 Anyone who has met the electromagnetic field strength tensor will find this matrix familiar. This post asks a concrete question: **is there a real connection between the rotor anchor and the electromagnetic field strength $F_{\mu\nu}$ (the curvature of the U(1) gauge connection), and can the rotor calculus reproduce known electromagnetic results?**
 
-The short answer is yes for the algebra and the *force law*, yes for the *flux* of the field through a plane (Calculation 8) and for an exact U(1) lattice built from Cayley phases (Calculation 9), and no for the field *dynamics*. Below are nine worked calculations, each checked in exact arithmetic, followed by a clear statement of where the connection stops.
+The short answer is yes for the algebra and the *force law*, yes for the *flux* of the field through a plane (Calculation 8) and for an exact U(1) lattice built from Cayley phases (Calculation 9), and only partly for the field *dynamics*: Calculation 10 gives exact rational Hamiltonian lattice dynamics for the Cayley $U(1)$ variables with an exact Gauss law, but not a Lorentz-covariant theory. Below are ten worked calculations, each checked numerically (in exact arithmetic wherever the claim is an algebraic identity), followed by a clear statement of where the connection stops.
 
 Conventions throughout: signature $\eta = \mathrm{diag}(1,-1,-1,-1)$, $c = 1$, $q/m = 1$, and $A(\zeta)$ exactly as in Definition 6.1 of the paper.
 
@@ -337,7 +336,7 @@ On a 3D torus with $L = 3$, with random link values (including $a = \infty$ over
 | Bianchi: boundary of every unit cube $= 1$ | 27/27 | 27/27 | 27/27 |
 | Wilson term $N(1-U_P) = 4a_P^2/(1+a_P^2)$ | 81/81 | 81/81 | 81/81 |
 
- A fuller 4D run (an $L = 3$ torus, all rectangles up to $2\times2$, in the companion script [`cayley_u1_lattice.py`](https://github.com/jcoady/blog/blob/main/posts/rotor-math-electromagnetic-curvature/code/cayley_u1_lattice.py)) gives plaquette gauge invariance 486/486, rectangle Stokes 1944/1944, Bianchi 324/324 in all three fields. Over $\mathbb{F}_p$ the map from $\mathbb{P}^1(\mathbb{F}_p)$ to the norm-one group of $\mathbb{F}_p[i]$ is a bijection onto $p+1$ elements (8 for $p=7$, 12 for $p=11$) and a homomorphism on all $(p+1)^2$ pairs.
+A fuller 4D run (an $L = 3$ torus, all rectangles up to $2\times2$, in the companion script [`cayley_u1_lattice.py`](https://github.com/jcoady/blog/blob/main/posts/rotor-math-electromagnetic-curvature/code/cayley_u1_lattice.py)) gives plaquette gauge invariance 486/486, rectangle Stokes 1944/1944, Bianchi 324/324 in all three fields. Over $\mathbb{F}_p$ the map from $\mathbb{P}^1(\mathbb{F}_p)$ to the norm-one group of $\mathbb{F}_p[i]$ is a bijection onto $p+1$ elements (8 for $p=7$, 12 for $p=11$) and a homomorphism on all $(p+1)^2$ pairs.
 
 In field language these are the **homogeneous Maxwell equations**: Stokes says $\oint A = \int F$, and Bianchi says $dF = 0$ (Faraday's law and $\nabla\cdot\mathbf{B} = 0$). They hold exactly, in rational and finite-field arithmetic. This is not a surprise: the group is abelian and the Cayley map is an isomorphism onto the circle group, and $F$ is *defined* as the plaquette product, so $dF = 0$ is an identity of the construction and not a dynamical statement.
 
@@ -374,14 +373,88 @@ If $U(1)$ is embedded in $SL(2)$ as $\mathrm{diag}(U,\bar U)$, the half-trace of
 ### What this does and does not give
 
 - **Gives:** an exact, rational U(1) lattice gauge theory in which the plaquette flux is the curvature of Calculation 8, with exact Stokes and Bianchi identities over $\mathbb{Q}$ and $\mathbb{F}_p$, and the correct $F^2$ continuum limit.
-- **Does not give:** the inhomogeneous equations $d{*F} = J$ (Gauss's law and Ampère's law), which would need a dual lattice and a Hodge star; any dynamics for the potential; or a continuum comparison over $\mathbb{F}_p$, where there is no ordering and no notion of a weak field. Over $\mathbb{F}_p$ only the exact identities survive.
+- **Does not give (in this calculation):** the inhomogeneous equations $d{*F} = J$ or any dynamics for the potential (Calculation 10 adds Hamiltonian dynamics on a cubic lattice); or a continuum comparison over $\mathbb{F}_p$, where there is no ordering and no notion of a weak field. Over $\mathbb{F}_p$ only the exact identities survive.
 - **Not provided by the rotor machinery:** the gauge structure itself. The rotor calculus supplies the exact arithmetic and the flux pairing with the plaquette bivector. The connection on the line bundle is extra input.
+
+## Calculation 10: Hamiltonian dynamics in Cayley variables
+
+Calculations 8 and 9 give the *kinematics* of the gauge field: curvature, Stokes and Bianchi identities. They contain no time evolution. This calculation adds the missing piece in the standard way, as Hamiltonian lattice gauge theory (Kogut and Susskind), but written in Cayley variables so that every update is a rational map. It is not new physics. The point is what the Cayley parametrization buys: a rational, exactly reversible, symplectic time step with an exact Gauss law, over $\mathbb{Q}$ and over $\mathbb{F}_p$.
+
+**Setup.** Take a two-dimensional periodic spatial lattice ($L\times L$ sites, so $2+1$ dimensions in all), temporal gauge, coupling $g = 1$, lattice spacing 1 and $c = 1$. Each link carries the Cayley parameter $a$, so that $U = (1-ia)/(1+ia) = e^{i\theta}$ with $\theta = -2\arctan a$, and an electric field $E$ conjugate to $\theta$. The plaquette angle is $\theta_P = \theta_x(i,j) + \theta_y(i+1,j) - \theta_x(i,j+1) - \theta_y(i,j)$, and
+
+$$
+H = \sum_{\text{links}} \tfrac12 E^2 + \sum_{P}\bigl(1-\cos\theta_P\bigr),
+\qquad
+\dot\theta = E,
+\qquad
+\dot E = -\frac{\partial V}{\partial \theta}.
+$$
+
+The sine of a plaquette angle is the imaginary part of the product of four Cayley phases, so it is rational in the link parameters (for a single link, $\sin\theta = -2a/(1+a^2)$). Writing $S(i,j) = \sin\theta_P(i,j)$, the force on the electric field is
+
+$$
+\dot E_x(i,j) = -\bigl(S(i,j) - S(i,j-1)\bigr),
+\qquad
+\dot E_y(i,j) = +\bigl(S(i,j) - S(i-1,j)\bigr).
+$$
+
+### A rational time step
+
+One step of size $\Delta t$ is a kick, a drift, and a second kick:
+
+- **Kick:** $E \leftarrow E - \tfrac{\Delta t}{2}\,\mathrm{curl}^{T}S$, with $S$ computed from the current link parameters.
+- **Drift:** $a \leftarrow a\oplus b$ with $b = -\tfrac{\Delta t}{2}E$, where $a\oplus b = (a+b)/(1-ab)$ is tangent addition. In angle terms this is $\theta \to \theta + 2\arctan(\Delta t\,E/2)$, a Cayley approximation to the exact drift $\theta\to\theta + \Delta t\,E$ whose error is $O(\Delta t^3E^3)$ per step.
+- **Kick** again.
+
+There are no exponentials, trigonometric functions or square roots. Over $\mathbb{F}_p$ with $p \equiv 3 \pmod 4$ the denominators $1 + a^2$ never vanish, and the point $a = \infty$ is handled as in the Cayley group ($\infty\oplus b = -1/b$), so the map is defined on every state.
+
+### Why the Gauss law is exact
+
+The lattice divergence is $(\mathrm{div}\,E)(i,j) = E_x(i,j) - E_x(i-1,j) + E_y(i,j) - E_y(i,j-1)$. A kick by $h$ changes it by
+
+$$
+-h\bigl[S(i,j) - S(i,j-1) - S(i-1,j) + S(i-1,j-1)\bigr] + h\bigl[S(i,j) - S(i-1,j) - S(i,j-1) + S(i-1,j-1)\bigr] = 0,
+$$
+
+because the two brackets are identical. This holds for *any* values of $S$, so it does not depend on the fields, the step size, or the arithmetic. The drift does not touch $E$. Hence $\mathrm{div}\,E = \rho$ is conserved exactly for any static charge distribution $\rho$. This is the Gauss-law component of $d{*F} = J$.
+
+### Why the step is symplectic and reversible
+
+The kick is the exact flow of the potential $V(\theta)$. The drift $\theta \to \theta + 2\arctan(\Delta t\,E/2)$ is the exact time-$\Delta t$ flow of a modified kinetic term $T(E)$ with $T'(E) = (2/\Delta t)\arctan(\Delta t\,E/2)$. A composition of exact flows of Hamiltonians is symplectic in $(\theta, E)$. The kick changes only $E$ (using $a$) and the drift changes only $a$ (using $E$), so replacing $\Delta t$ by $-\Delta t$ gives the inverse map exactly.
+
+### Results
+
+**Exact arithmetic** (a $3\times3$ torus with 18 links, static charges so that $\mathrm{div}\,E\neq 0$):
+
+| Test | Result |
+|:---|:---|
+| $\mathbb{Q}$ (Fractions), $\Delta t = 1/4$, 4 steps | Gauss law unchanged at every step; 4 steps back recovers the initial state exactly |
+| Size of the numbers after steps 1, 2, 3, 4 | 194, 2,700, 38,293, 555,672 bits (about 14 times larger per step) |
+| $\mathbb{F}_7$ and $\mathbb{F}_{11}$, 200 random states each (including $a=\infty$), 60 steps | Gauss law exact 200/200; state changed 200/200; exactly reversible 200/200 |
+
+**Floating point** (does it behave like Maxwell theory?):
+
+| Test | Result |
+|:---|:---|
+| Standing wave, $L = 64$, $k = 2\pi\cdot 4/64$ | measured $\omega = 0.390335$; linear lattice formula $0.390336$; continuum $ck = 0.392699$ (a 0.6% gap, the usual $O(k^2)$ lattice dispersion) |
+| Nonlinear field ($\theta_x = 0.6\sin(2\pi y/L)$, $\theta_y = 0.5\cos(2\pi x/L)$), $L = 16$, 20,000 steps of $\Delta t = 0.2$ | $\max\lvert H-H_0\rvert/H_0 = 1.45\times 10^{-3}$; relative drift over the run $-7.8\times10^{-7}$ |
+| Error against a fine reference at $T = 2$, $\Delta t = 0.2, 0.1, 0.05$ | $1.15\times10^{-3}$, $2.87\times10^{-4}$, $7.16\times10^{-5}$ (ratios 4.00, 4.01: second order) |
+| Symplecticity, 36-dimensional phase space | $\max\lvert J^{T}\Omega J - \Omega\rvert = 1.0\times10^{-10}$, $\det J = 1.0000000001$ |
+
+### What this does and does not give
+
+- **Gives:** a rational, exactly reversible, symplectic time evolution for the Cayley link variables, with an exact Gauss law over $\mathbb{Q}$ and $\mathbb{F}_p$, that behaves like Maxwell theory in floating point: second-order accurate, the right dispersion, and bounded energy.
+- **Not new physics.** This is compact $U(1)$ Hamiltonian lattice gauge theory (Kogut and Susskind) with a staggered leapfrog in the style of Yee's scheme, viewed as a symplectic integrator (references 5 to 7). What is specific to this framework is the rational Cayley parametrization and the exactness over $\mathbb{Q}$ and $\mathbb{F}_p$.
+- **Not yet the framework's own dynamics.** The lattice is cubic with a Euclidean spatial metric and time enters only as a step, so the Hodge star is trivial and Lorentz covariance is not realised. A Hodge star built from the Minkowski or Gram data of the rotor and UHG setting, on a $3+1$-dimensional complex, is the open problem.
+- **Untested:** currents and particles (only static charges here), coupling to the integrator of Calculation 7 (which would need a deposited current with $dJ = 0$), and a $3+1$-dimensional run. The test was in $2+1$ dimensions.
+- **Exact rational runs do not scale.** Over $\mathbb{Q}$ the numbers grow about fourteen-fold in size per step, so exact evolution is practical for a few steps only.
+- **Over $\mathbb{F}_p$ there is no energy and no wave speed.** The evolution is a reversible permutation dynamics with an exact Gauss law. There is no ordering, so no continuum comparison and no notion of a weak field.
 
 ## Where the connection stops
 
 The results above are real algebra, but they are not new physics, and several things do not follow.
 
-- **No field dynamics.** There is no $d{*F} = J$, no sources, and no equation of motion for the potential. The Cayley lattice (Calculation 9) satisfies $dF = 0$ exactly, but that is an identity of the construction ($F = dA$), not dynamics. The rotor calculus gives the *force on a particle in a given field*, and the flux of a given field through a plane. It does not say how the field evolves.
+- **Field dynamics is only partial.** Calculation 10 gives rational, reversible, symplectic Hamiltonian dynamics for the Cayley link variables with an exact Gauss law, but on a cubic lattice with a Euclidean spatial metric. There is no Lorentz-covariant Hodge star built from the rotor or UHG data, no currents from the particle integrator of Calculation 7, and no $3+1$-dimensional test. The rotor calculus itself gives the *force on a particle in a given field*, and the flux of a given field through a plane.
 - **The papers' edge anchors are not the electromagnetic field.** In the companion finitist papers the edge anchors are Plücker-type bivectors of planes through vertices, and their holonomies are a Lorentz (spin) connection, which is the gravity-side structure. Electromagnetism enters there separately, through the scalar Cayley phase $(1 - a\delta)/(1 + a\delta)$. The shared object is the Lie algebra $\mathfrak{so}(1,3)$, which can hold either role.
 - **Exactness over $\mathbb{Q}$ and $\mathbb{F}_p$ is algebraic, not physical.** Over $\mathbb{F}_p$ there is no sign of $E^2 - B^2$ and no notion of a weak field, so the statements about the Lagrangian and the $\theta$-term lose their meaning there.
 - **A $\theta$-density in the tetrahedron did not survive a holonomy test.** The identity $E\cdot B = \det[u,v,w,x]$ for a pair of opposite edges holds, but in a separate numerical test on 4-simplex boundaries the imaginary part of loop holonomies did not track it. That imaginary part is a non-abelian effect.
@@ -649,9 +722,71 @@ def main():
 main()
 ```
 
+## Reproducing Calculation 10
+
+The full script, [`cayley_hamiltonian_lattice.py`](https://github.com/jcoady/blog/blob/main/posts/rotor-math-electromagnetic-curvature/code/cayley_hamiltonian_lattice.py), reproduces every row of both tables. It needs only numpy and takes about a minute. The exact-arithmetic part is short enough to include here. It ignores the point $a=\infty$, which the full script handles.
+
+```python
+import random
+from fractions import Fraction as Fr
+
+L = 3                                            # 3 x 3 periodic spatial lattice, 18 links
+rng = random.Random(4)
+keys = [(i, j, m) for i in range(L) for j in range(L) for m in (0, 1)]
+
+def phase(a):                                    # U = (1 - i a)/(1 + i a) = (cos th, sin th), th = -2 atan a
+    d = 1 + a*a
+    return ((1 - a*a)/d, -2*a/d)
+
+def cmul(u, v): return (u[0]*v[0] - u[1]*v[1], u[0]*v[1] + u[1]*v[0])
+def cconj(u): return (u[0], -u[1])
+
+def sin_plaq(a):                                 # S = Im(U_x U_y U_x^-1 U_y^-1): rational in the link parameters
+    S = {}
+    for i in range(L):
+        for j in range(L):
+            u = cmul(cmul(phase(a[i, j, 0]), phase(a[(i+1) % L, j, 1])),
+                     cmul(cconj(phase(a[i, (j+1) % L, 0])), cconj(phase(a[i, j, 1]))))
+            S[i, j] = u[1]
+    return S
+
+def kick(a, E, h):                               # E <- E - h curl^T S
+    S = sin_plaq(a)
+    out = {}
+    for i in range(L):
+        for j in range(L):
+            out[i, j, 0] = E[i, j, 0] - h*(S[i, j] - S[i, (j-1) % L])
+            out[i, j, 1] = E[i, j, 1] + h*(S[i, j] - S[(i-1) % L, j])
+    return out
+
+def drift(a, E, dt):                             # a <- a (+) b, b = -dt E/2: theta += 2 atan(dt E/2)
+    return {k: (a[k] - dt*E[k]/2) / (1 + a[k]*dt*E[k]/2) for k in a}
+
+def step(a, E, dt):
+    E = kick(a, E, dt/2); a = drift(a, E, dt); E = kick(a, E, dt/2)
+    return a, E
+
+def gauss(E):                                    # div E on every site
+    return {(i, j): E[i, j, 0] - E[(i-1) % L, j, 0] + E[i, j, 1] - E[i, (j-1) % L, 1]
+            for i in range(L) for j in range(L)}
+
+bits = lambda x: max(abs(x.numerator).bit_length(), x.denominator.bit_length())
+a = {k: Fr(rng.randint(-3, 3), rng.randint(1, 3)) for k in keys}
+E = {k: Fr(rng.randint(-3, 3), rng.randint(1, 3)) for k in keys}      # div E != 0: static charges
+a0, E0, g0, dt = dict(a), dict(E), gauss(E), Fr(1, 4)
+for n in range(1, 4):
+    a, E = step(a, E, dt)
+    assert gauss(E) == g0                                              # Gauss law preserved exactly
+    print(n, "Gauss law unchanged; max bit-length of a, E:", max(bits(x) for x in list(a.values()) + list(E.values())))
+for n in range(3):
+    a, E = step(a, E, -dt)                                             # time reversal
+assert a == a0 and E == E0
+print("3 steps forward and 3 back: initial state recovered exactly")
+```
+
 ## Summary
 
-The rotor anchor $\zeta = \kappa + i\rho$ is, algebraically, the complexified electromagnetic field strength. Its matrix $A(\zeta)$ is the Lorentz-force generator, its norm $\zeta\cdot\zeta$ packages the two field invariants, null anchors are radiation fields, and the rotors built from it are the Lorentz transformations that move charges and transform fields. Every identity above was verified in exact arithmetic, and the rotor calculus gives rational, exactly covariant integrators for particle motion. The same bivector that generates a Lorentz rotation in the plane of two vertices also measures the flux of $F$ through that plane, and the Cayley phase gives an exact U(1) lattice in which that flux is the plaquette curvature. The step from this algebra to electrodynamics, meaning field equations, sources, and quantization, is not provided by the rotor construction and remains a separate problem.
+The rotor anchor $\zeta = \kappa + i\rho$ is, algebraically, the complexified electromagnetic field strength. Its matrix $A(\zeta)$ is the Lorentz-force generator, its norm $\zeta\cdot\zeta$ packages the two field invariants, null anchors are radiation fields, and the rotors built from it are the Lorentz transformations that move charges and transform fields. Every identity above was verified in exact arithmetic, and the rotor calculus gives rational, exactly covariant integrators for particle motion. The same bivector that generates a Lorentz rotation in the plane of two vertices also measures the flux of $F$ through that plane, and the Cayley phase gives an exact U(1) lattice in which that flux is the plaquette curvature. Adding Hamiltonian dynamics in the same Cayley variables gives a rational, reversible, symplectic evolution with an exact Gauss law, although not yet a Lorentz-covariant one. The step from this algebra to electrodynamics, meaning field equations, sources, and quantization, is not provided by the rotor construction and remains a separate problem.
 
 ## References
 
@@ -659,3 +794,6 @@ The rotor anchor $\zeta = \kappa + i\rho$ is, algebraically, the complexified el
 2. N. J. Wildberger. *The Anchor to Cap map replaces Exp for SL(2)*. Draft manuscript, August 13, 2025.
 3. N. J. Wildberger. *Divine Proportions: Rational Trigonometry to Universal Geometry*. Wild Egg Books, Sydney, 2005.
 4. R. Penrose and W. Rindler. *Spinors and Space-Time, Volume 1*. Cambridge University Press, 1984.
+5. J. Kogut and L. Susskind. Hamiltonian formulation of Wilson's lattice gauge theories. *Phys. Rev. D* 11, 395 (1975).
+6. K. S. Yee. Numerical solution of initial boundary value problems involving Maxwell's equations in isotropic media. *IEEE Trans. Antennas Propag.* 14, 302 (1966).
+7. J. E. Marsden and M. West. Discrete mechanics and variational integrators. *Acta Numerica* 10, 357 (2001).
