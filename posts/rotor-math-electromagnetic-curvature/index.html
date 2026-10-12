@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="John D. Coady">
-<meta name="dcterms.date" content="2026-10-09">
+<meta name="dcterms.date" content="2026-10-11">
 
 <title>Is the Rotor Anchor the Electromagnetic Field Strength? Worked Calculations from a Projective 2×2 Rotor Architecture – John Coady’s Blog</title>
 <style>
@@ -222,7 +222,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 9, 2026</p>
+        <p class="date">October 11, 2026</p>
       </div>
     </div>
     
@@ -258,9 +258,18 @@ window.Quarto = {
   <li><a href="#the-action-and-which-potential-to-use" id="toc-the-action-and-which-potential-to-use" class="nav-link" data-scroll-target="#the-action-and-which-potential-to-use">The action, and which potential to use</a></li>
   <li><a href="#what-this-does-and-does-not-give" id="toc-what-this-does-and-does-not-give" class="nav-link" data-scroll-target="#what-this-does-and-does-not-give">What this does and does not give</a></li>
   </ul></li>
+  <li><a href="#calculation-10-hamiltonian-dynamics-in-cayley-variables" id="toc-calculation-10-hamiltonian-dynamics-in-cayley-variables" class="nav-link" data-scroll-target="#calculation-10-hamiltonian-dynamics-in-cayley-variables">Calculation 10: Hamiltonian dynamics in Cayley variables</a>
+  <ul class="collapse">
+  <li><a href="#a-rational-time-step" id="toc-a-rational-time-step" class="nav-link" data-scroll-target="#a-rational-time-step">A rational time step</a></li>
+  <li><a href="#why-the-gauss-law-is-exact" id="toc-why-the-gauss-law-is-exact" class="nav-link" data-scroll-target="#why-the-gauss-law-is-exact">Why the Gauss law is exact</a></li>
+  <li><a href="#why-the-step-is-symplectic-and-reversible" id="toc-why-the-step-is-symplectic-and-reversible" class="nav-link" data-scroll-target="#why-the-step-is-symplectic-and-reversible">Why the step is symplectic and reversible</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#what-this-does-and-does-not-give-1" id="toc-what-this-does-and-does-not-give-1" class="nav-link" data-scroll-target="#what-this-does-and-does-not-give-1">What this does and does not give</a></li>
+  </ul></li>
   <li><a href="#where-the-connection-stops" id="toc-where-the-connection-stops" class="nav-link" data-scroll-target="#where-the-connection-stops">Where the connection stops</a></li>
   <li><a href="#reproducing-calculations-1-to-7" id="toc-reproducing-calculations-1-to-7" class="nav-link" data-scroll-target="#reproducing-calculations-1-to-7">Reproducing Calculations 1 to 7</a></li>
   <li><a href="#reproducing-calculations-8-and-9" id="toc-reproducing-calculations-8-and-9" class="nav-link" data-scroll-target="#reproducing-calculations-8-and-9">Reproducing Calculations 8 and 9</a></li>
+  <li><a href="#reproducing-calculation-10" id="toc-reproducing-calculation-10" class="nav-link" data-scroll-target="#reproducing-calculation-10">Reproducing Calculation 10</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -287,7 +296,7 @@ A(\zeta) =
 \]</span></p>
 <p>that represents it in the Lie algebra <span class="math inline">\(\mathfrak{so}(1,3;F)\)</span>.</p>
 <p>Anyone who has met the electromagnetic field strength tensor will find this matrix familiar. This post asks a concrete question: <strong>is there a real connection between the rotor anchor and the electromagnetic field strength <span class="math inline">\(F_{\mu\nu}\)</span> (the curvature of the U(1) gauge connection), and can the rotor calculus reproduce known electromagnetic results?</strong></p>
-<p>The short answer is yes for the algebra and the <em>force law</em>, yes for the <em>flux</em> of the field through a plane (Calculation 8) and for an exact U(1) lattice built from Cayley phases (Calculation 9), and no for the field <em>dynamics</em>. Below are nine worked calculations, each checked in exact arithmetic, followed by a clear statement of where the connection stops.</p>
+<p>The short answer is yes for the algebra and the <em>force law</em>, yes for the <em>flux</em> of the field through a plane (Calculation 8) and for an exact U(1) lattice built from Cayley phases (Calculation 9), and only partly for the field <em>dynamics</em>: Calculation 10 gives exact rational Hamiltonian lattice dynamics for the Cayley <span class="math inline">\(U(1)\)</span> variables with an exact Gauss law, but not a Lorentz-covariant theory. Below are ten worked calculations, each checked numerically (in exact arithmetic wherever the claim is an algebraic identity), followed by a clear statement of where the connection stops.</p>
 <p>Conventions throughout: signature <span class="math inline">\(\eta = \mathrm{diag}(1,-1,-1,-1)\)</span>, <span class="math inline">\(c = 1\)</span>, <span class="math inline">\(q/m = 1\)</span>, and <span class="math inline">\(A(\zeta)\)</span> exactly as in Definition 6.1 of the paper.</p>
 </section>
 <section id="the-dictionary" class="level2">
@@ -804,8 +813,120 @@ The half-trace potential is not the Maxwell action
 <h3 class="anchored" data-anchor-id="what-this-does-and-does-not-give">What this does and does not give</h3>
 <ul>
 <li><strong>Gives:</strong> an exact, rational U(1) lattice gauge theory in which the plaquette flux is the curvature of Calculation 8, with exact Stokes and Bianchi identities over <span class="math inline">\(\mathbb{Q}\)</span> and <span class="math inline">\(\mathbb{F}_p\)</span>, and the correct <span class="math inline">\(F^2\)</span> continuum limit.</li>
-<li><strong>Does not give:</strong> the inhomogeneous equations <span class="math inline">\(d{*F} = J\)</span> (Gauss’s law and Ampère’s law), which would need a dual lattice and a Hodge star; any dynamics for the potential; or a continuum comparison over <span class="math inline">\(\mathbb{F}_p\)</span>, where there is no ordering and no notion of a weak field. Over <span class="math inline">\(\mathbb{F}_p\)</span> only the exact identities survive.</li>
+<li><strong>Does not give (in this calculation):</strong> the inhomogeneous equations <span class="math inline">\(d{*F} = J\)</span> or any dynamics for the potential (Calculation 10 adds Hamiltonian dynamics on a cubic lattice); or a continuum comparison over <span class="math inline">\(\mathbb{F}_p\)</span>, where there is no ordering and no notion of a weak field. Over <span class="math inline">\(\mathbb{F}_p\)</span> only the exact identities survive.</li>
 <li><strong>Not provided by the rotor machinery:</strong> the gauge structure itself. The rotor calculus supplies the exact arithmetic and the flux pairing with the plaquette bivector. The connection on the line bundle is extra input.</li>
+</ul>
+</section>
+</section>
+<section id="calculation-10-hamiltonian-dynamics-in-cayley-variables" class="level2">
+<h2 class="anchored" data-anchor-id="calculation-10-hamiltonian-dynamics-in-cayley-variables">Calculation 10: Hamiltonian dynamics in Cayley variables</h2>
+<p>Calculations 8 and 9 give the <em>kinematics</em> of the gauge field: curvature, Stokes and Bianchi identities. They contain no time evolution. This calculation adds the missing piece in the standard way, as Hamiltonian lattice gauge theory (Kogut and Susskind), but written in Cayley variables so that every update is a rational map. It is not new physics. The point is what the Cayley parametrization buys: a rational, exactly reversible, symplectic time step with an exact Gauss law, over <span class="math inline">\(\mathbb{Q}\)</span> and over <span class="math inline">\(\mathbb{F}_p\)</span>.</p>
+<p><strong>Setup.</strong> Take a two-dimensional periodic spatial lattice (<span class="math inline">\(L\times L\)</span> sites, so <span class="math inline">\(2+1\)</span> dimensions in all), temporal gauge, coupling <span class="math inline">\(g = 1\)</span>, lattice spacing 1 and <span class="math inline">\(c = 1\)</span>. Each link carries the Cayley parameter <span class="math inline">\(a\)</span>, so that <span class="math inline">\(U = (1-ia)/(1+ia) = e^{i\theta}\)</span> with <span class="math inline">\(\theta = -2\arctan a\)</span>, and an electric field <span class="math inline">\(E\)</span> conjugate to <span class="math inline">\(\theta\)</span>. The plaquette angle is <span class="math inline">\(\theta_P = \theta_x(i,j) + \theta_y(i+1,j) - \theta_x(i,j+1) - \theta_y(i,j)\)</span>, and</p>
+<p><span class="math display">\[
+H = \sum_{\text{links}} \tfrac12 E^2 + \sum_{P}\bigl(1-\cos\theta_P\bigr),
+\qquad
+\dot\theta = E,
+\qquad
+\dot E = -\frac{\partial V}{\partial \theta}.
+\]</span></p>
+<p>The sine of a plaquette angle is the imaginary part of the product of four Cayley phases, so it is rational in the link parameters (for a single link, <span class="math inline">\(\sin\theta = -2a/(1+a^2)\)</span>). Writing <span class="math inline">\(S(i,j) = \sin\theta_P(i,j)\)</span>, the force on the electric field is</p>
+<p><span class="math display">\[
+\dot E_x(i,j) = -\bigl(S(i,j) - S(i,j-1)\bigr),
+\qquad
+\dot E_y(i,j) = +\bigl(S(i,j) - S(i-1,j)\bigr).
+\]</span></p>
+<section id="a-rational-time-step" class="level3">
+<h3 class="anchored" data-anchor-id="a-rational-time-step">A rational time step</h3>
+<p>One step of size <span class="math inline">\(\Delta t\)</span> is a kick, a drift, and a second kick:</p>
+<ul>
+<li><strong>Kick:</strong> <span class="math inline">\(E \leftarrow E - \tfrac{\Delta t}{2}\,\mathrm{curl}^{T}S\)</span>, with <span class="math inline">\(S\)</span> computed from the current link parameters.</li>
+<li><strong>Drift:</strong> <span class="math inline">\(a \leftarrow a\oplus b\)</span> with <span class="math inline">\(b = -\tfrac{\Delta t}{2}E\)</span>, where <span class="math inline">\(a\oplus b = (a+b)/(1-ab)\)</span> is tangent addition. In angle terms this is <span class="math inline">\(\theta \to \theta + 2\arctan(\Delta t\,E/2)\)</span>, a Cayley approximation to the exact drift <span class="math inline">\(\theta\to\theta + \Delta t\,E\)</span> whose error is <span class="math inline">\(O(\Delta t^3E^3)\)</span> per step.</li>
+<li><strong>Kick</strong> again.</li>
+</ul>
+<p>There are no exponentials, trigonometric functions or square roots. Over <span class="math inline">\(\mathbb{F}_p\)</span> with <span class="math inline">\(p \equiv 3 \pmod 4\)</span> the denominators <span class="math inline">\(1 + a^2\)</span> never vanish, and the point <span class="math inline">\(a = \infty\)</span> is handled as in the Cayley group (<span class="math inline">\(\infty\oplus b = -1/b\)</span>), so the map is defined on every state.</p>
+</section>
+<section id="why-the-gauss-law-is-exact" class="level3">
+<h3 class="anchored" data-anchor-id="why-the-gauss-law-is-exact">Why the Gauss law is exact</h3>
+<p>The lattice divergence is <span class="math inline">\((\mathrm{div}\,E)(i,j) = E_x(i,j) - E_x(i-1,j) + E_y(i,j) - E_y(i,j-1)\)</span>. A kick by <span class="math inline">\(h\)</span> changes it by</p>
+<p><span class="math display">\[
+-h\bigl[S(i,j) - S(i,j-1) - S(i-1,j) + S(i-1,j-1)\bigr] + h\bigl[S(i,j) - S(i-1,j) - S(i,j-1) + S(i-1,j-1)\bigr] = 0,
+\]</span></p>
+<p>because the two brackets are identical. This holds for <em>any</em> values of <span class="math inline">\(S\)</span>, so it does not depend on the fields, the step size, or the arithmetic. The drift does not touch <span class="math inline">\(E\)</span>. Hence <span class="math inline">\(\mathrm{div}\,E = \rho\)</span> is conserved exactly for any static charge distribution <span class="math inline">\(\rho\)</span>. This is the Gauss-law component of <span class="math inline">\(d{*F} = J\)</span>.</p>
+</section>
+<section id="why-the-step-is-symplectic-and-reversible" class="level3">
+<h3 class="anchored" data-anchor-id="why-the-step-is-symplectic-and-reversible">Why the step is symplectic and reversible</h3>
+<p>The kick is the exact flow of the potential <span class="math inline">\(V(\theta)\)</span>. The drift <span class="math inline">\(\theta \to \theta + 2\arctan(\Delta t\,E/2)\)</span> is the exact time-<span class="math inline">\(\Delta t\)</span> flow of a modified kinetic term <span class="math inline">\(T(E)\)</span> with <span class="math inline">\(T'(E) = (2/\Delta t)\arctan(\Delta t\,E/2)\)</span>. A composition of exact flows of Hamiltonians is symplectic in <span class="math inline">\((\theta, E)\)</span>. The kick changes only <span class="math inline">\(E\)</span> (using <span class="math inline">\(a\)</span>) and the drift changes only <span class="math inline">\(a\)</span> (using <span class="math inline">\(E\)</span>), so replacing <span class="math inline">\(\Delta t\)</span> by <span class="math inline">\(-\Delta t\)</span> gives the inverse map exactly.</p>
+</section>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results">Results</h3>
+<p><strong>Exact arithmetic</strong> (a <span class="math inline">\(3\times3\)</span> torus with 18 links, static charges so that <span class="math inline">\(\mathrm{div}\,E\neq 0\)</span>):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Test</th>
+<th style="text-align: left;">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\mathbb{Q}\)</span> (Fractions), <span class="math inline">\(\Delta t = 1/4\)</span>, 4 steps</td>
+<td style="text-align: left;">Gauss law unchanged at every step; 4 steps back recovers the initial state exactly</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Size of the numbers after steps 1, 2, 3, 4</td>
+<td style="text-align: left;">194, 2,700, 38,293, 555,672 bits (about 14 times larger per step)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\mathbb{F}_7\)</span> and <span class="math inline">\(\mathbb{F}_{11}\)</span>, 200 random states each (including <span class="math inline">\(a=\infty\)</span>), 60 steps</td>
+<td style="text-align: left;">Gauss law exact 200/200; state changed 200/200; exactly reversible 200/200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Floating point</strong> (does it behave like Maxwell theory?):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Test</th>
+<th style="text-align: left;">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Standing wave, <span class="math inline">\(L = 64\)</span>, <span class="math inline">\(k = 2\pi\cdot 4/64\)</span></td>
+<td style="text-align: left;">measured <span class="math inline">\(\omega = 0.390335\)</span>; linear lattice formula <span class="math inline">\(0.390336\)</span>; continuum <span class="math inline">\(ck = 0.392699\)</span> (a 0.6% gap, the usual <span class="math inline">\(O(k^2)\)</span> lattice dispersion)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nonlinear field (<span class="math inline">\(\theta_x = 0.6\sin(2\pi y/L)\)</span>, <span class="math inline">\(\theta_y = 0.5\cos(2\pi x/L)\)</span>), <span class="math inline">\(L = 16\)</span>, 20,000 steps of <span class="math inline">\(\Delta t = 0.2\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\max\lvert H-H_0\rvert/H_0 = 1.45\times 10^{-3}\)</span>; relative drift over the run <span class="math inline">\(-7.8\times10^{-7}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Error against a fine reference at <span class="math inline">\(T = 2\)</span>, <span class="math inline">\(\Delta t = 0.2, 0.1, 0.05\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(1.15\times10^{-3}\)</span>, <span class="math inline">\(2.87\times10^{-4}\)</span>, <span class="math inline">\(7.16\times10^{-5}\)</span> (ratios 4.00, 4.01: second order)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Symplecticity, 36-dimensional phase space</td>
+<td style="text-align: left;"><span class="math inline">\(\max\lvert J^{T}\Omega J - \Omega\rvert = 1.0\times10^{-10}\)</span>, <span class="math inline">\(\det J = 1.0000000001\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="what-this-does-and-does-not-give-1" class="level3">
+<h3 class="anchored" data-anchor-id="what-this-does-and-does-not-give-1">What this does and does not give</h3>
+<ul>
+<li><strong>Gives:</strong> a rational, exactly reversible, symplectic time evolution for the Cayley link variables, with an exact Gauss law over <span class="math inline">\(\mathbb{Q}\)</span> and <span class="math inline">\(\mathbb{F}_p\)</span>, that behaves like Maxwell theory in floating point: second-order accurate, the right dispersion, and bounded energy.</li>
+<li><strong>Not new physics.</strong> This is compact <span class="math inline">\(U(1)\)</span> Hamiltonian lattice gauge theory (Kogut and Susskind) with a staggered leapfrog in the style of Yee’s scheme, viewed as a symplectic integrator (references 5 to 7). What is specific to this framework is the rational Cayley parametrization and the exactness over <span class="math inline">\(\mathbb{Q}\)</span> and <span class="math inline">\(\mathbb{F}_p\)</span>.</li>
+<li><strong>Not yet the framework’s own dynamics.</strong> The lattice is cubic with a Euclidean spatial metric and time enters only as a step, so the Hodge star is trivial and Lorentz covariance is not realised. A Hodge star built from the Minkowski or Gram data of the rotor and UHG setting, on a <span class="math inline">\(3+1\)</span>-dimensional complex, is the open problem.</li>
+<li><strong>Untested:</strong> currents and particles (only static charges here), coupling to the integrator of Calculation 7 (which would need a deposited current with <span class="math inline">\(dJ = 0\)</span>), and a <span class="math inline">\(3+1\)</span>-dimensional run. The test was in <span class="math inline">\(2+1\)</span> dimensions.</li>
+<li><strong>Exact rational runs do not scale.</strong> Over <span class="math inline">\(\mathbb{Q}\)</span> the numbers grow about fourteen-fold in size per step, so exact evolution is practical for a few steps only.</li>
+<li><strong>Over <span class="math inline">\(\mathbb{F}_p\)</span> there is no energy and no wave speed.</strong> The evolution is a reversible permutation dynamics with an exact Gauss law. There is no ordering, so no continuum comparison and no notion of a weak field.</li>
 </ul>
 </section>
 </section>
@@ -813,7 +934,7 @@ The half-trace potential is not the Maxwell action
 <h2 class="anchored" data-anchor-id="where-the-connection-stops">Where the connection stops</h2>
 <p>The results above are real algebra, but they are not new physics, and several things do not follow.</p>
 <ul>
-<li><strong>No field dynamics.</strong> There is no <span class="math inline">\(d{*F} = J\)</span>, no sources, and no equation of motion for the potential. The Cayley lattice (Calculation 9) satisfies <span class="math inline">\(dF = 0\)</span> exactly, but that is an identity of the construction (<span class="math inline">\(F = dA\)</span>), not dynamics. The rotor calculus gives the <em>force on a particle in a given field</em>, and the flux of a given field through a plane. It does not say how the field evolves.</li>
+<li><strong>Field dynamics is only partial.</strong> Calculation 10 gives rational, reversible, symplectic Hamiltonian dynamics for the Cayley link variables with an exact Gauss law, but on a cubic lattice with a Euclidean spatial metric. There is no Lorentz-covariant Hodge star built from the rotor or UHG data, no currents from the particle integrator of Calculation 7, and no <span class="math inline">\(3+1\)</span>-dimensional test. The rotor calculus itself gives the <em>force on a particle in a given field</em>, and the flux of a given field through a plane.</li>
 <li><strong>The papers’ edge anchors are not the electromagnetic field.</strong> In the companion finitist papers the edge anchors are Plücker-type bivectors of planes through vertices, and their holonomies are a Lorentz (spin) connection, which is the gravity-side structure. Electromagnetism enters there separately, through the scalar Cayley phase <span class="math inline">\((1 - a\delta)/(1 + a\delta)\)</span>. The shared object is the Lie algebra <span class="math inline">\(\mathfrak{so}(1,3)\)</span>, which can hold either role.</li>
 <li><strong>Exactness over <span class="math inline">\(\mathbb{Q}\)</span> and <span class="math inline">\(\mathbb{F}_p\)</span> is algebraic, not physical.</strong> Over <span class="math inline">\(\mathbb{F}_p\)</span> there is no sign of <span class="math inline">\(E^2 - B^2\)</span> and no notion of a weak field, so the statements about the Lagrangian and the <span class="math inline">\(\theta\)</span>-term lose their meaning there.</li>
 <li><strong>A <span class="math inline">\(\theta\)</span>-density in the tetrahedron did not survive a holonomy test.</strong> The identity <span class="math inline">\(E\cdot B = \det[u,v,w,x]\)</span> for a pair of opposite edges holds, but in a separate numerical test on 4-simplex boundaries the imaginary part of loop holonomies did not track it. That imaginary part is a non-abelian effect.</li>
@@ -1075,9 +1196,68 @@ The half-trace potential is not the Maxwell action
 <span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>main()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
+<section id="reproducing-calculation-10" class="level2">
+<h2 class="anchored" data-anchor-id="reproducing-calculation-10">Reproducing Calculation 10</h2>
+<p>The full script, <a href="https://github.com/jcoady/blog/blob/main/posts/rotor-math-electromagnetic-curvature/code/cayley_hamiltonian_lattice.py"><code>cayley_hamiltonian_lattice.py</code></a>, reproduces every row of both tables. It needs only numpy and takes about a minute. The exact-arithmetic part is short enough to include here. It ignores the point <span class="math inline">\(a=\infty\)</span>, which the full script handles.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fractions <span class="im">import</span> Fraction <span class="im">as</span> Fr</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="dv">3</span>                                            <span class="co"># 3 x 3 periodic spatial lattice, 18 links</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> random.Random(<span class="dv">4</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>keys <span class="op">=</span> [(i, j, m) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(L) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(L) <span class="cf">for</span> m <span class="kw">in</span> (<span class="dv">0</span>, <span class="dv">1</span>)]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> phase(a):                                    <span class="co"># U = (1 - i a)/(1 + i a) = (cos th, sin th), th = -2 atan a</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> a<span class="op">*</span>a</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ((<span class="dv">1</span> <span class="op">-</span> a<span class="op">*</span>a)<span class="op">/</span>d, <span class="op">-</span><span class="dv">2</span><span class="op">*</span>a<span class="op">/</span>d)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cmul(u, v): <span class="cf">return</span> (u[<span class="dv">0</span>]<span class="op">*</span>v[<span class="dv">0</span>] <span class="op">-</span> u[<span class="dv">1</span>]<span class="op">*</span>v[<span class="dv">1</span>], u[<span class="dv">0</span>]<span class="op">*</span>v[<span class="dv">1</span>] <span class="op">+</span> u[<span class="dv">1</span>]<span class="op">*</span>v[<span class="dv">0</span>])</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cconj(u): <span class="cf">return</span> (u[<span class="dv">0</span>], <span class="op">-</span>u[<span class="dv">1</span>])</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sin_plaq(a):                                 <span class="co"># S = Im(U_x U_y U_x^-1 U_y^-1): rational in the link parameters</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    S <span class="op">=</span> {}</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(L):</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(L):</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            u <span class="op">=</span> cmul(cmul(phase(a[i, j, <span class="dv">0</span>]), phase(a[(i<span class="op">+</span><span class="dv">1</span>) <span class="op">%</span> L, j, <span class="dv">1</span>])),</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                     cmul(cconj(phase(a[i, (j<span class="op">+</span><span class="dv">1</span>) <span class="op">%</span> L, <span class="dv">0</span>])), cconj(phase(a[i, j, <span class="dv">1</span>]))))</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            S[i, j] <span class="op">=</span> u[<span class="dv">1</span>]</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> S</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kick(a, E, h):                               <span class="co"># E &lt;- E - h curl^T S</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    S <span class="op">=</span> sin_plaq(a)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> {}</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(L):</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(L):</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>            out[i, j, <span class="dv">0</span>] <span class="op">=</span> E[i, j, <span class="dv">0</span>] <span class="op">-</span> h<span class="op">*</span>(S[i, j] <span class="op">-</span> S[i, (j<span class="op">-</span><span class="dv">1</span>) <span class="op">%</span> L])</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>            out[i, j, <span class="dv">1</span>] <span class="op">=</span> E[i, j, <span class="dv">1</span>] <span class="op">+</span> h<span class="op">*</span>(S[i, j] <span class="op">-</span> S[(i<span class="op">-</span><span class="dv">1</span>) <span class="op">%</span> L, j])</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> drift(a, E, dt):                             <span class="co"># a &lt;- a (+) b, b = -dt E/2: theta += 2 atan(dt E/2)</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {k: (a[k] <span class="op">-</span> dt<span class="op">*</span>E[k]<span class="op">/</span><span class="dv">2</span>) <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> a[k]<span class="op">*</span>dt<span class="op">*</span>E[k]<span class="op">/</span><span class="dv">2</span>) <span class="cf">for</span> k <span class="kw">in</span> a}</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> step(a, E, dt):</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    E <span class="op">=</span> kick(a, E, dt<span class="op">/</span><span class="dv">2</span>)<span class="op">;</span> a <span class="op">=</span> drift(a, E, dt)<span class="op">;</span> E <span class="op">=</span> kick(a, E, dt<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a, E</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gauss(E):                                    <span class="co"># div E on every site</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {(i, j): E[i, j, <span class="dv">0</span>] <span class="op">-</span> E[(i<span class="op">-</span><span class="dv">1</span>) <span class="op">%</span> L, j, <span class="dv">0</span>] <span class="op">+</span> E[i, j, <span class="dv">1</span>] <span class="op">-</span> E[i, (j<span class="op">-</span><span class="dv">1</span>) <span class="op">%</span> L, <span class="dv">1</span>]</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(L) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(L)}</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>bits <span class="op">=</span> <span class="kw">lambda</span> x: <span class="bu">max</span>(<span class="bu">abs</span>(x.numerator).bit_length(), x.denominator.bit_length())</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> {k: Fr(rng.randint(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), rng.randint(<span class="dv">1</span>, <span class="dv">3</span>)) <span class="cf">for</span> k <span class="kw">in</span> keys}</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>E <span class="op">=</span> {k: Fr(rng.randint(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), rng.randint(<span class="dv">1</span>, <span class="dv">3</span>)) <span class="cf">for</span> k <span class="kw">in</span> keys}      <span class="co"># div E != 0: static charges</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>a0, E0, g0, dt <span class="op">=</span> <span class="bu">dict</span>(a), <span class="bu">dict</span>(E), gauss(E), Fr(<span class="dv">1</span>, <span class="dv">4</span>)</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>):</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    a, E <span class="op">=</span> step(a, E, dt)</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> gauss(E) <span class="op">==</span> g0                                              <span class="co"># Gauss law preserved exactly</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(n, <span class="st">"Gauss law unchanged; max bit-length of a, E:"</span>, <span class="bu">max</span>(bits(x) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">list</span>(a.values()) <span class="op">+</span> <span class="bu">list</span>(E.values())))</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    a, E <span class="op">=</span> step(a, E, <span class="op">-</span>dt)                                             <span class="co"># time reversal</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> a <span class="op">==</span> a0 <span class="kw">and</span> E <span class="op">==</span> E0</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"3 steps forward and 3 back: initial state recovered exactly"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>The rotor anchor <span class="math inline">\(\zeta = \kappa + i\rho\)</span> is, algebraically, the complexified electromagnetic field strength. Its matrix <span class="math inline">\(A(\zeta)\)</span> is the Lorentz-force generator, its norm <span class="math inline">\(\zeta\cdot\zeta\)</span> packages the two field invariants, null anchors are radiation fields, and the rotors built from it are the Lorentz transformations that move charges and transform fields. Every identity above was verified in exact arithmetic, and the rotor calculus gives rational, exactly covariant integrators for particle motion. The same bivector that generates a Lorentz rotation in the plane of two vertices also measures the flux of <span class="math inline">\(F\)</span> through that plane, and the Cayley phase gives an exact U(1) lattice in which that flux is the plaquette curvature. The step from this algebra to electrodynamics, meaning field equations, sources, and quantization, is not provided by the rotor construction and remains a separate problem.</p>
+<p>The rotor anchor <span class="math inline">\(\zeta = \kappa + i\rho\)</span> is, algebraically, the complexified electromagnetic field strength. Its matrix <span class="math inline">\(A(\zeta)\)</span> is the Lorentz-force generator, its norm <span class="math inline">\(\zeta\cdot\zeta\)</span> packages the two field invariants, null anchors are radiation fields, and the rotors built from it are the Lorentz transformations that move charges and transform fields. Every identity above was verified in exact arithmetic, and the rotor calculus gives rational, exactly covariant integrators for particle motion. The same bivector that generates a Lorentz rotation in the plane of two vertices also measures the flux of <span class="math inline">\(F\)</span> through that plane, and the Cayley phase gives an exact U(1) lattice in which that flux is the plaquette curvature. Adding Hamiltonian dynamics in the same Cayley variables gives a rational, reversible, symplectic evolution with an exact Gauss law, although not yet a Lorentz-covariant one. The step from this algebra to electrodynamics, meaning field equations, sources, and quantization, is not provided by the rotor construction and remains a separate problem.</p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
@@ -1086,6 +1266,9 @@ The half-trace potential is not the Maxwell action
 <li>N. J. Wildberger. <em>The Anchor to Cap map replaces Exp for SL(2)</em>. Draft manuscript, August 13, 2025.</li>
 <li>N. J. Wildberger. <em>Divine Proportions: Rational Trigonometry to Universal Geometry</em>. Wild Egg Books, Sydney, 2005.</li>
 <li>R. Penrose and W. Rindler. <em>Spinors and Space-Time, Volume 1</em>. Cambridge University Press, 1984.</li>
+<li>J. Kogut and L. Susskind. Hamiltonian formulation of Wilson’s lattice gauge theories. <em>Phys. Rev.&nbsp;D</em> 11, 395 (1975).</li>
+<li>K. S. Yee. Numerical solution of initial boundary value problems involving Maxwell’s equations in isotropic media. <em>IEEE Trans. Antennas Propag.</em> 14, 302 (1966).</li>
+<li>J. E. Marsden and M. West. Discrete mechanics and variational integrators. <em>Acta Numerica</em> 10, 357 (2001).</li>
 </ol>
 
 
