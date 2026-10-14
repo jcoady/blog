@@ -1,7 +1,7 @@
 ---
 title: "Is the Rotor Anchor the Electromagnetic Field Strength? Worked Calculations from a Projective 2×2 Rotor Architecture"
 author: "John D. Coady"
-date: "2026-10-11"
+date: "2026-10-12"
 categories: [pure-math, geometry, hyperbolic-geometry, mathematical-physics, electromagnetism, lorentz-group, rational-trigonometry]
 format:
   html:
@@ -29,7 +29,7 @@ Anyone who has met the electromagnetic field strength tensor will find this matr
 
 The short answer is yes for the algebra and the *force law*, yes for the *flux* of the field through a plane (Calculation 8) and for an exact U(1) lattice built from Cayley phases (Calculation 9), and only partly for the field *dynamics*: Calculation 10 gives exact rational Hamiltonian lattice dynamics for the Cayley $U(1)$ variables with an exact Gauss law, but not a Lorentz-covariant theory. Below are ten worked calculations, each checked numerically (in exact arithmetic wherever the claim is an algebraic identity), followed by a clear statement of where the connection stops.
 
-Conventions throughout: signature $\eta = \mathrm{diag}(1,-1,-1,-1)$, $c = 1$, $q/m = 1$, and $A(\zeta)$ exactly as in Definition 6.1 of the paper.
+Conventions throughout: signature $\eta = \mathrm{diag}(1,-1,-1,-1)$, $c = 1$, $e/m = 1$ with $e$ the charge (the letter $q$ is reserved for the UHG point quadrance of the companion papers, so the exponential is written $\exp$ wherever a charge appears), and $A(\zeta)$ exactly as in Definition 6.1 of the paper.
 
 ## The dictionary
 
@@ -280,7 +280,7 @@ $$
 
 On the matrix side, $A(\zeta_F)\,v = (2,2,4,0)$, so $\Phi_F = B(u, A v) = 2\cdot 2 - 1\cdot 2 = 2$, which is $-\mathrm{Re}(\zeta_F\cdot z_{uv})$. For the dual field $(-\mathbf{B},\mathbf{E})$ one finds $A'v = (-2,-2,-1,-3)$ and $\Phi_{*F} = 2\cdot(-2) - 1\cdot(-2) = -2$, which is $\mathrm{Im}(\zeta_F\cdot z_{uv})$.
 
-**Why this is the U(1) connection.** A charge $q$ carried once around the parallelogram in a uniform field picks up the phase $e^{\,i q \Phi_F}$ (the Aharonov–Bohm or Wilson-loop phase; the sign depends on the coupling convention), because $\oint A = \int F$ by Stokes. So the U(1) holonomy angle of a plaquette is $\Phi_F = -\mathrm{Re}(\zeta_F\cdot z_{uv})$. The same bivector $z_{uv}$ that generates a Lorentz rotation in the plane of $u$ and $v$ also measures the flux of $F$ through that plane. That is the link between the rotor machinery and the gauge curvature.
+**Why this is the U(1) connection.** A charge $e$ carried once around the parallelogram in a uniform field picks up the phase $\exp(i\,e\,\Phi_F)$ (the Aharonov–Bohm or Wilson-loop phase; the sign depends on the coupling convention), because $\oint A = \int F$ by Stokes. So the U(1) holonomy angle of a plaquette is $e\,\Phi_F = -e\,\mathrm{Re}(\zeta_F\cdot z_{uv})$. The same bivector $z_{uv}$ that generates a Lorentz rotation in the plane of $u$ and $v$ also measures the flux of $F$ through that plane. That is the link between the rotor machinery and the gauge curvature.
 
 I checked the identity on 400 random samples in each of exact integers, $\mathbb{F}_7$ and $\mathbb{F}_{11}$: the real part matched $-\Phi_F$ and the imaginary part matched $\Phi_{*F}$ in all 400 cases each time.
 
@@ -321,10 +321,10 @@ The duality group is the same group, the norm-one elements of $K$, in which the 
 Take the link variable to be the Cayley phase
 
 $$
-U = \frac{1 - i a}{1 + i a} = e^{-2i\arctan a}, \qquad a \in \mathbb{P}^1 \ (a = \infty \mapsto U = -1),
+U = \frac{1 - i a}{1 + i a} = \exp(-2i\arctan a), \qquad a \in \mathbb{P}^1 \ (a = \infty \mapsto U = -1),
 $$
 
-the rational parametrization of the circle. Phases multiply by tangent addition, $\mathrm{phase}(a)\,\mathrm{phase}(b) = \mathrm{phase}(a\oplus b)$ with $a \oplus b = (a+b)/(1-ab)$. The plaquette variable is the ordered product of four link phases, with $a_P$ obtained by tangent addition of the four link values. To connect with Calculation 8, define the lattice flux through a plaquette by $U_P = e^{\,i q\Phi}$, i.e. $a_P = -\tan(q\Phi/2)$, so that $a_P \approx -q\Phi/2$ for small flux.
+the rational parametrization of the circle. Phases multiply by tangent addition, $\mathrm{phase}(a)\,\mathrm{phase}(b) = \mathrm{phase}(a\oplus b)$ with $a \oplus b = (a+b)/(1-ab)$. The plaquette variable is the ordered product of four link phases, with $a_P$ obtained by tangent addition of the four link values. To connect with Calculation 8, define the lattice flux through a plaquette by $U_P = \exp(i\,e\,\Phi)$, i.e. $a_P = -\tan(e\,\Phi/2)$, so that $a_P \approx -e\,\Phi/2$ for small flux.
 
 ### Exact identities
 
@@ -342,21 +342,21 @@ In field language these are the **homogeneous Maxwell equations**: Stokes says $
 
 ### The action, and which potential to use
 
-The Wilson term is rational in the Cayley variable:
+The Wilson plaquette potential is rational in the Cayley variable:
 
 $$
-1 - \mathrm{Re}\,U = \frac{2a^2}{1+a^2} = \tfrac12 N(1 - U),
+W_1 \equiv 1 - \mathrm{Re}\,U_P = \frac{2a_P^2}{1+a_P^2} = \tfrac12 N(1 - U_P),
 $$
 
-so over $\mathbb{F}_p$ it has a canonical $\mathbb{F}_p$-valued analogue. Compare it with the quadratic "Cayley $F^2$" action $\sum a_P^2$ on a smooth periodic field in the real regime ($A_0 = 0.5\cos 2\pi x_1$, $A_2 = 0.5\cos 2\pi x_3$ on an $L^4$ torus with $\epsilon = 1/L$; continuum $\sum_{\mu<\nu}\!\int F_{\mu\nu}^2 = 9.8696$, so the target is $W \to 4.9348$):
+so over $\mathbb{F}_p$ it has a canonical $\mathbb{F}_p$-valued analogue. The finitist papers use its square, $W_2 \equiv (1-\mathrm{Re}\,U_P)^2$ (written $S(\gamma)$ there), which the callout below discusses. Compare the lattice sum $\sum_P W_1$ with the quadratic "Cayley $F^2$" action $\sum_P a_P^2$ on a smooth periodic field in the real regime ($A_0 = 0.5\cos 2\pi x_1$, $A_2 = 0.5\cos 2\pi x_3$ on an $L^4$ torus with $\epsilon = 1/L$; continuum value $\mathcal{I}_F \equiv \sum_{\mu<\nu}\!\int F_{\mu\nu}^2 = 9.8696$, so the target is $\sum_P W_1 \to \mathcal{I}_F/2 = 4.9348$):
 
-| $L$ | Wilson $W = \sum(1-\cos\theta_P)$ | $2\sum a_P^2$ | $W/(2C)$ | $(W - E/2)/(E/2)$ |
+| $L$ | $\sum_P W_1$ | $2\sum_P a_P^2$ | ratio | $(\sum_P W_1 - \mathcal{I}_F/2)/(\mathcal{I}_F/2)$ |
 |:---:|:---:|:---:|:---:|:---:|
 | 4 | 3.99479 | 4.01044 | 0.99610 | $-0.190$ |
 | 8 | 4.68562 | 4.68763 | 0.99957 | $-0.0505$ |
 | 16 | 4.87166 | 4.87180 | 0.99997 | $-0.0128$ |
 
-Both actions converge to the continuum $F^2$ energy with $O(\epsilon^2)$ error (the last column times $L^2$ settles near $-3.3$). Their ratio differs from 1 only at $O(\epsilon^4)$, because per plaquette $2a^2/(1-\cos\theta) = 1 + \theta^2/4 + \cdots$ and $\theta = O(\epsilon^2)$. At strong coupling they are different theories. For a single plaquette, with Wilson weight $e^{-\beta(1-\cos\theta)}$ and Cayley weight $e^{-2\beta a^2}$:
+Both actions converge to the continuum $F^2$ energy with $O(\epsilon^2)$ error (the last column times $L^2$ settles near $-3.3$). Their ratio differs from 1 only at $O(\epsilon^4)$, because per plaquette $2a^2/(1-\cos\theta) = 1 + \theta^2/4 + \cdots$ and $\theta = O(\epsilon^2)$. At strong coupling they are different theories. For a single plaquette, with Wilson weight $\exp(-\beta W_1)$ and Cayley weight $\exp(-2\beta a^2)$:
 
 | $\beta$ | Wilson $\langle\cos\theta\rangle = I_1/I_0$ | Cayley $F^2$ |
 |:---:|:---:|:---:|
@@ -367,7 +367,7 @@ Both actions converge to the continuum $F^2$ energy with $O(\epsilon^2)$ error (
 
 ::: {.callout-warning}
 ## The half-trace potential is not the Maxwell action
-If $U(1)$ is embedded in $SL(2)$ as $\mathrm{diag}(U,\bar U)$, the half-trace of the holonomy is $w = \mathrm{Re}\,U$, and the potential $N(1-w) = (1-w)^2$ used in the finitist papers becomes $(1-\mathrm{Re}\,U)^2 = 4a^4/(1+a^2)^2 \approx \theta^4/4$. That is **quartic** in the plaquette angle and vanishes in the continuum limit, instead of reproducing $F^2$. I checked the $SU(2)$ version on a smooth non-commuting field (see [`cayley_su2_lattice.py`](https://github.com/jcoady/blog/blob/main/posts/rotor-math-electromagnetic-curvature/code/cayley_su2_lattice.py)): summed over the lattice it scales like $\epsilon^4$ and approaches $\tfrac14\int\sum(F^aF^a)^2$, not the Yang–Mills energy. For a statement about electromagnetism, use $1-\mathrm{Re}\,U = \tfrac12 N(1-U)$ (Wilson) or $\sum a_P^2$.
+If $U(1)$ is embedded in $SL(2)$ as $\mathrm{diag}(U,\bar U)$, the half-trace of the holonomy is $w = \mathrm{Re}\,U$. The Wilson potential is $W_1 = 1 - w$, which is quadratic in the plaquette angle. The potential used in the finitist papers (written $S(\gamma) = N(1-w)$ there) is its square, $W_2 = (1-w)^2 = 4a^4/(1+a^2)^2 \approx \theta^4/4$. That is **quartic** in the plaquette angle and vanishes in the continuum limit, instead of reproducing $F^2$. I checked the $SU(2)$ version on a smooth non-commuting field (see [`cayley_su2_lattice.py`](https://github.com/jcoady/blog/blob/main/posts/rotor-math-electromagnetic-curvature/code/cayley_su2_lattice.py)): summed over the lattice it scales like $\epsilon^4$ and approaches $\tfrac14\int\sum(F^aF^a)^2$, not the Yang–Mills energy. For a statement about electromagnetism, use $W_1$ (Wilson) or $\sum a_P^2$, not $W_2$.
 :::
 
 ### What this does and does not give
@@ -390,19 +390,19 @@ H = \sum_{\text{links}} \tfrac12 E^2 + \sum_{P}\bigl(1-\cos\theta_P\bigr),
 \dot E = -\frac{\partial V}{\partial \theta}.
 $$
 
-The sine of a plaquette angle is the imaginary part of the product of four Cayley phases, so it is rational in the link parameters (for a single link, $\sin\theta = -2a/(1+a^2)$). Writing $S(i,j) = \sin\theta_P(i,j)$, the force on the electric field is
+The sine of a plaquette angle is the imaginary part of the product of four Cayley phases, so it is rational in the link parameters (for a single link, $\sin\theta = -2a/(1+a^2)$). Writing $\xi(i,j) = \sin\theta_P(i,j)$, the force on the electric field is
 
 $$
-\dot E_x(i,j) = -\bigl(S(i,j) - S(i,j-1)\bigr),
+\dot E_x(i,j) = -\bigl(\xi(i,j) - \xi(i,j-1)\bigr),
 \qquad
-\dot E_y(i,j) = +\bigl(S(i,j) - S(i-1,j)\bigr).
+\dot E_y(i,j) = +\bigl(\xi(i,j) - \xi(i-1,j)\bigr).
 $$
 
 ### A rational time step
 
 One step of size $\Delta t$ is a kick, a drift, and a second kick:
 
-- **Kick:** $E \leftarrow E - \tfrac{\Delta t}{2}\,\mathrm{curl}^{T}S$, with $S$ computed from the current link parameters.
+- **Kick:** $E \leftarrow E - \tfrac{\Delta t}{2}\,\mathrm{curl}^{T}\xi$, with $\xi$ computed from the current link parameters.
 - **Drift:** $a \leftarrow a\oplus b$ with $b = -\tfrac{\Delta t}{2}E$, where $a\oplus b = (a+b)/(1-ab)$ is tangent addition. In angle terms this is $\theta \to \theta + 2\arctan(\Delta t\,E/2)$, a Cayley approximation to the exact drift $\theta\to\theta + \Delta t\,E$ whose error is $O(\Delta t^3E^3)$ per step.
 - **Kick** again.
 
@@ -413,10 +413,10 @@ There are no exponentials, trigonometric functions or square roots. Over $\mathb
 The lattice divergence is $(\mathrm{div}\,E)(i,j) = E_x(i,j) - E_x(i-1,j) + E_y(i,j) - E_y(i,j-1)$. A kick by $h$ changes it by
 
 $$
--h\bigl[S(i,j) - S(i,j-1) - S(i-1,j) + S(i-1,j-1)\bigr] + h\bigl[S(i,j) - S(i-1,j) - S(i,j-1) + S(i-1,j-1)\bigr] = 0,
+-h\bigl[\xi(i,j) - \xi(i,j-1) - \xi(i-1,j) + \xi(i-1,j-1)\bigr] + h\bigl[\xi(i,j) - \xi(i-1,j) - \xi(i,j-1) + \xi(i-1,j-1)\bigr] = 0,
 $$
 
-because the two brackets are identical. This holds for *any* values of $S$, so it does not depend on the fields, the step size, or the arithmetic. The drift does not touch $E$. Hence $\mathrm{div}\,E = \rho$ is conserved exactly for any static charge distribution $\rho$. This is the Gauss-law component of $d{*F} = J$.
+because the two brackets are identical. This holds for *any* values of $\xi$, so it does not depend on the fields, the step size, or the arithmetic. The drift does not touch $E$. Hence $\mathrm{div}\,E = \rho$ is conserved exactly for any static charge distribution $\rho$. This is the Gauss-law component of $d{*F} = J$.
 
 ### Why the step is symplectic and reversible
 
@@ -741,22 +741,22 @@ def phase(a):                                    # U = (1 - i a)/(1 + i a) = (co
 def cmul(u, v): return (u[0]*v[0] - u[1]*v[1], u[0]*v[1] + u[1]*v[0])
 def cconj(u): return (u[0], -u[1])
 
-def sin_plaq(a):                                 # S = Im(U_x U_y U_x^-1 U_y^-1): rational in the link parameters
-    S = {}
+def sin_plaq(a):                                 # xi = Im(U_x U_y U_x^-1 U_y^-1): rational in the link parameters
+    xi = {}
     for i in range(L):
         for j in range(L):
             u = cmul(cmul(phase(a[i, j, 0]), phase(a[(i+1) % L, j, 1])),
                      cmul(cconj(phase(a[i, (j+1) % L, 0])), cconj(phase(a[i, j, 1]))))
-            S[i, j] = u[1]
-    return S
+            xi[i, j] = u[1]
+    return xi
 
-def kick(a, E, h):                               # E <- E - h curl^T S
-    S = sin_plaq(a)
+def kick(a, E, h):                               # E <- E - h curl^T xi
+    xi = sin_plaq(a)
     out = {}
     for i in range(L):
         for j in range(L):
-            out[i, j, 0] = E[i, j, 0] - h*(S[i, j] - S[i, (j-1) % L])
-            out[i, j, 1] = E[i, j, 1] + h*(S[i, j] - S[(i-1) % L, j])
+            out[i, j, 0] = E[i, j, 0] - h*(xi[i, j] - xi[i, (j-1) % L])
+            out[i, j, 1] = E[i, j, 1] + h*(xi[i, j] - xi[(i-1) % L, j])
     return out
 
 def drift(a, E, dt):                             # a <- a (+) b, b = -dt E/2: theta += 2 atan(dt E/2)
