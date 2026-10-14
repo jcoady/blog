@@ -1,387 +1,547 @@
 ---
-title: "From Rotor Anchors to Gauge Invariance: Projective Tripods, Plaquette Holonomy, and the Exact Wilson Bridge"
+title: "The Lattice Covariant Derivative and Charge as a Cayley Map: Exact Gauge Identities over Q and F_p"
 author: "John D. Coady"
 date: "2026-10-14"
-categories: [pure-math, geometry, hyperbolic-geometry, mathematical-physics, electromagnetism, lorentz-group, rational-trigonometry, gauge-theory]
+categories: [pure-math, mathematical-physics, electromagnetism, gauge-theory, lorentz-group, rational-trigonometry]
 format:
   html:
     toc: true
     code-fold: true
 ---
 
-In [Part 1](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-curvature/), we explored how relativistic rotations, boosts, and electromagnetic fields can be formulated without square roots, rapidities, or transcendental functions using $2 \times 2$ projective rotors over the Blue Dihedron extension $K = \mathbb{F}[T]/(T^2+1)$. We established that the complex rotor anchor $\zeta = \kappa + i\rho$ is algebraically the electromagnetic field strength, that null anchors correspond to radiation fields, and that link rotors give a rational Cayley lattice with an exact Gauss law.
+## Where Part 1 left off
 
-A central question arises: **How does this algebraic rotor geometry connect to the standard continuum physics of gauge theory and electromagnetic curvature?**
+[Part 1](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-curvature/) showed that the rotor anchor $\zeta=\kappa+i\rho$ is algebraically the Riemann–Silberstein vector $\mathbf E+i\mathbf B$, and built an exact U(1) lattice out of Cayley phases $U=(1-ia)/(1+ia)$. It listed what was missing from the gauge-theory side. This post closes the first two gaps on that list, comparing against the standard abelian gauge theory of the lecture notes (local phase $\psi\to e^{ie\phi}\psi$, $D_\mu=\partial_\mu+ieA_\mu$, $F_{\mu\nu}=-\tfrac ie[D_\mu,D_\nu]$):
 
-In standard physics lectures, gauge interactions are derived by taking a free matter Lagrangian with a global phase symmetry and promoting it to a **local gauge invariance**. This demands a gauge connection $A_\mu$, whose curvature $F_{\mu\nu} = -\frac{i}{e}[D_\mu, D_\nu]$ generates the electromagnetic field strength, while gauge invariance strictly forbids a photon mass term.
+1. **Calculation 11.** Does the lecture's central identity $F_{\mu\nu}=-\tfrac ie[D_\mu,D_\nu]$ hold *exactly* on the Cayley lattice? Yes, in a precise form, over $\mathbb Q$ and $\mathbb F_p$.
+2. **Calculation 12.** What does a charge $k\neq1$ field see? The map $a\mapsto\tan(k\arctan a)$, which is the Chebyshev/spread-polynomial structure, and over $\mathbb F_p$ it makes the theory a $\mathbb Z_{p+1}$ gauge theory.
 
-In this post, we establish the exact algebraic dictionary between the continuum gauge theory of physics lectures and our projective rotor architecture. We show that:
+A third section records what is *not* established about tripods and the Wilson potential, so that it is not mistaken for a result.
 
-1. **The Exact Lattice Commutator Identity:** On the lattice, we define the discrete covariant difference $\mathcal{D}_\mu \psi(x) \equiv U_\mu(x)\psi(x+\hat{\mu}) - \psi(x)$ and prove that the commutator $[\mathcal{D}_\mu, \mathcal{D}_\nu]\psi$ reduces identically to the plaquette factor $(U_P - 1)\psi$.
-2. **Wildberger Spread Polynomials Govern Charge:** We show that a field of charge $k \in \mathbb{Z}$ experiences an effective plaquette solid spread given by **Wildberger's $k$-th spread polynomial** $\mathcal{S}_{[k]} = S_k(\mathcal{S})$ from Chapter 8 of *Divine Proportions*. Over $\mathbb{F}_p$, the gauge group is $\mathbb{Z}_{p+1}$, forcing $S_{p+1}(\mathcal{S}) \equiv 0 \pmod p$.
-3. **Curvature as Projective Quadrea:** The Wilson plaquette action $W_1$ is not an infinitesimal Taylor approximation; it is **identically twice the projective solid spread $\mathcal{S}$ of a tripod**.
-4. **Fermionic Detection:** While vector rotations only see the rotation spread $S_2(\mathcal{S}) = 4\mathcal{S}(1-\mathcal{S})$, the quartic potential $W_2 = (1-w)^2 = 4\mathcal{S}^2$ detects the non-trivial $\mathbb{Z}_2$ spin flip ($-I_2$) at an orthogonal tripod.
+Everything labelled "exact" below was run in exact arithmetic (`Fraction` over $\mathbb Q$, modular arithmetic over $\mathbb F_7,\mathbb F_{11}$, and exhaustively over $\mathbb F_p$ for $p=3,7,11,19,23$ where stated). The script is at the end.
 
----
+## Conventions, fixed once
 
-## 1. The Rosetta Stone: Continuum Field Theory vs. Projective Simplices
+The sign conventions were left loose in Part 1, so here they are pinned down.
 
-In the standard textbook presentation of Abelian gauge theory, one begins with a free Dirac matter field $\psi$ and its Lagrangian:
-$$\mathcal{L} = \hbar c\,\bar{\psi}\gamma^\mu \partial_\mu \psi + mc^2 \bar{\psi}\psi$$
+- Sites $x$ on a periodic lattice, links $U_\mu(x)\in K=F[i]$ of norm one, $U_\mu(x)=\dfrac{1-ia_\mu(x)}{1+ia_\mu(x)}$, with $a=\infty\mapsto U=-1$.
+- **Covariant difference:** $\mathcal D_\mu\psi(x)\equiv U_\mu(x)\,\psi(x+\hat\mu)-\psi(x)$.
+- **Gauge transformation:** $\psi(x)\mapsto g(x)\psi(x)$, $\;U_\mu(x)\mapsto g(x)\,U_\mu(x)\,g(x+\hat\mu)^{-1}$, with $g(x)$ of norm one.
+- **Plaquette:** $U_P(x)\equiv U_\mu(x)\,U_\nu(x+\hat\mu)\,U_\mu(x+\hat\nu)^{-1}U_\nu(x)^{-1}$.
 
-Under a local phase transformation $\psi(x) \mapsto e^{ie\phi(x)}\psi(x)$, the ordinary derivative activates the product rule:
-$$\partial_\mu \left(e^{ie\phi(x)}\psi\right) = e^{ie\phi(x)}\partial_\mu \psi + ie(\partial_\mu\phi)e^{ie\phi(x)}\psi$$
-This breaks gauge invariance. To restore invariance, one introduces the **gauge covariant derivative**:
-$$D_\mu \equiv \partial_\mu + ie A_\mu$$
-demanding that the compensating gauge field transform as $A_\mu \mapsto A_\mu - \partial_\mu \phi(x)$. Evaluating the commutator of two covariant derivatives on the matter field eliminates the derivative terms and isolates the field strength:
-$$[D_\mu, D_\nu]\psi = ie F_{\mu\nu}\psi \quad \Longrightarrow \quad F_{\mu\nu} = -\frac{i}{e}[D_\mu, D_\nu] = \partial_\mu A_\nu - \partial_\nu A_\mu$$
-Adding a dynamic term $\mathcal{L}_{\text{kin}} \sim F_{\mu\nu}F^{\mu\nu}$ allows the field to propagate, while a Proca mass term $m_A^2 A_\mu A^\mu$ is strictly forbidden because $(A_\mu - \partial_\mu\phi)^2 \ne A^2$.
+**Sign of the link.** With this $\mathcal D_\mu$, expanding $U_\mu(x)\psi(x+\hat\mu)-\psi(x)$ for a smooth field gives $\varepsilon(\partial_\mu+ie A_\mu)\psi$ exactly when $U_\mu(x)\approx e^{+ie\varepsilon A_\mu}$. So the link is $\exp(+ie\int A)$, the plaquette is $U_P=e^{+ie\Phi}$ (consistent with Part 1), and $a_P=-\tan(e\Phi/2)$. Under $A\to A-\partial\phi$ and $\psi\to e^{ie\phi}\psi$ the lattice rule $U\to gUg^{-1}$ reproduces $A\to A-\partial\phi$ exactly, because $\int\partial\phi=\phi(\text{end})-\phi(\text{start})$. Calculation 11(e) confirms the sign numerically.
 
-The table below maps each continuum concept to its counterpart in our projective rotor framework:
+## Calculation 11: the lattice commutator
 
-| Continuum Gauge Theory | Projective RT & Rotor Architecture | Geometric Meaning |
-| :--- | :--- | :--- |
-| Local $U(1)$ phase: $\psi \mapsto e^{ie\phi(x)}\psi$ | Norm-one element of $K = \mathbb{F}(i)$ acting on spinor | Local gauge rotation |
-| Gauge field potential $A_\mu$ | Link Cayley parameter $a_j \in \mathbb{F}$ | Infinitesimal parallel transporter |
-| Parallel transporter $U = \mathcal{P}\exp\left(-ie\int A\right)$ | Cayley link rotor: $U_j = \frac{1 - i a_j}{1 + i a_j}$ | Finite parallel transport operator |
-| Gauge transformation: $A \mapsto A - \mathrm{d}\phi$ | Tangent addition: $a \mapsto a \oplus b = \frac{a+b}{1-ab}$ | Plaquette gauge transformation |
-| Commutator $[D_\mu, D_\nu] = ie F_{\mu\nu}$ | Lattice commutator $[\mathcal{D}_\mu, \mathcal{D}_\nu]\psi = (U_P - 1)\psi$ | Curvature around closed cell |
-| Magnetic flux $\Phi = \oint A \cdot \mathrm{d}x$ | Projective quadrea / solid spread $\mathcal{S}$ of a tripod | Enclosed angular content |
-| Maxwell action: $\mathcal{L}_{\text{kin}} = \frac{1}{16\pi}F_{\mu\nu}F^{\mu\nu}$ | Wilson potential: $W_1 \equiv 1 - w = 2\mathcal{S}$ | Quadratic kinetic energy ($\sim \text{flux}^2$) |
-| Nonlinear action: $\sim (F_{\mu\nu}F^{\mu\nu})^2$ | Squared potential: $W_2 \equiv (1 - w)^2 = 4\mathcal{S}^2$ | Quartic gauge potential ($\sim \text{flux}^4$) |
-| Rotation-native action: $1 - \cos^2(e\Phi)$ | Second spread polynomial: $S_2(\mathcal{S}) = 4\mathcal{S}(1-\mathcal{S})$ | Unlifted spatial rotation spread |
-| Charge coupling: $e \to k \cdot e$ | Spread polynomial: $\mathcal{S}_{[k]} = S_k(\mathcal{S})$ | Chebyshev-type charge scaling |
-| Bianchi identity: $\mathrm{d}F = 0$ | Plaquette boundary identity ($\partial(\partial\,\text{cube}) = 1$) | Exact boundary-of-boundary zero |
-| Photon masslessness ($m_A = 0$) | Action depends only on closed cycles | Scale-free projective geometry |
+### The identity
 
-::: {.callout-note}
-### Disambiguating Geometric and Physical Notation
-To avoid collisions between the conventions of Rational Trigonometry (RT), Universal Hyperbolic Geometry (UHG), and gauge physics:
-* **Planar RT:** Affine quadrance $Q$, spread $s$, quadrea $\mathcal{A} = 16(\text{area})^2$, and quadrume $\mathcal{V}_{\text{aff}} = 144 V^2$.
-* **Projective UHG:** Projective quadrance $q$, projective line spread $S$, and projective quadrea / tripod solid spread $\mathcal{S}$ (retiring $A(\gamma)$).
-* **Electric Charge:** Coupling strength is denoted by $e$ (retiring $q$ to avoid collision with projective quadrance $q$).
-* **Plaquette Spread:** The trigonometric spread of a plaquette is denoted by $s_{\text{plaq}}$ (retiring $S(i,j)$ to avoid collision with line spread $S$).
+Apply $\mathcal D_\mu$ to $\mathcal D_\nu\psi$:
+
+$$
+\mathcal D_\mu\mathcal D_\nu\psi(x)=U_\mu(x)U_\nu(x{+}\hat\mu)\,\psi(x{+}\hat\mu{+}\hat\nu)\;-\;U_\mu(x)\psi(x{+}\hat\mu)\;-\;U_\nu(x)\psi(x{+}\hat\nu)\;+\;\psi(x).
+$$
+
+The three lower terms are symmetric under $\mu\leftrightarrow\nu$, so they cancel in the commutator, leaving
+
+$$
+[\mathcal D_\mu,\mathcal D_\nu]\psi(x)=\bigl[U_\mu(x)U_\nu(x{+}\hat\mu)-U_\nu(x)U_\mu(x{+}\hat\nu)\bigr]\psi(x{+}\hat\mu{+}\hat\nu).
+$$
+
+Pull out $W\equiv U_\nu(x)U_\mu(x{+}\hat\nu)$, the transporter that carries a value at $x+\hat\mu+\hat\nu$ back to $x$ along the $\nu$-first path:
+
+$$
+\boxed{\;[\mathcal D_\mu,\mathcal D_\nu]\psi(x)=\bigl(U_P(x)-1\bigr)\,\mathcal T_{\mu\nu}\psi(x),\qquad \mathcal T_{\mu\nu}\psi(x)\equiv U_\nu(x)U_\mu(x{+}\hat\nu)\,\psi(x{+}\hat\mu{+}\hat\nu).\;}
+$$
+
+This is **exact**, for any links and any $\psi$. It is *not* $(U_P-1)\psi(x)$: the factor multiplying $U_P-1$ is $\psi$ parallel-transported from the far corner of the plaquette, which differs from $\psi(x)$ at relative order $\varepsilon$. The two agree only in the continuum limit. $\mathcal T_{\mu\nu}\psi$ itself transforms like $g(x)\psi$, so both sides are gauge-covariant. This is the lattice form of the lecture's step "the derivative terms cancel and only $ieF_{\mu\nu}\psi$ survives."
+
+### The Cayley form of the field strength
+
+Because $U(1+ia)=1-ia$,
+
+$$
+U_P-1=\frac{-2i\,a_P}{1+i\,a_P},\qquad \frac{U_P-1}{U_P+1}=-i\,a_P .
+$$
+
+Let $\mathcal S_{\mu\nu}\psi(x)\equiv\bigl[U_\mu(x)U_\nu(x{+}\hat\mu)+U_\nu(x)U_\mu(x{+}\hat\nu)\bigr]\psi(x{+}\hat\mu{+}\hat\nu)=(U_P+1)\mathcal T_{\mu\nu}\psi$, the sum over the two corner paths. Then
+
+$$
+a_P(x)=i\,\frac{[\mathcal D_\mu,\mathcal D_\nu]\psi(x)}{\mathcal S_{\mu\nu}\psi(x)}\qquad(\psi(x{+}\hat\mu{+}\hat\nu)\neq0).
+$$
+
+So the Cayley plaquette parameter is a ratio of two path sums, difference over sum, with no exponential and no logarithm. When $U_P=-1$ ($a_P=\infty$), $\mathcal S\psi=0$.
+
+### Results
+
+4D torus $L=3$ (81 sites, 324 links, 486 plaquettes), random links including $a=\infty$, random nonzero $\psi\in K$ at every site, random gauge transformation:
+
+| Check | $\mathbb Q$ | $\mathbb F_7$ | $\mathbb F_{11}$ |
+|:---|:---:|:---:|:---:|
+| $[\mathcal D_\mu,\mathcal D_\nu]\psi=(U_P-1)\mathcal T\psi$ | 486/486 | 486/486 | 486/486 |
+| $(U_P-1)(1+ia_P)=-2ia_P$ | 486/486 | 486/486 | 486/486 |
+| $a_P=i\,[\mathcal D,\mathcal D]\psi/\mathcal S\psi$ | 486/486 | 486/486 | 486/486 |
+| $\mathcal D'_\mu\psi'=g\,\mathcal D_\mu\psi$ | 324/324 | 324/324 | 324/324 |
+| $[\mathcal D,\mathcal D]'\psi'=g\,[\mathcal D,\mathcal D]\psi$ | 486/486 | 486/486 | 486/486 |
+| $U_P'=U_P$ (gauge invariance) | 486/486 | 486/486 | 486/486 |
+
+### (d) The same identity for non-abelian caps
+
+Replace the links by $\mathrm{SL}(2,\mathbb Q)$ Cayley caps $\mathrm{ca}(A)=(I+A)(I-A)^{-1}$ and $\psi$ by $\mathbb Q^2$-valued fields, with $U_P=U_\mu U_\nu' U_\mu'^{-1}U_\nu^{-1}$ now a matrix. The identity $[\mathcal D_\mu,\mathcal D_\nu]\psi=(U_P-1)\mathcal T\psi$ holds verbatim, 486/486, while $U_\mu U_\nu'\neq U_\nu U_\mu'$ on every plaquette. So the lattice commutator does not need the abelian cancellation of $A_\mu A_\nu$ terms that the lecture discusses; what changes is that $U_P$ stops being a product of commuting phases, so $a_P$ is no longer an additive function of the link parameters and $U_P$ is only gauge-*covariant*, not invariant. That is the point where the Yang–Mills theory starts.
+
+### (e) Continuum limit and the sign check
+
+For a smooth potential and smooth $\psi$ (floating point, $q=1.3$, links $=\exp(+iq\int A)$ computed exactly along each edge), the ratio $[\mathcal D_x,\mathcal D_y]\psi\,/\,(iq\varepsilon^2F_{xy}\psi)$ at a point approaches 1 at first order in $\varepsilon$, as expected from the transporter $\mathcal T\psi\neq\psi(x)$:
+
+| $\varepsilon$ | $\mathrm{Re}$ ratio | $\mathrm{Im}$ ratio | $\lvert\text{ratio}-1\rvert$ |
+|:---:|:---:|:---:|:---:|
+| 1/8 | 0.675098 | 0.141866 | $3.55\times10^{-1}$ |
+| 1/16 | 0.861090 | 0.092659 | $1.67\times10^{-1}$ |
+| 1/32 | 0.937685 | 0.050731 | $8.04\times10^{-2}$ |
+| 1/64 | 0.970757 | 0.026290 | $3.93\times10^{-2}$ |
+| 1/128 | 0.985871 | 0.013352 | $1.94\times10^{-2}$ |
+
+The limit is $+1$, which confirms $[D_\mu,D_\nu]=+ieF_{\mu\nu}$ for $D=\partial+ieA$ with the $+$ sign in the link.
+
+### What this does and does not give
+
+- **Gives:** the lecture's key identity, exactly, on the Cayley lattice over $\mathbb Q$ and $\mathbb F_p$, with the correct transporter factor; the Cayley field strength as a difference-over-sum of path transports; gauge covariance of every piece.
+- **Does not give:** a statement that $[\mathcal D,\mathcal D]\psi=(U_P-1)\psi$ exactly. That form only holds as $\varepsilon\to0$.
+- **Still abelian-specific:** $U_P$ is gauge invariant, which the non-abelian version loses.
+
+## Calculation 12: charge as a Cayley map
+
+### The map
+
+A charge-$k$ field transforms as $\psi\mapsto g^k\psi$ and sees the links $U^k$. In Cayley variables
+
+$$
+U=\frac{1-ia}{1+ia}=e^{-2i\arctan a}\;\Longrightarrow\;U^k=\frac{1-i\,c_k(a)}{1+i\,c_k(a)},\qquad c_k(a)=\tan\bigl(k\arctan a\bigr)=\frac{\operatorname{Im}(1+ia)^k}{\operatorname{Re}(1+ia)^k}.
+$$
+
+This is $k$-fold tangent addition, $c_k(a)=a\oplus\cdots\oplus a$ with $a\oplus b=(a+b)/(1-ab)$. It is *not* $ka$:
+
+$$
+c_2(a)=\frac{2a}{1-a^2},\qquad c_3(a)=\frac{3a-a^3}{1-3a^2},\qquad c_k(a)\approx ka\ \text{for small }a .
+$$
+
+So charge scales the potential linearly only in the weak-field limit, where $a\approx-\tfrac12 e\varepsilon A$.
+
+### Chebyshev and spread polynomials
+
+Writing $c=\mathrm{Re}\,U=\frac{1-a^2}{1+a^2}$, one has exactly $\mathrm{Re}\,U^k=T_k(c)$, the Chebyshev polynomial. In Wildberger's language, with $s\equiv a^2/(1+a^2)$ the spread of the phase, the spread seen by charge $k$ is $S_k(s)=\tfrac12\bigl(1-T_k(1-2s)\bigr)$, the $k$-th spread polynomial; for example $S_2(s)=4s(1-s)$ and $S_3(s)=s(3-4s)^2$. Verified exactly over $\mathbb Q$:
+
+| Check over $\mathbb Q$ | Result |
+|:---|:---:|
+| $c_2(a)=2a/(1-a^2)$ and $c_3(a)=(3a-a^3)/(1-3a^2)$, random $a$ (excluding poles) | 287/287, 287/287 |
+| $c_5(a)=\operatorname{Im}/\operatorname{Re}$ of $(1+ia)^5$ | 300/300 |
+| $\mathrm{Re}\,U^k=T_k(\mathrm{Re}\,U)$, $k=1,\dots,6$ | 1800/1800 |
+| $c_k(a\oplus b)=c_k(a)\oplus c_k(b)$, $k\in\{2,3,4,5,-1,-3\}$, incl. $a=\infty$ | 3000/3000 |
+
+### Over $\mathbb F_p$: a $\mathbb Z_{p+1}$ gauge theory
+
+For $p\equiv3\pmod4$ the norm map $\mathbb F_{p^2}^\times\to\mathbb F_p^\times$ is onto, so its kernel, the norm-one phases, has order $(p^2-1)/(p-1)=p+1$. It is a subgroup of the multiplicative group of a finite field, hence cyclic. The Cayley parameters $\mathbb P^1(\mathbb F_p)$ with $\oplus$ are that group. So abelian gauge theory over $\mathbb F_p$ is a $\mathbb Z_N$ gauge theory with $N=p+1$, and a charge is an integer mod $N$. Exhaustive over all points of $\mathbb P^1(\mathbb F_p)$ (hence all $(p+1)^2$ pairs):
+
+| $p$ | $N=p+1$ | cyclic generators ($=\varphi(N)$) | homomorphism | $c_{q+r}=c_q\oplus c_r$ | periodic mod $N$ | $c_q\circ c_r=c_{qr}$ |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 3 | 4 | 2 | 48/48 | 96/96 | 24/24 | 96/96 |
+| 7 | 8 | 4 | 192/192 | 320/320 | 80/80 | 320/320 |
+| 11 | 12 | 4 | 432/432 | 672/672 | 168/168 | 672/672 |
+| 19 | 20 | 8 | 1200/1200 | 1760/1760 | 440/440 | 1760/1760 |
+| 23 | 24 | 8 | 1728/1728 | 2496/2496 | 624/624 | 2496/2496 |
+
+
+For $p=7$ the generator $g=2$ gives, for $q=0,\dots,7$, the values $c_q(g)=0,2,1,4,\infty,3,6,5$: every point of $\mathbb P^1(\mathbb F_7)$ exactly once, with $q=4=N/2$ giving $U=-1$ ($a=\infty$), and $q=8$ returning to $0$.
+
+### Charge-$k$ covariant derivative and plaquette
+
+Use $\mathcal D^{(k)}_\mu\psi(x)=U_\mu(x)^k\psi(x+\hat\mu)-\psi(x)$. Everything from Calculation 11 goes through with $U\to U^k$, and the plaquette becomes $U_P^k$, whose Cayley parameter is $c_k(a_P)$. So a charge-$k$ field sees the flux $k\Phi$:
+
+| $k$ | field | identity $[\mathcal D,\mathcal D]\psi=(U_P^k-1)\mathcal T\psi$ | covariance | $a_P^{(k)}=c_k(a_P)$ | $U_P^k$ invariant |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| 2, 3, 5, $-1$ | $\mathbb Q$, $\mathbb F_7$, $\mathbb F_{11}$ | 486/486 each | 324/324 each | 486/486 each | 486/486 each |
+
+### What periodicity does and does not say
+
+If $U_P$ is a genuine $\mathbb F_p$-rational phase then $U_P^{p+1}=1$, so a charge $p+1$ field decouples from the connection. In spread-polynomial language $S_{p+1}(s)=0$, **for those $s$ that are spreads $s=a^2/(1+a^2)$ of an $\mathbb F_p$-rational phase** (equivalently $s=1$ or $s/(1-s)$ a nonzero square). It is not true for every $s\in\mathbb F_p$. Writing $1-2s=(z+z^{-1})/2$: if $z^{p+1}=1$ the phase is rational and $S_{p+1}(s)=0$; if instead $z\in\mathbb F_p^\times$ then $z^{p+1}=z^2$ and $S_{p+1}(s)=S_2(s)\neq0$ in general. For $p=7$, $S_8(s)$ is $0$ at $s=0,1,3,4,5$ and equals $6=S_2(s)$ at $s=2,6$, exactly the two values for which $s/(1-s)$ is a nonsquare.
+
+### How close is $\mathbb Z_{p+1}$ to $\mathrm U(1)$?
+
+Single-plaquette average of $\cos\theta$ with weight $e^{\beta\cos\theta}$ (the same weight as $e^{-\beta W_1}$ up to a constant), compared with the continuum value $I_1(\beta)/I_0(\beta)$:
+
+| $\beta$ | U(1) | $\mathbb Z_4$ ($p=3$) | $\mathbb Z_8$ ($p=7$) | $\mathbb Z_{12}$ ($p=11$) | $\mathbb Z_{20}$ | $\mathbb Z_{24}$ |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0.25 | 0.124034 | 0.124353 | 0.124034 | 0.124034 | 0.124034 | 0.124034 |
+| 1 | 0.446390 | 0.462117 | 0.446391 | 0.446390 | 0.446390 | 0.446390 |
+| 5 | 0.893383 | 0.986614 | 0.898618 | 0.893408 | 0.893383 | 0.893383 |
+
+A single plaquette says nothing about phases of the full lattice, but it does show the scale: $\mathbb Z_8$ and larger already track U(1) closely, while $\mathbb Z_4$ does not. As I recall (not verified here, and worth checking against the original papers by Elitzur–Pearson–Shigemitsu and Horn–Weinstein–Yankielowicz, 1979), the 4D $\mathbb Z_N$ lattice gauge theory has a Coulomb phase only for $N\ge5$, which would exclude $p=3$ but include $p=7,11,19,23$.
+
+::: {.callout-warning}
+## The finite-field theory is a $\mathbb Z_N$ theory only up to a choice
+The group structure, Stokes, Bianchi, gauge covariance and the identities above are canonical over $\mathbb F_p$. Turning $\mathbb P^1(\mathbb F_p)$ into angles $2\pi m/N$, which is what the table above uses, requires choosing a generator, i.e. a discrete logarithm. After that choice $\cos(2\pi m/N)$ is an ordinary real number with no algebraic relation to the $\mathbb F_p$ arithmetic. Any statement about Boltzmann weights, phases or a continuum limit for the finite-field theory is a statement about that real model, which the finite-field structure hosts but does not determine.
 :::
 
----
+## Tripods and the Wilson potential: what is and is not established
 
-## 2. The Discrete Covariant Difference and Lattice Commutator
+Part 1 and the companion papers define the **solid spread** of three rays $v_1,v_2,v_3$ in a space with a nondegenerate form $B$ as $\mathcal S=\det G_3/(Q(v_1)Q(v_2)Q(v_3))$. A natural question is whether the Wilson plaquette potential $W_1=1-\mathrm{Re}\,U_P$ is "twice the tripod solid spread." What can be said:
 
-On a discrete lattice with spacing $\varepsilon$, a field $\psi(x)$ lives at sites $x$. A gauge field lives on links $x \to x + \hat{\mu}$ as a Cayley phase $U_\mu(x) \in U(1)$:
-$$U_\mu(x) = \frac{1 - i a_\mu(x)}{1 + i a_\mu(x)}$$
+**True, but a relabelling.** Define $s_P\equiv a_P^2/(1+a_P^2)$. Then $W_1=1-\tfrac{1-a_P^2}{1+a_P^2}=2s_P$ exactly, and $s_P=\sin^2(\theta_P/2)$ for $U_P=e^{i\theta_P}$. Also $c_k$ acts on it by the spread polynomial: $s_P^{(k)}=S_k(s_P)$. The weak-field limit $W_1\approx\tfrac12e^2\Phi^2$ still requires $a_P\approx-\tfrac12e\Phi$, i.e. the continuum limit. So "exact" here means $W_1$ and $s_P$ are the same function, not that the Maxwell action is obtained without a limit.
 
-We define the **discrete forward covariant difference operator** acting on $\psi(x)$:
-$$\mathcal{D}_\mu \psi(x) \equiv U_\mu(x)\psi(x + \hat{\mu}) - \psi(x)$$
+**Not established.** That $s_P$ is the Gram-determinant solid spread of a tripod built from the plaquette. For that one needs a map from an abelian plaquette (a single phase) to three rays in a projective plane, with $\det G_3/\prod Q=\sin^2(\theta_P/2)$. No such map was constructed. Two cautions from direct checks:
 
-Under a local gauge transformation $\psi(x) \mapsto V(x)\psi(x)$ with $V(x) \in U(1)$, the link transforms as:
-$$U_\mu(x) \mapsto V(x) U_\mu(x) V(x + \hat{\mu})^{-1}$$
-Evaluating $\mathcal{D}_\mu' \psi'(x)$:
-$$\begin{aligned}
-\mathcal{D}_\mu' \psi'(x) &= U_\mu'(x)\psi'(x+\hat{\mu}) - \psi'(x) \\
-&= \left[V(x)U_\mu(x)V(x+\hat{\mu})^{-1}\right]\left[V(x+\hat{\mu})\psi(x+\hat{\mu})\right] - V(x)\psi(x) \\
-&= V(x)\left[U_\mu(x)\psi(x+\hat{\mu}) - \psi(x)\right] = V(x)\mathcal{D}_\mu\psi(x)
-\end{aligned}$$
-Thus, $\mathcal{D}_\mu \psi(x)$ transforms covariantly at site $x$.
+- *Field membership.* An arbitrary rational $\mathcal S$ is the spread of a rational phase only when $\mathcal S/(1-\mathcal S)$ is a square. The tripod $v_1=(1,0,0)$, $v_2=(1,1,0)$, $v_3=(1,1,1)$ in $\mathbb Q^3$ has $\mathcal S=1/6$, hence $a_P^2=1/5$, which is not a rational square, and over $\mathbb F_7$ it gives $a_P^2=3$, a nonsquare. Its arithmetic is consistent, but it does not correspond to a rational $\mathrm U(1)$ plaquette phase.
+- *Geometric holonomy.* The honest holonomy of the Levi-Civita connection around the octant triangle of an orthogonal tripod has half-trace $\cos(\Omega/2)=\cos(\pi/4)$ (solid angle $\Omega=\pi/2$), not $-1$. So $w=1-2\mathcal S$ is not the parallel-transport holonomy of a spherical triangle; if it holds, it holds for a different, still-to-be-defined construction.
 
-### The Commutator Identity
-Now, evaluate the commutator of two discrete covariant differences $[\mathcal{D}_\mu, \mathcal{D}_\nu]$ on $\psi(x)$:
-$$\begin{aligned}
-\mathcal{D}_\mu \mathcal{D}_\nu \psi(x) &= \mathcal{D}_\mu \left(U_\nu(x)\psi(x+\hat{\nu}) - \psi(x)\right) \\
-&= U_\mu(x)\left[U_\nu(x+\hat{\mu})\psi(x+\hat{\mu}+\hat{\nu}) - \psi(x+\hat{\mu})\right] - \left[U_\mu(x)\psi(x+\hat{\mu}) - \psi(x)\right] \\
-&= U_\mu(x)U_\nu(x+\hat{\mu})\psi(x+\hat{\mu}+\hat{\nu}) - 2U_\mu(x)\psi(x+\hat{\mu}) + \psi(x)
-\end{aligned}$$
+**The "spin lift" reading.** For a charge-1 field in the $\mathrm U(1)\subset\mathrm{SL}(2)$ embedding $\mathrm{diag}(U,\bar U)$, the vector (adjoint) representation is charge 2. So "a vector sees $U_P=-1$ as trivial while a spinor does not" is exactly "charge 2 sees $U_P^2=1$ while charge 1 sees $-1$." The quantity that vanishes there is $S_2(s)=4s(1-s)$, the spread seen by charge 2. But both $W_1$ and $W_2=(1-w)^2$ are nonzero at $w=-1$, so the quartic potential has no special claim to "detect the $\mathbb Z_2$." Part 1 already noted that $W_2\approx\theta^4/4$ does not reproduce Maxwell, so $W_1$ should be used for electromagnetism.
 
-Subtracting the transposed operator $\mathcal{D}_\nu \mathcal{D}_\mu \psi(x)$:
-$$[\mathcal{D}_\mu, \mathcal{D}_\nu]\psi(x) = \left[U_\mu(x)U_\nu(x+\hat{\mu}) - U_\nu(x)U_\mu(x+\hat{\nu})\right]\psi(x+\hat{\mu}+\hat{\nu}) + 2\left[U_\nu(x)\psi(x+\hat{\nu}) - U_\mu(x)\psi(x+\hat{\mu})\right]$$
+I have deferred a tripod calculation until the missing map is available; the tripod arithmetic itself is routine.
 
-Factoring out the return parallel transporter $U_\nu(x+\hat{\mu})^{-1} U_\mu(x)^{-1}$, the corner term simplifies to the plaquette holonomy:
-$$U_P(x) \equiv U_\mu(x)U_\nu(x+\hat{\mu})U_\mu(x+\hat{\nu})^{-1}U_\nu(x)^{-1}$$
-In the small-lattice limit, $\psi(x+\hat{\mu}+\hat{\nu}) \approx \psi(x)$, and the commutator becomes directly proportional to the plaquette factor:
-$$[\mathcal{D}_\mu, \mathcal{D}_\nu] \sim (U_P - 1)$$
-This is the exact discrete equivalent of $[D_\mu, D_\nu] = ie F_{\mu\nu}$.
+## Where the connection stops
 
----
+- **No matter field, no action.** Calculations 11 and 12 give the covariant difference and charge on the lattice, but not a Dirac operator, a fermion action, or the coupling of $\psi$ to the Cayley dynamics of Calculation 10.
+- **Lattice, not Lorentz-covariant.** The identity is exact, but the lattice is hypercubic with a Euclidean $\varepsilon$; the Hodge star and Lorentz covariance remain the open problem from Part 1.
+- **Finite-field limits.** Over $\mathbb F_p$ there is no ordering, so no weak field and no continuum limit. Only the exact identities and the $\mathbb Z_{p+1}$ structure survive, plus whatever real model one builds on top by choosing a generator (see the warning above).
+- **Non-abelian is only a hinge.** The commutator identity holds for $\mathrm{SL}(2)$ caps, but no non-abelian dynamics, Wilson loops or phase analysis were done.
 
-## 3. Wildberger Spread Polynomials and Charge Scaling
+## Next directions
 
-In continuum physics, a field with integer charge $k$ couples via $e \to k \cdot e$, which simply scales the vector potential $A_\mu$. In Cayley variables, however, this scaling is **nonlinear**.
+1. **Matter field.** A Wilson-type hopping term $\bar\psi_x\gamma^\mu U_\mu(x)\psi_{x+\hat\mu}$ over $K$, which is gauge invariant by Calculation 11's covariance, with the fermion-doubling issue to be handled.
+2. **Dynamics from a spacetime action.** Restore the time links so the Gauss law of Calculation 10 becomes a consequence of gauge invariance rather than of the chosen gauge.
+3. **Mass term.** Show directly that $a\mapsto a\oplus b$ does not preserve a $\sum a^2$ term, the lattice version of the lecture's $m_A=0$ argument.
+4. **Tripod map.** Either construct a map from a plaquette to a tripod with $\det G_3/\prod Q=\sin^2(\theta_P/2)$, or drop the claim.
 
-Because parallel transport acts by phase multiplication, a charge-$k$ matter field transforms as $\psi(x) \mapsto V(x)^k \psi(x)$. The link variable seen by a charge-$k$ particle is the $k$-th power of $U$:
-$$U^k = \left(\frac{1 - i a}{1 + i a}\right)^k = \frac{1 - i a^{[k]}}{1 + i a^{[k]}}$$
-where $a^{[k]}$ is obtained by **$k$-fold rational tangent addition**:
-$$a^{[k]} \equiv \underbrace{a \oplus a \oplus \cdots \oplus a}_{k\text{ times}}, \quad \text{with } a \oplus b \equiv \frac{a+b}{1-ab}$$
+## Reproducing Calculations 11 and 12
 
-### The Spread Polynomial Identification: $\mathcal{S}_{[k]} = S_k(\mathcal{S})$
-Using the bridge formula $\mathcal{S} = \frac{a^2}{1 + a^2}$, the effective solid spread seen by a particle of charge $k$ is:
-$$\mathcal{S}_{[k]} \equiv \frac{\left(a^{[k]}\right)^2}{1 + \left(a^{[k]}\right)^2}$$
-
-Expanding for small values of $k$:
-* **Charge $k = 1$:**
-  $$a^{[1]} = a \quad \Longrightarrow \quad \mathcal{S}_{[1]} = \frac{a^2}{1 + a^2} = \mathcal{S} \equiv S_1(\mathcal{S})$$
-* **Charge $k = 2$:**
-  $$a^{[2]} = \frac{2a}{1 - a^2} \quad \Longrightarrow \quad \mathcal{S}_{[2]} = \frac{4a^2}{(1 + a^2)^2} = 4\mathcal{S}(1 - \mathcal{S}) \equiv S_2(\mathcal{S})$$
-* **Charge $k = 3$:**
-  $$a^{[3]} = \frac{3a - a^3}{1 - 3a^2} \quad \Longrightarrow \quad \mathcal{S}_{[3]} = \frac{a^2(3 - a^2)^2}{(1 + a^2)^3} = \mathcal{S}(3 - 4\mathcal{S})^2 \equiv S_3(\mathcal{S})$$
-
-In every case, **$\mathcal{S}_{[k]} = S_k(\mathcal{S})$ is identically Wildberger's $k$-th spread polynomial from Chapter 8 of *Divine Proportions***. In rational trigonometry, spread polynomials describe the spread of $k$ successive spreads; in gauge theory, they describe the effective plaquette curvature experienced by a particle of charge $k$.
-
-### The Chebyshev Connection and Finite Fields $\mathbb{F}_p$
-In classical trigonometry, the spread polynomial is related to the Chebyshev polynomial of the first kind $T_k(x)$ by:
-$$S_k(s) = \frac{1 - T_k(1 - 2s)}{2}$$
-Over a finite field $\mathbb{F}_p$ where $-1$ is a nonsquare ($p \equiv 3 \pmod 4$), Hilbert's Theorem 90 dictates that the group of norm-one phases has order:
-$$|U(1)_{\mathbb{F}_p}| = \frac{p^2 - 1}{p - 1} = p + 1$$
-Thus, over $\mathbb{F}_p$, **Abelian gauge theory is strictly a $\mathbb{Z}_{p+1}$ gauge theory**. Charge is an integer modulo $p+1$, and Wildberger's spread polynomials satisfy the exact periodicity:
-$$S_{p+1}(\mathcal{S}) \equiv 0 \pmod p \quad \text{for all valid spreads } \mathcal{S}$$
-For $p = 7$, the gauge group is $\mathbb{Z}_8$, and a particle of charge $k = 8$ has $S_8(\mathcal{S}) \equiv 0 \pmod 7$, decoupling completely from the connection.
-
----
-
-## 4. Projective Tripods and the Exact Wilson Bridge
-
-In three-dimensional projective space $\mathbb{P}^2$ (ambient vector space $V^3$ equipped with a non-degenerate symmetric bilinear form $B$), three rays $v_1, v_2, v_3$ form a **tripod** $\gamma$.
-
-The fundamental metrical invariant of this tripod is its **projective solid spread** (projective quadrea) $\mathcal{S}$, defined as the normalized $3 \times 3$ Gram determinant:
-$$\mathcal{S} \equiv \frac{\det(G_3)}{Q(v_1) Q(v_2) Q(v_3)}$$
-where $[G_3]_{ij} = B(v_i, v_j)$ and $Q(v) \equiv B(v, v)$.
-
-### Base Spread $\times$ Pitch Factorization
-The solid spread of a tripod factorizes into:
-$$\mathcal{S} = \mathcal{S}_{\text{base}} \times \text{pitch} = q(v_1, v_2) \times h(v_3)$$
-where:
-* $q(v_1, v_2) \equiv 1 - \frac{B(v_1, v_2)^2}{Q(v_1)Q(v_2)}$ is the projective quadrance between base lines $v_1$ and $v_2$.
-* $n \equiv v_1 \times_B v_2$ is the dual vector orthogonal to the base plane under $B$.
-* $h(v_3) \equiv \frac{B(v_3, n)^2}{Q(v_3)Q(n)}$ is the projective altitude quadrance (pitch) of $v_3$ relative to that plane.
-
-### The Exact Bridge: $w = 1 - 2\mathcal{S}$
-In the $2 \times 2$ spinor representation, the scalar trace of the plaquette holonomy $U_P$ is:
-$$w \equiv \frac{1}{2}\operatorname{Tr}(U_P) = \frac{1 - a_P^2}{1 + a_P^2}$$
-Equating this with the tripod holonomy identity $w = 1 - 2\mathcal{S}$:
-$$1 - 2\mathcal{S} = \frac{1 - a_P^2}{1 + a_P^2} \quad \Longleftrightarrow \quad \mathcal{S} = \frac{a_P^2}{1 + a_P^2} \quad \text{and} \quad a_P^2 = \frac{\mathcal{S}}{1 - \mathcal{S}}$$
-
-### The Physical Potentials
-* **The Wilson-type Plaquette Potential ($W_1$):**
-  $$W_1 \equiv 1 - w = 2\mathcal{S} = \frac{2 a_P^2}{1 + a_P^2}$$
-  In the weak-field limit where $a_P \approx \frac{1}{2}e\Phi \ll 1$, $W_1 \approx \frac{1}{2}e^2 \Phi^2$, recovering the Maxwell action. **The projective quadrea $\mathcal{S}$ is identically half the Wilson action.**
-* **The Squared (Quartic) Potential ($W_2$):**
-  $$W_2 \equiv (1 - w)^2 = 4\mathcal{S}^2 = \frac{4 a_P^4}{(1 + a_P^2)^2}$$
-* **The Rotation-Native Spread as $S_2(\mathcal{S})$:**
-  $$1 - w^2 = 4\mathcal{S}(1 - \mathcal{S}) \equiv S_2(\mathcal{S}) = \frac{4 a_P^2}{(1 + a_P^2)^2}$$
-
----
-
-## 5. The $\mathbb{Z}_2$ Spin Lift: Fermion Detection vs. Boson Rotation
-
-In relativistic quantum mechanics, Dirac wavefunctions transform under the double cover $\mathrm{Spin}(1,3)$ rather than the vector Lorentz group $\mathrm{SO}(1,3)$. The geometric tripod reflects this distinction:
-
-* **Coplanar Tripod ($\mathcal{S} = 0$):**  
-  The three rays lie in a single plane.  
-  $$w = 1 - 2(0) = +1 \quad \Longrightarrow \quad U_P = +I_2, \quad W_1 = 0, \quad W_2 = 0, \quad S_2(\mathcal{S}) = 0$$
-  Both the spinor transport and the spatial rotation are trivial.
-
-* **Orthogonal Tripod ($\mathcal{S} = 1$):**  
-  The three rays are mutually perpendicular.  
-  $$w = 1 - 2(1) = -1 \quad \Longrightarrow \quad U_P = -I_2$$
-  Under the vector congruence action $X \mapsto U_P X U_P^\dagger$, the minus signs cancel: $(-I_2)X(-I_2) = X$. The induced spatial rotation in $\mathrm{SO}(3)$ is the **pure identity**. A classical vector field observes zero rotation.
-  
-  However, the spinor holonomy is $-I_2$ (the non-trivial center of the spin group). The potentials evaluate to:
-  $$W_1 = 1 - (-1) = 2, \qquad W_2 = (1 - (-1))^2 = 4$$
-  while the rotation-native spread vanishes identically:
-  $$S_2(1) = 4(1)(1 - 1) = 0$$
-
-::: {.callout-important}
-### Detecting the Spin Lift
-The quartic potential $W_2 = (1 - w)^2$ reaches its maximum value of $4$ at $\mathcal{S} = 1$. It explicitly detects the non-trivial $\mathbb{Z}_2$ spin flip of the Dirac wavefunction, whereas the rotation-native spread $S_2(\mathcal{S}) = 4\mathcal{S}(1 - \mathcal{S})$ measures only the unlifted spatial rotation.
-:::
-
----
-
-## 6. Worked Calculations
-
-### Calculation 11: The Discrete Covariant Difference and Commutator
-
-Let us verify the discrete covariant difference operator and commutator on a $2 \times 2$ grid cell over $\mathbb{Q}$ and $\mathbb{F}_7$.
+The full script reproduces every table above (it uses `numpy` and `scipy` only for the floating-point parts, 11(e) and the $\mathbb Z_N$ comparison).
 
 ```python
-import sympy as sp
+"""
+Reproduction script for Calculations 11 and 12 (Part 2).
 
-i = sp.I
+  11. Lattice covariant difference  D_mu psi(x) = U_mu(x) psi(x+mu) - psi(x)  with Cayley link phases
+      (a) [D_mu, D_nu] psi = (U_P - 1) T psi           exact identity, for any links and any psi
+      (b) gauge covariance of D and of [D, D]; gauge invariance of U_P
+      (c) Cayley form of the field strength:  a_P = i [D_mu, D_nu] psi / S psi   and   U_P - 1 = -2 i a_P/(1 + i a_P)
+      (d) the same identity for non-abelian SL(2,Q) caps (the Yang-Mills hinge)
+      (e) continuum limit in floating point: [D_mu, D_nu] psi -> i q eps^2 F_{mu nu} psi, with D = d + i q A
+  12. Charge q:  U -> U^q is the Cayley map c_q(a) = tan(q arctan a) (the tangent multiple-angle map)
+      (a) closed forms, Chebyshev relation Re U^q = T_q(Re U)
+      (b) homomorphism, additivity in q, periodicity in q mod (p+1), exhaustive over F_p
+      (c) the phase group over F_p is cyclic of order N = p+1 (a Z_N gauge theory)
+      (d) charge-q covariant derivative and plaquette over Q, F_7, F_11
+      (e) single-plaquette comparison Z_N versus U(1)
 
-def cayley_u(a):
-    return (1 - i*a) / (1 + i*a)
+Needs: numpy, scipy (parts 11e and 12e only).  Runs in well under a minute.
+"""
+import itertools
+import math
+import random
+from fractions import Fraction as Fr
 
-# Define Cayley link parameters on a plaquette
-a_mu_x = sp.Rational(1, 2)
-a_nu_x_mu = sp.Rational(1, 3)
-a_mu_x_nu = sp.Rational(1, 5)
-a_nu_x = sp.Rational(1, 4)
+# ------------------------------------------------------------------ fields ---
+class Fp:
+    p = 7
+    def __init__(s, v): s.v = int(v) % Fp.p
+    def __add__(s, o): return Fp(s.v + _v(o))
+    __radd__ = __add__
+    def __sub__(s, o): return Fp(s.v - _v(o))
+    def __rsub__(s, o): return Fp(_v(o) - s.v)
+    def __neg__(s): return Fp(-s.v)
+    def __mul__(s, o): return Fp(s.v * _v(o))
+    __rmul__ = __mul__
+    def __truediv__(s, o): return Fp(s.v * pow(_v(o), -1, Fp.p))
+    def __rtruediv__(s, o): return Fp(_v(o) * pow(s.v, -1, Fp.p))
+    def __eq__(s, o): return s.v == _v(o) % Fp.p
+    def __hash__(s): return hash(s.v)
+    def __repr__(s): return str(s.v)
 
-U1 = cayley_u(a_mu_x)
-U2 = cayley_u(a_nu_x_mu)
-U3 = cayley_u(a_mu_x_nu)
-U4 = cayley_u(a_nu_x)
+def _v(o): return o.v if isinstance(o, Fp) else int(o)
 
-# Plaquette holonomy U_P = U1 * U2 * (U3)^-1 * (U4)^-1
-U_P = sp.simplify(U1 * U2 * (1/U3) * (1/U4))
+# ------------------------------------------- K = F[i] as pairs (re, im) -------
+def kadd(u, v): return (u[0] + v[0], u[1] + v[1])
+def ksub(u, v): return (u[0] - v[0], u[1] - v[1])
+def kmul(u, v): return (u[0] * v[0] - u[1] * v[1], u[0] * v[1] + u[1] * v[0])
+def kconj(u): return (u[0], -u[1])
+def kinv(u):
+    n = u[0] * u[0] + u[1] * u[1]
+    return (u[0] / n, -u[1] / n)
+def kpow(u, q, one, zero):
+    if q < 0: return kpow(kinv(u), -q, one, zero)
+    r = (one, zero)
+    for _ in range(q): r = kmul(r, u)
+    return r
+def ki(u): return (-u[1], u[0])                       # multiplication by i
 
-# Compute a_P via tangent addition
-def oplus(a, b):
-    return (a + b) / (1 - a*b)
+class Ring:
+    """Bundles the base field F: constructor mk, constants, Cayley phase and its inverse."""
+    def __init__(s, mk): s.mk, s.one, s.zero = mk, mk(1), mk(0)
+    def phase(s, a):                                   # U = (1 - i a)/(1 + i a);  a = None means infinity
+        o, z = s.one, s.zero
+        if a is None: return (-o, z)
+        d = o + a * a
+        return ((o - a * a) / d, s.mk(-2) * a / d)
+    def a_of(s, u):                                    # inverse Cayley map
+        return None if u[0] == -s.one else -u[1] / (s.one + u[0])
+    def oplus(s, a, b): return s.a_of(kmul(s.phase(a), s.phase(b)))      # tangent addition
+    def cq(s, a, q): return s.a_of(kpow(s.phase(a), q, s.one, s.zero))   # Cayley charge map
 
-def ominus(a, b):
-    return (a - b) / (1 + a*b)
+RQ = Ring(Fr)
+def RF(p):
+    Fp.p = p
+    return Ring(Fp)
 
-a_P = ominus(oplus(a_mu_x, a_nu_x_mu), oplus(a_nu_x, a_mu_x_nu))
-assert U_P == cayley_u(a_P)
+# --------------------------------------------------------------- lattice ----
+D4, L4 = 4, 3
+SITES = list(itertools.product(range(L4), repeat=D4))
+def sh(x, m): return tuple((x[i] + (i == m)) % L4 for i in range(D4))
+PAIRS = [(m, n) for m in range(D4) for n in range(m + 1, D4)]
 
-# Commutator acting on wavefunctions psi
-psi_corner = sp.symbols('psi_corner')
-corner_term = sp.simplify((U1 * U2 - U4 * U3) * psi_corner)
-expected_factor = sp.simplify((U_P - 1) * (U4 * U3))
+def Dop(U, m, f):                                      # (D_m f)(x) = U_m(x) f(x+m) - f(x)
+    return {x: ksub(kmul(U[(x, m)], f[sh(x, m)]), f[x]) for x in SITES}
 
-assert sp.simplify(corner_term - expected_factor * psi_corner) == 0
-print(f"Plaquette parameter a_P = {a_P}")
-print(f"Plaquette holonomy U_P = {U_P}")
-print("Discrete commutator [D_mu, D_nu] matches (U_P - 1) exactly!")
+def plaq(U, x, m, n):                                  # U_m(x) U_n(x+m) U_m(x+n)^-1 U_n(x)^-1
+    return kmul(kmul(U[(x, m)], U[(sh(x, m), n)]), kmul(kconj(U[(sh(x, n), m)]), kconj(U[(x, n)])))
+
+def transport(U, f, x, m, n):                          # T f(x) = U_n(x) U_m(x+n) f(x+m+n)
+    return kmul(kmul(U[(x, n)], U[(sh(x, n), m)]), f[sh(sh(x, m), n)])
+
+def twopath(U, f, x, m, n):                            # S f(x) = (U_m U_n' + U_n U_m') f(x+m+n)
+    t = f[sh(sh(x, m), n)]
+    return kmul(kadd(kmul(U[(x, m)], U[(sh(x, m), n)]), kmul(U[(x, n)], U[(sh(x, n), m)])), t)
+
+def random_links(R, rand, rng):
+    return {(x, m): R.phase(rand(rng)) for x in SITES for m in range(D4)}
+
+def random_psi(R, rand, rng):
+    out = {}
+    for x in SITES:
+        while True:
+            v = (rand(rng, False), rand(rng, False))
+            if v != (R.zero, R.zero) and not (v[0] == R.zero and v[1] == R.zero): break
+        out[x] = v
+    return out
+
+def checks(R, rand, q=1, seed=11):
+    rng = random.Random(seed)
+    U1 = random_links(R, rand, rng)
+    U = {k: kpow(u, q, R.one, R.zero) for k, u in U1.items()} if q != 1 else U1       # charge-q links
+    psi = random_psi(R, rand, rng)
+    n = dict(ident=0, cayley=0, ratio=0, covD=0, covC=0, inv=0, qmap=0)
+    tot = dict(ident=0, cayley=0, ratio=0, covD=0, covC=0, inv=0, qmap=0)
+    g = {x: R.phase(rand(rng)) for x in SITES}                        # gauge transformation (charge-1 phase)
+    gq = {x: kpow(g[x], q, R.one, R.zero) for x in SITES}
+    Up = {(x, m): kmul(kmul(gq[x], U[(x, m)]), kconj(gq[sh(x, m)])) for x in SITES for m in range(D4)}
+    psip = {x: kmul(gq[x], psi[x]) for x in SITES}
+    Dn = {m: Dop(U, m, psi) for m in range(D4)}
+    Dnp = {m: Dop(Up, m, psip) for m in range(D4)}
+    for m in range(D4):                                               # covariance of D
+        for x in SITES:
+            tot["covD"] += 1; n["covD"] += Dnp[m][x] == kmul(gq[x], Dn[m][x])
+    for (m, nn) in PAIRS:
+        Cm = {x: ksub(Dop(U, m, Dn[nn])[x], Dop(U, nn, Dn[m])[x]) for x in SITES}
+        Cp = {x: ksub(Dop(Up, m, Dnp[nn])[x], Dop(Up, nn, Dnp[m])[x]) for x in SITES}
+        for x in SITES:
+            P = plaq(U, x, m, nn)
+            T = transport(U, psi, x, m, nn)
+            tot["ident"] += 1; n["ident"] += Cm[x] == kmul(ksub(P, (R.one, R.zero)), T)          # [D,D] psi = (U_P - 1) T psi
+            tot["covC"] += 1; n["covC"] += Cp[x] == kmul(gq[x], Cm[x])                          # covariance of the commutator
+            tot["inv"] += 1; n["inv"] += plaq(Up, x, m, nn) == P                                # gauge invariance of U_P
+            a = R.a_of(P)
+            S = twopath(U, psi, x, m, nn)
+            tot["ratio"] += 1
+            if a is None: n["ratio"] += S == (R.zero, R.zero)                                   # U_P = -1: S psi = 0
+            else: n["ratio"] += ki(kmul(Cm[x], kinv(S))) == (a, R.zero)                         # a_P = i [D,D]psi / S psi
+            tot["cayley"] += 1
+            if a is None: n["cayley"] += P == (-R.one, R.zero)
+            else: n["cayley"] += kmul(ksub(P, (R.one, R.zero)), (R.one, a)) == (R.zero, R.mk(-2) * a)   # (U_P - 1)(1 + i a_P) = -2 i a_P
+            tot["qmap"] += 1
+            a1 = R.a_of(plaq(U1, x, m, nn))
+            if q == 1: n["qmap"] += 1
+            else: n["qmap"] += (R.cq(a1, q) == a)                                               # a_P^(q) = c_q(a_P)
+    return n, tot
+
+# ---------------------------------------------- 11d: non-abelian SL(2,Q) -----
+def m2(a, b, c, d): return ((a, b), (c, d))
+def mmul(A, B): return tuple(tuple(sum(A[i][k] * B[k][j] for k in range(2)) for j in range(2)) for i in range(2))
+def msub(A, B): return tuple(tuple(A[i][j] - B[i][j] for j in range(2)) for i in range(2))
+def madd(A, B): return tuple(tuple(A[i][j] + B[i][j] for j in range(2)) for i in range(2))
+def mdet(A): return A[0][0] * A[1][1] - A[0][1] * A[1][0]
+def minv(A):
+    d = mdet(A)
+    return ((A[1][1] / d, -A[0][1] / d), (-A[1][0] / d, A[0][0] / d))
+def mvec(A, v): return tuple(sum(A[i][j] * v[j] for j in range(2)) for i in range(2))
+def vsub(u, v): return tuple(a - b for a, b in zip(u, v))
+I2 = ((Fr(1), Fr(0)), (Fr(0), Fr(1)))
+
+def cap(A): return mmul(madd(I2, A), minv(msub(I2, A)))               # Cayley cap (I + A)(I - A)^-1
+
+def nonabelian_check(seed=5):
+    rng = random.Random(seed)
+    def rA():
+        while True:
+            a, b, c = (Fr(rng.randint(-3, 3), rng.randint(1, 3)) for _ in range(3))
+            A = ((a, b), (c, -a))
+            if mdet(msub(I2, A)) != 0: return A
+    U = {(x, m): cap(rA()) for x in SITES for m in range(D4)}
+    psi = {x: (Fr(rng.randint(-5, 5)), Fr(rng.randint(-5, 5))) for x in SITES}
+    Dm = lambda m, f: {x: vsub(mvec(U[(x, m)], f[sh(x, m)]), f[x]) for x in SITES}
+    ok = tot = 0; nonabelian = 0
+    for (m, n) in PAIRS:
+        C = {x: vsub(Dm(m, Dm(n, psi))[x], Dm(n, Dm(m, psi))[x]) for x in SITES}
+        for x in SITES:
+            P = mmul(mmul(U[(x, m)], U[(sh(x, m), n)]), mmul(minv(U[(sh(x, n), m)]), minv(U[(x, n)])))
+            T = mvec(mmul(U[(x, n)], U[(sh(x, n), m)]), psi[sh(sh(x, m), n)])
+            ok += C[x] == mvec(msub(P, I2), T); tot += 1
+            Q = mmul(mmul(U[(x, n)], U[(sh(x, n), m)]), mmul(U[(x, m)], U[(sh(x, m), n)]))      # reversed loop product
+            nonabelian += mmul(U[(x, m)], U[(sh(x, m), n)]) != mmul(U[(x, n)], U[(sh(x, n), m)])
+    return ok, tot, nonabelian
+
+# --------------------------------- 11e: continuum limit in floating point ----
+def continuum_limit(q=1.3):
+    import cmath
+    x0, y0 = 0.1, 0.2
+    Ax = lambda x, y: 0.3 * math.sin(2 * math.pi * y) + 0.1 * x
+    Ay = lambda x, y: 0.2 * math.cos(2 * math.pi * x) + 0.15 * y
+    F = lambda x, y: -0.4 * math.pi * math.sin(2 * math.pi * x) - 0.6 * math.pi * math.cos(2 * math.pi * y)   # d_x A_y - d_y A_x
+    psi = lambda x, y: cmath.exp(1j * (0.7 * x + 0.4 * y)) * (1 + 0.3 * x - 0.2 * y)
+    out = []
+    for k in (3, 4, 5, 6, 7):
+        e = 2.0 ** -k
+        Ux = lambda x, y: cmath.exp(1j * q * (0.3 * math.sin(2 * math.pi * y) * e + 0.05 * ((x + e) ** 2 - x ** 2)))
+        Uy = lambda x, y: cmath.exp(1j * q * (0.2 * math.cos(2 * math.pi * x) * e + 0.075 * ((y + e) ** 2 - y ** 2)))
+        Dx = lambda f: (lambda x, y: Ux(x, y) * f(x + e, y) - f(x, y))
+        Dy = lambda f: (lambda x, y: Uy(x, y) * f(x, y + e) - f(x, y))
+        C = Dx(Dy(psi))(x0, y0) - Dy(Dx(psi))(x0, y0)
+        R = C / (1j * q * e * e * F(x0, y0) * psi(x0, y0))
+        out.append((e, R))
+    return out
+
+# ----------------------------------------------------------- charge map -----
+def cheb(q, x):                                        # Chebyshev T_q(x), exact on Fractions or Fp
+    t0, t1 = x * 0 + 1, x
+    if q == 0: return t0
+    for _ in range(q - 1): t0, t1 = t1, 2 * x * t1 - t0
+    return t1
+
+def charge_checks():
+    rng = random.Random(9)
+    res = {}
+    # closed forms over Q
+    ok2 = ok3 = okim = okT = tot = 0
+    for _ in range(300):
+        a = Fr(rng.randint(-20, 20), rng.randint(1, 9))
+        if 1 - a * a != 0 and 1 - 3 * a * a != 0:
+            tot += 1
+            ok2 += RQ.cq(a, 2) == 2 * a / (1 - a * a)
+            ok3 += RQ.cq(a, 3) == (3 * a - a ** 3) / (1 - 3 * a * a)
+        z = kpow((Fr(1), a), 5, Fr(1), Fr(0))                              # (1 + i a)^5
+        okim += (RQ.cq(a, 5) == (z[1] / z[0] if z[0] != 0 else None))
+        for q in range(1, 7):
+            u = kpow(RQ.phase(a), q, Fr(1), Fr(0))
+            okT += u[0] == cheb(q, (1 - a * a) / (1 + a * a))
+    res["closed"] = (ok2, ok3, tot, okim, 300, okT, 300 * 6)
+    # homomorphism over Q (random) and over F_p (exhaustive)
+    h = hq = 0
+    for _ in range(500):
+        a, b = (None if rng.random() < 0.05 else Fr(rng.randint(-9, 9), rng.randint(1, 5)) for _ in range(2))
+        for q in (2, 3, 4, 5, -1, -3):
+            hq += 1; h += RQ.cq(RQ.oplus(a, b), q) == RQ.oplus(RQ.cq(a, q), RQ.cq(b, q))
+    res["hom_Q"] = (h, hq)
+    rows = []
+    for p in (3, 7, 11, 19, 23):
+        R = RF(p); N = p + 1
+        pts = [None] + [Fp(v) for v in range(p)]
+        hom = add = per = comp = tt = 0
+        for a in pts:
+            for b in pts:
+                for q in (2, 3, 5):
+                    tt += 1; hom += R.cq(R.oplus(a, b), q) == R.oplus(R.cq(a, q), R.cq(b, q))
+            for q in range(0, N + 2):
+                for r in (1, 2, 3, 5):
+                    add += R.cq(a, q + r) == R.oplus(R.cq(a, q), R.cq(a, r))
+                    comp += R.cq(R.cq(a, r), q) == R.cq(a, q * r)
+                per += R.cq(a, q + N) == R.cq(a, q)
+        # group order and generator
+        zero = Fp(0)
+        def order(a):
+            k, b = 1, a
+            while not (b is not None and b == zero): b = R.oplus(b, a); k += 1
+            return k
+        orders = [order(a) for a in pts]
+        gens = [a for a, o in zip(pts, orders) if o == N]
+        ncharge = len(pts)
+        rows.append((p, N, ncharge, max(orders), len(gens), hom, tt, add, per, comp,
+                     len(pts) * (N + 2) * 4, len(pts) * (N + 2)))
+    res["Fp"] = rows
+    return res
+
+def tableau_generator(p):
+    R = RF(p); N = p + 1
+    pts = [None] + [Fp(v) for v in range(p)]
+    zero = Fp(0)
+    for a in pts:
+        b, k = a, 1
+        while not (b is not None and b == zero): b = R.oplus(b, a); k += 1
+        if k == N:
+            return [R.cq(a, q) for q in range(N)]
+
+def zn_vs_u1(beta):
+    import numpy as np
+    from scipy.special import iv
+    u1 = iv(1, beta) / iv(0, beta)
+    out = {}
+    for N in (4, 8, 12, 20, 24):
+        th = 2 * np.pi * np.arange(N) / N
+        w = np.exp(beta * np.cos(th))
+        out[N] = float((np.cos(th) * w).sum() / w.sum())
+    return u1, out
+
+# ------------------------------------------------------------------ main ----
+def main():
+    rq = lambda rng, inf=True: (None if (inf and rng.random() < 0.06) else Fr(rng.randint(-6, 6), rng.randint(1, 4)))
+    def rqpsi(rng, inf=False): return Fr(rng.randint(-6, 6), rng.randint(1, 4))
+    names = dict(ident="[D,D]psi = (U_P - 1) T psi", cayley="(U_P - 1)(1 + i a_P) = -2 i a_P", ratio="a_P = i [D,D]psi / S psi",
+                 covD="D'psi' = g D psi", covC="[D,D]'psi' = g [D,D] psi", inv="U_P' = U_P")
+    print("11. covariant difference, 4D torus L = 3 (81 sites, 324 links, 486 plaquettes)")
+    rf = lambda p: (lambda rng, inf=True: (None if (inf and rng.randrange(p + 1) == p) else Fp(rng.randrange(p))))
+    for label, R, rnd in (("Q", RQ, rq), ("F_7", RF(7), rf(7)), ("F_11", RF(11), rf(11))):
+        n, t = checks(R, lambda rng, inf=True, rnd=rnd: rnd(rng, inf) if inf else rnd(rng, False), 1)
+        print(f"   {label:<5}", "  ".join(f"{k}: {n[k]}/{t[k]}" for k in names))
+    ok, tot, na = nonabelian_check()
+    print(f"   SL(2,Q) caps: [D,D]psi = (U_P - 1) T psi  {ok}/{tot};  U_mu U_nu' != U_nu U_mu' on {na}/{tot} plaquettes (non-abelian)")
+    print("   continuum limit, q = 1.3, D = d + i q A:   eps, [D,D]psi / (i q eps^2 F psi)")
+    for e, R in continuum_limit():
+        print(f"      eps = {e:.6f}   ratio = {R.real:.6f} {R.imag:+.6f}i   |ratio - 1| = {abs(R - 1):.2e}")
+    print("\n12. charge q")
+    c = charge_checks()
+    print("   Q: c_2, c_3 closed forms {}/{} {}/{};  c_5 = Im/Re of (1+ia)^5 {}/{};  Re U^q = T_q(Re U), q=1..6: {}/{}".format(
+        c["closed"][0], c["closed"][2], c["closed"][1], c["closed"][2], c["closed"][3], c["closed"][4], c["closed"][5], c["closed"][6]))
+    print("   Q: c_q(a (+) b) = c_q(a) (+) c_q(b): {}/{}".format(*c["hom_Q"]))
+    for (p, N, npts, mo, ng, hom, tt, add, per, comp, tadd, tper) in c["Fp"]:
+        print(f"   F_{p}: points {npts} (= p+1), max order {mo} (cyclic, N = {N}), generators {ng}, hom {hom}/{tt}, "
+              f"c_(q+r) = c_q (+) c_r {add}/{tadd}, periodic mod N {per}/{tper}, c_q o c_r = c_qr {comp}/{tadd}")
+    print("   F_7 generator g: c_q(g), q = 0..7 :", tableau_generator(7))
+    for q in (2, 3, -1, 5):
+        for label, R, rnd in (("Q", RQ, rq), ("F_7", RF(7), rf(7)), ("F_11", RF(11), rf(11))):
+            n, t = checks(R, lambda rng, inf=True, rnd=rnd: rnd(rng, inf) if inf else rnd(rng, False), q, seed=12)
+            print(f"   q = {q:>2} {label:<5} identity {n['ident']}/{t['ident']}  covariance {n['covD']}/{t['covD']}  a_P^(q) = c_q(a_P) {n['qmap']}/{t['qmap']}  U_P invariant {n['inv']}/{t['inv']}")
+    print("   single plaquette <cos theta>: U(1) versus Z_N")
+    for beta in (0.25, 1.0, 5.0):
+        u1, zn = zn_vs_u1(beta)
+        print(f"      beta = {beta}: U(1) {u1:.6f} | " + " | ".join(f"Z_{N} {v:.6f}" for N, v in zn.items()))
+
+main()
 ```
-
----
-
-### Calculation 12: Wildberger Spread Polynomials and $\mathbb{Z}_{p+1}$ Periodicity over $\mathbb{F}_7$
-
-Let us test the spread polynomial identity $\mathcal{S}_{[k]} = S_k(\mathcal{S})$ and verify that the group of phases has order $p + 1 = 8$ in $\mathbb{F}_7$.
-
-```python
-# Wildberger spread polynomials
-def S_poly(k, s):
-    if k == 1:
-        return s
-    elif k == 2:
-        return 4 * s * (1 - s)
-    elif k == 3:
-        return s * (3 - 4*s)**2
-    elif k == 4:
-        return 16 * s * (1 - s) * (1 - 2*s)**2
-    else:
-        # General recursion: S_k(s) = 2(1 - 2s)S_{k-1}(s) - S_{k-2}(s) + 2s
-        s_prev2 = s
-        s_prev1 = 4 * s * (1 - s)
-        for _ in range(3, k + 1):
-            s_curr = sp.simplify(2 * (1 - 2*s) * s_prev1 - s_prev2 + 2*s)
-            s_prev2, s_prev1 = s_prev1, s_curr
-        return s_curr
-
-s = sp.Symbol('s')
-a = sp.Symbol('a')
-
-# Verify S_k(s) matches rational tangent addition: a^[k] -> S_k(S)
-for k in [1, 2, 3, 4]:
-    # Tangent addition power
-    a_k = a
-    for _ in range(k - 1):
-        a_k = (a_k + a) / (1 - a_k * a)
-    a_k = sp.simplify(a_k)
-    
-    # Solid spread from a_k
-    S_from_a_k = sp.simplify(a_k**2 / (1 + a_k**2))
-    
-    # Substitute s = a^2 / (1 + a^2) into S_k(s)
-    S_k_eval = sp.simplify(S_poly(k, a**2 / (1 + a**2)))
-    
-    assert sp.simplify(S_from_a_k - S_k_eval) == 0
-    print(f"Charge k = {k}: S_[{k}] == S_{k}(S) verified identically.")
-
-# Periodicity check over F_7: S_8(s) == 0 mod 7
-p = 7
-print(f"\nChecking Wildberger spread polynomial periodicity for p = {p}:")
-S8 = S_poly(p + 1, s)
-for s_val in range(p):
-    val_mod = S8.subs(s, s_val) % p
-    assert val_mod == 0
-print(f"S_{p+1}(s) = 0 (mod {p}) holds for all spreads! Exact Z_{p+1} gauge group.")
-```
-
----
-
-### Calculation 13: Exact Tripod Gram Factorization and Potentials over $\mathbb{Q}$ and $\mathbb{F}_7$
-
-Let the ambient space $V^3$ over $\mathbb{Q}$ have standard Euclidean metric $B = \operatorname{diag}(1, 1, 1)$. Consider the tripod formed by:
-$$v_1 = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, \quad v_2 = \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}, \quad v_3 = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$$
-
-```python
-B = sp.eye(3)
-v1 = sp.Matrix([1, 0, 0])
-v2 = sp.Matrix([1, 1, 0])
-v3 = sp.Matrix([1, 1, 1])
-
-def Q(v): return (v.T * B * v)[0, 0]
-def dot_B(u, v): return (u.T * B * v)[0, 0]
-
-# Gram matrix and solid spread
-G3 = sp.Matrix([[dot_B(vi, vj) for vj in [v1, v2, v3]] for vi in [v1, v2, v3]])
-S_gram = G3.det() / (Q(v1) * Q(v2) * Q(v3))
-
-# Factorization: base spread x pitch
-q_base = 1 - (dot_B(v1, v2)**2) / (Q(v1) * Q(v2))
-n = sp.Matrix([0, 0, 1])  # v1 x v2
-pitch = (dot_B(v3, n)**2) / (Q(v3) * Q(n))
-
-# Potentials
-w = 1 - 2 * S_gram
-W1 = 1 - w
-W2 = (1 - w)**2
-rot_spread = 1 - w**2
-a_P_sq = S_gram / (1 - S_gram)
-
-assert S_gram == q_base * pitch == sp.Rational(1, 6)
-assert w == sp.Rational(2, 3)
-assert W1 == 2 * S_gram == sp.Rational(1, 3)
-assert W2 == 4 * S_gram**2 == sp.Rational(1, 9)
-assert rot_spread == S_poly(2, S_gram) == sp.Rational(5, 9)
-assert a_P_sq == sp.Rational(1, 5)
-
-print("Tripod Gram factorization, S_2(S), and potentials verified over Q.")
-```
-
-**Evaluation over $\mathbb{Q}$:**
-* $Q(v_1) = 1$, $Q(v_2) = 2$, $Q(v_3) = 3$.
-* $\det(G_3) = \det \begin{pmatrix} 1 & 1 & 1 \\ 1 & 2 & 2 \\ 1 & 2 & 3 \end{pmatrix} = 1$.
-* $\mathcal{S} = \frac{1}{1 \times 2 \times 3} = \frac{1}{6}$.
-* Base spread: $q(v_1, v_2) = 1 - \frac{1^2}{1 \times 2} = \frac{1}{2}$.
-* Pitch: $h(v_3) = \frac{1^2}{3 \times 1} = \frac{1}{3}$.
-* $\mathcal{S}_{\text{base}} \times \text{pitch} = \frac{1}{2} \times \frac{1}{3} = \frac{1}{6} \equiv \mathcal{S}$.
-* $w = 1 - 2(1/6) = \frac{2}{3}$.
-* $W_1 = 2\mathcal{S} = \frac{1}{3}$.
-* $W_2 = 4\mathcal{S}^2 = \frac{1}{9}$.
-* Rotation spread: $S_2(\mathcal{S}) = 4(1/6)(5/6) = \frac{5}{9}$.
-* Cayley parameter: $a_P^2 = \frac{1/6}{5/6} = \frac{1}{5}$, with $\frac{1 - 1/5}{1 + 1/5} = \frac{2}{3} = w$.
-
-**Evaluation over $\mathbb{F}_7$:**  
-Reducing modulo 7 (where $2^{-1}=4, 3^{-1}=5, 5^{-1}=3, 6^{-1}=6$):
-* $\mathcal{S} \equiv 6^{-1} \equiv 6 \pmod 7$.
-* $w = 1 - 2(6) = -11 \equiv 3 \pmod 7$ (Matches $\frac{2}{3} \equiv 2 \times 5 = 10 \equiv 3$).
-* $W_1 = 2(6) \equiv 5 \pmod 7$ (Matches $\frac{1}{3} \equiv 5$).
-* $W_2 = 4(36) \equiv 4 \pmod 7$ (Matches $\frac{1}{9} \equiv 4$).
-* Rotation spread: $S_2(6) = 4(6)(1 - 6) \equiv 24(-5) \equiv 3 \times 2 = 6 \equiv \frac{5}{9} \pmod 7$.
-* $a_P^2 = 5^{-1} \equiv 3 \pmod 7$.
-* Consistency: $\frac{a_P^2}{1 + a_P^2} \equiv \frac{3}{1+3} = \frac{3}{4} = 3 \times 2 = 6 \equiv \mathcal{S} \pmod 7$.
-
----
-
-## Summary
-
-The continuum gauge principle and the projective trigonometry of simplices describe the same underlying physics. Promoting a global spinor symmetry to local gauge invariance introduces the gauge connection $A_\mu$, whose infinitesimal loop curvature is the field strength $F_{\mu\nu} = -\frac{i}{e}[D_\mu, D_\nu]$. On the discrete lattice, the covariant difference commutator $[\mathcal{D}_\mu, \mathcal{D}_\nu]\psi$ reduces identically to the plaquette factor $(U_P - 1)\psi$. In our discrete rotor framework, this curvature is represented by the solid spread $\mathcal{S}$ of a projective tripod: the scalar trace of the holonomy is $w = 1 - 2\mathcal{S}$, and the Wilson plaquette action $W_1 = 1 - w$ is identically $2\mathcal{S}$, without requiring an infinitesimal continuum Taylor approximation.
-
-Charge $k$ acts on the gauge connection through Wildberger's spread polynomials: a particle of charge $k$ sees the effective plaquette solid spread $\mathcal{S}_{[k]} = S_k(\mathcal{S})$, connecting charge scaling directly to Chapter 8 of *Divine Proportions*. Over finite fields $\mathbb{F}_p$, the gauge group is restricted to the finite cyclic group $\mathbb{Z}_{p+1}$, which enforces the spread polynomial identity $S_{p+1}(\mathcal{S}) \equiv 0 \pmod p$. The unlifted spatial rotation spread is given by the second spread polynomial $S_2(\mathcal{S}) = 4\mathcal{S}(1-\mathcal{S})$, while the quartic gauge potential $W_2 = (1-w)^2 = 4\mathcal{S}^2$ detects the $\mathbb{Z}_2$ spin lift of the Dirac field at an orthogonal tripod ($\mathcal{S}=1$, $w=-1$), where the induced spatial rotation is trivial but the spinor holonomy is $-I_2$. Meanwhile, the Riemann–Silberstein vector $\zeta = \mathbf{E} + i\mathbf{B}$ packages both the Maxwell kinetic term and the topological $\theta$-density into the complex dot product $\zeta \cdot \zeta$. Every identity holds exactly over the field of rational numbers $\mathbb{Q}$ and over finite fields $\mathbb{F}_p$, demonstrating that relativistic electrodynamics and gauge curvature can be formulated completely through rational arithmetic without transcendental approximations.
-
----
 
 ## References
 
 1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Preprint, October 7, 2026. DOI: [10.5281/zenodo.23222798](https://doi.org/10.5281/zenodo.23222798).
-2. J. D. Coady. *On the Projective Quadrume and the Recursive Factorization of Projective Simplices*. Preprint, July 24, 2026. DOI: [10.5281/zenodo.21523417](https://doi.org/10.5281/zenodo.21523417).
+2. J. D. Coady. *Is the Rotor Anchor the Electromagnetic Field Strength? Worked Calculations from a Projective 2×2 Rotor Architecture* (Part 1), blog post, October 14, 2026.
 3. J. D. Coady. *On the Projective Trigonometry of the Tetrahedron: Solid Spreads, Dihedral Laws, and Factorization*. Preprint, July 25, 2026. DOI: [10.5281/zenodo.21567023](https://doi.org/10.5281/zenodo.21567023).
-4. N. J. Wildberger. *Universal Hyperbolic Geometry I: Trigonometry*. *Geometriae Dedicata* 163(1), 109–147 (2013). arXiv:[0909.1377](https://arxiv.org/abs/0909.1377).
-5. N. J. Wildberger. *Divine Proportions: Rational Trigonometry to Universal Geometry*. Wild Egg Books, Sydney, 2005.
-6. N. J. Wildberger. *Three dimensional geometry, ZOME, and the elusive tetrahedron*. Lecture video, Insights into Mathematics, July 31, 2012. [YouTube](https://www.youtube.com/watch?v=rzUtdwh2rj0).
+4. N. J. Wildberger. *Divine Proportions: Rational Trigonometry to Universal Geometry*. Wild Egg Books, Sydney, 2005 (spread polynomials, Chapter 8).
+5. J. Kogut and L. Susskind. Hamiltonian formulation of Wilson's lattice gauge theories. *Phys. Rev. D* 11, 395 (1975).
+6. K. G. Wilson. Confinement of quarks. *Phys. Rev. D* 10, 2445 (1974).
 7. M. E. Peskin and D. V. Schroeder. *An Introduction to Quantum Field Theory*. Westview Press, 1995.
-8. K. G. Wilson. Confinement of quarks. *Phys. Rev. D* 10, 2445 (1974).
+8. V. Elitzur, R. Pearson, J. Shigemitsu. Phase structure of discrete Abelian spin and gauge systems. *Phys. Rev. D* 19, 3698 (1979).
+9. D. Horn, M. Weinstein, S. Yankielowicz. Hamiltonian approach to $Z(N)$ lattice gauge theories. *Phys. Rev. D* 19, 3715 (1979).
+
