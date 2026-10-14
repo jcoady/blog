@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="John D. Coady">
+<meta name="dcterms.date" content="2026-10-14">
+
+<title>From Rotor Anchors to Gauge Invariance: Projective Tripods, Plaquette Holonomy, and the Exact Wilson Bridge – John Coady’s Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-fe7872a82928c9cb84149cb81cc2feaf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">John Coady’s Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">All Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../math.html"> 
+<span class="menu-text">Pure Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics.html"> 
+<span class="menu-text">Math Physics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0009-0008-6020-5733"> 
+<span class="menu-text"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID iD" style="height:20px; width:20px; vertical-align:-3px;"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://x.com/johndavidcoady"> <i class="bi bi-twitter-x" role="img" aria-label="X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jcoady"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">From Rotor Anchors to Gauge Invariance: Projective Tripods, Plaquette Holonomy, and the Exact Wilson Bridge</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">pure-math</div>
+                <div class="quarto-category">geometry</div>
+                <div class="quarto-category">hyperbolic-geometry</div>
+                <div class="quarto-category">mathematical-physics</div>
+                <div class="quarto-category">electromagnetism</div>
+                <div class="quarto-category">lorentz-group</div>
+                <div class="quarto-category">rational-trigonometry</div>
+                <div class="quarto-category">gauge-theory</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>John D. Coady </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 14, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-rosetta-stone-continuum-field-theory-vs.-projective-simplices" id="toc-the-rosetta-stone-continuum-field-theory-vs.-projective-simplices" class="nav-link active" data-scroll-target="#the-rosetta-stone-continuum-field-theory-vs.-projective-simplices">1. The Rosetta Stone: Continuum Field Theory vs.&nbsp;Projective Simplices</a></li>
+  <li><a href="#projective-tripods-and-the-solid-spread-mathcals" id="toc-projective-tripods-and-the-solid-spread-mathcals" class="nav-link" data-scroll-target="#projective-tripods-and-the-solid-spread-mathcals">2. Projective Tripods and the Solid Spread <span class="math inline">\(\mathcal{S}\)</span></a>
+  <ul class="collapse">
+  <li><a href="#base-spread-times-pitch-factorization" id="toc-base-spread-times-pitch-factorization" class="nav-link" data-scroll-target="#base-spread-times-pitch-factorization">Base Spread <span class="math inline">\(\times\)</span> Pitch Factorization</a></li>
+  </ul></li>
+  <li><a href="#the-algebraic-bridge-from-tangent-addition-to-gauge-potentials" id="toc-the-algebraic-bridge-from-tangent-addition-to-gauge-potentials" class="nav-link" data-scroll-target="#the-algebraic-bridge-from-tangent-addition-to-gauge-potentials">3. The Algebraic Bridge: From Tangent Addition to Gauge Potentials</a>
+  <ul class="collapse">
+  <li><a href="#the-trace-scalar-w" id="toc-the-trace-scalar-w" class="nav-link" data-scroll-target="#the-trace-scalar-w">The Trace Scalar <span class="math inline">\(w\)</span></a></li>
+  <li><a href="#connecting-holonomy-to-solid-spread-w-1---2mathcals" id="toc-connecting-holonomy-to-solid-spread-w-1---2mathcals" class="nav-link" data-scroll-target="#connecting-holonomy-to-solid-spread-w-1---2mathcals">Connecting Holonomy to Solid Spread: <span class="math inline">\(w = 1 - 2\mathcal{S}\)</span></a></li>
+  <li><a href="#the-exact-physical-potentials" id="toc-the-exact-physical-potentials" class="nav-link" data-scroll-target="#the-exact-physical-potentials">The Exact Physical Potentials</a></li>
+  </ul></li>
+  <li><a href="#the-mathbbz_2-spin-lift-fermion-detection-vs.-boson-rotation" id="toc-the-mathbbz_2-spin-lift-fermion-detection-vs.-boson-rotation" class="nav-link" data-scroll-target="#the-mathbbz_2-spin-lift-fermion-detection-vs.-boson-rotation">4. The <span class="math inline">\(\mathbb{Z}_2\)</span> Spin Lift: Fermion Detection vs.&nbsp;Boson Rotation</a></li>
+  <li><a href="#worked-calculations" id="toc-worked-calculations" class="nav-link" data-scroll-target="#worked-calculations">5. Worked Calculations</a>
+  <ul class="collapse">
+  <li><a href="#calculation-11-exact-tripod-gram-factorization-and-potentials-over-mathbbq-and-mathbbf_7" id="toc-calculation-11-exact-tripod-gram-factorization-and-potentials-over-mathbbq-and-mathbbf_7" class="nav-link" data-scroll-target="#calculation-11-exact-tripod-gram-factorization-and-potentials-over-mathbbq-and-mathbbf_7">Calculation 11: Exact Tripod Gram Factorization and Potentials over <span class="math inline">\(\mathbb{Q}\)</span> and <span class="math inline">\(\mathbb{F}_7\)</span></a></li>
+  <li><a href="#calculation-12-riemannsilberstein-anchor-and-maxwell-invariants" id="toc-calculation-12-riemannsilberstein-anchor-and-maxwell-invariants" class="nav-link" data-scroll-target="#calculation-12-riemannsilberstein-anchor-and-maxwell-invariants">Calculation 12: Riemann–Silberstein Anchor and Maxwell Invariants</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>In <a href="https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-curvature/">Part 1</a>, we explored how relativistic rotations, boosts, and electromagnetic fields can be formulated without square roots, rapidities, or transcendental functions using <span class="math inline">\(2 \times 2\)</span> projective rotors over the Blue Dihedron extension <span class="math inline">\(K = \mathbb{F}[T]/(T^2+1)\)</span>. We established that the complex rotor anchor <span class="math inline">\(\zeta = \kappa + i\rho\)</span> is algebraically the electromagnetic field strength, that null anchors correspond to radiation fields, and that link rotors give a rational Cayley lattice with an exact Gauss law.</p>
+<p>A central question arises: <strong>How does this algebraic rotor geometry connect to the standard continuum physics of gauge theory and electromagnetic curvature?</strong></p>
+<p>In standard quantum electrodynamics (QED), gauge interactions are derived from a fundamental symmetry principle: starting with a free Dirac spinor Lagrangian possessing a global phase symmetry, promoting that symmetry to <strong>local gauge invariance</strong> demands the introduction of a compensating gauge field <span class="math inline">\(A_\mu\)</span>. The field strength tensor <span class="math inline">\(F_{\mu\nu} = -\frac{i}{e}[D_\mu, D_\nu]\)</span> appears as the curvature of this gauge connection, and gauge invariance strictly forbids a photon mass term.</p>
+<p>In this post, we establish the exact algebraic dictionary between the continuum gauge theory of physics lectures and our projective rotor architecture. We show that:</p>
+<ol type="1">
+<li><strong>Curvature is an exact projective quadrea:</strong> The Wilson plaquette action <span class="math inline">\(W_1\)</span> is not an infinitesimal Taylor approximation of flux; it is <strong>identically twice the projective solid spread <span class="math inline">\(\mathcal{S}\)</span> of a tripod</strong>.</li>
+<li><strong>Tangent addition drives parallel transport:</strong> Plaquette holonomy is governed rationally by the Cayley tangent addition law <span class="math inline">\(a_P = \bigoplus a_i\)</span>.</li>
+<li><strong>The spin lift is metrically observable:</strong> While vector rotations only see the rotation spread <span class="math inline">\(4\mathcal{S}(1-\mathcal{S})\)</span>, the quartic gauge potential <span class="math inline">\(W_2 = (1-w)^2 = 4\mathcal{S}^2\)</span> detects the non-trivial <span class="math inline">\(\mathbb{Z}_2\)</span> spin flip (<span class="math inline">\(-I_2\)</span>) at an orthogonal tripod.</li>
+<li><strong>The physics is field-independent:</strong> All geometric and field-theoretic identities hold over the rationals <span class="math inline">\(\mathbb{Q}\)</span> and finite fields like <span class="math inline">\(\mathbb{F}_7\)</span> with zero loss of algebraic precision.</li>
+</ol>
+<hr>
+<section id="the-rosetta-stone-continuum-field-theory-vs.-projective-simplices" class="level2">
+<h2 class="anchored" data-anchor-id="the-rosetta-stone-continuum-field-theory-vs.-projective-simplices">1. The Rosetta Stone: Continuum Field Theory vs.&nbsp;Projective Simplices</h2>
+<p>In the standard textbook presentation of Abelian gauge theory, one begins with a free Dirac matter field <span class="math inline">\(\psi\)</span> and its Lagrangian: <span class="math display">\[\mathcal{L} = \hbar c\,\bar{\psi}\gamma^\mu \partial_\mu \psi + mc^2 \bar{\psi}\psi\]</span></p>
+<p>Under a local phase transformation <span class="math inline">\(\psi(x) \mapsto e^{ie\phi(x)}\psi(x)\)</span>, the ordinary derivative activates the product rule: <span class="math display">\[\partial_\mu \left(e^{ie\phi(x)}\psi\right) = e^{ie\phi(x)}\partial_\mu \psi + ie(\partial_\mu\phi)e^{ie\phi(x)}\psi\]</span> This breaks gauge invariance. To restore invariance, one introduces the <strong>gauge covariant derivative</strong>: <span class="math display">\[D_\mu \equiv \partial_\mu + ie A_\mu\]</span> demanding that the compensating gauge field transform as <span class="math inline">\(A_\mu \mapsto A_\mu - \partial_\mu \phi(x)\)</span>. Evaluating the commutator of two covariant derivatives on the matter field eliminates the derivative terms and isolates the field strength: <span class="math display">\[[D_\mu, D_\nu]\psi = ie F_{\mu\nu}\psi \quad \Longrightarrow \quad F_{\mu\nu} = -\frac{i}{e}[D_\mu, D_\nu] = \partial_\mu A_\nu - \partial_\nu A_\mu\]</span> Adding a dynamic term <span class="math inline">\(\mathcal{L}_{\text{kin}} \sim F_{\mu\nu}F^{\mu\nu}\)</span> allows the field to propagate, while a Proca mass term <span class="math inline">\(m_A^2 A_\mu A^\mu\)</span> is strictly forbidden because <span class="math inline">\((A_\mu - \partial_\mu\phi)^2 \ne A^2\)</span>.</p>
+<p>The table below maps each continuum concept to its counterpart in our projective rotor framework:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Continuum Gauge Theory</th>
+<th style="text-align: left;">Projective RT &amp; Rotor Architecture</th>
+<th style="text-align: left;">Geometric Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Local <span class="math inline">\(U(1)\)</span> phase: <span class="math inline">\(\psi \mapsto e^{ie\phi(x)}\psi\)</span></td>
+<td style="text-align: left;">Norm-one element of <span class="math inline">\(K = \mathbb{F}(i)\)</span> acting on spinor</td>
+<td style="text-align: left;">Local gauge rotation</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gauge field potential <span class="math inline">\(A_\mu\)</span></td>
+<td style="text-align: left;">Link Cayley parameter <span class="math inline">\(a_j \in \mathbb{F}\)</span></td>
+<td style="text-align: left;">Infinitesimal parallel transporter</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Parallel transporter <span class="math inline">\(U = \mathcal{P}\exp\left(-ie\int A\right)\)</span></td>
+<td style="text-align: left;">Cayley link rotor: <span class="math inline">\(U_j = \frac{1 - i a_j}{1 + i a_j}\)</span></td>
+<td style="text-align: left;">Finite parallel transport operator</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gauge transformation: <span class="math inline">\(A \mapsto A - \mathrm{d}\phi\)</span></td>
+<td style="text-align: left;">Tangent addition: <span class="math inline">\(a \mapsto a \oplus b = \frac{a+b}{1-ab}\)</span></td>
+<td style="text-align: left;">Plaquette gauge transformation</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Commutator <span class="math inline">\([D_\mu, D_\nu] = ie F_{\mu\nu}\)</span></td>
+<td style="text-align: left;">Plaquette loop holonomy: <span class="math inline">\(U_P = U_1 U_2 U_3 U_4\)</span></td>
+<td style="text-align: left;">Finite loop curvature</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Magnetic flux <span class="math inline">\(\Phi = \oint A \cdot \mathrm{d}x\)</span></td>
+<td style="text-align: left;">Projective quadrea / solid spread <span class="math inline">\(\mathcal{S}\)</span> of a tripod</td>
+<td style="text-align: left;">Enclosed angular content</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Maxwell action: <span class="math inline">\(\mathcal{L}_{\text{kin}} = \frac{1}{16\pi}F_{\mu\nu}F^{\mu\nu}\)</span></td>
+<td style="text-align: left;">Wilson potential: <span class="math inline">\(W_1 \equiv 1 - w = 2\mathcal{S}\)</span></td>
+<td style="text-align: left;">Quadratic kinetic energy (<span class="math inline">\(\sim \text{flux}^2\)</span>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nonlinear action: <span class="math inline">\(\sim (F_{\mu\nu}F^{\mu\nu})^2\)</span></td>
+<td style="text-align: left;">Squared potential: <span class="math inline">\(W_2 \equiv (1 - w)^2 = 4\mathcal{S}^2\)</span></td>
+<td style="text-align: left;">Quartic gauge potential (<span class="math inline">\(\sim \text{flux}^4\)</span>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bianchi identity: <span class="math inline">\(\mathrm{d}F = 0\)</span></td>
+<td style="text-align: left;">Plaquette boundary identity (<span class="math inline">\(\partial(\partial\,\text{cube}) = 1\)</span>)</td>
+<td style="text-align: left;">Exact boundary-of-boundary zero</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Photon masslessness (<span class="math inline">\(m_A = 0\)</span>)</td>
+<td style="text-align: left;">Action depends only on closed cycles</td>
+<td style="text-align: left;">Scale-free projective geometry</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GR analogy: <span class="math inline">\([D_\mu, D_\nu]V^\lambda = R^\lambda_{\;\mu\nu\alpha}V^\alpha\)</span></td>
+<td style="text-align: left;">Simplex recursion: <span class="math inline">\(\mathcal{S}_k = \mathcal{S}_{k-1} \cdot h_k\)</span></td>
+<td style="text-align: left;">Curvature as Gram decomposition</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Disambiguating Geometric and Physical Notation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To avoid collisions between the conventions of Rational Trigonometry (RT), Universal Hyperbolic Geometry (UHG), and gauge physics: * <strong>Planar RT:</strong> Affine quadrance <span class="math inline">\(Q\)</span>, spread <span class="math inline">\(s\)</span>, quadrea <span class="math inline">\(\mathcal{A} = 16(\text{area})^2\)</span>, and quadrume <span class="math inline">\(\mathcal{V}_{\text{aff}} = 144 V^2\)</span>. * <strong>Projective UHG:</strong> Projective quadrance <span class="math inline">\(q\)</span>, projective line spread <span class="math inline">\(S\)</span>, and projective quadrea / tripod solid spread <span class="math inline">\(\mathcal{S}\)</span> (retiring <span class="math inline">\(A(\gamma)\)</span>). * <strong>Electric Charge:</strong> Coupling strength is denoted by <span class="math inline">\(e\)</span> (retiring <span class="math inline">\(q\)</span> to avoid collision with projective quadrance <span class="math inline">\(q\)</span>). * <strong>Plaquette Spread:</strong> The trigonometric spread of a plaquette is denoted by <span class="math inline">\(s_{\text{plaq}}\)</span> (retiring <span class="math inline">\(S(i,j)\)</span> to avoid collision with line spread <span class="math inline">\(S\)</span>).</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="projective-tripods-and-the-solid-spread-mathcals" class="level2">
+<h2 class="anchored" data-anchor-id="projective-tripods-and-the-solid-spread-mathcals">2. Projective Tripods and the Solid Spread <span class="math inline">\(\mathcal{S}\)</span></h2>
+<p>In three-dimensional projective space <span class="math inline">\(\mathbb{P}^2\)</span> (ambient vector space <span class="math inline">\(V^3\)</span> equipped with a non-degenerate symmetric bilinear form <span class="math inline">\(B\)</span>), three non-collinear projective points represented by non-null vectors <span class="math inline">\(v_1, v_2, v_3\)</span> form a <strong>tripod</strong> <span class="math inline">\(\gamma\)</span>.</p>
+<p>The fundamental metrical invariant of this tripod is its <strong>projective solid spread</strong> (projective quadrea) <span class="math inline">\(\mathcal{S}\)</span>, defined as the normalized <span class="math inline">\(3 \times 3\)</span> Gram determinant: <span class="math display">\[\mathcal{S} \equiv \frac{\det(G_3)}{Q(v_1) Q(v_2) Q(v_3)}\]</span> where <span class="math inline">\([G_3]_{ij} = B(v_i, v_j)\)</span> and <span class="math inline">\(Q(v) \equiv B(v, v)\)</span>.</p>
+<section id="base-spread-times-pitch-factorization" class="level3">
+<h3 class="anchored" data-anchor-id="base-spread-times-pitch-factorization">Base Spread <span class="math inline">\(\times\)</span> Pitch Factorization</h3>
+<p>Just as the projective quadrume of a tetrahedron factorizes into a base face quadrea and an altitude quadrance (<span class="math inline">\(\mathcal{V} = A_k \times h_k\)</span>), the solid spread of a tripod factorizes into: <span class="math display">\[\mathcal{S} = \mathcal{S}_{\text{base}} \times \text{pitch} = q(v_1, v_2) \times h(v_3)\]</span> where: * <span class="math inline">\(q(v_1, v_2) \equiv 1 - \frac{B(v_1, v_2)^2}{Q(v_1)Q(v_2)}\)</span> is the projective quadrance between base lines <span class="math inline">\(v_1\)</span> and <span class="math inline">\(v_2\)</span>. * <span class="math inline">\(n \equiv v_1 \times_B v_2\)</span> is the dual vector orthogonal to the base plane under <span class="math inline">\(B\)</span>. * <span class="math inline">\(h(v_3) \equiv \frac{B(v_3, n)^2}{Q(v_3)Q(n)}\)</span> is the projective altitude quadrance (the pitch) of <span class="math inline">\(v_3\)</span> relative to that plane.</p>
+<p>This confirms that <span class="math inline">\(\mathcal{S}\)</span> is an intrinsic, scale-invariant angular measure of the aperture of the tripod.</p>
+<hr>
+</section>
+</section>
+<section id="the-algebraic-bridge-from-tangent-addition-to-gauge-potentials" class="level2">
+<h2 class="anchored" data-anchor-id="the-algebraic-bridge-from-tangent-addition-to-gauge-potentials">3. The Algebraic Bridge: From Tangent Addition to Gauge Potentials</h2>
+<p>In lattice electrodynamics, parallel transport along edge <span class="math inline">\(j\)</span> is represented by a rational Cayley parameter <span class="math inline">\(a_j \in \mathbb{F}\)</span>: <span class="math display">\[U_j = \frac{1 - i a_j}{1 + i a_j} \in U(1) \subset K\]</span> Under group multiplication, two successive Cayley transporters compose by rational <strong>tangent addition</strong>: <span class="math display">\[U_1 U_2 = \frac{1 - i(a_1 \oplus a_2)}{1 + i(a_1 \oplus a_2)}, \quad \text{where } a_1 \oplus a_2 \equiv \frac{a_1 + a_2}{1 - a_1 a_2}\]</span></p>
+<p>For an oriented 4-link plaquette <span class="math inline">\(P = (1 \to 2 \to 3 \to 4 \to 1)\)</span>, the composite holonomy is: <span class="math display">\[U_P = U_1 U_2 U_3 U_4 = \frac{1 - i a_P}{1 + i a_P}, \quad \text{with } a_P \equiv a_1 \oplus a_2 \oplus a_3 \oplus a_4\]</span></p>
+<section id="the-trace-scalar-w" class="level3">
+<h3 class="anchored" data-anchor-id="the-trace-scalar-w">The Trace Scalar <span class="math inline">\(w\)</span></h3>
+<p>In the <span class="math inline">\(2 \times 2\)</span> spinor representation, the normalized trace of <span class="math inline">\(U_P\)</span> is the scalar: <span class="math display">\[w \equiv \frac{1}{2}\operatorname{Tr}(U_P) = \frac{1}{2}\left(\frac{1 - i a_P}{1 + i a_P} + \frac{1 + i a_P}{1 - i a_P}\right) = \frac{1 - a_P^2}{1 + a_P^2}\]</span> This is the algebraic half-angle formula <span class="math inline">\(\cos\theta = \frac{1 - \tan^2(\theta/2)}{1 + \tan^2(\theta/2)}\)</span> evaluated purely rationally.</p>
+</section>
+<section id="connecting-holonomy-to-solid-spread-w-1---2mathcals" class="level3">
+<h3 class="anchored" data-anchor-id="connecting-holonomy-to-solid-spread-w-1---2mathcals">Connecting Holonomy to Solid Spread: <span class="math inline">\(w = 1 - 2\mathcal{S}\)</span></h3>
+<p>When the plaquette is regarded as a circuit of rays, the holonomy trace satisfies: <span class="math display">\[w = 1 - 2\mathcal{S}\]</span> Equating both expressions for <span class="math inline">\(w\)</span>: <span class="math display">\[1 - 2\mathcal{S} = \frac{1 - a_P^2}{1 + a_P^2} \quad \Longleftrightarrow \quad \mathcal{S} = \frac{a_P^2}{1 + a_P^2}\]</span> Inverting this expression gives the plaquette Cayley parameter directly in terms of the geometric solid spread: <span class="math display">\[a_P^2 = \frac{\mathcal{S}}{1 - \mathcal{S}}\]</span></p>
+</section>
+<section id="the-exact-physical-potentials" class="level3">
+<h3 class="anchored" data-anchor-id="the-exact-physical-potentials">The Exact Physical Potentials</h3>
+<p>This yields closed rational formulas for the gauge action potentials: * <strong>The Wilson-type Plaquette Potential (<span class="math inline">\(W_1\)</span>):</strong> <span class="math display">\[W_1 \equiv 1 - w = 2\mathcal{S} = \frac{2 a_P^2}{1 + a_P^2}\]</span> In the weak-field continuum limit where <span class="math inline">\(a_P \approx \frac{1}{2}e\Phi \ll 1\)</span>: <span class="math display">\[W_1 \approx 2\left(\frac{e\Phi}{2}\right)^2 = \frac{1}{2}e^2 \Phi^2\]</span> recovering the Maxwell action. <strong>The projective quadrea <span class="math inline">\(\mathcal{S}\)</span> is identically half the Wilson action.</strong> * <strong>The Squared (Quartic) Potential (<span class="math inline">\(W_2\)</span>):</strong> <span class="math display">\[W_2 \equiv (1 - w)^2 = 4\mathcal{S}^2 = \frac{4 a_P^4}{(1 + a_P^2)^2}\]</span> * <strong>The Rotation-Native Spread:</strong> <span class="math display">\[1 - w^2 = 4\mathcal{S}(1 - \mathcal{S}) = \frac{4 a_P^2}{(1 + a_P^2)^2}\]</span></p>
+<hr>
+</section>
+</section>
+<section id="the-mathbbz_2-spin-lift-fermion-detection-vs.-boson-rotation" class="level2">
+<h2 class="anchored" data-anchor-id="the-mathbbz_2-spin-lift-fermion-detection-vs.-boson-rotation">4. The <span class="math inline">\(\mathbb{Z}_2\)</span> Spin Lift: Fermion Detection vs.&nbsp;Boson Rotation</h2>
+<p>In relativistic quantum mechanics, Dirac wavefunctions transform under the double cover <span class="math inline">\(\mathrm{Spin}(1,3)\)</span> rather than the vector Lorentz group <span class="math inline">\(\mathrm{SO}(1,3)\)</span>. The geometric tripod framework reflects this distinction:</p>
+<ul>
+<li><p><strong>Coplanar Tripod (<span class="math inline">\(\mathcal{S} = 0\)</span>):</strong><br>
+The three rays lie in a single plane.<br>
+<span class="math display">\[w = 1 - 2(0) = +1 \quad \Longrightarrow \quad U_P = +I_2, \quad W_1 = 0, \quad W_2 = 0\]</span> Both the spinor transport and the spatial rotation are trivial.</p></li>
+<li><p><strong>Orthogonal Tripod (<span class="math inline">\(\mathcal{S} = 1\)</span>):</strong><br>
+The three rays are mutually perpendicular.<br>
+<span class="math display">\[w = 1 - 2(1) = -1 \quad \Longrightarrow \quad U_P = -I_2\]</span> Under the vector congruence action <span class="math inline">\(X \mapsto U_P X U_P^\dagger\)</span>, the minus signs cancel: <span class="math inline">\((-I_2)X(-I_2) = X\)</span>. The induced spatial rotation in <span class="math inline">\(\mathrm{SO}(3)\)</span> is the <strong>pure identity</strong>. A classical vector field observes zero rotation.</p>
+<p>However, the spinor holonomy is <span class="math inline">\(-I_2\)</span> (the non-trivial center of the spin group). The potentials evaluate to: <span class="math display">\[W_1 = 1 - (-1) = 2, \qquad W_2 = (1 - (-1))^2 = 4\]</span> while the rotation-native spread vanishes: <span class="math display">\[1 - w^2 = 1 - (-1)^2 = 0\]</span></p></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Detecting the Spin Lift
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The quartic potential <span class="math inline">\(W_2 = (1 - w)^2\)</span> reaches its maximum value of <span class="math inline">\(4\)</span> at <span class="math inline">\(\mathcal{S} = 1\)</span>. It explicitly detects the non-trivial <span class="math inline">\(\mathbb{Z}_2\)</span> spin flip of the Dirac wavefunction, whereas the rotation-native spread <span class="math inline">\(1 - w^2 = 4\mathcal{S}(1 - \mathcal{S})\)</span> measures only the unlifted spatial rotation.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="worked-calculations" class="level2">
+<h2 class="anchored" data-anchor-id="worked-calculations">5. Worked Calculations</h2>
+<section id="calculation-11-exact-tripod-gram-factorization-and-potentials-over-mathbbq-and-mathbbf_7" class="level3">
+<h3 class="anchored" data-anchor-id="calculation-11-exact-tripod-gram-factorization-and-potentials-over-mathbbq-and-mathbbf_7">Calculation 11: Exact Tripod Gram Factorization and Potentials over <span class="math inline">\(\mathbb{Q}\)</span> and <span class="math inline">\(\mathbb{F}_7\)</span></h3>
+<p>Let the ambient space <span class="math inline">\(V^3\)</span> over <span class="math inline">\(\mathbb{Q}\)</span> have standard Euclidean metric <span class="math inline">\(B = \operatorname{diag}(1, 1, 1)\)</span>. Consider the tripod formed by: <span class="math display">\[v_1 = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, \quad v_2 = \begin{pmatrix} 1 \\ 1 \\ 0 \end{pmatrix}, \quad v_3 = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}\]</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> sp</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ambient metric and rays</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> sp.eye(<span class="dv">3</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>v1 <span class="op">=</span> sp.Matrix([<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>v2 <span class="op">=</span> sp.Matrix([<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>])</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>v3 <span class="op">=</span> sp.Matrix([<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Q(v): <span class="cf">return</span> (v.T <span class="op">*</span> B <span class="op">*</span> v)[<span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dot_B(u, v): <span class="cf">return</span> (u.T <span class="op">*</span> B <span class="op">*</span> v)[<span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Gram matrix and solid spread</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>G3 <span class="op">=</span> sp.Matrix([[dot_B(vi, vj) <span class="cf">for</span> vj <span class="kw">in</span> [v1, v2, v3]] <span class="cf">for</span> vi <span class="kw">in</span> [v1, v2, v3]])</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>S_gram <span class="op">=</span> G3.det() <span class="op">/</span> (Q(v1) <span class="op">*</span> Q(v2) <span class="op">*</span> Q(v3))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Factorization: base spread x pitch</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>q_base <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> (dot_B(v1, v2)<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> (Q(v1) <span class="op">*</span> Q(v2))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> sp.Matrix([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>])  <span class="co"># v1 x v2</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>pitch <span class="op">=</span> (dot_B(v3, n)<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> (Q(v3) <span class="op">*</span> Q(n))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Potentials</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> S_gram</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>W1 <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> w</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>W2 <span class="op">=</span> (<span class="dv">1</span> <span class="op">-</span> w)<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>rot_spread <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> w<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>a_P_sq <span class="op">=</span> S_gram <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> S_gram)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"det(G3) = </span><span class="sc">{</span>G3<span class="sc">.</span>det()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"S (Solid Spread) = </span><span class="sc">{</span>S_gram<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"q_base * pitch  = </span><span class="sc">{</span>q_base <span class="op">*</span> pitch<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"w (Holonomy Trace) = </span><span class="sc">{</span>w<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"W1 (Wilson Potential) = </span><span class="sc">{</span>W1<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"W2 (Squared Potential) = </span><span class="sc">{</span>W2<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Rotation Spread = </span><span class="sc">{</span>rot_spread<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"a_P^2 = </span><span class="sc">{</span>a_P_sq<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Evaluation over <span class="math inline">\(\mathbb{Q}\)</span>:</strong> * <span class="math inline">\(Q(v_1) = 1\)</span>, <span class="math inline">\(Q(v_2) = 2\)</span>, <span class="math inline">\(Q(v_3) = 3\)</span>. * <span class="math inline">\(\det(G_3) = \det \begin{pmatrix} 1 &amp; 1 &amp; 1 \\ 1 &amp; 2 &amp; 2 \\ 1 &amp; 2 &amp; 3 \end{pmatrix} = 1\)</span>. * <span class="math inline">\(\mathcal{S} = \frac{1}{1 \times 2 \times 3} = \frac{1}{6}\)</span>. * Base spread: <span class="math inline">\(q(v_1, v_2) = 1 - \frac{1^2}{1 \times 2} = \frac{1}{2}\)</span>. * Pitch: <span class="math inline">\(h(v_3) = \frac{1^2}{3 \times 1} = \frac{1}{3}\)</span>. * <span class="math inline">\(\mathcal{S}_{\text{base}} \times \text{pitch} = \frac{1}{2} \times \frac{1}{3} = \frac{1}{6} \equiv \mathcal{S}\)</span>. * <span class="math inline">\(w = 1 - 2(1/6) = \frac{2}{3}\)</span>. * <span class="math inline">\(W_1 = 2\mathcal{S} = \frac{1}{3}\)</span>. * <span class="math inline">\(W_2 = 4\mathcal{S}^2 = \frac{1}{9}\)</span>. * Rotation spread: <span class="math inline">\(1 - w^2 = \frac{5}{9} = 4\mathcal{S}(1 - \mathcal{S})\)</span>. * Cayley parameter: <span class="math inline">\(a_P^2 = \frac{1/6}{5/6} = \frac{1}{5}\)</span>, with <span class="math inline">\(\frac{1 - 1/5}{1 + 1/5} = \frac{2}{3} = w\)</span>.</p>
+<p><strong>Evaluation over <span class="math inline">\(\mathbb{F}_7\)</span>:</strong><br>
+Reducing modulo 7 (where <span class="math inline">\(2^{-1}=4, 3^{-1}=5, 5^{-1}=3, 6^{-1}=6\)</span>): * <span class="math inline">\(\mathcal{S} \equiv 6^{-1} \equiv 6 \pmod 7\)</span>. * <span class="math inline">\(w = 1 - 2(6) = -11 \equiv 3 \pmod 7\)</span> (Matches <span class="math inline">\(\frac{2}{3} \equiv 2 \times 5 = 10 \equiv 3\)</span>). * <span class="math inline">\(W_1 = 2(6) \equiv 5 \pmod 7\)</span> (Matches <span class="math inline">\(\frac{1}{3} \equiv 5\)</span>). * <span class="math inline">\(W_2 = 4(36) \equiv 4 \pmod 7\)</span> (Matches <span class="math inline">\(\frac{1}{9} \equiv 4\)</span>). * <span class="math inline">\(a_P^2 = 5^{-1} \equiv 3 \pmod 7\)</span>. * Consistency: <span class="math inline">\(\frac{a_P^2}{1 + a_P^2} \equiv \frac{3}{1+3} = \frac{3}{4} = 3 \times 2 = 6 \equiv \mathcal{S} \pmod 7\)</span>.</p>
+<hr>
+</section>
+<section id="calculation-12-riemannsilberstein-anchor-and-maxwell-invariants" class="level3">
+<h3 class="anchored" data-anchor-id="calculation-12-riemannsilberstein-anchor-and-maxwell-invariants">Calculation 12: Riemann–Silberstein Anchor and Maxwell Invariants</h3>
+<p>In (1+3)D spacetime with metric <span class="math inline">\(\eta = \operatorname{diag}(1, -1, -1, -1)\)</span>, let the electromagnetic field be: <span class="math display">\[\mathbf{E} = \begin{pmatrix} 2 \\ 1 \\ 0 \end{pmatrix}, \quad \mathbf{B} = \begin{pmatrix} 0 \\ 1 \\ 3 \end{pmatrix}\]</span> The Riemann–Silberstein vector in <span class="math inline">\(K^3\)</span> is <span class="math inline">\(\zeta \equiv \mathbf{E} + i\mathbf{B} = (2, 1+i, 3i)^T\)</span>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>E <span class="op">=</span> sp.Matrix([<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>])</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>B_field <span class="op">=</span> sp.Matrix([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> sp.I</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Riemann-Silberstein dot product</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>zeta <span class="op">=</span> [E[j] <span class="op">+</span> i <span class="op">*</span> B_field[j] <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>zeta_dot_zeta <span class="op">=</span> <span class="bu">sum</span>(z<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> z <span class="kw">in</span> zeta)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>maxwell_kin <span class="op">=</span> <span class="bu">sum</span>(e<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> e <span class="kw">in</span> E) <span class="op">-</span> <span class="bu">sum</span>(b<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> b <span class="kw">in</span> B_field)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>theta_density <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> <span class="bu">sum</span>(e <span class="op">*</span> b <span class="cf">for</span> e, b <span class="kw">in</span> <span class="bu">zip</span>(E, B_field))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"zeta . zeta = </span><span class="sc">{</span>sp<span class="sc">.</span>expand(zeta_dot_zeta)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Re(zeta . zeta) [Maxwell kinetic] = </span><span class="sc">{</span>maxwell_kin<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Im(zeta . zeta) [Theta density]   = </span><span class="sc">{</span>theta_density<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify Lie algebra condition: eta * A^T * eta = -A</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>eta <span class="op">=</span> sp.diag(<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>A_zeta <span class="op">=</span> sp.Matrix([</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>,     E[<span class="dv">0</span>],       E[<span class="dv">1</span>],       E[<span class="dv">2</span>]],</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    [E[<span class="dv">0</span>],  <span class="dv">0</span>,          B_field[<span class="dv">2</span>], <span class="op">-</span>B_field[<span class="dv">1</span>]],</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    [E[<span class="dv">1</span>], <span class="op">-</span>B_field[<span class="dv">2</span>], <span class="dv">0</span>,          B_field[<span class="dv">0</span>]],</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    [E[<span class="dv">2</span>],  B_field[<span class="dv">1</span>], <span class="op">-</span>B_field[<span class="dv">0</span>], <span class="dv">0</span>]</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> eta <span class="op">*</span> A_zeta.T <span class="op">*</span> eta <span class="op">==</span> <span class="op">-</span>A_zeta</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Lie algebra condition eta * A^T * eta == -A verified."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Evaluation over <span class="math inline">\(\mathbb{Q}\)</span>:</strong> <span class="math display">\[\zeta \cdot \zeta = 2^2 + (1 + i)^2 + (3i)^2 = 4 + (2i) - 9 = -5 + 2i\]</span> * <strong>Maxwell Kinetic Density:</strong> <span class="math inline">\(\operatorname{Re}(\zeta \cdot \zeta) = \mathbf{E}^2 - \mathbf{B}^2 = (4 + 1 + 0) - (0 + 1 + 9) = 5 - 10 = -5\)</span>. * <strong>Topological <span class="math inline">\(\theta\)</span>-Density:</strong> <span class="math inline">\(\operatorname{Im}(\zeta \cdot \zeta) = 2(\mathbf{E} \cdot \mathbf{B}) = 2(0 + 1 + 0) = 2\)</span>.</p>
+<p><strong>Evaluation over <span class="math inline">\(\mathbb{F}_7\)</span>:</strong> <span class="math display">\[\operatorname{Re}(\zeta \cdot \zeta) = -5 \equiv 2 \pmod 7, \qquad \operatorname{Im}(\zeta \cdot \zeta) = 2 \equiv 2 \pmod 7\]</span> The field invariants evaluate without square roots or real-field limits.</p>
+<hr>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>The continuum gauge principle and the projective trigonometry of simplices describe the same underlying physics. Promoting a global spinor symmetry to local gauge invariance introduces the gauge connection <span class="math inline">\(A_\mu\)</span>, whose infinitesimal loop curvature is the field strength <span class="math inline">\(F_{\mu\nu} = -\frac{i}{e}[D_\mu, D_\nu]\)</span>. In our discrete rotor framework, this curvature is represented by the solid spread <span class="math inline">\(\mathcal{S}\)</span> of a projective tripod: the scalar trace of the holonomy is <span class="math inline">\(w = 1 - 2\mathcal{S}\)</span>, and the Wilson plaquette action <span class="math inline">\(W_1 = 1 - w\)</span> is identically <span class="math inline">\(2\mathcal{S}\)</span>, without requiring an infinitesimal continuum Taylor approximation.</p>
+<p>The Cayley link parameters compose under rational tangent addition <span class="math inline">\(a_P = \bigoplus a_i\)</span>, establishing that <span class="math inline">\(\mathcal{S} = \frac{a_P^2}{1 + a_P^2}\)</span>. The quartic gauge potential <span class="math inline">\(W_2 = (1-w)^2 = 4\mathcal{S}^2\)</span> detects the <span class="math inline">\(\mathbb{Z}_2\)</span> spin lift of the Dirac field at an orthogonal tripod (<span class="math inline">\(\mathcal{S}=1\)</span>, <span class="math inline">\(w=-1\)</span>), where the induced spatial rotation is trivial but the spinor holonomy is <span class="math inline">\(-I_2\)</span>. Meanwhile, the Riemann–Silberstein vector <span class="math inline">\(\zeta = \mathbf{E} + i\mathbf{B}\)</span> packages both the Maxwell kinetic term and the topological <span class="math inline">\(\theta\)</span>-density into the complex dot product <span class="math inline">\(\zeta \cdot \zeta\)</span>. Every identity holds exactly over the field of rational numbers <span class="math inline">\(\mathbb{Q}\)</span> and over finite fields <span class="math inline">\(\mathbb{F}_p\)</span>, demonstrating that relativistic electrodynamics and gauge curvature can be formulated completely through rational arithmetic without transcendental approximations.</p>
+<hr>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>J. D. Coady. <em>Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields</em>. Preprint, October 7, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.23222798">10.5281/zenodo.23222798</a>.</li>
+<li>J. D. Coady. <em>On the Projective Quadrume and the Recursive Factorization of Projective Simplices</em>. Preprint, July 24, 2026. DOI: <a href="https://doi.org/10.5281/zenodo.21523417">10.5281/zenodo.21523417</a>.</li>
+<li>J. D. Coady. <em>On the Projective Trigonometry of the Tetrahedron: Solid Spreads, Dihedral Laws, and Factorization</em>. Preprint, July 25, 2026.</li>
+<li>N. J. Wildberger. <em>Universal Hyperbolic Geometry I: Trigonometry</em>. <em>Geometriae Dedicata</em> 163(1), 109–147 (2013). arXiv:<a href="https://arxiv.org/abs/0909.1377">0909.1377</a>.</li>
+<li>N. J. Wildberger. <em>Divine Proportions: Rational Trigonometry to Universal Geometry</em>. Wild Egg Books, Sydney, 2005.</li>
+<li>N. J. Wildberger. <em>Three dimensional geometry, ZOME, and the elusive tetrahedron</em>. Lecture video, Insights into Mathematics, July 31, 2012. <a href="https://www.youtube.com/watch?v=rzUtdwh2rj0">YouTube</a>.</li>
+<li>M. E. Peskin and D. V. Schroeder. <em>An Introduction to Quantum Field Theory</em>. Westview Press, 1995.</li>
+<li>K. G. Wilson. Confinement of quarks. <em>Phys. Rev.&nbsp;D</em> 10, 2445 (1974).</li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jcoady\.github\.io\/blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="jcoady/blog" data-repo-id="R_kgDOUEMSRA" data-category="General" data-category-id="DIC_kwDOUEMSRM4DEZKl" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
+</div> <!-- /content -->
+
+
+
+
+</body></html>
