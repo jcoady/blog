@@ -11,14 +11,23 @@ format:
 
 ## Where Part 1 left off
 
-[Part 1](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-curvature/) showed that the rotor anchor $\zeta=\kappa+i\rho$ is algebraically the Riemann–Silberstein vector $\mathbf E+i\mathbf B$, and built an exact U(1) lattice out of Cayley phases $U=(1-ia)/(1+ia)$. It listed what was missing from the gauge-theory side. This post closes the first two gaps on that list, comparing against the standard abelian gauge theory of Lecture 13 [9] ([video](https://youtu.be/WGQMb88xDqA), [handwritten notes](https://inside.mines.edu/~aflourno/Particle/Lecture13-%20Interactions%20via%20Local%20Gauge%20Invariance%20%28The%20Abelian%20Case%29.pdf)) (local phase $\psi\to e^{ie\phi}\psi$, $D_\mu=\partial_\mu+ieA_\mu$, $F_{\mu\nu}=-\tfrac ie[D_\mu,D_\nu]$):
+[Part 1](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-curvature/) showed that the rotor anchor $\zeta=\kappa+i\rho$ is algebraically the Riemann–Silberstein vector $\mathbf E+i\mathbf B$, and built an exact U(1) lattice out of Cayley phases $U=(1-ia)/(1+ia)$. It listed what was missing from the gauge-theory side. This post proves two exact identities in Cayley coordinates that correspond to the first two items on that list, and compares them with the standard abelian gauge theory of Lecture 13 [9] ([video](https://youtu.be/WGQMb88xDqA), [handwritten notes](https://inside.mines.edu/~aflourno/Particle/Lecture13-%20Interactions%20via%20Local%20Gauge%20Invariance%20%28The%20Abelian%20Case%29.pdf)) (local phase $\psi\to e^{ie\phi}\psi$, $D_\mu=\partial_\mu+ieA_\mu$, $F_{\mu\nu}=-\tfrac ie[D_\mu,D_\nu]$):
 
-1. **Calculation 11.** Does the lecture's central identity $F_{\mu\nu}=-\tfrac ie[D_\mu,D_\nu]$ hold *exactly* on the Cayley lattice? Yes, in a precise form, over $\mathbb Q$ and $\mathbb F_p$.
+1. **Calculation 11.** Does the lecture's central identity $F_{\mu\nu}=-\tfrac ie[D_\mu,D_\nu]$ hold *exactly* on the Cayley lattice? Yes, in a precise form (with a transporter factor) that is proved below for any invertible links, and checked over $\mathbb Q$ and $\mathbb F_p$.
 2. **Calculation 12.** What does a charge $k\neq1$ field see? The map $a\mapsto\tan(k\arctan a)$, which is the Chebyshev/spread-polynomial structure, and over $\mathbb F_p$ it makes the theory a $\mathbb Z_{p+1}$ gauge theory.
 
-A third section records what is *not* established about tripods and the Wilson potential, so that it is not mistaken for a result.
+A further section records what is *not* established about tripods and the Wilson potential, so that it is not mistaken for a result.
 
-Everything labelled "exact" below was run in exact arithmetic (`Fraction` over $\mathbb Q$, modular arithmetic over $\mathbb F_7,\mathbb F_{11}$, and exhaustively over $\mathbb F_p$ for $p=3,7,11,19,23$ where stated). The script is at the end.
+::: {.callout-note}
+## Scope: three claims to keep apart
+1. *Rotor data can represent electromagnetic field data.* This is Part 1: the anchor $\zeta_F$ gives the Lorentz force, the two invariants, and the flux of a **given** field through a plane.
+2. *A Cayley parametrization gives exact lattice gauge identities.* This is what Calculations 11 and 12 establish.
+3. *The rotor architecture determines the gauge links or connection.* This is **not established**, here or in Part 1. In every calculation the link variables $U_\mu(x)$ are supplied (random for the identity checks, chosen for the examples); none is derived from the anchor $\zeta$ or from the projective geometry.
+
+The series is therefore an algebraic rotor-and-gauge *compatibility* programme: it shows that the two fit together exactly over $\mathbb Q$ and $\mathbb F_p$, not that gauge structure emerges from the rotor construction. See "What is not established" near the end. The $\mathbb Z_{p+1}$ group structure over $\mathbb F_p$ is canonical; its identification with real angles and Boltzmann weights is not (see the warning after Calculation 12).
+:::
+
+**Proofs and checks.** The identities in this post are proved by the short algebraic derivations in the text. The tables are computational verification: exact-arithmetic tests (`Fraction` over $\mathbb Q$, modular arithmetic over $\mathbb F_7,\mathbb F_{11}$, and exhaustive enumeration over $\mathbb F_p$ for $p=3,7,11,19,23$ where stated) that check the derivations and the script. They are not part of the proofs. The floating-point experiments are marked as numerical. The script is at the end.
 
 ## Conventions, fixed once
 
@@ -33,9 +42,9 @@ The sign conventions were left loose in Part 1, so here they are pinned down.
 
 ## Calculation 11: the lattice commutator
 
-### The identity
+### The identity and its proof
 
-Apply $\mathcal D_\mu$ to $\mathcal D_\nu\psi$:
+*Proof.* The computation below uses only that the links are invertible. Apply $\mathcal D_\mu$ to $\mathcal D_\nu\psi$:
 
 $$
 \mathcal D_\mu\mathcal D_\nu\psi(x)=U_\mu(x)U_\nu(x{+}\hat\mu)\,\psi(x{+}\hat\mu{+}\hat\nu)\;-\;U_\mu(x)\psi(x{+}\hat\mu)\;-\;U_\nu(x)\psi(x{+}\hat\nu)\;+\;\psi(x).
@@ -53,7 +62,7 @@ $$
 \boxed{\;[\mathcal D_\mu,\mathcal D_\nu]\psi(x)=\bigl(U_P(x)-1\bigr)\,\mathcal T_{\mu\nu}\psi(x),\qquad \mathcal T_{\mu\nu}\psi(x)\equiv U_\nu(x)U_\mu(x{+}\hat\nu)\,\psi(x{+}\hat\mu{+}\hat\nu).\;}
 $$
 
-This is **exact**, for any links and any $\psi$. It is *not* $(U_P-1)\psi(x)$: the factor multiplying $U_P-1$ is $\psi$ parallel-transported from the far corner of the plaquette, which differs from $\psi(x)$ at relative order $\varepsilon$. The two agree only in the continuum limit. $\mathcal T_{\mu\nu}\psi$ itself transforms like $g(x)\psi$, so both sides are gauge-covariant. This is the lattice form of the lecture's step "the derivative terms cancel and only $ieF_{\mu\nu}\psi$ survives."
+This is **exact**, for any invertible links and any $\psi$ (the abelian property is needed only for the gauge invariance of $U_P$, not for the identity). It is *not* $(U_P-1)\psi(x)$: the factor multiplying $U_P-1$ is $\psi$ parallel-transported from the far corner of the plaquette, which differs from $\psi(x)$ at relative order $\varepsilon$. The two agree only in the continuum limit. $\mathcal T_{\mu\nu}\psi$ itself transforms like $g(x)\psi$, so both sides are gauge-covariant. This is the lattice form of the lecture's step "the derivative terms cancel and only $ieF_{\mu\nu}\psi$ survives."
 
 ### The Cayley form of the field strength
 
@@ -69,11 +78,13 @@ $$
 a_P(x)=i\,\frac{[\mathcal D_\mu,\mathcal D_\nu]\psi(x)}{\mathcal S_{\mu\nu}\psi(x)}\qquad(\psi(x{+}\hat\mu{+}\hat\nu)\neq0).
 $$
 
-So the Cayley plaquette parameter is a ratio of two path sums, difference over sum, with no exponential and no logarithm. When $U_P=-1$ ($a_P=\infty$), $\mathcal S\psi=0$.
+So the Cayley plaquette parameter is a ratio of two path sums, difference over sum, with no exponential and no logarithm. When $U_P=-1$ ($a_P=\infty$), $\mathcal S\psi=0$; the formula holds whenever $\mathcal S\psi(x)\neq0$.
 
-### Results
+*Terminology.* $a_P$ is the Cayley parameter of the plaquette *holonomy*, not the field-strength component $F_{\mu\nu}$. They are related only through the continuum limit: with $U_P=e^{ie\Phi}$ and $\Phi\approx\varepsilon^2F_{\mu\nu}$, one has $a_P=-\tan(e\Phi/2)\approx-\tfrac12e\varepsilon^2F_{\mu\nu}$ for small flux.
 
-4D torus $L=3$ (81 sites, 324 links, 486 plaquettes), random links including $a=\infty$, random nonzero $\psi\in K$ at every site, random gauge transformation:
+### Computational verification
+
+These tests check the derivation above and the script; they are not themselves proofs. 4D torus $L=3$ (81 sites, 324 links, 486 plaquettes), random links including $a=\infty$, random nonzero $\psi\in K$ at every site, random gauge transformation:
 
 | Check | $\mathbb Q$ | $\mathbb F_7$ | $\mathbb F_{11}$ |
 |:---|:---:|:---:|:---:|
@@ -90,7 +101,7 @@ Replace the links by $\mathrm{SL}(2,\mathbb Q)$ Cayley caps $\mathrm{ca}(A)=(I+A
 
 ### (e) Continuum limit and the sign check
 
-For a smooth potential and smooth $\psi$ (floating point, $q=1.3$, links $=\exp(+iq\int A)$ computed exactly along each edge), the ratio $[\mathcal D_x,\mathcal D_y]\psi\,/\,(iq\varepsilon^2F_{xy}\psi)$ at a point approaches 1 at first order in $\varepsilon$, as expected from the transporter $\mathcal T\psi\neq\psi(x)$:
+This is a numerical check in floating point, not an exact-arithmetic result. For a smooth potential and smooth $\psi$ ($q=1.3$, links $=\exp(+iq\int A)$ with the edge integrals evaluated analytically), the ratio $[\mathcal D_x,\mathcal D_y]\psi\,/\,(iq\varepsilon^2F_{xy}\psi)$ at a point approaches 1 at first order in $\varepsilon$, as expected from the transporter $\mathcal T\psi\neq\psi(x)$:
 
 | $\varepsilon$ | $\mathrm{Re}$ ratio | $\mathrm{Im}$ ratio | $\lvert\text{ratio}-1\rvert$ |
 |:---:|:---:|:---:|:---:|
@@ -106,6 +117,7 @@ The limit is $+1$, which confirms $[D_\mu,D_\nu]=+ieF_{\mu\nu}$ for $D=\partial+
 
 - **Gives:** the lecture's key identity, exactly, on the Cayley lattice over $\mathbb Q$ and $\mathbb F_p$, with the correct transporter factor; the Cayley field strength as a difference-over-sum of path transports; gauge covariance of every piece.
 - **Does not give:** a statement that $[\mathcal D,\mathcal D]\psi=(U_P-1)\psi$ exactly. That form only holds as $\varepsilon\to0$.
+- **Does not give:** the links. They are inputs, not derived from the rotor anchor (see "What is not established").
 - **Still abelian-specific:** $U_P$ is gauge invariant, which the non-abelian version loses.
 
 ## Calculation 12: charge as a Cayley map
@@ -118,7 +130,7 @@ $$
 U=\frac{1-ia}{1+ia}=e^{-2i\arctan a}\;\Longrightarrow\;U^k=\frac{1-i\,c_k(a)}{1+i\,c_k(a)},\qquad c_k(a)=\tan\bigl(k\arctan a\bigr)=\frac{\operatorname{Im}(1+ia)^k}{\operatorname{Re}(1+ia)^k}.
 $$
 
-This is $k$-fold tangent addition, $c_k(a)=a\oplus\cdots\oplus a$ with $a\oplus b=(a+b)/(1-ab)$. It is *not* $ka$:
+*Proof.* Write $(1+ia)^k=R+iI$ with $R,I$ polynomials in $a$. Since $(1-ia)^k=R-iI$, we get $U^k=(R-iI)/(R+iI)=(1-i\,c_k)/(1+i\,c_k)$ with $c_k=I/R$ (if $R=0$ then $U^k=-1$ and $c_k=\infty$). This is $k$-fold tangent addition, $c_k(a)=a\oplus\cdots\oplus a$ with $a\oplus b=(a+b)/(1-ab)$. It is *not* $ka$:
 
 $$
 c_2(a)=\frac{2a}{1-a^2},\qquad c_3(a)=\frac{3a-a^3}{1-3a^2},\qquad c_k(a)\approx ka\ \text{for small }a .
@@ -128,7 +140,9 @@ So charge scales the potential linearly only in the weak-field limit, where $a\a
 
 ### Chebyshev and spread polynomials
 
-Writing $c=\mathrm{Re}\,U=\frac{1-a^2}{1+a^2}$, one has exactly $\mathrm{Re}\,U^k=T_k(c)$, the Chebyshev polynomial. In Wildberger's language, with $s\equiv a^2/(1+a^2)$ the spread of the phase, the spread seen by charge $k$ is $S_k(s)=\tfrac12\bigl(1-T_k(1-2s)\bigr)$, the $k$-th spread polynomial; for example $S_2(s)=4s(1-s)$ and $S_3(s)=s(3-4s)^2$. Verified exactly over $\mathbb Q$:
+Writing $c=\mathrm{Re}\,U=\frac{1-a^2}{1+a^2}$, one has exactly $\mathrm{Re}\,U^k=T_k(c)$, the Chebyshev polynomial (proof: $T_k\bigl(\tfrac{z+z^{-1}}2\bigr)=\tfrac{z^k+z^{-k}}2$ as an identity of Laurent polynomials, applied to $z=U$). In Wildberger's language, with $s\equiv a^2/(1+a^2)$ the spread of the phase, the spread seen by charge $k$ is $S_k(s)=\tfrac12\bigl(1-T_k(1-2s)\bigr)$, the $k$-th spread polynomial; for example $S_2(s)=4s(1-s)$ and $S_3(s)=s(3-4s)^2$. Verified exactly over $\mathbb Q$:
+
+Computational check over $\mathbb Q$ (the identities themselves are proved above):
 
 | Check over $\mathbb Q$ | Result |
 |:---|:---:|
@@ -138,6 +152,8 @@ Writing $c=\mathrm{Re}\,U=\frac{1-a^2}{1+a^2}$, one has exactly $\mathrm{Re}\,U^
 | $c_k(a\oplus b)=c_k(a)\oplus c_k(b)$, $k\in\{2,3,4,5,-1,-3\}$, incl. $a=\infty$ | 3000/3000 |
 
 ### Over $\mathbb F_p$: a $\mathbb Z_{p+1}$ gauge theory
+
+*The group structure below is canonical. Its identification with real angles and Boltzmann weights is not; see the warning at the end of this section.*
 
 For $p\equiv3\pmod4$ the norm map $\mathbb F_{p^2}^\times\to\mathbb F_p^\times$ is onto, so its kernel, the norm-one phases, has order $(p^2-1)/(p-1)=p+1$. It is a subgroup of the multiplicative group of a finite field, hence cyclic. The Cayley parameters $\mathbb P^1(\mathbb F_p)$ with $\oplus$ are that group. So abelian gauge theory over $\mathbb F_p$ is a $\mathbb Z_N$ gauge theory with $N=p+1$, and a charge is an integer mod $N$. Exhaustive over all points of $\mathbb P^1(\mathbb F_p)$ (hence all $(p+1)^2$ pairs):
 
@@ -181,6 +197,25 @@ A single plaquette says nothing about phases of the full lattice, but it does sh
 The group structure, Stokes, Bianchi, gauge covariance and the identities above are canonical over $\mathbb F_p$. Turning $\mathbb P^1(\mathbb F_p)$ into angles $2\pi m/N$, which is what the table above uses, requires choosing a generator, i.e. a discrete logarithm. After that choice $\cos(2\pi m/N)$ is an ordinary real number with no algebraic relation to the $\mathbb F_p$ arithmetic. Any statement about Boltzmann weights, phases or a continuum limit for the finite-field theory is a statement about that real model, which the finite-field structure hosts but does not determine.
 :::
 
+### (f) A special case where the bridge exists: uniform fields
+
+Take constant plaquette Cayley parameters $a_{xy},a_{yz},a_{zx}$ in three planes and define links by powers of the plaquette phases, i.e. by the charge map of this calculation:
+
+$$
+U_x=1,\qquad U_y(i,j,k)=U_{xy}^{\,i}\,U_{yz}^{\,-k},\qquad U_z(i,j,k)=U_{zx}^{\,-i},\qquad U_{\bullet}=\frac{1-ia_\bullet}{1+ia_\bullet}.
+$$
+
+*Proof.* $U_x(i,j)U_y(i{+}1,j)U_x(i,j{+}1)^{-1}U_y(i,j)^{-1}=U_{xy}^{i+1}U_{xy}^{-i}=U_{xy}$, and likewise for the other two planes. An $m\times n$ rectangle in the $xy$ plane is then the product of $mn$ equal plaquettes, with Cayley parameter $c_{mn}(a_{xy})$.
+
+*Computational verification* ($4\times4\times4$ open patch, $a=(2/7,-1/3,3/5)$ over $\mathbb Q$ and $(2,3,5)$ over $\mathbb F_7,\mathbb F_{11}$): all 192 plaquettes equal the prescribed Cayley flux in every field (192/192), and a $3\times2$ rectangle equals $U_{xy}^6$ (true in every field).
+
+So for a constant field the charge map of this calculation *is* the link transport. Two limits apply:
+
+- **The coupling must be defined.** The exact relation $a_P=-\tan(e\Phi/2)$ is not rational in the flux $\Phi$. To start from the flux of Part 1 one must *define* the lattice coupling by a Cayley-regularized flux, for example $a_P:=-e\Phi/2$, with $\Phi$ from the flux identity. This is a choice, not a consequence.
+- **It does not extend to non-constant fields.** For $a_{xy}=k/10$ and $a_{yz}=-i/10$ the linearized flux is divergence-free, but the cube identity under tangent addition fails: the residuals at four cubes are $0,\,1/515,\,5/1364,\,15/2993$, of order $\alpha^3$ for $\alpha=1/10$. A field that is closed to leading order is not closed under $\oplus$, so for non-constant fields the plaquette Cayley parameters, not the linearized flux, have to be the primary data, and they must satisfy the nonlinear closure condition.
+
+Even in the constant case the field $\zeta_F$ is the input and the links are built from it; no gauge connection is derived from the rotor geometry itself.
+
 ## Tripods and the Wilson potential: what is and is not established
 
 Part 1 and the companion papers define the **solid spread** of three rays $v_1,v_2,v_3$ in a space with a nondegenerate form $B$ as $\mathcal S=\det G_3/(Q(v_1)Q(v_2)Q(v_3))$. A natural question is whether the Wilson plaquette potential $W_1=1-\mathrm{Re}\,U_P$ is "twice the tripod solid spread." What can be said:
@@ -196,6 +231,11 @@ Part 1 and the companion papers define the **solid spread** of three rays $v_1,v
 
 I have deferred a tripod calculation until the missing map is available; the tripod arithmetic itself is routine.
 
+## What is not established
+
+- **The links are not derived from the rotor.** In Calculations 11 and 12, and in the lattice of Part 1, the link variables $U_\mu(x)$ are supplied. Part 1's flux identity gives the flux of a *given* field through a plaquette from $\zeta_F$ and the edge bivector $z_{uv}$; it does not produce links. Constructing the gauge connection from the rotor data is the main open step for the rotor programme.
+- **Gauge structure is extra input.** As Part 1 already noted, the connection on the line bundle is not provided by the rotor machinery.
+
 ## Where the connection stops
 
 - **No matter field, no action.** Calculations 11 and 12 give the covariant difference and charge on the lattice, but not a Dirac operator, a fermion action, or the coupling of $\psi$ to the Cayley dynamics of Calculation 10.
@@ -205,14 +245,15 @@ I have deferred a tripod calculation until the missing map is available; the tri
 
 ## Next directions
 
-1. **Matter field.** A Wilson-type hopping term $\bar\psi_x\gamma^\mu U_\mu(x)\psi_{x+\hat\mu}$ over $K$, which is gauge invariant by Calculation 11's covariance, with the fermion-doubling issue to be handled.
-2. **Dynamics from a spacetime action.** Restore the time links so the Gauss law of Calculation 10 becomes a consequence of gauge invariance rather than of the chosen gauge.
-3. **Mass term.** Show directly that $a\mapsto a\oplus b$ does not preserve a $\sum a^2$ term, the lattice version of the lecture's $m_A=0$ argument.
-4. **Tripod map.** Either construct a map from a plaquette to a tripod with $\det G_3/\prod Q=\sin^2(\theta_P/2)$, or drop the claim.
+1. **Rotor-to-link bridge.** Can links $U_\mu(x)$ be constructed from $\zeta_F$ so that the plaquette flux reproduces Part 1's flux relation? Calculation 12(f) answers this for constant fields only, and shows why it cannot extend naively.
+2. **Matter field** (addressed in [Part 3](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-part3/)). A Wilson-type hopping term $\bar\psi_x\gamma^\mu U_\mu(x)\psi_{x+\hat\mu}$ over $K$, which is gauge invariant by Calculation 11's covariance, with the fermion-doubling issue to be handled.
+3. **Dynamics from a spacetime action.** Restore the time links so the Gauss law of Calculation 10 becomes a consequence of gauge invariance rather than of the chosen gauge.
+4. **Mass term** (addressed in Part 3). Show directly that $a\mapsto a\oplus b$ does not preserve a $\sum a^2$ term, the lattice version of the lecture's $m_A=0$ argument.
+5. **Tripod map** (dropped unless the construction is supplied). Either construct a map from a plaquette to a tripod with $\det G_3/\prod Q=\sin^2(\theta_P/2)$, or drop the claim.
 
 ## Reproducing Calculations 11 and 12
 
-The full script reproduces every table above (it uses `numpy` and `scipy` only for the floating-point parts, 11(e) and the $\mathbb Z_N$ comparison).
+The full script reproduces every table above (it uses `numpy` and `scipy` only for the floating-point parts, 11(e) and the $\mathbb Z_N$ comparison; 12(f) is exact).
 
 ```python
 """
@@ -230,6 +271,8 @@ Reproduction script for Calculations 11 and 12 (Part 2).
       (c) the phase group over F_p is cyclic of order N = p+1 (a Z_N gauge theory)
       (d) charge-q covariant derivative and plaquette over Q, F_7, F_11
       (e) single-plaquette comparison Z_N versus U(1)
+      (f) uniform fields: links as charge-map powers of constant plaquette phases; failure of Cayley closure for
+          a non-uniform flux that is closed only to leading order
 
 Needs: numpy, scipy (parts 11e and 12e only).  Runs in well under a minute.
 """
@@ -427,6 +470,40 @@ def continuum_limit(q=1.3):
         out.append((e, R))
     return out
 
+# ----------------- 12f: links of a uniform field are charge-map powers of the plaquette phases -----------------
+def uniform_field_check(R, params, N=4):
+    """Uniform field in a 3D open patch: U_x = 1, U_y(i,j,k) = U_xy^i U_yz^-k, U_z(i,j,k) = U_zx^-i.
+    All plaquettes are constant: (xy, yz, zx) = the prescribed Cayley parameters.  Returns (ok, total, rectangle_ok)."""
+    one, zero = R.one, R.zero
+    Uxy, Uyz, Uzx = (R.phase(a) for a in params)
+    pw = lambda u, k: kpow(u, k, one, zero)
+    def U(x, m):
+        i, j, k = x
+        if m == 0: return (one, zero)
+        if m == 1: return kmul(pw(Uxy, i), pw(Uyz, -k))
+        return pw(Uzx, -i)
+    sh3 = lambda x, m: tuple(x[t] + (t == m) for t in range(3))
+    def P(x, m, n):
+        return kmul(kmul(U(x, m), U(sh3(x, m), n)), kmul(kconj(U(sh3(x, n), m)), kconj(U(x, n))))
+    pts = list(itertools.product(range(N), repeat=3))
+    want = {(0, 1): Uxy, (1, 2): Uyz, (2, 0): Uzx}
+    ok = sum(P(x, m, n) == w for x in pts for (m, n), w in want.items())
+    r = (one, zero)
+    for a in range(3):
+        for b in range(2):
+            r = kmul(r, P((a, b, 0), 0, 1))
+    return ok, 3 * len(pts), r == pw(Uxy, 6)
+
+def nonuniform_residuals(alpha=Fr(1, 10)):
+    """Flux a_xy = alpha k, a_yz = -alpha i is closed to leading order (div B = 0) but not under tangent addition."""
+    out = []
+    for (i, k) in [(0, 0), (1, 0), (2, 1), (3, 2)]:
+        d1 = RQ.oplus(alpha * (k + 1), -alpha * k)
+        d2 = RQ.oplus(-alpha * (i + 1), alpha * i)
+        out.append(RQ.oplus(d1, d2))
+    return out
+
+
 # ----------------------------------------------------------- charge map -----
 def cheb(q, x):                                        # Chebyshev T_q(x), exact on Fractions or Fp
     t0, t1 = x * 0 + 1, x
@@ -534,6 +611,12 @@ def main():
         for label, R in rings:
             n, t = checks(R, q, seed=12)
             print(f"   q = {q:>2} {label:<5} identity {n['ident']}/{t['ident']}  covariance {n['covD']}/{t['covD']}  a_P^(q) = c_q(a_P) {n['qmap']}/{t['qmap']}  U_P invariant {n['inv']}/{t['inv']}")
+    print("   12f. uniform field: links built from charge-map powers of the plaquette phases")
+    for label, R, prm in (("Q", RQ, (Fr(2, 7), Fr(-1, 3), Fr(3, 5))), ("F_7", RF(7), None), ("F_11", RF(11), None)):
+        if prm is None: prm = (R.mk(2), R.mk(3), R.mk(5))
+        ok, tot, rect = uniform_field_check(R, prm)
+        print(f"      {label:<5} all plaquettes equal the prescribed Cayley flux: {ok}/{tot};  3x2 rectangle = U_xy^6 (c_6 of a_xy): {rect}")
+    print("      Q, non-uniform flux a_xy = k/10, a_yz = -i/10 (closed to leading order): Cayley cube residuals", [str(x) for x in nonuniform_residuals()])
     print("   single plaquette <cos theta>: U(1) versus Z_N")
     for beta in (0.25, 1.0, 5.0):
         u1, zn = zn_vs_u1(beta)

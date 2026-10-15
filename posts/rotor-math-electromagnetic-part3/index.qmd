@@ -1,5 +1,5 @@
 ---
-title: "Why the Photon Has No Mass Term, and a Wilson–Dirac Matter Field over Q(i) and F_p[i]"
+title: "The Obstruction to a Bare Photon Mass Term, and a Wilson–Dirac Matter Field over Q(i) and F_p[i]"
 author: "John D. Coady"
 date: "2026-10-15"
 categories: [pure-math, mathematical-physics, electromagnetism, gauge-theory, lattice-gauge-theory, rational-trigonometry]
@@ -13,9 +13,9 @@ format:
 
 [Part 1](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-curvature/) built the anchor/field-strength dictionary and an exact Cayley U(1) lattice. [Part 2](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-part2/) showed that the identity of Lecture 13 [8] ([video](https://youtu.be/WGQMb88xDqA), [handwritten notes](https://inside.mines.edu/~aflourno/Particle/Lecture13-%20Interactions%20via%20Local%20Gauge%20Invariance%20%28The%20Abelian%20Case%29.pdf)) $F_{\mu\nu}=-\tfrac ie[D_\mu,D_\nu]$ holds exactly on that lattice in the form $[\mathcal D_\mu,\mathcal D_\nu]\psi=(U_P-1)\,\mathcal T_{\mu\nu}\psi$, and that charge $k$ is the map $a\mapsto\tan(k\arctan a)$. Conventions are as in Part 2: $\mathcal D_\mu\psi(x)=U_\mu(x)\psi(x+\hat\mu)-\psi(x)$, $U=(1-ia)/(1+ia)$, $\psi\to g\psi$, $U_\mu(x)\to g(x)U_\mu(x)g(x+\hat\mu)^{-1}$.
 
-This post does two things from the lecture's list that remained: the **photon mass term** (Calculation 13) and a **matter field** (Calculation 14). It starts with three housekeeping results that affect the earlier posts and the paper.
+This post does two things from the lecture's list that remained: the gauge-invariance **obstruction to a bare photon mass term** (Calculation 13) and a **matter field** (Calculation 14). It starts with three housekeeping results that affect the earlier posts and the paper.
 
-Everything labelled "exact" was run in exact arithmetic over $\mathbb Q$ and over $\mathbb F_p$ (a separate field class per prime), with the scripts at the end.
+**Proofs and checks.** The identities in this post are proved by the short derivations in the text. The tables labelled exact are computational verification in exact arithmetic over $\mathbb Q$ and over $\mathbb F_p$ (a separate field class per prime); they check the derivations and the scripts and are not themselves proofs. Floating-point results (the continuum limit in Calculation 13(c), the Brillouin-zone singular values in Calculation 14, and the Part 1 re-runs) are marked as numerical. The scripts are at the end.
 
 ## Housekeeping
 
@@ -41,6 +41,8 @@ $$
 
 So the doubling map relates the spin parameter to the rotor anchor (item 1); it relates the spin parameter to the vector Cayley anchor only when $\sigma$ is real (item 3).
 
+*Domain.* Item 1 needs $\sigma\neq1$ (the cap $U_\text{spin}$ exists) and $\sigma\neq-1$ (so that $x\neq0$ and the anchor is defined). Item 2 needs $1-\sigma\bar\sigma\neq0$ and $\Lambda+I$ invertible (the vector Cayley transform exists); item 3 additionally needs $\zeta_s\neq0$. These restrictions should be stated in the corrected proposition of the paper, which should replace item (3) of Proposition 6.3 by items 1–3 above.
+
 *Why.* A real Lorentz transformation acts on anchors by a complex rotation, and the Cayley transform commutes with conjugation, so one may take $\zeta_s=t\hat z$ with $t=\alpha+i\beta$, $t^2=\sigma$. With $\tau_L X=(\zeta_s\!\cdot\!\sigma)X$ and $\tau_R X=X(\bar\zeta_s\!\cdot\!\sigma)$ one has $\Lambda=\exp(L+R)$ and the Cayley transform is $(\tau_L+\tau_R)/(1+\tau_L\tau_R)$. On the diagonal entries of $X$ this is $2\alpha/(1+|t|^2)$ and on the off-diagonal entries $2i\beta/(1-|t|^2)$, i.e. a boost parameter and a rotation parameter with different denominators. Rewriting $\bigl(\tfrac{2\alpha}{1+|t|^2}+i\tfrac{2\beta}{1-|t|^2}\bigr)/t=2(1-\bar t^{\,2})/(1-|t|^4)$ gives item 2. If $\sigma$ is real this collapses to $2/(1+\sigma)$.
 
 | Case ($\zeta_s$) | $\sigma$ | $\zeta_C=\zeta$ | formula 2 | doubling of $\zeta$ |
@@ -57,9 +59,9 @@ The paper's own non-simple rotor $(a,p,\kappa,\rho)=(2,3,(1,\tfrac12,0),(6,0,0))
 
 Part 2 cited, from memory, that the 4D $\mathbb Z_N$ gauge theory has a Coulomb phase for $N\ge5$. I checked it: Elitzur, Pearson and Shigemitsu [3] show a massless QED-like phase for $N$ not too small, and a Monte Carlo study [4] finds one transition for $N\le4$ and two for $N\ge5$. Part 2 now cites both.
 
-## Calculation 13: why the gauge field cannot have a mass term
+## Calculation 13: the obstruction to a bare mass term
 
-The lecture's argument: a Proca term $\propto m_A^2A_\mu A^\mu$ changes under $A\to A-\partial\phi$ by $-2A\cdot\partial\phi+(\partial\phi)^2$, so $m_A=0$. Here is the lattice version.
+The lecture's argument: a Proca term $\propto m_A^2A_\mu A^\mu$ changes under $A\to A-\partial\phi$ by $-2A\cdot\partial\phi+(\partial\phi)^2$, so $m_A=0$. Here is the lattice version. What is proved below is narrower than "the photon is massless": in the pure abelian lattice gauge theory, no non-constant gauge-invariant function of a single link exists, so a bare Proca-type mass term built from the links alone is impossible. Models with extra fields (Stückelberg, Higgs) are outside this argument.
 
 ### (a) Gauge transformations in Cayley form
 
@@ -85,7 +87,7 @@ Exhaustively over $\mathbb F_p$, for the link-Wilson function $f(U)=1-\mathrm{Re
 
 Over $\mathbb Q$ with random inputs, $f(a')=f(a)$ in 216/5000 triples. The partial coincidences are accidents such as $a'=-a$ for an even function; none is invariance under all gauge transformations.
 
-### (c) The continuum limit matches the lecture
+### (c) The continuum limit matches the lecture (numerical)
 
 With $U\approx e^{i\varepsilon A}$ ($e=1$) and $\phi(x)$ smooth, the variation of the link term satisfies
 
@@ -93,7 +95,7 @@ $$
 \frac{f(\theta')-f(\theta)}{\varepsilon^2/2}\;\longrightarrow\;-2A\,\partial\phi+(\partial\phi)^2 ,
 $$
 
-which is exactly the lecture's $(A-\partial\phi)^2-A^2$. Numerically, with $A=0.7$ and $\partial\phi=0.4$ (continuum value $-0.4$), the lattice value approaches it at first order:
+which is the lecture's $(A-\partial\phi)^2-A^2$ in the limit. This is a floating-point check, not an exact identity: with $A=0.7$ and $\partial\phi=0.4$ (continuum value $-0.4$), the lattice value approaches it at first order:
 
 | $\varepsilon$ | lattice | difference |
 |:---:|:---:|:---:|
@@ -113,12 +115,13 @@ On a connected lattice with $V$ sites and $E$ links, the gauge group $G^V$ acts 
 - orbits: $65536/64=1024=N^{E-V+1}$;
 - distinct holonomy data (the four plaquettes plus the two non-contractible loops): **1024**.
 
-So the holonomies separate the orbits: two configurations with the same holonomies are gauge equivalent, and every gauge-invariant function of the links is a function of holonomies. There is no local gauge-invariant function of the links other than those built from closed loops. This is the lattice form of "gauge invariance leaves room only for $F_{\mu\nu}$, not for a mass term."
+So the holonomies separate the orbits: two configurations with the same holonomies are gauge equivalent, and every gauge-invariant function of the links is a function of holonomies. There is no local gauge-invariant function of the links other than those built from closed loops. For the abelian theory on a connected lattice, this is the lattice form of "gauge invariance leaves room only for $F_{\mu\nu}$, not for a bare mass term."
 
 ### What this does and does not give
 
-- **Gives:** the lecture's $m_A=0$ argument exactly on the lattice (single-link no-go, orbit counting) and its continuum limit.
-- **Does not give:** a massive vector field. A Stückelberg or Higgs field can make one gauge invariantly, but that adds a field and is not tested here.
+- **Gives:** an exact lattice realization of the gauge-invariance obstruction to a bare Proca-type mass term (the single-link no-go, and orbit counting for the abelian case), and its continuum limit.
+- **Does not give:** a proof that a photon must be massless in every model. A Stückelberg or Higgs field can make a vector field massive gauge-invariantly, but that adds a field and is not tested here.
+- **Abelian-specific in part:** the orbit counting and the identification of invariants with holonomies were checked for an abelian group on a connected lattice. For non-abelian links the single-link argument goes through by the same one-line reasoning ($U\mapsto gUh^{-1}$ with independent $g,h$ reaches every group element; not computed here), but the orbit count and the holonomy classification are more complicated.
 
 ## Calculation 14: a Wilson–Dirac matter field
 
@@ -143,7 +146,7 @@ $r=0$ is the naive operator and $r=1$ the Wilson operator. The factor $\tfrac12$
 
 ### Gauge covariance and the forced interaction
 
-Under $\psi\to g\psi$, $\bar\psi\to\bar\psi g^{-1}$, $U\to gUg'^{-1}$, each hopping term transforms by the factor $g(x)$ because $U'_\mu(x)\psi'(x+\hat\mu)=g(x)U_\mu(x)\psi(x+\hat\mu)$. Exactly, on the 4D torus $L=3$ (81 sites, 324 links), random links including $a=\infty$, random $\psi,\bar\psi\in K^4$ at every site, and the same results for $r=0$ and $r=1$:
+Under $\psi\to g\psi$, $\bar\psi\to\bar\psi g^{-1}$, $U\to gUg'^{-1}$, each hopping term transforms by the factor $g(x)$ because $U'_\mu(x)\psi'(x+\hat\mu)=g(x)U_\mu(x)\psi(x+\hat\mu)$. The covariance is proved by the computation just given. Exact-arithmetic verification (a check of that derivation and of the script, not a proof) on the 4D torus $L=3$ (81 sites, 324 links), random links including $a=\infty$, random $\psi,\bar\psi\in K^4$ at every site, and the same results for $r=0$ and $r=1$:
 
 | Check | $\mathbb Q$ | $\mathbb F_7$ | $\mathbb F_{11}$ |
 |:---|:---:|:---:|:---:|
@@ -207,6 +210,8 @@ with $n_\text{odd}$ the number of odd components of $k$.
 | $\mathbb F_{11}$ | 16, 64 | 1, 4 | 1 |
 | $\mathbb F_{19}$ | 16, 64 | 25, 52 | 25 |
 | $\mathbb F_{23}$ | 16, 64 | 1, 4 | 1 |
+
+As a worked example, take $\mathbb F_3$ at $r=0$. Here $M=0$, so $\det D=n_\text{odd}^2$, which vanishes mod 3 for $n_\text{odd}\in\{0,3\}$. With $n_\text{odd}=0$ there are $2^4=16$ momenta with $D(k)=0$ (4 zero modes each). With $n_\text{odd}=3$ there are $\binom43\cdot2^3\cdot2=64$ momenta: three odd components with two values each, and the fourth component even ($k_\mu\in\{0,2\}$, two values). There $D(k)$ is nilpotent of rank 2 (2 zero modes each). The total is $16+64=80$ momenta and $16\cdot4+64\cdot2=192$ zero modes, as in the table. A separate rank computation over $\mathbb F_3$ gives rank 2 at $k=(1,1,1,0)$ and $k=(1,3,1,2)$, rank 0 at $k=0$, and rank 4 at $k=(1,1,0,0)$.
 
 The formula counts momenta with $(n_\text{odd}+2n_2)^2\equiv-n_\text{odd}$, giving $\binom4j2^j\binom{4-j}{l}$ momenta for each solution $(j,l)=(n_\text{odd},n_2)$. For $\mathbb F_7$ the single solution is $j=3$, $l=1$ ($M=5$, $M^2=25\equiv4=-3$), giving $32+1=33$; for $\mathbb F_{19}$ it is $j=2$, $l=2$ ($M=6$, $36\equiv17=-2$), giving $24+1=25$.
 

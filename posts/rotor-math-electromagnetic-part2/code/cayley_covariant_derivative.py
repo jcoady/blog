@@ -13,6 +13,8 @@ Reproduction script for Calculations 11 and 12 (Part 2).
       (c) the phase group over F_p is cyclic of order N = p+1 (a Z_N gauge theory)
       (d) charge-q covariant derivative and plaquette over Q, F_7, F_11
       (e) single-plaquette comparison Z_N versus U(1)
+      (f) uniform fields: links as charge-map powers of constant plaquette phases; failure of Cayley closure for
+          a non-uniform flux that is closed only to leading order
 
 Needs: numpy, scipy (parts 11e and 12e only).  Runs in well under a minute.
 """
@@ -22,25 +24,27 @@ import random
 from fractions import Fraction as Fr
 
 # ------------------------------------------------------------------ fields ---
-class Fp:
-    p = 7
-    def __init__(s, v): s.v = int(v) % Fp.p
-    def __add__(s, o): return Fp(s.v + _v(o))
-    __radd__ = __add__
-    def __sub__(s, o): return Fp(s.v - _v(o))
-    def __rsub__(s, o): return Fp(_v(o) - s.v)
-    def __neg__(s): return Fp(-s.v)
-    def __mul__(s, o): return Fp(s.v * _v(o))
-    __rmul__ = __mul__
-    def __truediv__(s, o): return Fp(s.v * pow(_v(o), -1, Fp.p))
-    def __rtruediv__(s, o): return Fp(_v(o) * pow(s.v, -1, Fp.p))
-    def __eq__(s, o): return s.v == _v(o) % Fp.p
-    def __hash__(s): return hash(s.v)
-    def __repr__(s): return str(s.v)
+def make_Fp(p):
+    """A distinct field class for each prime, so that several F_p can coexist."""
+    class FpP:
+        P = p
+        def __init__(s, v): s.v = int(v) % FpP.P
+        def __add__(s, o): return FpP(s.v + _v(o))
+        __radd__ = __add__
+        def __sub__(s, o): return FpP(s.v - _v(o))
+        def __rsub__(s, o): return FpP(_v(o) - s.v)
+        def __neg__(s): return FpP(-s.v)
+        def __mul__(s, o): return FpP(s.v * _v(o))
+        __rmul__ = __mul__
+        def __truediv__(s, o): return FpP(s.v * pow(_v(o), -1, FpP.P))
+        def __rtruediv__(s, o): return FpP(_v(o) * pow(s.v, -1, FpP.P))
+        def __eq__(s, o): return s.v == _v(o) % FpP.P
+        def __hash__(s): return hash(s.v)
+        def __repr__(s): return str(s.v)
+    return FpP
 
-def _v(o): return o.v if isinstance(o, Fp) else int(o)
+def _v(o): return o.v if hasattr(o, "v") else int(o)
 
-# ------------------------------------------- K = F[i] as pairs (re, im) -------
 def kadd(u, v): return (u[0] + v[0], u[1] + v[1])
 def ksub(u, v): return (u[0] - v[0], u[1] - v[1])
 def kmul(u, v): return (u[0] * v[0] - u[1] * v[1], u[0] * v[1] + u[1] * v[0])
@@ -57,7 +61,7 @@ def ki(u): return (-u[1], u[0])                       # multiplication by i
 
 class Ring:
     """Bundles the base field F: constructor mk, constants, Cayley phase and its inverse."""
-    def __init__(s, mk): s.mk, s.one, s.zero = mk, mk(1), mk(0)
+    def __init__(s, mk, p=None): s.mk, s.p, s.one, s.zero = mk, p, mk(1), mk(0)
     def phase(s, a):                                   # U = (1 - i a)/(1 + i a);  a = None means infinity
         o, z = s.one, s.zero
         if a is None: return (-o, z)
@@ -69,9 +73,18 @@ class Ring:
     def cq(s, a, q): return s.a_of(kpow(s.phase(a), q, s.one, s.zero))   # Cayley charge map
 
 RQ = Ring(Fr)
-def RF(p):
-    Fp.p = p
-    return Ring(Fp)
+def RF(p): return Ring(make_Fp(p), p)
+
+def sampler(R):
+    """(num, par): random field element, random Cayley parameter (None = infinity is allowed in par)."""
+    if R is RQ:
+        num = lambda rng: Fr(rng.randint(-6, 6), rng.randint(1, 4))
+        par = lambda rng: None if rng.random() < 0.06 else num(rng)
+    else:
+        p = R.p
+        num = lambda rng: R.mk(rng.randrange(p))
+        par = lambda rng: None if rng.randrange(p + 1) == p else R.mk(rng.randrange(p))
+    return num, par
 
 # --------------------------------------------------------------- lattice ----
 D4, L4 = 4, 3
@@ -92,26 +105,26 @@ def twopath(U, f, x, m, n):                            # S f(x) = (U_m U_n' + U_
     t = f[sh(sh(x, m), n)]
     return kmul(kadd(kmul(U[(x, m)], U[(sh(x, m), n)]), kmul(U[(x, n)], U[(sh(x, n), m)])), t)
 
-def random_links(R, rand, rng):
-    return {(x, m): R.phase(rand(rng)) for x in SITES for m in range(D4)}
+def random_links(R, par, rng):
+    return {(x, m): R.phase(par(rng)) for x in SITES for m in range(D4)}
 
-def random_psi(R, rand, rng):
+def random_psi(R, num, rng):
     out = {}
     for x in SITES:
         while True:
-            v = (rand(rng, False), rand(rng, False))
-            if v != (R.zero, R.zero) and not (v[0] == R.zero and v[1] == R.zero): break
+            v = (num(rng), num(rng))
+            if not (v[0] == R.zero and v[1] == R.zero): break
         out[x] = v
     return out
 
-def checks(R, rand, q=1, seed=11):
-    rng = random.Random(seed)
-    U1 = random_links(R, rand, rng)
+def checks(R, q=1, seed=11):
+    rng = random.Random(seed); num, par = sampler(R)
+    U1 = random_links(R, par, rng)
     U = {k: kpow(u, q, R.one, R.zero) for k, u in U1.items()} if q != 1 else U1       # charge-q links
-    psi = random_psi(R, rand, rng)
+    psi = random_psi(R, num, rng)
     n = dict(ident=0, cayley=0, ratio=0, covD=0, covC=0, inv=0, qmap=0)
     tot = dict(ident=0, cayley=0, ratio=0, covD=0, covC=0, inv=0, qmap=0)
-    g = {x: R.phase(rand(rng)) for x in SITES}                        # gauge transformation (charge-1 phase)
+    g = {x: R.phase(par(rng)) for x in SITES}                        # gauge transformation (charge-1 phase)
     gq = {x: kpow(g[x], q, R.one, R.zero) for x in SITES}
     Up = {(x, m): kmul(kmul(gq[x], U[(x, m)]), kconj(gq[sh(x, m)])) for x in SITES for m in range(D4)}
     psip = {x: kmul(gq[x], psi[x]) for x in SITES}
@@ -199,6 +212,40 @@ def continuum_limit(q=1.3):
         out.append((e, R))
     return out
 
+# ----------------- 12f: links of a uniform field are charge-map powers of the plaquette phases -----------------
+def uniform_field_check(R, params, N=4):
+    """Uniform field in a 3D open patch: U_x = 1, U_y(i,j,k) = U_xy^i U_yz^-k, U_z(i,j,k) = U_zx^-i.
+    All plaquettes are constant: (xy, yz, zx) = the prescribed Cayley parameters.  Returns (ok, total, rectangle_ok)."""
+    one, zero = R.one, R.zero
+    Uxy, Uyz, Uzx = (R.phase(a) for a in params)
+    pw = lambda u, k: kpow(u, k, one, zero)
+    def U(x, m):
+        i, j, k = x
+        if m == 0: return (one, zero)
+        if m == 1: return kmul(pw(Uxy, i), pw(Uyz, -k))
+        return pw(Uzx, -i)
+    sh3 = lambda x, m: tuple(x[t] + (t == m) for t in range(3))
+    def P(x, m, n):
+        return kmul(kmul(U(x, m), U(sh3(x, m), n)), kmul(kconj(U(sh3(x, n), m)), kconj(U(x, n))))
+    pts = list(itertools.product(range(N), repeat=3))
+    want = {(0, 1): Uxy, (1, 2): Uyz, (2, 0): Uzx}
+    ok = sum(P(x, m, n) == w for x in pts for (m, n), w in want.items())
+    r = (one, zero)
+    for a in range(3):
+        for b in range(2):
+            r = kmul(r, P((a, b, 0), 0, 1))
+    return ok, 3 * len(pts), r == pw(Uxy, 6)
+
+def nonuniform_residuals(alpha=Fr(1, 10)):
+    """Flux a_xy = alpha k, a_yz = -alpha i is closed to leading order (div B = 0) but not under tangent addition."""
+    out = []
+    for (i, k) in [(0, 0), (1, 0), (2, 1), (3, 2)]:
+        d1 = RQ.oplus(alpha * (k + 1), -alpha * k)
+        d2 = RQ.oplus(-alpha * (i + 1), alpha * i)
+        out.append(RQ.oplus(d1, d2))
+    return out
+
+
 # ----------------------------------------------------------- charge map -----
 def cheb(q, x):                                        # Chebyshev T_q(x), exact on Fractions or Fp
     t0, t1 = x * 0 + 1, x
@@ -233,7 +280,7 @@ def charge_checks():
     rows = []
     for p in (3, 7, 11, 19, 23):
         R = RF(p); N = p + 1
-        pts = [None] + [Fp(v) for v in range(p)]
+        pts = [None] + [R.mk(v) for v in range(p)]
         hom = add = per = comp = tt = 0
         for a in pts:
             for b in pts:
@@ -245,7 +292,7 @@ def charge_checks():
                     comp += R.cq(R.cq(a, r), q) == R.cq(a, q * r)
                 per += R.cq(a, q + N) == R.cq(a, q)
         # group order and generator
-        zero = Fp(0)
+        zero = R.mk(0)
         def order(a):
             k, b = 1, a
             while not (b is not None and b == zero): b = R.oplus(b, a); k += 1
@@ -260,8 +307,8 @@ def charge_checks():
 
 def tableau_generator(p):
     R = RF(p); N = p + 1
-    pts = [None] + [Fp(v) for v in range(p)]
-    zero = Fp(0)
+    pts = [None] + [R.mk(v) for v in range(p)]
+    zero = R.mk(0)
     for a in pts:
         b, k = a, 1
         while not (b is not None and b == zero): b = R.oplus(b, a); k += 1
@@ -281,14 +328,12 @@ def zn_vs_u1(beta):
 
 # ------------------------------------------------------------------ main ----
 def main():
-    rq = lambda rng, inf=True: (None if (inf and rng.random() < 0.06) else Fr(rng.randint(-6, 6), rng.randint(1, 4)))
-    def rqpsi(rng, inf=False): return Fr(rng.randint(-6, 6), rng.randint(1, 4))
     names = dict(ident="[D,D]psi = (U_P - 1) T psi", cayley="(U_P - 1)(1 + i a_P) = -2 i a_P", ratio="a_P = i [D,D]psi / S psi",
                  covD="D'psi' = g D psi", covC="[D,D]'psi' = g [D,D] psi", inv="U_P' = U_P")
+    rings = (("Q", RQ), ("F_7", RF(7)), ("F_11", RF(11)))
     print("11. covariant difference, 4D torus L = 3 (81 sites, 324 links, 486 plaquettes)")
-    rf = lambda p: (lambda rng, inf=True: (None if (inf and rng.randrange(p + 1) == p) else Fp(rng.randrange(p))))
-    for label, R, rnd in (("Q", RQ, rq), ("F_7", RF(7), rf(7)), ("F_11", RF(11), rf(11))):
-        n, t = checks(R, lambda rng, inf=True, rnd=rnd: rnd(rng, inf) if inf else rnd(rng, False), 1)
+    for label, R in rings:
+        n, t = checks(R, 1)
         print(f"   {label:<5}", "  ".join(f"{k}: {n[k]}/{t[k]}" for k in names))
     ok, tot, na = nonabelian_check()
     print(f"   SL(2,Q) caps: [D,D]psi = (U_P - 1) T psi  {ok}/{tot};  U_mu U_nu' != U_nu U_mu' on {na}/{tot} plaquettes (non-abelian)")
@@ -305,9 +350,15 @@ def main():
               f"c_(q+r) = c_q (+) c_r {add}/{tadd}, periodic mod N {per}/{tper}, c_q o c_r = c_qr {comp}/{tadd}")
     print("   F_7 generator g: c_q(g), q = 0..7 :", tableau_generator(7))
     for q in (2, 3, -1, 5):
-        for label, R, rnd in (("Q", RQ, rq), ("F_7", RF(7), rf(7)), ("F_11", RF(11), rf(11))):
-            n, t = checks(R, lambda rng, inf=True, rnd=rnd: rnd(rng, inf) if inf else rnd(rng, False), q, seed=12)
+        for label, R in rings:
+            n, t = checks(R, q, seed=12)
             print(f"   q = {q:>2} {label:<5} identity {n['ident']}/{t['ident']}  covariance {n['covD']}/{t['covD']}  a_P^(q) = c_q(a_P) {n['qmap']}/{t['qmap']}  U_P invariant {n['inv']}/{t['inv']}")
+    print("   12f. uniform field: links built from charge-map powers of the plaquette phases")
+    for label, R, prm in (("Q", RQ, (Fr(2, 7), Fr(-1, 3), Fr(3, 5))), ("F_7", RF(7), None), ("F_11", RF(11), None)):
+        if prm is None: prm = (R.mk(2), R.mk(3), R.mk(5))
+        ok, tot, rect = uniform_field_check(R, prm)
+        print(f"      {label:<5} all plaquettes equal the prescribed Cayley flux: {ok}/{tot};  3x2 rectangle = U_xy^6 (c_6 of a_xy): {rect}")
+    print("      Q, non-uniform flux a_xy = k/10, a_yz = -i/10 (closed to leading order): Cayley cube residuals", [str(x) for x in nonuniform_residuals()])
     print("   single plaquette <cos theta>: U(1) versus Z_N")
     for beta in (0.25, 1.0, 5.0):
         u1, zn = zn_vs_u1(beta)
