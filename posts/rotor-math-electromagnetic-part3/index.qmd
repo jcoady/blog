@@ -1,0 +1,825 @@
+---
+title: "Why the Photon Has No Mass Term, and a Wilson–Dirac Matter Field over Q(i) and F_p[i]"
+author: "John D. Coady"
+date: "2026-10-15"
+categories: [pure-math, mathematical-physics, electromagnetism, gauge-theory, lattice-gauge-theory, rational-trigonometry]
+format:
+  html:
+    toc: true
+    code-fold: true
+---
+
+## Where Part 2 left off
+
+[Part 1](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-curvature/) built the anchor/field-strength dictionary and an exact Cayley U(1) lattice. [Part 2](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-part2/) showed that the identity of Lecture 13 [8] ([video](https://youtu.be/WGQMb88xDqA), [handwritten notes](https://inside.mines.edu/~aflourno/Particle/Lecture13-%20Interactions%20via%20Local%20Gauge%20Invariance%20%28The%20Abelian%20Case%29.pdf)) $F_{\mu\nu}=-\tfrac ie[D_\mu,D_\nu]$ holds exactly on that lattice in the form $[\mathcal D_\mu,\mathcal D_\nu]\psi=(U_P-1)\,\mathcal T_{\mu\nu}\psi$, and that charge $k$ is the map $a\mapsto\tan(k\arctan a)$. Conventions are as in Part 2: $\mathcal D_\mu\psi(x)=U_\mu(x)\psi(x+\hat\mu)-\psi(x)$, $U=(1-ia)/(1+ia)$, $\psi\to g\psi$, $U_\mu(x)\to g(x)U_\mu(x)g(x+\hat\mu)^{-1}$.
+
+This post does two things from the lecture's list that remained: the **photon mass term** (Calculation 13) and a **matter field** (Calculation 14). It starts with three housekeeping results that affect the earlier posts and the paper.
+
+Everything labelled "exact" was run in exact arithmetic over $\mathbb Q$ and over $\mathbb F_p$ (a separate field class per prime), with the scripts at the end.
+
+## Housekeeping
+
+### Part 1 re-run
+
+I re-ran the three embedded scripts of Part 1 and independently re-implemented its floating-point claims.
+
+- **Exact results reproduce.** Calculations 1–7 (the boost and rotation matrices, the null-field worldline, the field transformation, the integrator convergence ratios 4.01, 4.00, 4.00, the Boris equality at $-0.020085,-0.005160,-0.001299$), Calculations 8–9 (flux identity 400/400 over $\mathbb Z$, $\mathbb F_7$, $\mathbb F_{11}$; duality; Stokes 9/9, Bianchi 27/27, Wilson 81/81) and the exact part of Calculation 10 (Gauss law preserved, exact reversal, bit lengths 194, 2700, 38293).
+- **Calculation 9's continuum table reproduces exactly:** $\sum_P W_1=3.99479,\,4.68562,\,4.87166$ for $L=4,8,16$.
+- **Calculation 10's floating-point claims reproduce:** the measured standing-wave frequency $0.390336$ matches the leapfrog-lattice formula $(2/\Delta t)\arcsin(\Delta t\sin(k/2))$ at $\Delta t=0.25$ (spatial dispersion alone gives $0.390181$; continuum $0.392699$); $\max|H-H_0|/H_0=1.45\times10^{-3}$; second-order convergence (error ratios $4.05$, $4.2$ against the post's $4.00$, $4.01$, the difference being unspecified reference-run details); symplectic residual $1.3\times10^{-10}$. One quantity I could not match is the "relative drift $-7.8\times10^{-7}$", because its definition is not stated. What I measure is a bounded oscillation of size $1.45\times10^{-3}$ with the means of the two halves of a 20000-step run differing by only $3.7\times10^{-7}$ relative, which is consistent with no secular drift at that level.
+
+### Proposition 6.3(3) of the paper
+
+The paper states that the vector Cayley anchor $(\Lambda-I)(\Lambda+I)^{-1}$ is related to the rotor anchor by the doubling map $\zeta\mapsto2\zeta/(1+\zeta\cdot\zeta)$. As worded, this is not correct. Let $\zeta_s$ be a spin Cayley parameter, $\sigma=\zeta_s\cdot\zeta_s$, $G=U_\text{spin}(\zeta_s)$ and $\Lambda$ its Lorentz matrix. Then, in exact arithmetic over $\mathbb Q(i)$:
+
+1. The rotor anchor of $\Lambda$ is $\zeta=2\zeta_s/(1+\sigma)$. This is the paper's Theorem 7.1, and it checks.
+2. The vector Cayley anchor is
+$$
+\zeta_C=\frac{2\,\zeta_s\,(1-\bar\sigma)}{1-\sigma\bar\sigma},\qquad \bar\sigma=\text{Galois conjugate of }\sigma .
+$$
+3. $\zeta_C=\zeta$ (vector Cayley anchor equals rotor anchor) **if and only if $\sigma\in F$**, i.e. $\kappa\cdot\rho=0$ for $\zeta_s$. In that case $\zeta_C=2\zeta_s/(1+\sigma)$.
+4. Applying the doubling map to the *rotor anchor* never gives $\zeta_C$ in any tested case, including a pure boost ($\zeta=1/2$ has $\zeta_C=1/2$, not $4/5$).
+
+So the doubling map relates the spin parameter to the rotor anchor (item 1); it relates the spin parameter to the vector Cayley anchor only when $\sigma$ is real (item 3).
+
+*Why.* A real Lorentz transformation acts on anchors by a complex rotation, and the Cayley transform commutes with conjugation, so one may take $\zeta_s=t\hat z$ with $t=\alpha+i\beta$, $t^2=\sigma$. With $\tau_L X=(\zeta_s\!\cdot\!\sigma)X$ and $\tau_R X=X(\bar\zeta_s\!\cdot\!\sigma)$ one has $\Lambda=\exp(L+R)$ and the Cayley transform is $(\tau_L+\tau_R)/(1+\tau_L\tau_R)$. On the diagonal entries of $X$ this is $2\alpha/(1+|t|^2)$ and on the off-diagonal entries $2i\beta/(1-|t|^2)$, i.e. a boost parameter and a rotation parameter with different denominators. Rewriting $\bigl(\tfrac{2\alpha}{1+|t|^2}+i\tfrac{2\beta}{1-|t|^2}\bigr)/t=2(1-\bar t^{\,2})/(1-|t|^4)$ gives item 2. If $\sigma$ is real this collapses to $2/(1+\sigma)$.
+
+| Case ($\zeta_s$) | $\sigma$ | $\zeta_C=\zeta$ | formula 2 | doubling of $\zeta$ |
+|:---|:---:|:---:|:---:|:---:|
+| $(1/2,0,0)$ boost | $1/4$ | yes | yes | no |
+| $(0,0,i/2)$ rotation | $-1/4$ | yes | yes | no |
+| $(1/2,\,i/3,\,0)$ | $5/36$ | yes | yes | no |
+| $(1/2+i/3,\,0,\,0)$ | $5/36+i/3$ | no | yes | no |
+| $(1/2+i/3,\,1/5,\,2i/7)$ | $4289/44100+i/3$ | no | yes | no |
+
+The paper's own non-simple rotor $(a,p,\kappa,\rho)=(2,3,(1,\tfrac12,0),(6,0,0))$ was checked numerically. Its rotor anchor is $(1.5385+0.6923i,\;0.0769-0.1154i,\;0)$ and its vector Cayley anchor is $(0.5+3i,\;0.25,\;0)$. Taking either $\sigma$ with $\zeta=2\zeta_s/(1+\sigma)$, formula 2 reproduces $\zeta_C$ to $10^{-15}$ while the doubling of $\zeta$ misses by $3.2$. This is consistent with the note at the end of Part 1.
+
+### The $\mathbb Z_N$ Coulomb-phase claim
+
+Part 2 cited, from memory, that the 4D $\mathbb Z_N$ gauge theory has a Coulomb phase for $N\ge5$. I checked it: Elitzur, Pearson and Shigemitsu [3] show a massless QED-like phase for $N$ not too small, and a Monte Carlo study [4] finds one transition for $N\le4$ and two for $N\ge5$. Part 2 now cites both.
+
+## Calculation 13: why the gauge field cannot have a mass term
+
+The lecture's argument: a Proca term $\propto m_A^2A_\mu A^\mu$ changes under $A\to A-\partial\phi$ by $-2A\cdot\partial\phi+(\partial\phi)^2$, so $m_A=0$. Here is the lattice version.
+
+### (a) Gauge transformations in Cayley form
+
+With $g(x)=\frac{1-i\gamma}{1+i\gamma}$ and $g(x+\hat\mu)$ of parameter $\gamma'$, the transformed link $U'=gUg'^{-1}$ has Cayley parameter
+
+$$
+a'=\gamma\oplus a\oplus(-\gamma'),\qquad a\oplus b=\frac{a+b}{1-ab}.
+$$
+
+This matches the direct phase computation 1000/1000 over $\mathbb Q$, 1000/1000 over $\mathbb F_7$, 1000/1000 over $\mathbb F_{11}$ (with $a=\infty$ included).
+
+### (b) The single-link no-go
+
+The two gauge parameters $\gamma(x)$ and $\gamma(x+\hat\mu)$ are independent. Given any $a$ and any target $b$, take $\gamma'=0$ and $\gamma=b\ominus a$: then $a'=b$. So **the gauge orbit of a single link is the whole phase group**, and a function of one link that is gauge invariant must be constant. A mass term, which is a sum of identical non-constant functions of single links, cannot be invariant.
+
+Exhaustively over $\mathbb F_p$, for the link-Wilson function $f(U)=1-\mathrm{Re}\,U$ (defined at $a=\infty$ too):
+
+| $p$ | $N=p+1$ | orbit of every link is all $N$ points | triples $(a,\gamma,\gamma')$ with $f(a')=f(a)$ | links with $f$ invariant under all $(\gamma,\gamma')$ |
+|:---:|:---:|:---:|:---:|:---:|
+| 3 | 4 | yes | 24/64 | 0/4 |
+| 7 | 8 | yes | 112/512 | 0/8 |
+| 11 | 12 | yes | 264/1728 | 0/12 |
+
+Over $\mathbb Q$ with random inputs, $f(a')=f(a)$ in 216/5000 triples. The partial coincidences are accidents such as $a'=-a$ for an even function; none is invariance under all gauge transformations.
+
+### (c) The continuum limit matches the lecture
+
+With $U\approx e^{i\varepsilon A}$ ($e=1$) and $\phi(x)$ smooth, the variation of the link term satisfies
+
+$$
+\frac{f(\theta')-f(\theta)}{\varepsilon^2/2}\;\longrightarrow\;-2A\,\partial\phi+(\partial\phi)^2 ,
+$$
+
+which is exactly the lecture's $(A-\partial\phi)^2-A^2$. Numerically, with $A=0.7$ and $\partial\phi=0.4$ (continuum value $-0.4$), the lattice value approaches it at first order:
+
+| $\varepsilon$ | lattice | difference |
+|:---:|:---:|:---:|
+| 1/8 | $-0.433285$ | $3.33\times10^{-2}$ |
+| 1/16 | $-0.417697$ | $1.77\times10^{-2}$ |
+| 1/32 | $-0.409112$ | $9.11\times10^{-3}$ |
+| 1/64 | $-0.404622$ | $4.62\times10^{-3}$ |
+| 1/128 | $-0.402327$ | $2.33\times10^{-3}$ |
+| 1/256 | $-0.401168$ | $1.17\times10^{-3}$ |
+
+### (d) Gauge-invariant functions are functions of holonomies
+
+On a connected lattice with $V$ sites and $E$ links, the gauge group $G^V$ acts on $G^E$ with kernel the constant transformations, so the number of orbits is $|G|^{E-V+1}$, which equals the number of independent holonomies (plaquettes plus non-contractible loops). I checked this by brute force on the $2\times2$ torus over $\mathbb F_3[i]$ ($|G|=N=4$, $E=8$, $V=4$):
+
+- $4^8=65536$ link configurations;
+- every orbit has size $64=N^{V-1}$ (30 random configurations, all 256 gauge transformations each);
+- orbits: $65536/64=1024=N^{E-V+1}$;
+- distinct holonomy data (the four plaquettes plus the two non-contractible loops): **1024**.
+
+So the holonomies separate the orbits: two configurations with the same holonomies are gauge equivalent, and every gauge-invariant function of the links is a function of holonomies. There is no local gauge-invariant function of the links other than those built from closed loops. This is the lattice form of "gauge invariance leaves room only for $F_{\mu\nu}$, not for a mass term."
+
+### What this does and does not give
+
+- **Gives:** the lecture's $m_A=0$ argument exactly on the lattice (single-link no-go, orbit counting) and its continuum limit.
+- **Does not give:** a massive vector field. A Stückelberg or Higgs field can make one gauge invariantly, but that adds a field and is not tested here.
+
+## Calculation 14: a Wilson–Dirac matter field
+
+### Gamma matrices over $K$
+
+The paper's field $K=F[i]$ contains the $i$ that the Pauli matrix $\sigma_2$ needs. Take the Euclidean chiral gamma matrices
+
+$$
+\gamma_k=\begin{pmatrix}0&-i\sigma_k\\ i\sigma_k&0\end{pmatrix}\ (k=1,2,3),\qquad
+\gamma_4=\begin{pmatrix}0&1\\1&0\end{pmatrix},\qquad \gamma_5=\gamma_1\gamma_2\gamma_3\gamma_4 ,
+$$
+
+all with entries in $K$. Exactly, over $\mathbb Q$, $\mathbb F_7$ and $\mathbb F_{11}$: $\{\gamma_\mu,\gamma_\nu\}=2\delta_{\mu\nu}$ (16/16), every $\gamma_\mu$ and $\gamma_5$ is Hermitian under conjugate-transpose (the paper's $\dagger$), $\gamma_5^2=1$ and $\gamma_5$ anticommutes with each $\gamma_\mu$. The six spin generators $[\gamma_\mu,\gamma_\nu]/4$ are block diagonal with trace-free $2\times2$ blocks (6/6), so they lie in $\mathfrak{sl}(2,K)\oplus\mathfrak{sl}(2,K)$. The two blocks are the two chiralities, which is the $M_2(K)$ structure of the paper in its Euclidean form. This is a Euclidean hypercubic construction; the Minkowski version through the paper's Pauli identification of Hermitian matrices is not attempted here.
+
+### The operator
+
+$$
+\bigl(D\psi\bigr)(x)=(m+4r)\,\psi(x)-\tfrac12\sum_{\mu}\Bigl[(r-\gamma_\mu)\,U_\mu(x)\,\psi(x+\hat\mu)+(r+\gamma_\mu)\,U_\mu(x-\hat\mu)^{-1}\psi(x-\hat\mu)\Bigr].
+$$
+
+$r=0$ is the naive operator and $r=1$ the Wilson operator. The factor $\tfrac12$ uses $\mathrm{char}(F)\neq2$, one of the paper's standing hypotheses. The fields $\psi,\bar\psi$ are $K^4$-valued and treated as ordinary (commuting) fields; the identities below are identities of the operator.
+
+### Gauge covariance and the forced interaction
+
+Under $\psi\to g\psi$, $\bar\psi\to\bar\psi g^{-1}$, $U\to gUg'^{-1}$, each hopping term transforms by the factor $g(x)$ because $U'_\mu(x)\psi'(x+\hat\mu)=g(x)U_\mu(x)\psi(x+\hat\mu)$. Exactly, on the 4D torus $L=3$ (81 sites, 324 links), random links including $a=\infty$, random $\psi,\bar\psi\in K^4$ at every site, and the same results for $r=0$ and $r=1$:
+
+| Check | $\mathbb Q$ | $\mathbb F_7$ | $\mathbb F_{11}$ |
+|:---|:---:|:---:|:---:|
+| $D[U'](g\psi)=g\,D[U]\psi$ (per site) | 81/81 | 81/81 | 81/81 |
+| $\bar\psi D\psi$ invariant (per site) | 81/81 | 81/81 | 81/81 |
+| mass term $\bar\psi\psi$ invariant | 81/81 | 81/81 | 81/81 |
+| charge 2 ($U^2$, $g^2$): covariance, invariance | 81/81, 81/81 | 81/81, 81/81 | 81/81, 81/81 |
+| charge 3 ($U^3$, $g^3$): covariance, invariance | 81/81, 81/81 | 81/81, 81/81 | 81/81, 81/81 |
+| **free operator ($U\equiv1$), global constant $g$** | 81/81 | 81/81 | 81/81 |
+| **free operator ($U\equiv1$), local $g(x)$** | **0/81** | **0/81** | **0/81** |
+
+The last two rows are the lecture's step 2 in lattice form: the free operator is invariant under a global phase but under no local one, and gauge invariance is restored exactly by the links. The mass term $\bar\psi\psi$ is gauge invariant, in contrast to the photon mass term of Calculation 13.
+
+### The current
+
+Write the action as $S=\sum_x\bar\psi(x)(D\psi)(x)$ and define the link current
+
+$$
+j_\mu(x)=\bar\psi(x)\,\tfrac{r-\gamma_\mu}2\,U_\mu(x)\psi(x+\hat\mu)-\bar\psi(x+\hat\mu)\,\tfrac{r+\gamma_\mu}2\,U_\mu(x)^{-1}\psi(x).
+$$
+
+With $U_\mu(x)=e^{i\theta_\mu(x)}$ one finds directly from $S$ that
+
+$$
+\frac{\partial S}{\partial\theta_\mu(x)}=-\,i\,j_\mu(x),
+$$
+
+so $j_\mu$ is exactly what couples to the gauge field. For constant fields and $U=1$ it is $j_\mu=-\bar\psi\gamma_\mu\psi$ (4/4 directions, all three fields), so to first order $S_\text{int}\approx i\,e\varepsilon\sum A_\mu\,\bar\psi\gamma_\mu\psi$, the lecture's $iq\,\bar\psi\gamma^\mu A_\mu\psi$ term. This is the sense in which locality forces the interaction.
+
+The current is gauge invariant (324/324 in all three fields) and satisfies the exact identity
+
+$$
+\sum_\mu\bigl[j_\mu(x)-j_\mu(x-\hat\mu)\bigr]=(\bar\psi D)(x)\,\psi(x)-\bar\psi(x)\,(D\psi)(x)\qquad(81/81\text{ in all three fields}),
+$$
+
+where $(\bar\psi D)$ is the row action of $D$. On shell ($D\psi=0$, $\bar\psi D=0$) the right side vanishes, which is the lecture's $\partial_\nu J^\nu=0$ on the lattice.
+
+### $\gamma_5$-hermiticity and chiral symmetry
+
+$\langle\phi,\gamma_5D\gamma_5\psi\rangle=\langle D\phi,\psi\rangle$ holds exactly (3/3 random pairs per field, $r=0$ and $r=1$), where $\langle a,b\rangle=\sum\bar a\cdot b$ uses the Galois conjugate of $K$. The naive operator at $m=0$ has the exact chiral symmetry $\gamma_5D\gamma_5=-D$ (81/81 sites in all three fields); the Wilson term breaks it (0/81). This is the standard trade-off between chiral symmetry and doublers.
+
+### Fermion doubling, exactly
+
+On an $L=4$ torus the character $\omega=i$ is a primitive fourth root of unity in $K$ for **every** $F$, so plane waves exist exactly and no analysis is needed. With $t_\mu=\tfrac12(\omega^{k_\mu}-\omega^{-k_\mu})$ and $c_\mu=\tfrac12(\omega^{k_\mu}+\omega^{-k_\mu})$, the free operator on $\psi=v\,\omega^{k\cdot x}$ is $D(k)=M+\sum_\mu\gamma_\mu t_\mu$ with $M=m+r\sum_\mu(1-c_\mu)$. I checked this against the position-space operator on plane waves (6/6 random cases in each field). Since $t_\mu\in\{0,\pm i\}$ and $t_\mu^2=-1$ exactly when $k_\mu$ is odd,
+
+$$
+D(k)\bigl(M-\textstyle\sum\gamma_\mu t_\mu\bigr)=M^2+n_\text{odd},\qquad \det D(k)=\bigl(M^2+n_\text{odd}\bigr)^2,
+$$
+
+with $n_\text{odd}$ the number of odd components of $k$.
+
+**Over $\mathbb Q(i)$.** At $m=0$, $r=0$: $M=0$, so $\det D=n_\text{odd}^2$ vanishes exactly on the 16 momenta with all components in $\{0,2\}$ (the corners $k\in\{0,\pi\}^4$), giving 64 zero modes. At $r=1$: $M=n_\text{odd}+2n_2$ with $n_2$ the number of components equal to 2, and $M^2+n_\text{odd}=0$ forces $n_\text{odd}=0$ and $M=0$, hence $k=0$ only: **1 momentum, 4 zero modes**. The Wilson term removes all 15 doublers, exactly.
+
+**Over $\mathbb F_p$.** The same determinant formula holds, but now $M^2+n_\text{odd}\equiv0\pmod p$ can happen for non-trivial $k$:
+
+| $F$ | $r=0$: momenta, modes | $r=1$: momenta, modes | $r=1$: formula |
+|:---|:---:|:---:|:---:|
+| $\mathbb Q$ | 16, 64 | 1, 4 | 1 |
+| $\mathbb F_3$ | 80, 192 | 109, 228 | 109 |
+| $\mathbb F_7$ | 16, 64 | 33, 68 | 33 |
+| $\mathbb F_{11}$ | 16, 64 | 1, 4 | 1 |
+| $\mathbb F_{19}$ | 16, 64 | 25, 52 | 25 |
+| $\mathbb F_{23}$ | 16, 64 | 1, 4 | 1 |
+
+The formula counts momenta with $(n_\text{odd}+2n_2)^2\equiv-n_\text{odd}$, giving $\binom4j2^j\binom{4-j}{l}$ momenta for each solution $(j,l)=(n_\text{odd},n_2)$. For $\mathbb F_7$ the single solution is $j=3$, $l=1$ ($M=5$, $M^2=25\equiv4=-3$), giving $32+1=33$; for $\mathbb F_{19}$ it is $j=2$, $l=2$ ($M=6$, $36\equiv17=-2$), giving $24+1=25$.
+
+So over $\mathbb F_p$ the Wilson term's removal of doublers is not guaranteed: it depends on whether $-n_\text{odd}$ is a square of $n_\text{odd}+2n_2$ modulo $p$, which is arithmetic rather than physics. Over an ordered field the corresponding statement is that a doubler at $n_\pi$ acquires mass $2rn_\pi$. In floating point (corners of the Brillouin zone, smallest singular value of $D(k)$):
+
+| $n_\pi$ | corners | $r=0$ | $r=1$ |
+|:---:|:---:|:---:|:---:|
+| 0 | 1 | 0 | 0 |
+| 1 | 4 | 0 | 2 |
+| 2 | 6 | 0 | 4 |
+| 3 | 4 | 0 | 6 |
+| 4 | 1 | 0 | 8 |
+
+### What this does and does not give
+
+- **Gives:** an exactly gauge-covariant Dirac operator over $K=F[i]$ with the $K$-structure of the paper; the forced interaction (free operator invariant only globally); an exact current identity with the gauge coupling as its derivative; exact charge-$k$ covariance; exact fermion doubling and its removal over $\mathbb Q(i)$, with a computable obstruction over $\mathbb F_p$.
+- **Does not give:** dynamics of $\psi$ (no Grassmann integral, no propagator, no positivity: over $\mathbb F_p$ the inner product $\langle a,b\rangle$ takes values in $K$, not in an ordered field); coupling of $j$ back to the electric field of Calculation 10; a Minkowski formulation; Lorentz covariance on the hypercubic lattice.
+- **Not a theorem about the continuum:** the no-go theorem for chiral lattice fermions (Nielsen–Ninomiya, standard reference [5]) is not tested or reproduced here.
+
+## Next directions
+
+1. **Source for the Gauss law.** Restore the time links and make $j_4$ the source in $\mathrm{div}\,E=\rho$ of Calculation 10, so the Gauss law becomes the Noether constraint of the combined action.
+2. **Minkowski version.** Replace the Euclidean blocks by the paper's Pauli identification of Hermitian matrices, so the Dirac field transforms under $\mathrm{SL}(2,K)$ as in the paper.
+3. **Non-abelian step.** Replace $U$ by $\mathrm{SL}(2,K)$ caps and $\psi$ by $K^2$-valued multiplets; Part 2 already shows the commutator identity survives.
+4. **Tripod map.** Still open; it is dropped unless the companion preprints supply the holonomy construction.
+
+## Reproducing Calculations 13 and 14
+
+```python
+"""
+Reproduction script for Calculations 13 and 14 (Part 3).
+
+  13. The photon mass term on the Cayley lattice
+      (a) gauge transformation of a link in Cayley form: a' = gamma(x) (+) a (+) (-gamma(x+mu))
+      (b) single-link no-go: the gauge orbit of a link is the whole phase group, so no non-constant
+          function of one link is gauge invariant
+      (c) continuum limit of the variation: matches the lecture's (A - d phi)^2 - A^2
+      (d) orbit counting on a small torus over F_3[i]: gauge orbits are separated by holonomies
+  14. A Wilson-Dirac matter field over K = F[i]
+      (a) Euclidean gamma matrices with entries in K:  {g_mu, g_nu} = 2 delta,  g5 hermitian
+      (b) exact gauge covariance D[U'](g psi) = g D[U] psi, invariance of psi-bar D psi; the free operator is not
+          covariant under local transformations (only under global ones)
+      (c) gamma5-hermiticity  <phi, g5 D g5 psi> = <D phi, psi>
+      (d) exact lattice current identity   div j = (psi-bar D) psi - psi-bar (D psi),  gauge invariance of j
+      (e) charge k:  U -> U^k, g -> g^k
+      (f) fermion doubling in exact arithmetic on the L = 4 torus (omega = i is a 4th root of unity in K),
+          and in floating point
+
+Needs: numpy (parts 14f floating point only).  Runs in about a minute.
+"""
+import itertools
+import math
+import random
+from fractions import Fraction as Fr
+
+
+# ------------------------------------------------------------------ fields ---
+def make_Fp(p):
+    """A distinct field class for each prime, so that several F_p can coexist."""
+    class FpP:
+        P = p
+        def __init__(s, v): s.v = int(v) % FpP.P
+        def __add__(s, o): return FpP(s.v + _v(o))
+        __radd__ = __add__
+        def __sub__(s, o): return FpP(s.v - _v(o))
+        def __rsub__(s, o): return FpP(_v(o) - s.v)
+        def __neg__(s): return FpP(-s.v)
+        def __mul__(s, o): return FpP(s.v * _v(o))
+        __rmul__ = __mul__
+        def __truediv__(s, o): return FpP(s.v * pow(_v(o), -1, FpP.P))
+        def __rtruediv__(s, o): return FpP(_v(o) * pow(s.v, -1, FpP.P))
+        def __eq__(s, o): return s.v == _v(o) % FpP.P
+        def __hash__(s): return hash(s.v)
+        def __repr__(s): return str(s.v)
+    return FpP
+
+def _v(o): return o.v if hasattr(o, "v") else int(o)
+
+def kadd(u, v): return (u[0] + v[0], u[1] + v[1])
+def ksub(u, v): return (u[0] - v[0], u[1] - v[1])
+def kmul(u, v): return (u[0] * v[0] - u[1] * v[1], u[0] * v[1] + u[1] * v[0])
+def kneg(u): return (-u[0], -u[1])
+def kconj(u): return (u[0], -u[1])
+def kinv(u):
+    n = u[0] * u[0] + u[1] * u[1]
+    return (u[0] / n, -u[1] / n)
+def kpow(u, q, one, zero):
+    if q < 0: return kpow(kinv(u), -q, one, zero)
+    r = (one, zero)
+    for _ in range(q): r = kmul(r, u)
+    return r
+
+class Ring:
+    def __init__(s, mk, p=None):
+        s.mk, s.p, s.one, s.zero = mk, p, mk(1), mk(0)
+        s.K1, s.K0, s.Ki = (s.one, s.zero), (s.zero, s.zero), (s.zero, s.one)
+    def phase(s, a):                                   # U = (1 - i a)/(1 + i a);  a = None means infinity
+        if a is None: return (-s.one, s.zero)
+        d = s.one + a * a
+        return ((s.one - a * a) / d, s.mk(-2) * a / d)
+    def a_of(s, u):
+        return None if u[0] == -s.one else -u[1] / (s.one + u[0])
+    def neg_a(s, a): return None if a is None else -a
+    def oplus(s, a, b): return s.a_of(kmul(s.phase(a), s.phase(b)))
+    def iszero(s, u): return u[0] == s.zero and u[1] == s.zero
+
+RQ = Ring(Fr)
+def RF(p): return Ring(make_Fp(p), p)
+
+def sampler(R):
+    if R is RQ:
+        num = lambda rng: Fr(rng.randint(-6, 6), rng.randint(1, 4))
+        par = lambda rng: None if rng.random() < 0.06 else num(rng)
+    else:
+        p = R.p
+        num = lambda rng: R.mk(rng.randrange(p))
+        par = lambda rng: None if rng.randrange(p + 1) == p else R.mk(rng.randrange(p))
+    return num, par
+
+
+# ======================================================================
+#  13.  THE PHOTON MASS TERM
+# ======================================================================
+def mass_a_b_c():
+    rng = random.Random(21)
+    out = {}
+    for label, R in (("Q", RQ), ("F_7", RF(7)), ("F_11", RF(11))):
+        num, par = sampler(R)
+        ok = n = 0
+        for _ in range(1000):
+            a, g1, g2 = par(rng), par(rng), par(rng)
+            u = kmul(kmul(R.phase(g1), R.phase(a)), kconj(R.phase(g2)))        # g(x) U g(x+mu)^-1
+            ok += R.a_of(u) == R.oplus(R.oplus(g1, a), R.neg_a(g2)); n += 1
+        out[label] = (ok, n)
+    # single-link orbit and non-invariance, exhaustive over F_p
+    rows = []
+    for p in (3, 7, 11):
+        R = RF(p); pts = [None] + [R.mk(v) for v in range(p)]
+        f = lambda a: R.one - R.phase(a)[0]                                    # 1 - Re U  (defined at a = infinity too)
+        orbit_full = all(len({R.oplus(R.oplus(g1, a), R.neg_a(g2)) for g1 in pts for g2 in pts}) == p + 1 for a in pts)
+        tot = inv = 0
+        for a in pts:
+            for g1 in pts:
+                for g2 in pts:
+                    b = R.oplus(R.oplus(g1, a), R.neg_a(g2)); tot += 1; inv += f(b) == f(a)
+        always = sum(all(f(R.oplus(R.oplus(g1, a), R.neg_a(g2))) == f(a) for g1 in pts for g2 in pts) for a in pts)
+        rows.append((p, orbit_full, inv, tot, always, len(pts)))
+    out["Fp"] = rows
+    # Q: random
+    inv = tot = 0
+    num, par = sampler(RQ)
+    rng = random.Random(22)
+    for _ in range(5000):
+        a, g1, g2 = par(rng), par(rng), par(rng)
+        b = RQ.oplus(RQ.oplus(g1, a), RQ.neg_a(g2)); tot += 1
+        inv += (RQ.one - RQ.phase(b)[0]) == (RQ.one - RQ.phase(a)[0])
+    out["Qinv"] = (inv, tot)
+    return out
+
+def mass_c_continuum():
+    A, dphi0, x0 = 0.7, 0.4, 0.0                      # A_mu at the link, phi(x) = dphi0 x + x^2 / 2  (so dphi = dphi0 + x)
+    res = []
+    for k in (3, 4, 5, 6, 7, 8):
+        e = 2.0 ** -k
+        th = e * A                                    # link angle = e*eps*A, with e = 1
+        th2 = th - (( dphi0 * (x0 + e) + (x0 + e) ** 2 / 2) - (dphi0 * x0 + x0 ** 2 / 2))   # U' = g(x) U g(x+mu)^-1
+        d = (1 - math.cos(th2)) - (1 - math.cos(th))
+        target = -2 * A * (dphi0 + x0) + (dphi0 + x0) ** 2
+        res.append((e, d / (0.5 * e * e), target))
+    return res
+
+def mass_d_orbits(p=3):
+    R = RF(p); pts = [None] + [R.mk(v) for v in range(p)]
+    N = p + 1; L = 2
+    sites = [(i, j) for i in range(L) for j in range(L)]
+    links = [(x, m) for x in sites for m in (0, 1)]
+    sh = lambda x, m: ((x[0] + (m == 0)) % L, (x[1] + (m == 1)) % L)
+    phs = {a: R.phase(a) for a in pts}
+    hol = set()
+    key = lambda u: (u[0].v, u[1].v)
+    for cfg in itertools.product(pts, repeat=len(links)):
+        U = {l: phs[a] for l, a in zip(links, cfg)}
+        t = []
+        for x in sites:
+            P = kmul(kmul(U[(x, 0)], U[(sh(x, 0), 1)]), kmul(kconj(U[(sh(x, 1), 0)]), kconj(U[(x, 1)])))
+            t.append(key(P))
+        t.append(key(kmul(U[((0, 0), 0)], U[((1, 0), 0)])))                # non-contractible loop in direction 0
+        t.append(key(kmul(U[((0, 0), 1)], U[((0, 1), 1)])))                # non-contractible loop in direction 1
+        hol.add(tuple(t))
+    # free action of the gauge group modulo constants: orbit size N^(V-1)
+    rng = random.Random(5)
+    sizes = set()
+    for _ in range(30):
+        cfg = [rng.choice(pts) for _ in links]
+        U = {l: phs[a] for l, a in zip(links, cfg)}
+        imgs = set()
+        for gs in itertools.product(pts, repeat=len(sites)):
+            g = {x: phs[a] for x, a in zip(sites, gs)}
+            imgs.add(tuple(key(kmul(kmul(g[x], U[(x, m)]), kconj(g[sh(x, m)]))) for (x, m) in links))
+        sizes.add(len(imgs))
+    n_cfg = N ** len(links); orbit = N ** (len(sites) - 1)
+    return n_cfg, sizes, orbit, n_cfg // orbit, len(hol), N ** (len(links) - len(sites) + 1)
+
+
+# ======================================================================
+#  14.  A WILSON-DIRAC MATTER FIELD OVER K = F[i]
+# ======================================================================
+def mm(R, A, B):
+    n = len(A); m = len(B[0]); k = len(B)
+    out = []
+    for i in range(n):
+        row = []
+        for j in range(m):
+            s = R.K0
+            for t in range(k): s = kadd(s, kmul(A[i][t], B[t][j]))
+            row.append(s)
+        out.append(row)
+    return out
+def mv(R, A, v):
+    out = []
+    for i in range(len(A)):
+        s = R.K0
+        for t in range(len(v)): s = kadd(s, kmul(A[i][t], v[t]))
+        out.append(s)
+    return out
+def vm(R, v, A):
+    out = []
+    for j in range(len(A[0])):
+        s = R.K0
+        for t in range(len(v)): s = kadd(s, kmul(v[t], A[t][j]))
+        out.append(s)
+    return out
+def vdot(R, a, b):
+    s = R.K0
+    for x, y in zip(a, b): s = kadd(s, kmul(x, y))
+    return s
+def vs(c, v): return [kmul(c, x) for x in v]
+def vadd(a, b): return [kadd(x, y) for x, y in zip(a, b)]
+def vsub(a, b): return [ksub(x, y) for x, y in zip(a, b)]
+def msc(c, A): return [[kmul(c, x) for x in row] for row in A]
+def madd(A, B): return [[kadd(x, y) for x, y in zip(r1, r2)] for r1, r2 in zip(A, B)]
+def msub(A, B): return [[ksub(x, y) for x, y in zip(r1, r2)] for r1, r2 in zip(A, B)]
+def mdag(A): return [[kconj(A[j][i]) for j in range(len(A))] for i in range(len(A[0]))]
+def ident(R, n): return [[R.K1 if i == j else R.K0 for j in range(n)] for i in range(n)]
+def zeros(R, n): return [[R.K0 for _ in range(n)] for _ in range(n)]
+def meq(R, A, B): return all(x == y for r1, r2 in zip(A, B) for x, y in zip(r1, r2))
+
+def rank_det(R, M):
+    """Gaussian elimination over K: returns (rank, det)."""
+    n = len(M); A = [row[:] for row in M]; det = R.K1; rank = 0
+    for c in range(n):
+        piv = next((r for r in range(rank, n) if not R.iszero(A[r][c])), None)
+        if piv is None:
+            det = R.K0; continue
+        if piv != rank:
+            A[piv], A[rank] = A[rank], A[piv]; det = kneg(det)
+        det = kmul(det, A[rank][c]); inv = kinv(A[rank][c])
+        for r in range(rank + 1, n):
+            f = kmul(A[r][c], inv)
+            A[r] = [ksub(A[r][t], kmul(f, A[rank][t])) for t in range(n)]
+        rank += 1
+    return rank, det
+
+def gammas(R):
+    o, z, i_ = R.K1, R.K0, R.Ki
+    mi = kneg(i_)
+    sig = [[[z, o], [o, z]], [[z, mi], [i_, z]], [[o, z], [z, kneg(o)]]]         # Pauli matrices over K
+    def blocks(a, b, c, d):
+        return [a[0] + b[0], a[1] + b[1], c[0] + d[0], c[1] + d[1]]
+    Z2 = [[z, z], [z, z]]; I2 = [[o, z], [z, o]]
+    g = []
+    for k in range(3):
+        mi_s = msc(mi, sig[k]); i_s = msc(i_, sig[k])                            # -i sigma_k and i sigma_k
+        g.append(blocks(Z2, mi_s, i_s, Z2))
+    g.append(blocks(Z2, I2, I2, Z2))
+    return g                                                                      # gamma_1, gamma_2, gamma_3, gamma_4
+
+def clifford_checks(R):
+    g = gammas(R); I4 = ident(R, 4); ok = tot = 0
+    two = msc((R.mk(2), R.zero), I4)
+    for m in range(4):
+        for n in range(4):
+            lhs = madd(mm(R, g[m], g[n]), mm(R, g[n], g[m]))
+            tot += 1; ok += meq(R, lhs, two if m == n else zeros(R, 4))
+    g5 = mm(R, mm(R, g[0], g[1]), mm(R, g[2], g[3]))
+    herm = all(meq(R, mdag(x), x) for x in g)
+    return ok, tot, herm, meq(R, mm(R, g5, g5), I4), meq(R, mdag(g5), g5), all(meq(R, madd(mm(R, g5, x), mm(R, x, g5)), zeros(R, 4)) for x in g), g, g5
+
+
+class Lat:
+    def __init__(s, L, d=4):
+        s.L, s.d = L, d
+        s.sites = list(itertools.product(range(L), repeat=d))
+    def f(s, x, m): return tuple((x[i] + (i == m)) % s.L for i in range(s.d))
+    def b(s, x, m): return tuple((x[i] - (i == m)) % s.L for i in range(s.d))
+
+class Dirac:
+    """Wilson-Dirac operator  D psi(x) = (m+4r) psi(x) - sum_mu [ (r-g_mu)/2 U_mu(x) psi(x+mu) + (r+g_mu)/2 U_mu(x-mu)^-1 psi(x-mu) ]"""
+    def __init__(s, R, lat, m, r):
+        s.R, s.lat, s.m, s.r = R, lat, m, r
+        s.g = gammas(R); I4 = ident(R, 4); half = (R.one / R.mk(2), R.zero)
+        rI = msc((R.mk(r), R.zero), I4)
+        s.Pm = [msc(half, msub(rI, s.g[mu])) for mu in range(4)]
+        s.Pp = [msc(half, madd(rI, s.g[mu])) for mu in range(4)]
+        s.diag = (R.mk(m + 4 * r), R.zero)
+        s.g5 = mm(R, mm(R, s.g[0], s.g[1]), mm(R, s.g[2], s.g[3]))
+    def D(s, U, psi):                                 # column action; U = None means the free operator
+        R, lat = s.R, s.lat; out = {}
+        for x in lat.sites:
+            acc = vs(s.diag, psi[x])
+            for mu in range(4):
+                xf, xb = lat.f(x, mu), lat.b(x, mu)
+                uf = U[(x, mu)] if U else R.K1
+                ub = kinv(U[(xb, mu)]) if U else R.K1
+                acc = vsub(acc, mv(R, s.Pm[mu], vs(uf, psi[xf])))
+                acc = vsub(acc, mv(R, s.Pp[mu], vs(ub, psi[xb])))
+            out[x] = acc
+        return out
+    def Dbar(s, U, pb):                               # row action  (psi-bar D)(y)
+        R, lat = s.R, s.lat; out = {}
+        for y in lat.sites:
+            acc = vs(s.diag, pb[y])
+            for mu in range(4):
+                yb, yf = lat.b(y, mu), lat.f(y, mu)
+                u1 = U[(yb, mu)] if U else R.K1
+                u2 = kinv(U[(y, mu)]) if U else R.K1
+                acc = vsub(acc, vs(u1, vm(R, pb[yb], s.Pm[mu])))
+                acc = vsub(acc, vs(u2, vm(R, pb[yf], s.Pp[mu])))
+            out[y] = acc
+        return out
+    def current(s, U, pb, psi, x, mu):
+        R, lat = s.R, s.lat; xf = lat.f(x, mu)
+        t1 = vdot(R, pb[x], mv(R, s.Pm[mu], vs(U[(x, mu)], psi[xf])))
+        t2 = vdot(R, pb[xf], mv(R, s.Pp[mu], vs(kinv(U[(x, mu)]), psi[x])))
+        return ksub(t1, t2)
+
+def rand_vec(R, rng, num): return [(num(rng), num(rng)) for _ in range(4)]
+
+def dirac_checks(R, label, seed=31):
+    rng = random.Random(seed); num, par = sampler(R); lat = Lat(3)
+    res = {}
+    for r in (0, 1):
+        dm = Dirac(R, lat, 2, r)
+        U1 = {(x, m): R.phase(par(rng)) for x in lat.sites for m in range(4)}
+        psi = {x: rand_vec(R, rng, num) for x in lat.sites}
+        pb = {x: rand_vec(R, rng, num) for x in lat.sites}
+        gph = {x: R.phase(par(rng)) for x in lat.sites}
+        for k in (1, 2, 3):
+            U = {key: kpow(u, k, R.one, R.zero) for key, u in U1.items()} if k > 1 else U1
+            g = {x: kpow(gph[x], k, R.one, R.zero) for x in lat.sites}
+            Up = {(x, m): kmul(kmul(g[x], U[(x, m)]), kconj(g[lat.f(x, m)])) for x in lat.sites for m in range(4)}
+            psip = {x: vs(g[x], psi[x]) for x in lat.sites}
+            pbp = {x: vs(kinv(g[x]), pb[x]) for x in lat.sites}
+            Dpsi = dm.D(U, psi); Dpsip = dm.D(Up, psip)
+            cov = sum(Dpsip[x] == vs(g[x], Dpsi[x]) for x in lat.sites)
+            inv = sum(vdot(R, pbp[x], Dpsip[x]) == vdot(R, pb[x], Dpsi[x]) for x in lat.sites)
+            mass = sum(vdot(R, pbp[x], psip[x]) == vdot(R, pb[x], psi[x]) for x in lat.sites)
+            res[(r, k)] = dict(cov=cov, inv=inv, mass=mass)
+            if k == 1:
+                # current identity and gauge invariance of j
+                Dbar = dm.Dbar(U, pb); ident_ok = jinv = 0
+                for x in lat.sites:
+                    lhs = R.K0
+                    for mu in range(4):
+                        lhs = kadd(lhs, ksub(dm.current(U, pb, psi, x, mu), dm.current(U, pb, psi, lat.b(x, mu), mu)))
+                    rhs = ksub(vdot(R, Dbar[x], psi[x]), vdot(R, pb[x], Dpsi[x]))
+                    ident_ok += lhs == rhs
+                    for mu in range(4): jinv += dm.current(Up, pbp, psip, x, mu) == dm.current(U, pb, psi, x, mu)
+                res[(r, 1)].update(cur=ident_ok, jinv=jinv)
+                # free operator: global versus local gauge transformation
+                glob = gph[lat.sites[0]]
+                dfree = dm.D(None, {x: vs(glob, psi[x]) for x in lat.sites}); df = dm.D(None, psi)
+                res[(r, 1)]["free_global"] = sum(dfree[x] == vs(glob, df[x]) for x in lat.sites)
+                dfree_l = dm.D(None, psip)
+                res[(r, 1)]["free_local"] = sum(dfree_l[x] == vs(g[x], df[x]) for x in lat.sites)
+                # gamma5-hermiticity:  <phi, g5 D g5 psi> = <D phi, psi>
+                ghe = 0
+                for _ in range(3):
+                    phi = {x: rand_vec(R, rng, num) for x in lat.sites}; ps = {x: rand_vec(R, rng, num) for x in lat.sites}
+                    g5ps = {x: mv(R, dm.g5, ps[x]) for x in lat.sites}
+                    t = dm.D(U, g5ps); g5t = {x: mv(R, dm.g5, t[x]) for x in lat.sites}
+                    lhs = R.K0; rhs = R.K0; Dphi = dm.D(U, phi)
+                    for x in lat.sites:
+                        lhs = kadd(lhs, vdot(R, [kconj(c) for c in phi[x]], g5t[x]))
+                        rhs = kadd(rhs, vdot(R, [kconj(c) for c in Dphi[x]], ps[x]))
+                    ghe += lhs == rhs
+                res[(r, 1)]["g5herm"] = ghe
+    # constant field: j_mu = - psi-bar gamma_mu psi when U = 1
+    dm = Dirac(R, lat, 2, 1); pb = rand_vec(R, rng, num); ps = rand_vec(R, rng, num)
+    cst = {x: ps for x in lat.sites}; cpb = {x: pb for x in lat.sites}; U1 = {(x, m): R.K1 for x in lat.sites for m in range(4)}
+    x0 = lat.sites[0]
+    const_ok = sum(dm.current(U1, cpb, cst, x0, mu) == kneg(vdot(R, pb, mv(R, dm.g[mu], ps))) for mu in range(4))
+    res["const"] = const_ok
+    return res
+
+# ---- doubling, exact on the L = 4 torus: omega = i is a primitive 4th root of unity in K ----
+def doubling_exact(R, r, m=0):
+    g = gammas(R); half = (R.one / R.mk(2), R.zero)
+    omega = [R.K1, R.Ki, (-R.one, R.zero), kneg(R.Ki)]                        # i^0 ... i^3
+    cnt = 0; nullity = 0; accidental = []
+    for k in itertools.product(range(4), repeat=4):
+        M = (R.mk(m), R.zero); Dk = zeros(R, 4)
+        for mu in range(4):
+            wp, wm = omega[k[mu]], omega[(-k[mu]) % 4]
+            t = kmul(half, ksub(wp, wm)); c = kmul(half, kadd(wp, wm))
+            M = kadd(M, kmul((R.mk(r), R.zero), ksub(R.K1, c)))
+            Dk = madd(Dk, msc(t, g[mu]))
+        Dk = madd(Dk, msc(M, ident(R, 4)))
+        rk, _ = rank_det(R, Dk)
+        if rk < 4:
+            cnt += 1; nullity += 4 - rk
+            accidental.append(k)
+    return cnt, nullity, accidental
+
+def doubling_check_position_space(R, r, ntest=6, seed=41):
+    """Position-space free operator applied to a plane wave equals the momentum-space matrix times the wave."""
+    rng = random.Random(seed); num, par = sampler(R); lat = Lat(4)
+    g = gammas(R); half = (R.one / R.mk(2), R.zero); ok = 0
+    omega = [R.K1, R.Ki, (-R.one, R.zero), kneg(R.Ki)]
+    dm = Dirac(R, lat, 0, r)
+    for _ in range(ntest):
+        k = tuple(rng.randrange(4) for _ in range(4)); v = rand_vec(R, rng, num)
+        psi = {x: vs(omega[sum(k[i] * x[i] for i in range(4)) % 4], v) for x in lat.sites}
+        out = dm.D(None, psi)
+        M = R.K0; Dk = zeros(R, 4)
+        for mu in range(4):
+            wp, wm = omega[k[mu]], omega[(-k[mu]) % 4]
+            Dk = madd(Dk, msc(kmul(half, ksub(wp, wm)), g[mu]))
+            M = kadd(M, kmul((R.mk(r), R.zero), ksub(R.K1, kmul(half, kadd(wp, wm)))))
+        Dk = madd(Dk, msc(M, ident(R, 4)))
+        pred = mv(R, Dk, v)
+        ok += all(out[x] == vs(omega[sum(k[i] * x[i] for i in range(4)) % 4], pred) for x in lat.sites)
+    return ok, ntest
+
+def spin_generator_check(R):
+    """The six spin generators [g_mu, g_nu]/4 are block diagonal with trace-free 2x2 blocks over K (sl(2,K) + sl(2,K))."""
+    g = gammas(R); quarter = (R.one / R.mk(4), R.zero); ok = 0; tot = 0
+    for m in range(4):
+        for n in range(m + 1, 4):
+            S = msc(quarter, msub(mm(R, g[m], g[n]), mm(R, g[n], g[m])))
+            off = all(R.iszero(S[i][j]) for i in range(2) for j in range(2, 4)) and all(R.iszero(S[i][j]) for i in range(2, 4) for j in range(2))
+            tr1 = kadd(S[0][0], S[1][1]); tr2 = kadd(S[2][2], S[3][3])
+            tot += 1; ok += off and R.iszero(tr1) and R.iszero(tr2)
+    return ok, tot
+
+def chiral_check(R, r, seed=51):
+    """g5 D g5 = -D at m = 0 for the naive operator (r = 0); broken by the Wilson term (r = 1)."""
+    rng = random.Random(seed); num, par = sampler(R); lat = Lat(3)
+    dm = Dirac(R, lat, 0, r)
+    U = {(x, m): R.phase(par(rng)) for x in lat.sites for m in range(4)}
+    psi = {x: rand_vec(R, rng, num) for x in lat.sites}
+    g5psi = {x: mv(R, dm.g5, psi[x]) for x in lat.sites}
+    t = dm.D(U, g5psi); lhs = {x: mv(R, dm.g5, t[x]) for x in lat.sites}
+    Dp = dm.D(U, psi)
+    return sum(lhs[x] == [kneg(c) for c in Dp[x]] for x in lat.sites)
+
+def doubling_predicted(p):
+    """Wilson r = 1, m = 0: det D(k) = (M^2 + n_odd)^2 with M = n_odd + 2 n_2.
+    n_odd = j components of k odd (2 values each), n_2 = l components equal to 2.  Count momenta with M^2 = -j (mod p)."""
+    from math import comb
+    cnt = 0
+    for j in range(0, 5):
+        for l in range(0, 5 - j):
+            if ((j + 2 * l) ** 2 + j) % p == 0:
+                cnt += comb(4, j) * 2 ** j * comb(4 - j, l)
+    return cnt
+
+def doubling_float():
+    import numpy as np
+    s = [np.array([[0, 1], [1, 0]], dtype=complex), np.array([[0, -1j], [1j, 0]]), np.array([[1, 0], [0, -1]], dtype=complex)]
+    Z = np.zeros((2, 2)); I2 = np.eye(2)
+    g = [np.block([[Z, -1j * s[k]], [1j * s[k], Z]]) for k in range(3)] + [np.block([[Z, I2], [I2, Z]])]
+    rows = []
+    for npi in range(5):
+        k = [math.pi] * npi + [0.0] * (4 - npi)
+        out = []
+        for r in (0, 1):
+            Dk = sum(1j * math.sin(k[m]) * g[m] + r * (1 - math.cos(k[m])) * np.eye(4) for m in range(4))
+            out.append(float(np.linalg.svd(Dk, compute_uv=False).min()))
+        rows.append((npi, math.comb(4, npi), out[0], out[1]))
+    return rows
+
+
+def main():
+    print("13. photon mass term")
+    m = mass_a_b_c()
+    print("   (a) a' = g(x) (+) a (+) (-g(x+mu)) matches U' = g U g^-1:", {k: f"{v[0]}/{v[1]}" for k, v in m.items() if k in ("Q", "F_7", "F_11")})
+    print("   (b) single link, f(U) = 1 - Re U, over F_p exhaustively over (a, g1, g2):")
+    for (p, orb, inv, tot, always, npts) in m["Fp"]:
+        print(f"       F_{p}: orbit of every link is all {p+1} points: {orb};  f(a') = f(a) in {inv}/{tot} triples;  links with f invariant under ALL g: {always}/{npts}")
+    print(f"       Q random: f(a') = f(a) in {m['Qinv'][0]}/{m['Qinv'][1]} triples")
+    print("   (c) [f(theta') - f(theta)] / (eps^2/2)  versus  -2 A dphi + dphi^2 (lecture's (A - dphi)^2 - A^2), A = 0.7, dphi = 0.4:")
+    for e, v, t in mass_c_continuum():
+        print(f"       eps = {e:.6f}   lattice {v:.6f}   continuum {t:.6f}   diff {abs(v - t):.2e}")
+    n_cfg, sizes, orbit, norb, nhol, pred = mass_d_orbits(3)
+    print(f"   (d) 2x2 torus over F_3[i] (N = 4): {n_cfg} link configurations, gauge-orbit sizes {sizes} (predicted N^(V-1) = {orbit}),")
+    print(f"       orbits = {norb} ;  distinct holonomy data (4 plaquettes + 2 non-contractible loops) = {nhol} ;  N^(E-V+1) = {pred}")
+
+    print("\n14. Wilson-Dirac matter field over K = F[i]")
+    for label, R in (("Q", RQ), ("F_7", RF(7)), ("F_11", RF(11))):
+        ok, tot, herm, sq5, h5, ac5, g, g5 = clifford_checks(R)
+        print(f"   {label:<5} Clifford {{g_mu, g_nu}} = 2 delta: {ok}/{tot}; gammas hermitian: {herm}; g5^2 = 1: {sq5}; g5 hermitian: {h5}; g5 anticommutes: {ac5}")
+    for label, R in (("Q", RQ), ("F_7", RF(7)), ("F_11", RF(11))):
+        res = dirac_checks(R, label)
+        for r in (0, 1):
+            a = res[(r, 1)]
+            print(f"   {label:<5} r = {r}: covariance {a['cov']}/81  psibar D psi invariant {a['inv']}/81  psibar psi invariant {a['mass']}/81  "
+                  f"g5-hermiticity {a['g5herm']}/3  current identity {a['cur']}/81  j invariant {a['jinv']}/324")
+            print(f"            free operator (U = 1): covariant under global g {a['free_global']}/81, under local g(x) {a['free_local']}/81;   charge 2: {res[(r, 2)]['cov']}/81, {res[(r, 2)]['inv']}/81;  charge 3: {res[(r, 3)]['cov']}/81, {res[(r, 3)]['inv']}/81")
+        print(f"   {label:<5} constant fields, U = 1: j_mu = -psibar g_mu psi in {res['const']}/4 directions")
+    for label, R in (("Q", RQ), ("F_7", RF(7)), ("F_11", RF(11))):
+        sg_ok, sg_tot = spin_generator_check(R)
+        print(f"   {label:<5} spin generators [g_mu, g_nu]/4 block diagonal and trace free: {sg_ok}/{sg_tot};   chiral symmetry g5 D g5 = -D at m = 0:  r = 0: {chiral_check(R, 0)}/81,  r = 1: {chiral_check(R, 1)}/81")
+    print("   exact doubling on the L = 4 torus (m = 0): momenta with a zero mode / total zero modes")
+    for label, R in (("Q", RQ), ("F_3", RF(3)), ("F_7", RF(7)), ("F_11", RF(11)), ("F_19", RF(19)), ("F_23", RF(23))):
+        c0, n0, _ = doubling_exact(R, 0); c1, n1, acc = doubling_exact(R, 1)
+        pos = doubling_check_position_space(R, 1)
+        pr = 1 if R is RQ else doubling_predicted(R.p)
+        print(f"      {label:<5} r = 0: {c0} momenta, {n0} modes;   r = 1: {c1} momenta, {n1} modes (formula predicts {pr});  position-space check {pos[0]}/{pos[1]}")
+    print("   floating point, corners of the Brillouin zone (smallest singular value of D(k)):")
+    for npi, mult, s0, s1 in doubling_float():
+        print(f"      n_pi = {npi} ({mult} corners): r = 0: {s0:.3f}   r = 1: {s1:.3f}")
+
+main()
+```
+
+## Reproducing the Proposition 6.3 test
+
+```python
+"""
+Test of the paper's Proposition 6.3(3): how the vector Cayley anchor (Lambda - I)(Lambda + I)^-1 relates to the rotor anchor.
+
+For a spin Cayley parameter zeta_s with sigma = zeta_s . zeta_s, let G = U_spin(zeta_s) = (1+sigma) I + 2 zeta_s . sigma / (1 - sigma),
+Lambda its Lorentz matrix.  Tested, in exact arithmetic over Q(i):
+  (i)   rotor anchor (Theorem 6.2)            = 2 zeta_s / (1 + sigma)                      [Theorem 7.1]
+  (ii)  vector Cayley anchor                   = 2 zeta_s (1 - conj(sigma)) / (1 - sigma conj(sigma))
+  (iii) vector Cayley anchor = rotor anchor    iff  sigma is real
+  (iv)  2 zeta/(1 + zeta.zeta) with zeta = rotor anchor is NOT the vector Cayley anchor (Prop 6.3(3) as worded)
+Last, the paper's own non-simple rotor (a, p, kappa, rho) = (2, 3, (1, 1/2, 0), (6, 0, 0)) is tested numerically.
+Needs sympy and numpy.
+"""
+import sympy as sp, cmath
+I=sp.I
+sg=[sp.Matrix([[0,1],[1,0]]),sp.Matrix([[0,-I],[I,0]]),sp.Matrix([[1,0],[0,-1]])]
+def Xm(x): return x[0]*sp.eye(2)+x[1]*sg[0]+x[2]*sg[1]+x[3]*sg[2]
+def comps(H): return [(H[0,0]+H[1,1])/2,(H[0,1]+H[1,0])/2,(H[1,0]-H[0,1])/(2*I),(H[0,0]-H[1,1])/2]
+def Amat(zeta):
+    k=[sp.re(c) for c in zeta]; r=[sp.im(c) for c in zeta]
+    return sp.Matrix([[0,k[0],k[1],k[2]],[k[0],0,r[2],-r[1]],[k[1],-r[2],0,r[0]],[k[2],r[1],-r[0],0]])
+def anchor_of(M):                       # M in so(1,3): read zeta = kappa + i rho
+    return [M[0,1]+I*M[2,3], M[0,2]+I*M[3,1], M[0,3]+I*M[1,2]]
+def lorentz(G):
+    N=cl(sp.expand(G.det()))
+    cols=[[cl(c) for c in comps(G*Xm([int(i==j) for i in range(4)])*G.H/N)] for j in range(4)]
+    return sp.Matrix(cols).T, N
+def cl(x): return sp.expand(sp.radsimp(sp.expand(x)))
+def simp(v): return [cl(c) for c in v]
+def dot(a,b): return cl(sum(x*y for x,y in zip(a,b)))
+eta=sp.diag(1,-1,-1,-1)
+def analyse(name, zs):
+    R=sp.Rational
+    sig=dot(zs,zs)
+    G=((1+sig)*sp.eye(2)+2*sum((zs[i]*sg[i] for i in range(3)),sp.zeros(2)))*sp.radsimp(1/(1-sig))
+    Lm,N=lorentz(G)
+    assert (Lm.T*eta*Lm-eta).applyfunc(cl)==sp.zeros(4) and N==1
+    Las=(Lm-eta*Lm.T*eta)/2
+    zrot=simp([c for c in anchor_of(2*Las*sp.radsimp(1/Lm.trace()))])
+    zrot_pred=simp([2*c*sp.radsimp(1/(1+sig)) for c in zs])
+    AC=((Lm-sp.eye(4))*(Lm+sp.eye(4)).inv()).applyfunc(cl)
+    assert (eta*AC.T*eta+AC).applyfunc(cl)==sp.zeros(4)
+    zC=simp(anchor_of(AC))
+    tau=dot(zrot,zrot)
+    dbl=simp([2*c*sp.radsimp(1/(1+tau)) for c in zrot])           # paper's Prop 6.3(3): doubling applied to the rotor anchor
+    sb=sp.conjugate(sig)
+    myf=simp([2*c*(1-sb)*sp.radsimp(1/(1-sig*sb)) for c in zs])
+    eq=lambda a,b: all(cl(x-y)==0 for x,y in zip(a,b))
+    print(f"{name}\n   sigma=zeta_s.zeta_s = {sig};  kappa.rho of zeta_s: {sp.im(sig)/2}")
+    print("   rotor anchor from Thm 6.2 == 2 zeta_s/(1+sigma) (Thm 7.1 doubling):", eq(zrot,zrot_pred))
+    print("   vector Cayley anchor == rotor anchor:                                 ", eq(zC,zrot))
+    print("   vector Cayley anchor == 2 zeta_rot/(1+zeta_rot.zeta_rot) (Prop 6.3(3)): ", eq(zC,dbl))
+    print("   vector Cayley anchor == 2 zeta_s (1-conj(sigma))/(1-sigma conj(sigma)): ", eq(zC,myf))
+R=sp.Rational
+analyse("boost, zeta_s=(1/2,0,0)", [R(1,2),0,0])
+analyse("rotation, zeta_s=(0,0,i/2)", [0,0,I*R(1,2)])
+analyse("simple mixed (kappa.rho=0), zeta_s=(1/2, i/3, 0)", [R(1,2),I*R(1,3),0])
+analyse("non-simple, zeta_s=(1/2+i/3,0,0)", [R(1,2)+I*R(1,3),0,0])
+analyse("generic, zeta_s=(1/2+i/3, 1/5, 2i/7)", [R(1,2)+I*R(1,3),R(1,5),2*I*R(1,7)])
+
+# ---- the Part 1 / paper non-simple rotor (a,p,kappa,rho)=(2,3,(1,1/2,0),(6,0,0)), numerically
+import numpy as np
+x=2+3j; z=np.array([1+6j,0.5,0]); zr=z/x; tau=zr@zr
+G=x*np.eye(2)+sum(z[i]*np.array(np.complex128(sg[i].tolist())) for i in range(3))
+N=np.linalg.det(G)
+sgn=[np.array(np.complex128(m.tolist())) for m in sg]
+def Xn(v): return v[0]*np.eye(2)+v[1]*sgn[0]+v[2]*sgn[1]+v[3]*sgn[2]
+def cn(Hm): return np.array([(Hm[0,0]+Hm[1,1])/2,(Hm[0,1]+Hm[1,0])/2,(Hm[1,0]-Hm[0,1])/(2j),(Hm[0,0]-Hm[1,1])/2])
+Lm=np.array([cn(G@Xn(np.eye(4)[j])@G.conj().T/N) for j in range(4)]).T.real
+AC=(Lm-np.eye(4))@np.linalg.inv(Lm+np.eye(4))
+zC=np.array([AC[0,1]+1j*AC[2,3],AC[0,2]+1j*AC[3,1],AC[0,3]+1j*AC[1,2]])
+print("paper rotor: zeta_rot =",np.round(zr,6)," vector-Cayley anchor =",np.round(zC,6))
+rts=[(2-tau+s_*2*np.sqrt(1-tau+0j))/tau for s_ in (1,-1)]
+for sig in rts:
+    zs=zr*(1+sig)/2; f=2*zs*(1-np.conj(sig))/(1-sig*np.conj(sig))
+    print("  sigma=%s |sigma|=%.4f  formula residual %.2e ; equals rotor anchor? %s ; doubling-of-rotor-anchor residual %.2e"%(np.round(sig,4),abs(sig),np.max(abs(f-zC)),np.allclose(zr,zC),np.max(abs(2*zr/(1+tau)-zC))))
+```
+
+## References
+
+1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Preprint, October 7, 2026. DOI: [10.5281/zenodo.23222798](https://doi.org/10.5281/zenodo.23222798).
+2. J. D. Coady. Parts 1 and 2 of this series, blog posts, October 14, 2026.
+3. S. Elitzur, R. B. Pearson, J. Shigemitsu. Phase structure of discrete Abelian spin and gauge systems. *Phys. Rev. D* 19, 3698 (1979).
+4. M. Creutz, L. Jacobs, C. Rebbi. Monte Carlo study of Abelian lattice gauge theories. *Phys. Rev. D* 20, 1915 (1979).
+5. H. B. Nielsen, M. Ninomiya. Absence of neutrinos on a lattice (I). *Nucl. Phys. B* 185, 20 (1981) (cited from memory).
+6. K. G. Wilson. Quarks and strings on a lattice. In *New Phenomena in Subnuclear Physics*, Plenum, 1977 (cited from memory).
+7. J. Kogut and L. Susskind. Hamiltonian formulation of Wilson's lattice gauge theories. *Phys. Rev. D* 11, 395 (1975).
+8. *Particle Physics Lecture 13: Interactions via Local Gauge Symmetry (The Abelian Case)*. Video: <https://youtu.be/WGQMb88xDqA>. Handwritten lecture notes (7 pages): <https://inside.mines.edu/~aflourno/Particle/Lecture13-%20Interactions%20via%20Local%20Gauge%20Invariance%20%28The%20Abelian%20Case%29.pdf>.

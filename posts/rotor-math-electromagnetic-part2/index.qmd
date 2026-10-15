@@ -11,7 +11,7 @@ format:
 
 ## Where Part 1 left off
 
-[Part 1](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-curvature/) showed that the rotor anchor $\zeta=\kappa+i\rho$ is algebraically the Riemann–Silberstein vector $\mathbf E+i\mathbf B$, and built an exact U(1) lattice out of Cayley phases $U=(1-ia)/(1+ia)$. It listed what was missing from the gauge-theory side. This post closes the first two gaps on that list, comparing against the standard abelian gauge theory of the lecture notes (local phase $\psi\to e^{ie\phi}\psi$, $D_\mu=\partial_\mu+ieA_\mu$, $F_{\mu\nu}=-\tfrac ie[D_\mu,D_\nu]$):
+[Part 1](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-curvature/) showed that the rotor anchor $\zeta=\kappa+i\rho$ is algebraically the Riemann–Silberstein vector $\mathbf E+i\mathbf B$, and built an exact U(1) lattice out of Cayley phases $U=(1-ia)/(1+ia)$. It listed what was missing from the gauge-theory side. This post closes the first two gaps on that list, comparing against the standard abelian gauge theory of Lecture 13 [9] ([video](https://youtu.be/WGQMb88xDqA), [handwritten notes](https://inside.mines.edu/~aflourno/Particle/Lecture13-%20Interactions%20via%20Local%20Gauge%20Invariance%20%28The%20Abelian%20Case%29.pdf)) (local phase $\psi\to e^{ie\phi}\psi$, $D_\mu=\partial_\mu+ieA_\mu$, $F_{\mu\nu}=-\tfrac ie[D_\mu,D_\nu]$):
 
 1. **Calculation 11.** Does the lecture's central identity $F_{\mu\nu}=-\tfrac ie[D_\mu,D_\nu]$ hold *exactly* on the Cayley lattice? Yes, in a precise form, over $\mathbb Q$ and $\mathbb F_p$.
 2. **Calculation 12.** What does a charge $k\neq1$ field see? The map $a\mapsto\tan(k\arctan a)$, which is the Chebyshev/spread-polynomial structure, and over $\mathbb F_p$ it makes the theory a $\mathbb Z_{p+1}$ gauge theory.
@@ -174,7 +174,7 @@ Single-plaquette average of $\cos\theta$ with weight $e^{\beta\cos\theta}$ (the 
 | 1 | 0.446390 | 0.462117 | 0.446391 | 0.446390 | 0.446390 | 0.446390 |
 | 5 | 0.893383 | 0.986614 | 0.898618 | 0.893408 | 0.893383 | 0.893383 |
 
-A single plaquette says nothing about phases of the full lattice, but it does show the scale: $\mathbb Z_8$ and larger already track U(1) closely, while $\mathbb Z_4$ does not. As I recall (not verified here, and worth checking against the original papers by Elitzur–Pearson–Shigemitsu and Horn–Weinstein–Yankielowicz, 1979), the 4D $\mathbb Z_N$ lattice gauge theory has a Coulomb phase only for $N\ge5$, which would exclude $p=3$ but include $p=7,11,19,23$.
+A single plaquette says nothing about phases of the full lattice, but it does show the scale: $\mathbb Z_8$ and larger already track U(1) closely, while $\mathbb Z_4$ does not. The 4D $\mathbb Z_N$ lattice gauge theory is known to have a Coulomb phase between the confined and Higgs phases once $N$ is large enough: Elitzur, Pearson and Shigemitsu showed it for $N$ not too small [7], and a Monte Carlo study found a single transition for $N\le4$ and two transitions for $N\ge5$ [8]. That excludes $p=3$ ($N=4$) and includes $p=7,11,19,23$. It is a statement about the real-weight model, not about the finite-field structure (see the warning below).
 
 ::: {.callout-warning}
 ## The finite-field theory is a $\mathbb Z_N$ theory only up to a choice
@@ -239,25 +239,27 @@ import random
 from fractions import Fraction as Fr
 
 # ------------------------------------------------------------------ fields ---
-class Fp:
-    p = 7
-    def __init__(s, v): s.v = int(v) % Fp.p
-    def __add__(s, o): return Fp(s.v + _v(o))
-    __radd__ = __add__
-    def __sub__(s, o): return Fp(s.v - _v(o))
-    def __rsub__(s, o): return Fp(_v(o) - s.v)
-    def __neg__(s): return Fp(-s.v)
-    def __mul__(s, o): return Fp(s.v * _v(o))
-    __rmul__ = __mul__
-    def __truediv__(s, o): return Fp(s.v * pow(_v(o), -1, Fp.p))
-    def __rtruediv__(s, o): return Fp(_v(o) * pow(s.v, -1, Fp.p))
-    def __eq__(s, o): return s.v == _v(o) % Fp.p
-    def __hash__(s): return hash(s.v)
-    def __repr__(s): return str(s.v)
+def make_Fp(p):
+    """A distinct field class for each prime, so that several F_p can coexist."""
+    class FpP:
+        P = p
+        def __init__(s, v): s.v = int(v) % FpP.P
+        def __add__(s, o): return FpP(s.v + _v(o))
+        __radd__ = __add__
+        def __sub__(s, o): return FpP(s.v - _v(o))
+        def __rsub__(s, o): return FpP(_v(o) - s.v)
+        def __neg__(s): return FpP(-s.v)
+        def __mul__(s, o): return FpP(s.v * _v(o))
+        __rmul__ = __mul__
+        def __truediv__(s, o): return FpP(s.v * pow(_v(o), -1, FpP.P))
+        def __rtruediv__(s, o): return FpP(_v(o) * pow(s.v, -1, FpP.P))
+        def __eq__(s, o): return s.v == _v(o) % FpP.P
+        def __hash__(s): return hash(s.v)
+        def __repr__(s): return str(s.v)
+    return FpP
 
-def _v(o): return o.v if isinstance(o, Fp) else int(o)
+def _v(o): return o.v if hasattr(o, "v") else int(o)
 
-# ------------------------------------------- K = F[i] as pairs (re, im) -------
 def kadd(u, v): return (u[0] + v[0], u[1] + v[1])
 def ksub(u, v): return (u[0] - v[0], u[1] - v[1])
 def kmul(u, v): return (u[0] * v[0] - u[1] * v[1], u[0] * v[1] + u[1] * v[0])
@@ -274,7 +276,7 @@ def ki(u): return (-u[1], u[0])                       # multiplication by i
 
 class Ring:
     """Bundles the base field F: constructor mk, constants, Cayley phase and its inverse."""
-    def __init__(s, mk): s.mk, s.one, s.zero = mk, mk(1), mk(0)
+    def __init__(s, mk, p=None): s.mk, s.p, s.one, s.zero = mk, p, mk(1), mk(0)
     def phase(s, a):                                   # U = (1 - i a)/(1 + i a);  a = None means infinity
         o, z = s.one, s.zero
         if a is None: return (-o, z)
@@ -286,9 +288,18 @@ class Ring:
     def cq(s, a, q): return s.a_of(kpow(s.phase(a), q, s.one, s.zero))   # Cayley charge map
 
 RQ = Ring(Fr)
-def RF(p):
-    Fp.p = p
-    return Ring(Fp)
+def RF(p): return Ring(make_Fp(p), p)
+
+def sampler(R):
+    """(num, par): random field element, random Cayley parameter (None = infinity is allowed in par)."""
+    if R is RQ:
+        num = lambda rng: Fr(rng.randint(-6, 6), rng.randint(1, 4))
+        par = lambda rng: None if rng.random() < 0.06 else num(rng)
+    else:
+        p = R.p
+        num = lambda rng: R.mk(rng.randrange(p))
+        par = lambda rng: None if rng.randrange(p + 1) == p else R.mk(rng.randrange(p))
+    return num, par
 
 # --------------------------------------------------------------- lattice ----
 D4, L4 = 4, 3
@@ -309,26 +320,26 @@ def twopath(U, f, x, m, n):                            # S f(x) = (U_m U_n' + U_
     t = f[sh(sh(x, m), n)]
     return kmul(kadd(kmul(U[(x, m)], U[(sh(x, m), n)]), kmul(U[(x, n)], U[(sh(x, n), m)])), t)
 
-def random_links(R, rand, rng):
-    return {(x, m): R.phase(rand(rng)) for x in SITES for m in range(D4)}
+def random_links(R, par, rng):
+    return {(x, m): R.phase(par(rng)) for x in SITES for m in range(D4)}
 
-def random_psi(R, rand, rng):
+def random_psi(R, num, rng):
     out = {}
     for x in SITES:
         while True:
-            v = (rand(rng, False), rand(rng, False))
-            if v != (R.zero, R.zero) and not (v[0] == R.zero and v[1] == R.zero): break
+            v = (num(rng), num(rng))
+            if not (v[0] == R.zero and v[1] == R.zero): break
         out[x] = v
     return out
 
-def checks(R, rand, q=1, seed=11):
-    rng = random.Random(seed)
-    U1 = random_links(R, rand, rng)
+def checks(R, q=1, seed=11):
+    rng = random.Random(seed); num, par = sampler(R)
+    U1 = random_links(R, par, rng)
     U = {k: kpow(u, q, R.one, R.zero) for k, u in U1.items()} if q != 1 else U1       # charge-q links
-    psi = random_psi(R, rand, rng)
+    psi = random_psi(R, num, rng)
     n = dict(ident=0, cayley=0, ratio=0, covD=0, covC=0, inv=0, qmap=0)
     tot = dict(ident=0, cayley=0, ratio=0, covD=0, covC=0, inv=0, qmap=0)
-    g = {x: R.phase(rand(rng)) for x in SITES}                        # gauge transformation (charge-1 phase)
+    g = {x: R.phase(par(rng)) for x in SITES}                        # gauge transformation (charge-1 phase)
     gq = {x: kpow(g[x], q, R.one, R.zero) for x in SITES}
     Up = {(x, m): kmul(kmul(gq[x], U[(x, m)]), kconj(gq[sh(x, m)])) for x in SITES for m in range(D4)}
     psip = {x: kmul(gq[x], psi[x]) for x in SITES}
@@ -450,7 +461,7 @@ def charge_checks():
     rows = []
     for p in (3, 7, 11, 19, 23):
         R = RF(p); N = p + 1
-        pts = [None] + [Fp(v) for v in range(p)]
+        pts = [None] + [R.mk(v) for v in range(p)]
         hom = add = per = comp = tt = 0
         for a in pts:
             for b in pts:
@@ -462,7 +473,7 @@ def charge_checks():
                     comp += R.cq(R.cq(a, r), q) == R.cq(a, q * r)
                 per += R.cq(a, q + N) == R.cq(a, q)
         # group order and generator
-        zero = Fp(0)
+        zero = R.mk(0)
         def order(a):
             k, b = 1, a
             while not (b is not None and b == zero): b = R.oplus(b, a); k += 1
@@ -477,8 +488,8 @@ def charge_checks():
 
 def tableau_generator(p):
     R = RF(p); N = p + 1
-    pts = [None] + [Fp(v) for v in range(p)]
-    zero = Fp(0)
+    pts = [None] + [R.mk(v) for v in range(p)]
+    zero = R.mk(0)
     for a in pts:
         b, k = a, 1
         while not (b is not None and b == zero): b = R.oplus(b, a); k += 1
@@ -498,14 +509,12 @@ def zn_vs_u1(beta):
 
 # ------------------------------------------------------------------ main ----
 def main():
-    rq = lambda rng, inf=True: (None if (inf and rng.random() < 0.06) else Fr(rng.randint(-6, 6), rng.randint(1, 4)))
-    def rqpsi(rng, inf=False): return Fr(rng.randint(-6, 6), rng.randint(1, 4))
     names = dict(ident="[D,D]psi = (U_P - 1) T psi", cayley="(U_P - 1)(1 + i a_P) = -2 i a_P", ratio="a_P = i [D,D]psi / S psi",
                  covD="D'psi' = g D psi", covC="[D,D]'psi' = g [D,D] psi", inv="U_P' = U_P")
+    rings = (("Q", RQ), ("F_7", RF(7)), ("F_11", RF(11)))
     print("11. covariant difference, 4D torus L = 3 (81 sites, 324 links, 486 plaquettes)")
-    rf = lambda p: (lambda rng, inf=True: (None if (inf and rng.randrange(p + 1) == p) else Fp(rng.randrange(p))))
-    for label, R, rnd in (("Q", RQ, rq), ("F_7", RF(7), rf(7)), ("F_11", RF(11), rf(11))):
-        n, t = checks(R, lambda rng, inf=True, rnd=rnd: rnd(rng, inf) if inf else rnd(rng, False), 1)
+    for label, R in rings:
+        n, t = checks(R, 1)
         print(f"   {label:<5}", "  ".join(f"{k}: {n[k]}/{t[k]}" for k in names))
     ok, tot, na = nonabelian_check()
     print(f"   SL(2,Q) caps: [D,D]psi = (U_P - 1) T psi  {ok}/{tot};  U_mu U_nu' != U_nu U_mu' on {na}/{tot} plaquettes (non-abelian)")
@@ -522,8 +531,8 @@ def main():
               f"c_(q+r) = c_q (+) c_r {add}/{tadd}, periodic mod N {per}/{tper}, c_q o c_r = c_qr {comp}/{tadd}")
     print("   F_7 generator g: c_q(g), q = 0..7 :", tableau_generator(7))
     for q in (2, 3, -1, 5):
-        for label, R, rnd in (("Q", RQ, rq), ("F_7", RF(7), rf(7)), ("F_11", RF(11), rf(11))):
-            n, t = checks(R, lambda rng, inf=True, rnd=rnd: rnd(rng, inf) if inf else rnd(rng, False), q, seed=12)
+        for label, R in rings:
+            n, t = checks(R, q, seed=12)
             print(f"   q = {q:>2} {label:<5} identity {n['ident']}/{t['ident']}  covariance {n['covD']}/{t['covD']}  a_P^(q) = c_q(a_P) {n['qmap']}/{t['qmap']}  U_P invariant {n['inv']}/{t['inv']}")
     print("   single plaquette <cos theta>: U(1) versus Z_N")
     for beta in (0.25, 1.0, 5.0):
@@ -537,11 +546,10 @@ main()
 
 1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Preprint, October 7, 2026. DOI: [10.5281/zenodo.23222798](https://doi.org/10.5281/zenodo.23222798).
 2. J. D. Coady. *Is the Rotor Anchor the Electromagnetic Field Strength? Worked Calculations from a Projective 2×2 Rotor Architecture* (Part 1), blog post, October 14, 2026.
-3. J. D. Coady. *On the Projective Trigonometry of the Tetrahedron: Solid Spreads, Dihedral Laws, and Factorization*. Preprint, July 25, 2026. DOI: [10.5281/zenodo.21567023](https://doi.org/10.5281/zenodo.21567023).
-4. N. J. Wildberger. *Divine Proportions: Rational Trigonometry to Universal Geometry*. Wild Egg Books, Sydney, 2005 (spread polynomials, Chapter 8).
-5. J. Kogut and L. Susskind. Hamiltonian formulation of Wilson's lattice gauge theories. *Phys. Rev. D* 11, 395 (1975).
-6. K. G. Wilson. Confinement of quarks. *Phys. Rev. D* 10, 2445 (1974).
-7. M. E. Peskin and D. V. Schroeder. *An Introduction to Quantum Field Theory*. Westview Press, 1995.
-8. V. Elitzur, R. Pearson, J. Shigemitsu. Phase structure of discrete Abelian spin and gauge systems. *Phys. Rev. D* 19, 3698 (1979).
-9. D. Horn, M. Weinstein, S. Yankielowicz. Hamiltonian approach to $Z(N)$ lattice gauge theories. *Phys. Rev. D* 19, 3715 (1979).
-
+3. N. J. Wildberger. *Divine Proportions: Rational Trigonometry to Universal Geometry*. Wild Egg Books, Sydney, 2005 (spread polynomials, Chapter 8).
+4. J. Kogut and L. Susskind. Hamiltonian formulation of Wilson's lattice gauge theories. *Phys. Rev. D* 11, 395 (1975).
+5. K. G. Wilson. Confinement of quarks. *Phys. Rev. D* 10, 2445 (1974).
+6. M. E. Peskin and D. V. Schroeder. *An Introduction to Quantum Field Theory*. Westview Press, 1995.
+7. S. Elitzur, R. B. Pearson, J. Shigemitsu. Phase structure of discrete Abelian spin and gauge systems. *Phys. Rev. D* 19, 3698 (1979).
+8. M. Creutz, L. Jacobs, C. Rebbi. Monte Carlo study of Abelian lattice gauge theories. *Phys. Rev. D* 20, 1915 (1979).
+9. *Particle Physics Lecture 13: Interactions via Local Gauge Symmetry (The Abelian Case)*. Video: <https://youtu.be/WGQMb88xDqA>. Handwritten lecture notes (7 pages): <https://inside.mines.edu/~aflourno/Particle/Lecture13-%20Interactions%20via%20Local%20Gauge%20Invariance%20%28The%20Abelian%20Case%29.pdf>.
