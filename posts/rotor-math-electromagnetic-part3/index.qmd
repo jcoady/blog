@@ -29,7 +29,7 @@ I re-ran the three embedded scripts of Part 1 and independently re-implemented i
 
 ### Proposition 6.3(3) of the paper
 
-The paper states that the vector Cayley anchor $(\Lambda-I)(\Lambda+I)^{-1}$ is related to the rotor anchor by the doubling map $\zeta\mapsto2\zeta/(1+\zeta\cdot\zeta)$. As worded, this is not correct. Let $\zeta_s$ be a spin Cayley parameter, $\sigma=\zeta_s\cdot\zeta_s$, $G=U_\text{spin}(\zeta_s)$ and $\Lambda$ its Lorentz matrix. Then, in exact arithmetic over $\mathbb Q(i)$:
+Version 1 of the paper (October 7, 2026) stated that the vector Cayley anchor $(\Lambda-I)(\Lambda+I)^{-1}$ is related to the rotor anchor by the doubling map $\zeta\mapsto2\zeta/(1+\zeta\cdot\zeta)$. As worded, that statement was not correct, and version 2 (October 15, 2026; DOI [10.5281/zenodo.23395166](https://doi.org/10.5281/zenodo.23395166)) updates Proposition 6.3. The tests below were run independently of the revision and bear on the corrected relation. Let $\zeta_s$ be a spin Cayley parameter, $\sigma=\zeta_s\cdot\zeta_s$, $G=U_\text{spin}(\zeta_s)$ and $\Lambda$ its Lorentz matrix. Then, in exact arithmetic over $\mathbb Q(i)$:
 
 1. The rotor anchor of $\Lambda$ is $\zeta=2\zeta_s/(1+\sigma)$. This is the paper's Theorem 7.1, and it checks.
 2. The vector Cayley anchor is
@@ -41,7 +41,7 @@ $$
 
 So the doubling map relates the spin parameter to the rotor anchor (item 1); it relates the spin parameter to the vector Cayley anchor only when $\sigma$ is real (item 3).
 
-*Domain.* Item 1 needs $\sigma\neq1$ (the cap $U_\text{spin}$ exists) and $\sigma\neq-1$ (so that $x\neq0$ and the anchor is defined). Item 2 needs $1-\sigma\bar\sigma\neq0$ and $\Lambda+I$ invertible (the vector Cayley transform exists); item 3 additionally needs $\zeta_s\neq0$. These restrictions should be stated in the corrected proposition of the paper, which should replace item (3) of Proposition 6.3 by items 1–3 above.
+*Domain.* Item 1 needs $\sigma\neq1$ (the cap $U_\text{spin}$ exists) and $\sigma\neq-1$ (so that $x\neq0$ and the anchor is defined). Item 2 needs $1-\sigma\bar\sigma\neq0$ and $\Lambda+I$ invertible (the vector Cayley transform exists); item 3 additionally needs $\zeta_s\neq0$. These are the hypotheses under which the derivation and the tests below hold.
 
 *Why.* A real Lorentz transformation acts on anchors by a complex rotation, and the Cayley transform commutes with conjugation, so one may take $\zeta_s=t\hat z$ with $t=\alpha+i\beta$, $t^2=\sigma$. With $\tau_L X=(\zeta_s\!\cdot\!\sigma)X$ and $\tau_R X=X(\bar\zeta_s\!\cdot\!\sigma)$ one has $\Lambda=\exp(L+R)$ and the Cayley transform is $(\tau_L+\tau_R)/(1+\tau_L\tau_R)$. On the diagonal entries of $X$ this is $2\alpha/(1+|t|^2)$ and on the off-diagonal entries $2i\beta/(1-|t|^2)$, i.e. a boost parameter and a rotation parameter with different denominators. Rewriting $\bigl(\tfrac{2\alpha}{1+|t|^2}+i\tfrac{2\beta}{1-|t|^2}\bigr)/t=2(1-\bar t^{\,2})/(1-|t|^4)$ gives item 2. If $\sigma$ is real this collapses to $2/(1+\sigma)$.
 
@@ -820,7 +820,7 @@ for sig in rts:
 
 ## References
 
-1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Preprint, October 7, 2026. DOI: [10.5281/zenodo.23222798](https://doi.org/10.5281/zenodo.23222798).
+1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Version 2, October 15, 2026 (updates Proposition 6.3). DOI: [10.5281/zenodo.23395166](https://doi.org/10.5281/zenodo.23395166); the DOI 10.5281/zenodo.23222798 resolves to this record.
 2. J. D. Coady. Parts 1 and 2 of this series, blog posts, October 14, 2026.
 3. S. Elitzur, R. B. Pearson, J. Shigemitsu. Phase structure of discrete Abelian spin and gauge systems. *Phys. Rev. D* 19, 3698 (1979).
 4. M. Creutz, L. Jacobs, C. Rebbi. Monte Carlo study of Abelian lattice gauge theories. *Phys. Rev. D* 20, 1915 (1979).
