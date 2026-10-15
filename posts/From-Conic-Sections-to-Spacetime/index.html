@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="John D. Coady">
+<meta name="dcterms.date" content="2026-10-06">
+<meta name="description" content="How the classical story of conics (complexify, then projectivize) runs closely parallel to a 2×2 Hermitian-matrix model of (1+3)D spacetime over a finite field.">
+
+<title>From Conic Sections to Spacetime in 2×2 Matrices – John Coady's Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-fe7872a82928c9cb84149cb81cc2feaf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">John Coady’s Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">All Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../math.html"> 
+<span class="menu-text">Pure Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics.html"> 
+<span class="menu-text">Math Physics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0009-0008-6020-5733"> 
+<span class="menu-text"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID iD" style="height:20px; width:20px; vertical-align:-3px;"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://x.com/johndavidcoady"> <i class="bi bi-twitter-x" role="img" aria-label="X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jcoady"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">From Conic Sections to Spacetime in 2×2 Matrices</h1>
+            <p class="subtitle lead">Two uses of the same algebraic ideas: adjoin √−1, factor a quadratic form, and projectivize</p>
+                  <div>
+        <div class="description">
+          How the classical story of conics (complexify, then projectivize) runs closely parallel to a 2×2 Hermitian-matrix model of (1+3)D spacetime over a finite field.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">pure-math</div>
+                <div class="quarto-category">geometry</div>
+                <div class="quarto-category">hyperbolic-geometry</div>
+                <div class="quarto-category">mathematical-physics</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>John D. Coady </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 6, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#two-stories-with-a-shared-ingredient" id="toc-two-stories-with-a-shared-ingredient" class="nav-link active" data-scroll-target="#two-stories-with-a-shared-ingredient">1. Two stories with a shared ingredient</a></li>
+  <li><a href="#the-conic-story" id="toc-the-conic-story" class="nav-link" data-scroll-target="#the-conic-story">2. The conic story</a></li>
+  <li><a href="#the-spacetime-story" id="toc-the-spacetime-story" class="nav-link" data-scroll-target="#the-spacetime-story">3. The spacetime story</a></li>
+  <li><a href="#side-by-side" id="toc-side-by-side" class="nav-link" data-scroll-target="#side-by-side">4. Side by side</a></li>
+  <li><a href="#what-the-preprint-establishes" id="toc-what-the-preprint-establishes" class="nav-link" data-scroll-target="#what-the-preprint-establishes">5. What the preprint establishes</a></li>
+  <li><a href="#what-this-does-and-does-not-claim" id="toc-what-this-does-and-does-not-claim" class="nav-link" data-scroll-target="#what-this-does-and-does-not-claim">6. What this does and does not claim</a></li>
+  <li><a href="#try-it" id="toc-try-it" class="nav-link" data-scroll-target="#try-it">7. Try it</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Sources.</strong> The conic material follows Michael Penn’s video <a href="https://youtu.be/FLXuHL1L-LI"><em>There is only one conic section</em></a>. The spacetime material is from my preprint <a href="https://doi.org/10.5281/zenodo.23138782"><em>A Projective 2×2 Rotor Architecture for (1+3)D Discrete Spacetime: Holonomies, Ghost Parity, and the Double-Cover Anchor Map</em></a> (Zenodo, 2026), which includes the verification script <code>verify_rotor_model.py</code>. The two topics are connected by analogy; I say below where the analogy is exact and where it is only suggestive.</p>
+</div>
+</div>
+<section id="two-stories-with-a-shared-ingredient" class="level2">
+<h2 class="anchored" data-anchor-id="two-stories-with-a-shared-ingredient">1. Two stories with a shared ingredient</h2>
+<p><strong>Story A (classical geometry).</strong> Ellipses, hyperbolas and parabolas look very different over the reals, yet in the complex projective plane they are projectively equivalent.</p>
+<p><strong>Story B (discrete spacetime).</strong> The group <span class="math inline">\(SO(1,3)\)</span> of Lorentz transformations can be described exactly, over a finite field <span class="math inline">\(\mathbb{F}_p\)</span> with <span class="math inline">\(p \equiv 3 \pmod 4\)</span>, using <span class="math inline">\(2\times 2\)</span> matrices with entries in the quadratic extension <span class="math inline">\(\mathbb{F}_p[i]\)</span>.</p>
+<p>The shared ingredient is simple: <strong>adjoining <span class="math inline">\(\sqrt{-1}\)</span> makes a sum of two squares factor as a product</strong>, <span class="math inline">\(x^2 + y^2 = (x+iy)(x-iy)\)</span>, and <strong>homogenizing</strong> puts all the resulting quadrics on equal footing. These are closely parallel moves, not the same machinery. The rest of this post tracks the parallel, and flags where it stops.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/FLXuHL1L-LI" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="the-conic-story" class="level2">
+<h2 class="anchored" data-anchor-id="the-conic-story">2. The conic story</h2>
+<section id="the-real-trichotomy" class="level3">
+<h3 class="anchored" data-anchor-id="the-real-trichotomy">The real trichotomy</h3>
+<p>Start with the general conic <span class="math inline">\(ax^2 + bxy + cy^2 + dx + ey + f = 0\)</span> with <span class="math inline">\((a,b,c) \neq (0,0,0)\)</span>. The quadratic part controls the shape, and the linear terms only move the curve around. Write the quadratic part as</p>
+<p><span class="math display">\[
+\begin{pmatrix} x &amp; y \end{pmatrix}
+\begin{pmatrix} a &amp; b/2 \\ b/2 &amp; c \end{pmatrix}
+\begin{pmatrix} x \\ y \end{pmatrix},
+\qquad
+\det A = ac - \tfrac{b^2}{4} = -\tfrac14\,(b^2 - 4ac).
+\]</span></p>
+<p>By the spectral theorem, a real symmetric matrix is diagonalized by an orthogonal change of basis. For the video’s example <span class="math inline">\(5x^2 + 4xy + 5y^2 = 9\)</span>, the eigenvalues are 3 and 7, the rotation is by <span class="math inline">\(45^\circ\)</span>, and the curve becomes <span class="math inline">\(7u^2 + 3v^2 = 9\)</span>, i.e.&nbsp;<span class="math inline">\(\frac{u^2}{9/7} + \frac{v^2}{3} = 1\)</span>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Conic</th>
+<th><span class="math inline">\(\det A\)</span></th>
+<th><span class="math inline">\(b^2 - 4ac\)</span></th>
+<th>Topology over <span class="math inline">\(\mathbb{R}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ellipse</td>
+<td><span class="math inline">\(&gt;0\)</span></td>
+<td><span class="math inline">\(&lt;0\)</span></td>
+<td>compact, 1 component</td>
+</tr>
+<tr class="even">
+<td>Hyperbola</td>
+<td><span class="math inline">\(&lt;0\)</span></td>
+<td><span class="math inline">\(&gt;0\)</span></td>
+<td>unbounded, 2 branches</td>
+</tr>
+<tr class="odd">
+<td>Parabola</td>
+<td><span class="math inline">\(=0\)</span></td>
+<td><span class="math inline">\(=0\)</span></td>
+<td>unbounded in one direction, 1 component</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="step-1-complexify" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-complexify">Step 1: complexify</h3>
+<p>Over <span class="math inline">\(\mathbb{C}\)</span>, substituting <span class="math inline">\(y \mapsto iy\)</span> turns <span class="math inline">\(x^2 + y^2 = 1\)</span> into <span class="math inline">\(x^2 - y^2 = 1\)</span>: ellipse and hyperbola merge. With <span class="math inline">\(u = x+iy\)</span> and <span class="math inline">\(v = x-iy\)</span> the curve is <span class="math inline">\(uv = 1\)</span>, which is the punctured plane <span class="math inline">\(\mathbb{C}^\times\)</span>. The parabola <span class="math inline">\(y = x^2\)</span> is parametrized by <span class="math inline">\(x \in \mathbb{C}\)</span>, so it is all of <span class="math inline">\(\mathbb{C}\)</span>. Since <span class="math inline">\(\mathbb{C}\)</span> and <span class="math inline">\(\mathbb{C}^\times\)</span> are not homeomorphic, the parabola is still different.</p>
+</section>
+<section id="step-2-projectivize" class="level3">
+<h3 class="anchored" data-anchor-id="step-2-projectivize">Step 2: projectivize</h3>
+<p>Pass to <span class="math inline">\(\mathbb{CP}^2\)</span> with coordinates <span class="math inline">\([x:y:z]\)</span> and homogenize:</p>
+<ul>
+<li>ellipse: <span class="math inline">\(x^2 + y^2 = z^2\)</span></li>
+<li>parabola: <span class="math inline">\(yz = x^2\)</span></li>
+</ul>
+<p>Rearranging, <span class="math inline">\(x^2 = (z-y)(z+y)\)</span>. Setting <span class="math inline">\(X = x\)</span>, <span class="math inline">\(Y = z - y\)</span>, <span class="math inline">\(Z = z + y\)</span> gives <span class="math inline">\(X^2 = YZ\)</span>. So the two conics are related by a linear change of projective coordinates. The ellipse and hyperbola (<span class="math inline">\(\mathbb{C}^\times\)</span>) pick up two points at infinity, the parabola (<span class="math inline">\(\mathbb{C}\)</span>) picks up one, and all three become a copy of <span class="math inline">\(\mathbb{CP}^1\)</span>, the Riemann sphere. More precisely: every non-degenerate conic in <span class="math inline">\(\mathbb{CP}^2\)</span> is <em>projectively equivalent</em> to every other.</p>
+</section>
+<section id="a-finite-field-echo" class="level3">
+<h3 class="anchored" data-anchor-id="a-finite-field-echo">A finite-field echo</h3>
+<p>The same dichotomy shows up over <span class="math inline">\(\mathbb{F}_p\)</span> with <span class="math inline">\(p \equiv 3 \pmod 4\)</span>, where <span class="math inline">\(-1\)</span> is a non-square. The curve <span class="math inline">\(x^2 + y^2 = 1\)</span> has <span class="math inline">\(p+1\)</span> points and <span class="math inline">\(x^2 - y^2 = 1\)</span> has <span class="math inline">\(p - 1\)</span> points (check <span class="math inline">\(p = 3\)</span>: 4 points and 2 points). They are genuinely different over <span class="math inline">\(\mathbb{F}_p\)</span>, and become equivalent after adjoining <span class="math inline">\(i\)</span>, which is exactly the situation in Story B. This is a standard point-count, not something from the paper.</p>
+</section>
+</section>
+<section id="the-spacetime-story" class="level2">
+<h2 class="anchored" data-anchor-id="the-spacetime-story">3. The spacetime story</h2>
+<p>My preprint builds an exact model of <span class="math inline">\((1+3)\)</span>-dimensional Lorentz geometry over <span class="math inline">\(\mathbb{F}_p\)</span>, in the spirit of N. J. Wildberger’s rational trigonometry: no angles, no rapidities, no transcendental functions, only field operations.</p>
+<section id="the-witt-index-obstruction-and-what-it-does-and-doesnt-say" class="level3">
+<h3 class="anchored" data-anchor-id="the-witt-index-obstruction-and-what-it-does-and-doesnt-say">The Witt-index obstruction, and what it does and doesn’t say</h3>
+<p>The form <span class="math inline">\(x_0^2 - x_1^2 - x_2^2 - x_3^2\)</span> over <span class="math inline">\(\mathbb{F}_p\)</span> (<span class="math inline">\(p \equiv 3 \pmod 4\)</span>) has Witt index 1 (“elliptic”). The determinant on <span class="math inline">\(M_2(\mathbb{F}_p)\)</span> has Witt index 2 (“split”). So there is no linear isometry between the Lorentz form and <span class="math inline">\((M_2(\mathbb{F}_p), \det)\)</span>. An earlier paper in this series proved that and built a <span class="math inline">\(4\times 4\)</span> Clifford-algebra engine instead.</p>
+<p>The obstruction only excludes embeddings into <span class="math inline">\(M_2(\mathbb{F}_p)\)</span>. It says nothing about a <em>different</em> quadratic space. Take <span class="math inline">\(K = \mathbb{F}_p[i] \cong \mathbb{F}_{p^2}\)</span> and the four-dimensional <span class="math inline">\(\mathbb{F}_p\)</span>-space of Hermitian matrices in <span class="math inline">\(M_2(K)\)</span>:</p>
+<p><span class="math display">\[
+X(x) = \begin{pmatrix} x_0 + x_3 &amp; x_1 - i x_2 \\ x_1 + i x_2 &amp; x_0 - x_3 \end{pmatrix},
+\qquad
+\det X(x) = x_0^2 - x_1^2 - x_2^2 - x_3^2 .
+\]</span></p>
+<p>This is a hyperbolic plane plus an anisotropic plane, so it has Witt index 1 and discriminant <span class="math inline">\(-1\)</span>, matching the Lorentz form. Nothing is “bypassed” and no theorem is violated; the paper simply uses a different quadratic space than the one the obstruction excludes. (The earlier paper even noted that extending scalars was not ruled out.)</p>
+</section>
+<section id="rotors-and-the-rotor-quadric" class="level3">
+<h3 class="anchored" data-anchor-id="rotors-and-the-rotor-quadric">Rotors and the rotor quadric</h3>
+<p>A general element of <span class="math inline">\(M_2(K)\)</span> is <span class="math inline">\(G = xI + \mathbf{z}\cdot\boldsymbol{\sigma}\)</span> with <span class="math inline">\(x = a + ip\)</span> and <span class="math inline">\(\mathbf{z} = \boldsymbol{\kappa} + i\boldsymbol{\rho}\)</span>. Its determinant is</p>
+<p><span class="math display">\[
+\det G = (a^2 - p^2 - \boldsymbol{\kappa}^2 + \boldsymbol{\rho}^2) + 2i\,(ap - \boldsymbol{\kappa}\cdot\boldsymbol{\rho}).
+\]</span></p>
+<p>It is <span class="math inline">\(\mathbb{F}_p\)</span>-valued exactly when <span class="math inline">\(ap = \boldsymbol{\kappa}\cdot\boldsymbol{\rho}\)</span>. That equation defines the <strong>rotor quadric</strong> in <span class="math inline">\(\mathbb{P}^7(\mathbb{F}_p)\)</span>. Each non-null rotor acts on Hermitian matrices by <span class="math inline">\(X \mapsto G X G^\dagger / N\)</span> with <span class="math inline">\(N = a^2 - p^2 - \boldsymbol{\kappa}^2 + \boldsymbol{\rho}^2\)</span>, and this gives an isomorphism with <span class="math inline">\(SO(1,3;\mathbb{F}_p)\)</span>. (The isomorphism is proved in the companion paper on rational rotations of four-dimensional relativistic space.)</p>
+<p><strong>How close is the analogy with <span class="math inline">\(X^2 = YZ\)</span>?</strong> Both are split quadrics given by a product-form equation, and in both cases passing to projective coordinates lets everything be treated uniformly. But they are not the same object: <span class="math inline">\(YZ = X^2\)</span> is a rank-3 conic in <span class="math inline">\(\mathbb{P}^2\)</span> obtained by factoring a difference of squares, while <span class="math inline">\(ap = \boldsymbol{\kappa}\cdot\boldsymbol{\rho}\)</span> is a rank-8 split quadric in <span class="math inline">\(\mathbb{P}^7\)</span> obtained by requiring an imaginary part to vanish. Calling one a “generalization” of the other would be too strong.</p>
+</section>
+<section id="points-at-infinity-the-half-turns" class="level3">
+<h3 class="anchored" data-anchor-id="points-at-infinity-the-half-turns">Points at infinity: the half-turns</h3>
+<p>The affine description of a rotation by its “anchor” <span class="math inline">\(\boldsymbol{\zeta} = \mathbf{z}/x\)</span> breaks down when <span class="math inline">\(x = a + ip = 0\)</span>. In the rotor picture these are simply the points with <span class="math inline">\(a = p = 0\)</span> (and so <span class="math inline">\(\boldsymbol{\kappa}\cdot\boldsymbol{\rho} = 0\)</span>), which are the <strong>half-turns</strong>. They are ordinary points of the rotor quadric; the projective description does not “add” them, it just makes them visible as part of the group. Over <span class="math inline">\(\mathbb{F}_7\)</span> there are exactly <span class="math inline">\(p^4 + p^2 = 2{,}450\)</span> of them, out of <span class="math inline">\(|SO(1,3;\mathbb{F}_7)| = 117{,}600\)</span>. Both numbers were confirmed by direct enumeration.</p>
+</section>
+<section id="where-does-the-i-come-from-building-k-from-dihedrons" class="level3">
+<h3 class="anchored" data-anchor-id="where-does-the-i-come-from-building-k-from-dihedrons">Where does the <span class="math inline">\(i\)</span> come from? Building <span class="math inline">\(K\)</span> from dihedrons</h3>
+<p>A reader might object that adjoining <span class="math inline">\(i\)</span> borrows the complex numbers. It doesn’t, and the reason connects to Wildberger’s dihedrons.</p>
+<p><strong>No prior theory of <span class="math inline">\(\mathbb{C}\)</span> is used.</strong> The field <span class="math inline">\(K = \mathbb{F}_p[T]/(T^2+1)\)</span> is defined from <span class="math inline">\(\mathbb{F}_p\)</span> alone: pairs <span class="math inline">\(a + bT\)</span> with <span class="math inline">\(T^2 = -1\)</span>. It is a field exactly when <span class="math inline">\(-1\)</span> is a non-square, i.e.&nbsp;<span class="math inline">\(p \equiv 3 \pmod 4\)</span>.</p>
+<p><strong>The same field sits inside <span class="math inline">\(M_2(\mathbb{F}_p)\)</span>.</strong> Wildberger’s <em>dihedrons</em> are simply the matrix algebra <span class="math inline">\(M_2(F)\)</span> over a field <span class="math inline">\(F\)</span>, with basis <span class="math inline">\(I\)</span>, <span class="math inline">\(\mathbf{i}\)</span>, <span class="math inline">\(\mathbf{j}\)</span>, <span class="math inline">\(\mathbf{k}\)</span> where <span class="math inline">\(\mathbf{i}^2 = -I\)</span> and <span class="math inline">\(\mathbf{j}^2 = \mathbf{k}^2 = +I\)</span>. Take the “blue” unit</p>
+<p><span class="math display">\[
+\mathbf{i} = \begin{pmatrix} 0 &amp; 1 \\ -1 &amp; 0 \end{pmatrix}, \qquad \mathbf{i}^2 = -I,
+\qquad
+\mathbb{C}_b = \left\{ aI + b\,\mathbf{i} = \begin{pmatrix} a &amp; b \\ -b &amp; a \end{pmatrix} \right\}.
+\]</span></p>
+<p>Its determinant is <span class="math inline">\(a^2 + b^2\)</span>, which is zero only at <span class="math inline">\(a = b = 0\)</span> when <span class="math inline">\(p \equiv 3 \pmod 4\)</span>, so every non-zero element is invertible: <span class="math inline">\(\mathbb{C}_b\)</span> is a field, isomorphic to <span class="math inline">\(\mathbb{F}_{p^2}\)</span>. The same trick gives any quadratic extension <span class="math inline">\(\mathbb{F}_q(\sqrt{k})\)</span> through the companion matrix <span class="math inline">\(\begin{pmatrix} 0 &amp; 1 \\ k &amp; 0 \end{pmatrix}\)</span>. Wildberger’s remark that quaternions need <span class="math inline">\(\mathbb{C}\)</span> before they can be written as <span class="math inline">\(2\times 2\)</span> matrices is sharpest over <span class="math inline">\(\mathbb{R}\)</span> and <span class="math inline">\(\mathbb{Q}\)</span>. Over a finite field the quaternion algebra also becomes <span class="math inline">\(M_2(\mathbb{F}_p)\)</span>, using exactly the identity <span class="math inline">\(a^2 + b^2 = -1\)</span> that the paper uses for its signature isometry.</p>
+<p><strong>So is the rotor <span class="math inline">\(2\times 2\)</span> or <span class="math inline">\(4\times 4\)</span>?</strong> It depends on what you call one entry:</p>
+<ul>
+<li>If an entry may be an element of <span class="math inline">\(K\)</span> (a pair <span class="math inline">\(a + bi\)</span>), the rotor is a <strong><span class="math inline">\(2\times 2\)</span> matrix over <span class="math inline">\(K\)</span></strong>.</li>
+<li>If every entry must be a plain <span class="math inline">\(\mathbb{F}_p\)</span> number, replace each <span class="math inline">\(K\)</span>-entry by its <span class="math inline">\(2\times 2\)</span> block (using <span class="math inline">\(i \mapsto \mathbf{i}\)</span>). The same rotor becomes a <strong><span class="math inline">\(4\times 4\)</span> matrix over <span class="math inline">\(\mathbb{F}_p\)</span></strong>.</li>
+</ul>
+<p>Both versions hold the same eight <span class="math inline">\(\mathbb{F}_p\)</span> numbers. In the second, Hermitian conjugation becomes the ordinary transpose, since <span class="math inline">\(\mathbf{i}^T = -\mathbf{i}\)</span>.</p>
+<p>A cleaner way to say it: <span class="math inline">\(M_2(K) \cong M_2(\mathbb{F}_p) \otimes \mathbb{C}_b\)</span>, so a rotor is a <em>pair of dihedrons</em> <span class="math inline">\((A, B)\)</span>,</p>
+<p><span class="math display">\[
+G = A + \varepsilon B, \qquad \varepsilon^2 = -1,\ \varepsilon \text{ central},
+\qquad
+(A_1 + \varepsilon B_1)(A_2 + \varepsilon B_2) = (A_1A_2 - B_1B_2) + \varepsilon(A_1B_2 + B_1A_2).
+\]</span></p>
+<p>Concretely, <span class="math inline">\(G = A \otimes I_2 + B \otimes \mathbf{i}\)</span> (Kronecker products). Spacetime vectors are the Hermitian ones: a symmetric dihedron plus <span class="math inline">\(\varepsilon\)</span> times a skew one,</p>
+<p><span class="math display">\[
+X(x) = \begin{pmatrix} x_0 + x_3 &amp; x_1 \\ x_1 &amp; x_0 - x_3 \end{pmatrix}
++ \varepsilon\, x_2 \begin{pmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{pmatrix}.
+\]</span></p>
+<p><strong>Why not just call it <span class="math inline">\(4\times 4\)</span> and move on?</strong> Because the cheap formulas live at the <span class="math inline">\(2\times 2\)</span> block level. The block determinant gives the spacetime interval, and the block adjugate gives the inverse. If you instead take the determinant of the flattened <span class="math inline">\(4\times 4\)</span> matrix you get <span class="math inline">\(Q(x)^2\)</span>, not <span class="math inline">\(Q(x)\)</span>: for the regular representation of a field extension, the determinant is the <em>field norm</em> of the block determinant. Likewise <span class="math inline">\(Z^2 = (\mathbf{z}\cdot\mathbf{z})I\)</span> is a quadratic relation over <span class="math inline">\(K\)</span>, but over <span class="math inline">\(\mathbb{F}_p\)</span> the same matrix satisfies a degree-4 polynomial, because <span class="math inline">\(\mathbf{z}\cdot\mathbf{z}\)</span> lies in <span class="math inline">\(K\)</span>, not in <span class="math inline">\(\mathbb{F}_p\)</span>. So the representation is a storage choice and the algorithm decides the cost.</p>
+<p><strong>Can a (1+3) rotor be a <span class="math inline">\(2\times 2\)</span> matrix over <span class="math inline">\(\mathbb{F}_p\)</span> alone?</strong> No.&nbsp;<span class="math inline">\(M_2(\mathbb{F}_p)\)</span> has only four <span class="math inline">\(\mathbb{F}_p\)</span>-coordinates and carries the split form of Witt index 2. Over <span class="math inline">\(\mathbb{F}_p\)</span>, dihedrons describe the <span class="math inline">\((1+2)\)</span> case (<span class="math inline">\(SO(1,2)\)</span>), which is Wildberger’s theory. The <span class="math inline">\((1+3)\)</span> case needs the eight-dimensional algebra <span class="math inline">\(M_2(K)\)</span>.</p>
+<p>I checked the block-matrix statements above (<span class="math inline">\(X = X^T\)</span> in the <span class="math inline">\(4\times 4\)</span> form, multiplicativity of the embedding, and <span class="math inline">\(\det_4 X = Q^2\)</span>) over <span class="math inline">\(\mathbb{F}_7\)</span> with 500 random cases each, in a short separate script that is not part of the deposited <code>verify_rotor_model.py</code>.</p>
+</section>
+</section>
+<section id="side-by-side" class="level2">
+<h2 class="anchored" data-anchor-id="side-by-side">4. Side by side</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concept</th>
+<th>Conics</th>
+<th>Rotor spacetime</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Quadratic object</td>
+<td><span class="math inline">\(v^TAv\)</span> with a symmetric <span class="math inline">\(2\times 2\)</span> matrix</td>
+<td><span class="math inline">\(Q(x) = \det X(x)\)</span> on Hermitian matrices in <span class="math inline">\(M_2(K)\)</span></td>
+</tr>
+<tr class="even">
+<td>Role of <span class="math inline">\(\det\)</span></td>
+<td><span class="math inline">\(\det A\)</span> decides the type</td>
+<td><span class="math inline">\(\det G\)</span> is the rotor norm, <span class="math inline">\(\mathbb{F}_p\)</span>-valued on the quadric</td>
+</tr>
+<tr class="odd">
+<td>Adjoining <span class="math inline">\(i\)</span></td>
+<td><span class="math inline">\(x^2+y^2 = (x+iy)(x-iy)\)</span> merges ellipse and hyperbola</td>
+<td><span class="math inline">\(K = \mathbb{F}_p[i]\)</span> makes a <span class="math inline">\(2\times 2\)</span> model of the Lorentz form possible</td>
+</tr>
+<tr class="even">
+<td>Where <span class="math inline">\(i\)</span> comes from</td>
+<td>complex numbers, assumed</td>
+<td>built from <span class="math inline">\(\mathbb{F}_p\)</span>: <span class="math inline">\(T^2+1\)</span>, or the blue dihedron <span class="math inline">\(\mathbf{i} \in M_2(\mathbb{F}_p)\)</span></td>
+</tr>
+<tr class="odd">
+<td>What breaks in affine charts</td>
+<td>branches run off to infinity</td>
+<td>anchors fail at half-turns; many anchors have no rational cap</td>
+</tr>
+<tr class="even">
+<td>Projective step</td>
+<td>add the line at infinity in <span class="math inline">\(\mathbb{CP}^2\)</span></td>
+<td>use rotors <span class="math inline">\([a:\boldsymbol{\kappa}:\boldsymbol{\rho}:p] \in \mathbb{P}^7\)</span>, where the group product is a polynomial map</td>
+</tr>
+<tr class="odd">
+<td>Equivalence statement</td>
+<td>all non-degenerate conics are projectively equivalent</td>
+<td><span class="math inline">\(SO(1,3;\mathbb{F}_p) \cong\)</span> non-null points of the rotor quadric</td>
+</tr>
+</tbody>
+</table>
+<p>The table is a map of parallels, not a dictionary of equalities.</p>
+</section>
+<section id="what-the-preprint-establishes" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-preprint-establishes">5. What the preprint establishes</h2>
+<p>All numerical claims below come from one script, <code>verify_rotor_model.py</code> (exact finite-field arithmetic, no floating-point tolerances in the algebra), whose output is reproduced in the Zenodo record.</p>
+<p><strong>Anchor recovery.</strong> For a Lorentz transformation <span class="math inline">\(\Lambda\)</span> with <span class="math inline">\(\operatorname{tr}\Lambda \neq 0\)</span>, the six-component anchor is <span class="math display">\[
+A(\Lambda) = \frac{2\Lambda_{\mathrm{as}}}{\operatorname{tr}\Lambda},
+\qquad \Lambda_{\mathrm{as}} = \tfrac12\left(\Lambda - \eta\Lambda^T\eta\right),
+\]</span> with no matrix inversion. This is a chart statement: it recovers the unique anchor whose cap is <span class="math inline">\(\Lambda\)</span>. If your element is already a <span class="math inline">\(2\times 2\)</span> spinor <span class="math inline">\(xI + \mathbf{z}\cdot\boldsymbol{\sigma}\)</span>, the anchor is just <span class="math inline">\(\mathbf{z}/x\)</span>.</p>
+<p><strong>Not every anchor has a rational cap.</strong> A cap exists over <span class="math inline">\(\mathbb{F}_p\)</span> only if <span class="math inline">\((1-\alpha)^2 + \beta^2\)</span> is a non-zero square, where <span class="math inline">\(\zeta\cdot\zeta = \alpha + i\beta\)</span>. Over <span class="math inline">\(\mathbb{F}_7\)</span>, among all <span class="math inline">\(7^6 = 117{,}649\)</span> anchors, 57,575 admit a rational cap, 57,624 do not, and 2,450 lie on the excluded locus <span class="math inline">\(\zeta\cdot\zeta = 1\)</span>. So the anchor charts still have genuine exceptional sets. What is total is the projective rotor product.</p>
+<p><strong>Anchor doubling.</strong> The spinor Cayley map <span class="math inline">\(\mathrm{ca}(\zeta) = (I+\zeta\cdot\sigma)(I-\zeta\cdot\sigma)^{-1} \in SL(2,K)\)</span> induces, by conjugation, a Lorentz rotation whose anchor is <span class="math display">\[
+\zeta' = \frac{2\zeta}{1 + \zeta\cdot\zeta},
+\]</span> so the spin chart and the vector chart differ by a nonlinear doubling, as in <span class="math inline">\(SU(2) \to SO(3)\)</span>.</p>
+<p><strong>The 11% anomaly, stated carefully.</strong> An earlier preprint composed <span class="math inline">\((1+2)\)</span>-dimensional edge anchors with Wildberger’s anchor product and found the predicted trace matched the real <span class="math inline">\(2\times 2\)</span> computation only about 11% of the time. The corrected comparison uses doubled anchors and the sign-free quantity <span class="math inline">\(T^2\)</span>, which in <span class="math inline">\((1+2)\)</span> dimensions satisfies <span class="math inline">\(T^2 = 1 - p\)</span> with <span class="math inline">\(p\)</span> the half spread. (The <span class="math inline">\((1+3)\)</span> analogues are <span class="math inline">\(w^2 = 1 - \pi\)</span> and <span class="math inline">\(N_{K/\mathbb{F}_p}(w) = 1 - s\)</span>.) Over primes 7, 11, 13 and 17, all 1.7 million valid test pairs agree exactly. By contrast, the older target <span class="math inline">\((1-2p)^2\)</span> agrees only 70%, 38%, 35% and 24% of the time. This corrects a failure mode of the same type and explains why it fails; it does not reproduce the original 11% figure, which came from a different script. The test is in <span class="math inline">\((1+2)\)</span> dimensions.</p>
+<p><strong>Edge transports and holonomy.</strong> For non-null vertices <span class="math inline">\(u, v\)</span>, the preprint defines an edge transport <span class="math inline">\(U_{uv} = G_{uv}^2/\det G_{uv}\)</span> with <span class="math inline">\(G_{uv} = X(u)X(v)^\vee\)</span>. The square is a modeling choice (an ansatz): the unsquared product around a closed loop telescopes to a central scalar, i.e.&nbsp;a flat connection. The squared transport rotates by twice the reflection-pair angle and is not a transport carrying <span class="math inline">\([u]\)</span> to <span class="math inline">\([v]\)</span>, so it should not be read as a derivation of curvature. Over <span class="math inline">\(\mathbb{F}_7\)</span> (350 non-null points, 68,600 admissible ordered edges), exhaustively enumerating ordered admissible 4-cycles with the first vertex fixed to one representative per square class gives 4,597,908 cycles per class; 99.757% have non-trivial holonomy. The remaining 0.243% may be coplanar configurations: in a random sample of 9,097 non-coplanar cycles, none was trivial. That is evidence, not a proof; an exhaustive non-coplanar count is left for later work.</p>
+<p><strong>Ghost parity, as an analogy.</strong> The <span class="math inline">\(\mathbb{Z}_2\)</span> grading <span class="math inline">\(\varepsilon = \prod_{i=1}^4 \chi_p(Q(v_i))\)</span> on a tetrahedron’s four vertices is the spinor-norm character of an open reflection chain, and it is tied to the projective quadrume by <span class="math inline">\(\chi_p(\mathcal{V}) = -\varepsilon\)</span>. This is an algebraic analogue of the ghost-parity grading that Bateman and Turok use in higher-derivative quantum field theory. It is close to a definition, and sector decoupling in the dynamics holds by construction through the mutation rule. In their setting the corresponding statement is a nontrivial theorem about an interacting theory, which this model does not reproduce.</p>
+</section>
+<section id="what-this-does-and-does-not-claim" class="level2">
+<h2 class="anchored" data-anchor-id="what-this-does-and-does-not-claim">6. What this does and does not claim</h2>
+<p><strong>It gives:</strong> a compact <span class="math inline">\(2\times 2\)</span> description of the finite-field Lorentz group, exact counts that were checked by enumeration, a clear account of why one numerical comparison failed, and a reproducible script.</p>
+<p><strong>It does not give:</strong> curvature from holonomy, a justification of the squared transport beyond calling it an ansatz, the Bateman–Turok positivity result (finite fields have no ordering, so “positive” is meaningless here), or any continuum limit. The relation between the projective quadrume and Regge-type curvature, and the large-<span class="math inline">\(p\)</span> limit, are listed as open problems.</p>
+</section>
+<section id="try-it" class="level2">
+<h2 class="anchored" data-anchor-id="try-it">7. Try it</h2>
+<p>Download the Zenodo record at <a href="https://doi.org/10.5281/zenodo.23138782">doi:10.5281/zenodo.23138782</a> and run</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install numpy</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> verify_rotor_model.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Expect 100.00% agreement in Part 1 at every prime, 99.757% non-trivial holonomy in Part 2, and the anchor counts 57,575 / 57,624 / 2,450 in Part 3. The random-sample figures depend on NumPy’s generator, so digits in those lines may shift across major NumPy versions.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>J. D. Coady, <em>A Projective 2×2 Rotor Architecture for (1+3)D Discrete Spacetime: Holonomies, Ghost Parity, and the Double-Cover Anchor Map</em>, Zenodo (2026). <a href="https://doi.org/10.5281/zenodo.23138782">doi:10.5281/zenodo.23138782</a>.</li>
+<li>J. D. Coady, <em>Rational Rotations of Four Dimensional Relativistic Space: Projective Rotors, Anchors and Caps over a General Field</em>, preprint (2 Oct 2026). <a href="https://doi.org/10.5281/zenodo.23091444">doi:10.5281/zenodo.23091444</a>.</li>
+<li>J. D. Coady, <em>A Unified Finitist Indefinite-Hermitian Framework for 3+1D Spacetime</em>, preprint (2 Sept 2026). <a href="https://doi.org/10.5281/zenodo.21998460">doi:10.5281/zenodo.21998460</a>.</li>
+<li>J. D. Coady, <em>A Candidate Finitist Indefinite Hermitian Model with Ghost-Parity Symmetry</em>, preprint, v4 (29 Sept 2026). <a href="https://doi.org/10.5281/zenodo.21464405">doi:10.5281/zenodo.21464405</a>.</li>
+<li>S. Bateman and N. Turok, <em>Escape from Ostrogradsky via Hidden Ghost Parity</em>, preprint (2026). <a href="https://arxiv.org/abs/2607.00096">arXiv:2607.00096</a>.</li>
+<li>N. J. Wildberger, <em>Universal Hyperbolic Geometry I: Trigonometry</em>, Geometriae Dedicata 163 (2013). <a href="https://arxiv.org/abs/0909.1377">arXiv:0909.1377</a>.</li>
+<li>N. J. Wildberger, <em>The Anchor to Cap Map Replaces Exp for SL(2)</em>, 13 Aug 2025. Unpublished draft manuscript, presented in a members-only <a href="https://www.youtube.com/watch?v=xJee9s-r4cQ">Wild Egg Maths lecture</a>; no persistent identifier.</li>
+<li>N. J. Wildberger, <em>Rational Rotations of Three Dimensional Relativistic Space</em>, Sept 2026. Unpublished draft manuscript, presented in a members-only <a href="https://www.youtube.com/watch?v=S34umGqB1I4">Wild Egg Maths lecture</a>; no persistent identifier.</li>
+<li>N. J. Wildberger, <em>Famous Math Problems 21c: The geometry of the Dihedrons (and Quaternions)</em>, video lecture (2020). [add link]</li>
+<li>Michael Penn, <em>There is only one conic section</em> (video). <a href="https://youtu.be/FLXuHL1L-LI">youtu.be/FLXuHL1L-LI</a>.</li>
+</ol>
+<p><em>Code and analysis for the preprint were developed with AI assistance (Claude, Anthropic), as disclosed in the paper.</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jcoady\.github\.io\/blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="jcoady/blog" data-repo-id="R_kgDOUEMSRA" data-category="General" data-category-id="DIC_kwDOUEMSRM4DEZKl" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
+</div> <!-- /content -->
+
+
+
+
+</body></html>
