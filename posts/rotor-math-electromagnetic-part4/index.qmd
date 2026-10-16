@@ -1,0 +1,537 @@
+---
+title: "Toward Rotor-Derived Field Dynamics: Links from Curvature, the Free Equation from Boost Covariance, and a Cayley Time Step"
+author: "John D. Coady"
+date: "2026-10-16"
+categories: [pure-math, mathematical-physics, electromagnetism, gauge-theory, lorentz-group, rational-trigonometry]
+format:
+  html:
+    toc: true
+    code-fold: true
+---
+
+## Where Part 3 left off
+
+[Part 1](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-curvature/) identified the anchor $\zeta=\kappa+i\rho$ with the Riemann–Silberstein vector $\mathbf E+i\mathbf B$. [Part 2](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-part2/) and [Part 3](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-part3/) built exact Cayley lattice gauge identities, a photon-mass obstruction and a Wilson–Dirac operator. They also stated what is missing: the link variables $U_\mu(x)$ are inputs, and the field dynamics are not derived from the rotor.
+
+This post takes four steps toward closing that gap. Two succeed, one is a negative result recorded so it is not repeated, and one is standard numerics seen through the paper's Cayley cap.
+
+::: {.callout-note}
+## Scope
+- **Calculation 15** (links from curvature): an exact algebraic theorem, with proof and test. It is the discrete Poincaré lemma for Cayley-valued face data on a box.
+- **Calculation 16** (a group-valued Yee update): a **negative result**. It does not give Maxwell dynamics.
+- **Calculation 17** (the free equation from boost covariance): a derivation, under stated assumptions, that the rotor action forces $\partial_t\zeta=\pm i\,\nabla\times\zeta$. It is in the continuum and uses polynomial solutions; no lattice is Lorentz invariant.
+- **Calculation 18** (a Cayley time step): the Crank–Nicolson method for the linear lattice Maxwell system, recognised as the paper's cap applied to an antisymmetric generator.
+
+**Not claimed:** a derivation of dynamics from projective geometry alone (Calculation 17 assumes first-order $K$-linear structure and the action of the rotor group on $\zeta$); Lorentz covariance on a lattice; sources or matter coupling; the behaviour of Calculation 18 over $\mathbb F_p$; any link between $\zeta$ and the face parameters beyond the regularisation choice stated in Calculation 15.
+:::
+
+**Proofs and checks.** The statements are proved by the derivations in the text. The tables are computational verification in exact arithmetic over $\mathbb Q$ and $\mathbb F_p$ (a separate field class per prime), with the exceptions marked as floating point. The scripts are at the end.
+
+## Calculation 15: links from curvature
+
+Let $F$ satisfy the standing hypotheses ($\operatorname{char}F\neq2$, $-1\notin(F^\times)^2$), so $(\mathbb P^1(F),\oplus)$ with $a\oplus b=(a+b)/(1-ab)$ is the norm-one phase group of Part 2. On the box $[0,N]^3$ with links $a_x,a_y,a_z$, the plaquette parameters are
+$$
+P_{xy}=a_x(i,j,k)\oplus a_y(i{+}1,j,k)\ominus a_x(i,j{+}1,k)\ominus a_y(i,j,k),
+$$
+and cyclically for $P_{yz}$, $P_{zx}$. Face data live on the ranges $a^{xy}(i,j,k)$ with $i,j<N$, $k\le N$; $a^{yz}$ with $i\le N$, $j,k<N$; $a^{zx}$ with $j\le N$, $i,k<N$.
+
+**The cube identity.** For every cube $(i,j,k)\in[0,N)^3$,
+$$
+\bigl[a^{xy}(i,j,k{+}1)\ominus a^{xy}(i,j,k)\bigr]\oplus\bigl[a^{yz}(i{+}1,j,k)\ominus a^{yz}(i,j,k)\bigr]\oplus\bigl[a^{zx}(i,j{+}1,k)\ominus a^{zx}(i,j,k)\bigr]=0.\tag{$\star$}
+$$
+This involves all six faces of the cube. The three-face statement $a^{xy}\oplus a^{yz}\oplus a^{zx}=0$ is not the identity and is false for faces coming from links.
+
+**Proposition 15.** (i) Faces computed from links satisfy ($\star$). (ii) Conversely, if face data satisfy ($\star$) on every cube, the links defined by the axial-gauge recursion
+$$
+a_x\equiv0,\quad a_y(i{+}1)=a_y(i)\oplus P_{xy}(i),\quad a_z(i{+}1)=a_z(i)\ominus P_{zx}(i),
+$$
+with $a_z(0,j,k)=0$ and $a_y(0,j,k{+}1)=a_y(0,j,k)\ominus P_{yz}(0,j,k)$ on the slice $i=0$, have plaquettes equal to the data.
+
+*Proof.* (i) Each edge of a cube lies in two of its faces with opposite orientations, so in the abelian group the six oriented faces sum to zero; this is ($\star$). (ii) With $a_x=0$ one has $P_{xy}=a_y(i{+}1)\ominus a_y(i)$ and $P_{zx}=a_z(i)\ominus a_z(i{+}1)$, so the recursion reproduces the $xy$ and $zx$ faces at every $i$ by construction. On $i=0$, $a_z=0$ and the definition of $a_y(0,\cdot,\cdot)$ reproduce $P_{yz}(0,j,k)$. For the step $i\to i{+}1$, the reconstructed $yz$ face satisfies
+$$
+\tilde P_{yz}(i{+}1)=\tilde P_{yz}(i)\ominus\bigl[P_{xy}(i,j,k{+}1)\ominus P_{xy}(i,j,k)\bigr]\ominus\bigl[P_{zx}(i,j{+}1,k)\ominus P_{zx}(i,j,k)\bigr],
+$$
+and ($\star$) says the same relation holds for the data. Induction on $i$ finishes the proof. $\square$
+
+On the simply connected box the links are determined by the faces up to gauge (standard; not tested here). On a torus there are further conditions: the $\oplus$-sum of all plaquettes of each plane must vanish (Stokes), and the non-contractible holonomies are free data.
+
+*Relation to earlier posts.* Calculation 12(f) of Part 2 is the special case of constant faces. The recursion above replaces the "spanning tree, solve the fourth edge" description, which does not match what a face-by-face reconstruction does in practice.
+
+### Computational verification
+
+3D box $N=3$ (27 cubes, 36 faces per plane), faces generated from random links including $a=\infty$:
+
+| | $\mathbb Q$ | $\mathbb F_7$ | $\mathbb F_{11}$ |
+|:---|:---:|:---:|:---:|
+| six-face cube identity ($\star$) | 27/27 | 27/27 | 27/27 |
+| three-face statement $a^{xy}\oplus a^{yz}\oplus a^{zx}=0$ | 1/27 | 2/27 | 6/27 |
+| faces recovered by the reconstruction ($xy$, $yz$, $zx$) | 36/36 each | 36/36 each | 36/36 each |
+| random faces violating ($\star$): cubes where it holds | 0/27 | 3/27 | 4/27 |
+| ... faces recovered, $yz$ plane | 9/36 | 14/36 | 12/36 |
+| $4\times4$ torus, total flux, faces from links | $0$ | $0$ | $0$ |
+| $4\times4$ torus, total flux, random faces | $1749/14798$ | $4$ | $\infty$ |
+
+The $xy$ and $zx$ faces are recovered in the violating case too (36/36), because the gauge builds them directly; the $yz$ plane carries the test of ($\star$).
+
+### What this does and does not give
+
+- **Gives:** an exact, rational (or modular) map from Cayley-valued curvature to links on a box, with the necessary and sufficient condition ($\star$), and a recovery of the earlier uniform-field case.
+- **Does not give:** the face data from the rotor. Part 1's flux identity gives the flux $\Phi_F$ of a *given* field through a plane. To turn it into a Cayley face parameter one must choose a regularisation, for example $a_f:=-\tfrac12e\Phi_F(f)$. The exact relation $a_f=-\tan(e\Phi_F/2)$ is not rational in $\Phi_F$, so this is a choice and not a consequence. For non-constant fields the cube identity is a condition on the $a_f$ under $\oplus$, not on the linearised flux (Part 2, Calculation 12(f)).
+
+## Calculation 16: a group-valued Yee update (negative result)
+
+A natural attempt at lattice dynamics keeps every variable group-valued and updates by group translations, with $E$ on edges and $B$ on plaquettes ($2{+}1$ dimensions, integer step $n$):
+$$
+B\leftarrow B\ominus n\,\mathrm{curl}\,E,\qquad E\leftarrow E\oplus n\,\mathrm{curl}^{T}B,\qquad B\leftarrow B\ominus n\,\mathrm{curl}\,E .
+$$
+(The two $B$ updates are the "half-steps" written with the full $n$.) I record what was found because it is easy to be misled by the checks that pass.
+
+| Finding | Result |
+|:---|:---|
+| Reversibility ($n=-1$ undoes $n=1$) and the Gauss law over 3 steps | True over $\mathbb Q$ and $\mathbb F_7$ |
+| The **same** checks with plain addition mod 7 (no Cayley structure) | True |
+| Total flux of the random initial $B$ on the torus (must be $0$ for links to exist) | $-44/23$ over $\mathbb Q$; $2$ over $\mathbb F_7$ |
+| Wave speed of the real-valued linear scheme with the same update (lowest frequency over $k$, floating point) | $1.4102$ |
+| Same, with the standard Strang step ($B$ advanced by $\tfrac n2$ twice) | $0.9972$ |
+| Max $\lvert\text{eigenvalue}\rvert$ per step, update as above, $dt=0.5,\,0.7,\,0.9,\,1.0$ | $1.000,\ 5.663,\ 10.868,\ 13.928$ |
+| Same, standard Strang step | $1.000,\ 1.000,\ 4.244,\ 5.828$ |
+
+What follows:
+
+1. **The checks are tautological.** Reversibility and the Gauss law hold for any abelian group, as the plain-addition run shows. They say nothing about the Cayley structure, the rotor, or Maxwell's equations.
+2. **It is not a Maxwell solver.** The written update advances $B$ twice as fast as $E$, so the wave speed is $\sqrt2$, not 1. The step $n$ must be an integer (it is an $n$-fold $\oplus$), so there is no small step, and the corresponding real scheme is unstable at $n=1$ even with the standard half-steps (it is stable only for $dt\lesssim0.7$). In the angle $\theta=2\arctan a$ the update is the linear Yee scheme on circle-valued fields, with none of the $\sin\theta_P$ force of the Wilson dynamics of Calculation 10 of Part 1, and with a compact $E$ where Calculation 10 has a real-valued momentum.
+3. **The initial data is not realizable.** Random face data on the torus has non-zero total flux, so no links exist (Calculation 15). "The evolved faces stay in the image of the reconstruction map" is therefore untested, and in $2{+}1$ dimensions the cube identity is vacuous anyway.
+
+The lesson is that an exact, reversible, Gauss-preserving update is not evidence of Maxwell dynamics. Any proposed rule must be tested against a Maxwell law (wave speed, dispersion, stability).
+
+## Calculation 17: the free equation from boost covariance
+
+Part 1 (Calculation 6) and the paper show that Lorentz transformations act on $\zeta=\mathbf E+i\mathbf B$ by complex rotations; a real boost acts as a rotation by an *imaginary* angle. Take that action as input. What first-order equation for $\zeta$ is compatible with it?
+
+**Assumptions.** A first-order, linear, $K$-linear, constant-coefficient equation for $\zeta:\mathbb R^{1+3}\to K^3$ (with $K=F[i]$), covariant under rotations, with $\zeta$ acted on by boosts through the rotor action and no additional fields.
+
+**Step 1 (rotations).** The derivative $\partial_k\zeta_j$ decomposes under rotations into a scalar (the divergence), a vector (the curl) and a spin-2 part. Only the curl can equal $\partial_t\zeta$, a vector. So the equation is
+$$
+\partial_t\zeta=c\,\nabla\times\zeta,\qquad c\in K,
+$$
+and, since $\partial_t(\nabla\cdot\zeta)=c\,\nabla\cdot\nabla\times\zeta=0$, the constraint $\nabla\cdot\zeta=0$ is preserved. (This step is a representation-theory argument that I did not test computationally.)
+
+**Step 2 (boosts).** Let $L=\partial_t-c\nabla\times$ and let the boost along $x$ act by
+$$
+K\zeta=(x\partial_t+t\partial_x)\zeta+\mu\,e_x\times\zeta,
+$$
+where $\mu$ is the spin coupling (an imaginary-angle rotation is $\mu=\pm i$, up to sign conventions). Using $[\partial_t,K]=\partial_x$ and $\nabla\times(e_x\times\zeta)=e_x(\nabla\cdot\zeta)-\partial_x\zeta$, one finds on solutions ($\partial_t\zeta=c\nabla\times\zeta$, $\nabla\cdot\zeta=0$):
+$$
+[L,K]\zeta=(1+c\mu)\,\partial_x\zeta-c(c-\mu)\;e_x\times(\nabla\times\zeta),\qquad \nabla\cdot(K\zeta)=(c-\mu)(\nabla\times\zeta)_x .
+$$
+For $K$ to map solutions to solutions both must vanish. The second condition gives $\mu=c$; the first then gives $1+c^2=0$. Hence
+$$
+\boxed{\;c^2=-1,\qquad \mu=c,\qquad\text{i.e. }\ \partial_t\zeta=\pm i\,\nabla\times\zeta\ .}
+$$
+The two signs correspond to the two orientation conventions ($\zeta$ versus its conjugate, i.e. the automorphism $i\mapsto-i$ of $K$).
+
+**Why $K$ is needed.** $c^2=-1$ has no solution in $F$, because $-1$ is not a square there. So no first-order covariant equation exists for $F$-valued $\zeta$; the quadratic extension of the paper is exactly what makes it solvable.
+
+### Computational verification
+
+Over $\mathbb Q(i)$, exactly, I computed the polynomial solutions of $\partial_t\zeta=c\nabla\times\zeta$, $\nabla\cdot\zeta=0$ of total degree $\le3$ in $(t,x,y,z)$ for several $c$, and tested closure under the boost generator $K$ for each spin coupling $\mu\in\{\pm i,\pm1\}$ and under the rotation generator $J_x\zeta=(y\partial_z-z\partial_y)\zeta+s\,e_x\times\zeta$ for $s=\pm1$:
+
+| $c$ | solutions (degree $\le3$) | boost-covariant $\mu$ | rotation-covariant $s$ |
+|:---:|:---:|:---:|:---:|
+| $-i$ | 50 | $-i$ | $-1$ |
+| $+i$ | 50 | $+i$ | $-1$ |
+| $+1$ | 50 | none | $-1$ |
+| $-1$ | 50 | none | $-1$ |
+| $+2$ | 50 | none | $-1$ |
+
+This agrees with the derivation: only $c=\pm i$ admits a boost-covariant coupling, and it must be $\mu=c$. (The test checks closure on a finite-dimensional space of polynomial solutions, so it is evidence consistent with the derivation, not a replacement for it.)
+
+### What this does and does not give
+
+- **Gives:** the free vacuum equation $\partial_t\zeta=\pm i\nabla\times\zeta$, with $\nabla\cdot\zeta=0$, as a consequence of the rotor action and first-order $K$-linear structure. This is the Riemann–Silberstein form of the free Maxwell equations; in two-spinor language it is the spin-1 case of the massless free-field equations [4].
+- **Does not give:** the transformation law of $\zeta$ itself, which is input (Part 1, Calculation 6, and the paper); a derivation without the first-order and linearity assumptions; any source term. With a current, $\partial_t\zeta=\mp i\nabla\times\zeta-J$ and $\nabla\cdot\zeta=\rho$ would need the law by which $(\rho,J)$ transforms, which I have not tested.
+- **Not a lattice statement.** No regular lattice is Lorentz invariant. The covariance is in the continuum.
+
+## Calculation 18: a Cayley time step for the lattice curl
+
+Take the linear lattice Maxwell system on a periodic torus with $E$ on edges, $B$ on plaquettes and $C$ the lattice curl (edges to faces):
+$$
+\frac d{dt}\begin{pmatrix}E\\B\end{pmatrix}=M\begin{pmatrix}E\\B\end{pmatrix},\qquad M=\begin{pmatrix}0&C^T\\-C&0\end{pmatrix},\qquad M^T=-M .
+$$
+Define the **Cayley step**
+$$
+Q(dt)=\bigl(I-\tfrac{dt}2M\bigr)^{-1}\bigl(I+\tfrac{dt}2M\bigr),
+$$
+the paper's cap $\mathrm{ca}(A)=(I+A)(I-A)^{-1}$ at the antisymmetric $A=\tfrac{dt}2M$. This is the Crank–Nicolson method [5]; the new point is only that it is the rational orthogonal cap.
+
+**Proposition 18.** (i) $Q^TQ=I$. (ii) With $D$ the divergence of $E$ (extended by zero on $B$), $DQ=D$. (iii) $Q(-dt)=Q(dt)^{-1}$, and $Q$ is defined whenever $I-\tfrac{dt}2M$ is invertible.
+
+*Proof.* (i) $(I+A)$ and $(I-A)$ commute, and $A^T=-A$, so $Q^TQ=(I-A)(I+A)^{-1}(I-A)^{-1}(I+A)=I$. (ii) $DM=(0\;\;DC^T)=0$ because the divergence of a curl vanishes, so $DA=0$; then $D(I-A)=D$ gives $D=D(I-A)^{-1}$, and $DQ=D(I+A)=D$. (iii) $Q(-dt)=(I+A)^{-1}(I-A)=Q(dt)^{-1}$. $\square$
+
+### Computational verification
+
+$4\times4$ torus ($48$-dimensional state), exact over $\mathbb Q$:
+
+| $dt$ | $Q^TQ=I$ | $DQ=D$ | $Q(-dt)=Q(dt)^{-1}$ | largest entry denominator (bits) |
+|:---:|:---:|:---:|:---:|:---:|
+| 1 | true | true | true | 8 |
+| 3/2 | true | true | true | 21 |
+| 7/3 | true | true | true | 30 |
+
+Floating point: the error against $\exp(Mt)$ at $T=1$ is $3.2\times10^{-2},\,8.1\times10^{-3},\,2.0\times10^{-3},\,5.1\times10^{-4}$ for $4,8,16,32$ steps (second order), and the norm after 200 steps relative to the start is $1.000000000000$ at $dt=0.5,\,5,\,50$ (unconditional stability).
+
+### What this does and does not give
+
+- **Gives:** a rational time step of arbitrary rational $dt$, with exact energy conservation, exact Gauss preservation and exact reversibility, second-order accurate and without a CFL limit. It repairs the three failures of Calculation 16 for the linear free field.
+- **Remark (not tested):** in the additive potential variables $(a,E)$ with $B=Ca$ and $\dot a=-E$, the same step is the implicit midpoint rule for $H=\tfrac12E^2+\tfrac12\lvert Ca\rvert^2$, which is symplectic for quadratic $H$ (a standard fact). The flux is then realizable by construction, with no reconstruction map in the loop.
+- **Does not give:** the compact Wilson dynamics (Calculation 10 of Part 1 remains the integrator there); behaviour over $\mathbb F_p$, where $Q^TQ=I$ is an identity but invertibility of $I-\tfrac{dt}2M$ must be checked and there is no energy; sources; Lorentz covariance.
+
+## What is and is not established
+
+| Step | Status |
+|:---|:---|
+| Links from Cayley curvature on a box (Calculation 15) | proved, tested over $\mathbb Q,\mathbb F_7,\mathbb F_{11}$ |
+| Rotor $\to$ face parameters | **not derived**; a regularisation is chosen |
+| Group-valued Yee update (Calculation 16) | **does not work** (negative result) |
+| Free equation $\partial_t\zeta=\pm i\nabla\times\zeta$ from the rotor action (Calculation 17) | derived under stated assumptions; continuum |
+| Rational orthogonal time step (Calculation 18) | proved and tested, linear free field |
+| Commuting diagram (lattice step $\leftrightarrow$ continuum equation) | **untested** |
+| Weak-field agreement with Calculation 10 | **untested** |
+| Sources and matter coupling | **untested** |
+
+## Next directions
+
+1. **Lattice-to-continuum diagram.** Compare the Calculation 18 step with the equation of Calculation 17 on smooth data, and measure the convergence rate.
+2. **Weak-field agreement.** Check that Calculation 10's compact dynamics approaches Calculation 18 at weak field.
+3. **Sources.** Determine the transformation law of $(\rho,J)$ and couple the Wilson–Dirac current of Part 3, so the Gauss law becomes the Noether constraint of a combined action.
+4. **Finite fields.** Determine the domain of Calculation 18 over $\mathbb F_p$.
+5. **Torus.** State the holonomy conditions of Calculation 15 on a torus.
+
+## Reproducing Calculations 15 and 16
+
+```python
+"""
+Calculations 15 and 16 (Part 4).
+
+  15. Reconstruction of Cayley link parameters from Cayley face parameters on an open 3D box.
+      (a) the cube identity has SIX faces (three differences); the three-face statement a_xy (+) a_yz (+) a_zx = 0 is false
+      (b) axial-gauge reconstruction recovers every face exactly when the cube identity holds (Q, F_7, F_11)
+      (c) face data violating the cube identity is not recovered
+      (d) on a torus the total flux of each plane must vanish (Stokes); random face data violates it
+  16. A group-valued Yee update  B <- B (-) n curl E,  E <- E (+) n curl B,  B <- B (-) n curl E  (integer n):  a negative result
+      (a) reversibility and the Gauss law hold equally for plain addition mod 7: the checks do not test the Cayley structure
+      (b) the real-valued linear scheme with the same update: wave speed and stability versus dt
+
+Needs numpy.  Runs in about a minute.
+"""
+import itertools
+import random
+from fractions import Fraction as Fr
+import numpy as np
+
+
+# ------------------------------------------------------------------ fields ---
+def make_Fp(p):
+    class FpP:
+        P = p
+        def __init__(s, v): s.v = int(v) % FpP.P
+        def __add__(s, o): return FpP(s.v + _v(o))
+        __radd__ = __add__
+        def __sub__(s, o): return FpP(s.v - _v(o))
+        def __rsub__(s, o): return FpP(_v(o) - s.v)
+        def __neg__(s): return FpP(-s.v)
+        def __mul__(s, o): return FpP(s.v * _v(o))
+        __rmul__ = __mul__
+        def __truediv__(s, o): return FpP(s.v * pow(_v(o), -1, FpP.P))
+        def __rtruediv__(s, o): return FpP(_v(o) * pow(s.v, -1, FpP.P))
+        def __eq__(s, o): return o is not None and s.v == _v(o) % FpP.P
+        def __hash__(s): return hash(s.v)
+        def __repr__(s): return str(s.v)
+    return FpP
+
+def _v(o): return o.v if hasattr(o, "v") else int(o)
+def kmul(u, v): return (u[0] * v[0] - u[1] * v[1], u[0] * v[1] + u[1] * v[0])
+def kpow(u, q, one, zero):
+    r = (one, zero)
+    for _ in range(q): r = kmul(r, u)
+    return r
+
+class Ring:
+    """P^1(F) with the Cayley group law  a (+) b = (a + b)/(1 - ab); a = None means infinity."""
+    def __init__(s, mk, p=None):
+        s.mk, s.p, s.one, s.zero = mk, p, mk(1), mk(0)
+    def phase(s, a):
+        if a is None: return (-s.one, s.zero)
+        d = s.one + a * a
+        return ((s.one - a * a) / d, s.mk(-2) * a / d)
+    def a_of(s, u): return None if u[0] == -s.one else -u[1] / (s.one + u[0])
+    def oplus(s, a, b): return s.a_of(kmul(s.phase(a), s.phase(b)))
+    def neg(s, a): return None if a is None else -a
+    def ominus(s, a, b): return s.oplus(a, s.neg(b))
+    def scale(s, n, a):                                  # n-fold (+), n an integer
+        if n < 0: return s.neg(s.scale(-n, a))
+        r = s.zero
+        for _ in range(n): r = s.oplus(r, a)
+        return r
+    def eq(s, a, b): return (a is None and b is None) or (a is not None and b is not None and a == b)
+
+class AddRing:
+    """Z_p with plain addition: no Cayley structure at all (used to show that some checks are tautological)."""
+    def __init__(s, p): s.p, s.zero = p, 0
+    def oplus(s, a, b): return (a + b) % s.p
+    def ominus(s, a, b): return (a - b) % s.p
+    def neg(s, a): return (-a) % s.p
+    def scale(s, n, a): return (n * a) % s.p
+    def eq(s, a, b): return a == b
+
+RQ = Ring(Fr)
+def RF(p): return Ring(make_Fp(p), p)
+
+def sampler(R, rng):
+    if R is RQ: return lambda: None if rng.random() < 0.04 else Fr(rng.randint(-6, 6), rng.randint(1, 4))
+    return lambda: None if rng.randrange(R.p + 1) == R.p else R.mk(rng.randrange(R.p))
+def sampler_finite(R, rng):                              # no infinity
+    if R is RQ: return lambda: Fr(rng.randint(-6, 6), rng.randint(1, 4))
+    return lambda: R.mk(rng.randrange(R.p))
+
+
+# ======================================================================
+#  15.  RECONSTRUCTION OF LINKS FROM FACES (open 3D box)
+# ======================================================================
+def make_links(N, rnd): return {(i, j, k, m): rnd() for i in range(N + 1) for j in range(N + 1) for k in range(N + 1) for m in range(3)}
+def Pxy(R, a, i, j, k): return R.oplus(R.oplus(R.oplus(a[(i, j, k, 0)], a[(i + 1, j, k, 1)]), R.neg(a[(i, j + 1, k, 0)])), R.neg(a[(i, j, k, 1)]))
+def Pyz(R, a, i, j, k): return R.oplus(R.oplus(R.oplus(a[(i, j, k, 1)], a[(i, j + 1, k, 2)]), R.neg(a[(i, j, k + 1, 1)])), R.neg(a[(i, j, k, 2)]))
+def Pzx(R, a, i, j, k): return R.oplus(R.oplus(R.oplus(a[(i, j, k, 2)], a[(i, j, k + 1, 0)]), R.neg(a[(i + 1, j, k, 2)])), R.neg(a[(i, j, k, 0)]))
+
+def face_ranges(N):
+    return {'xy': [(i, j, k) for i in range(N) for j in range(N) for k in range(N + 1)],
+            'yz': [(i, j, k) for i in range(N + 1) for j in range(N) for k in range(N)],
+            'zx': [(i, j, k) for i in range(N) for j in range(N + 1) for k in range(N)]}
+
+def faces_from_links(R, a, N):
+    fr = face_ranges(N); f = {'xy': Pxy, 'yz': Pyz, 'zx': Pzx}
+    return {n: {p: f[n](R, a, *p) for p in fr[n]} for n in fr}
+
+def cube_residual(R, F, i, j, k):
+    """[a_xy(k+1) (-) a_xy(k)] (+) [a_yz(i+1) (-) a_yz(i)] (+) [a_zx(j+1) (-) a_zx(j)]  (all six faces of the cube)."""
+    d = lambda f, p, q: R.ominus(F[f][p], F[f][q])
+    return R.oplus(R.oplus(d('xy', (i, j, k + 1), (i, j, k)), d('yz', (i + 1, j, k), (i, j, k))), d('zx', (i, j + 1, k), (i, j, k)))
+
+def reconstruct(R, F, N):
+    """Axial gauge a_x = 0.   a_y(i+1) = a_y(i) (+) P_xy(i);   a_z(i+1) = a_z(i) (-) P_zx(i);
+    on the slice i = 0:  a_z = 0 and a_y(0,j,k+1) = a_y(0,j,k) (-) P_yz(0,j,k)."""
+    a = {(i, j, k, m): R.zero for i in range(N + 1) for j in range(N + 1) for k in range(N + 1) for m in range(3)}
+    for j in range(N):
+        for k in range(N): a[(0, j, k + 1, 1)] = R.ominus(a[(0, j, k, 1)], F['yz'][(0, j, k)])
+    for i in range(N):
+        for j in range(N):
+            for k in range(N + 1): a[(i + 1, j, k, 1)] = R.oplus(a[(i, j, k, 1)], F['xy'][(i, j, k)])
+        for j in range(N + 1):
+            for k in range(N): a[(i + 1, j, k, 2)] = R.ominus(a[(i, j, k, 2)], F['zx'][(i, j, k)])
+    return a
+
+def match(R, F, a, N):
+    G2 = faces_from_links(R, a, N)
+    return {n: (sum(R.eq(G2[n][p], F[n][p]) for p in F[n]), len(F[n])) for n in F}
+
+def torus_flux_checks(R, L=4, seed=7):
+    """On an L x L torus the (+)-sum of all plaquettes is zero for faces coming from links, but not for random faces."""
+    rng = random.Random(seed); rnd = sampler(R, rng); fin = sampler_finite(R, rng)
+    a = {(i, j, m): rnd() for i in range(L) for j in range(L) for m in range(2)}
+    def plaq(i, j):
+        return R.oplus(R.oplus(R.oplus(a[(i, j, 0)], a[((i + 1) % L, j, 1)]), R.neg(a[(i, (j + 1) % L, 0)])), R.neg(a[(i, j, 1)]))
+    tot_links = R.zero
+    for i in range(L):
+        for j in range(L): tot_links = R.oplus(tot_links, plaq(i, j))
+    tot_rand = R.zero
+    for i in range(L):
+        for j in range(L): tot_rand = R.oplus(tot_rand, fin())
+    return tot_links, tot_rand
+
+
+# ======================================================================
+#  16.  A GROUP-VALUED YEE UPDATE (negative result)
+# ======================================================================
+def curl_E(R, Ex, Ey, i, j, L):
+    return R.oplus(R.oplus(R.oplus(Ex[(i, j)], Ey[((i + 1) % L, j)]), R.neg(Ex[(i, (j + 1) % L)])), R.neg(Ey[(i, j)]))
+def curl_B_x(R, B, i, j, L): return R.ominus(B[(i, j)], B[(i, (j - 1) % L)])
+def curl_B_y(R, B, i, j, L): return R.ominus(B[((i - 1) % L, j)], B[(i, j)])
+def div_E(R, Ex, Ey, i, j, L):
+    return R.oplus(R.oplus(R.ominus(Ex[(i, j)], Ex[((i - 1) % L, j)]), Ey[(i, j)]), R.neg(Ey[(i, (j - 1) % L)]))
+
+def yee_step(R, Ex, Ey, B, n, L):
+    """B advanced by n twice and E by n once (the 'half-steps' use the full n)."""
+    P = list(itertools.product(range(L), repeat=2))
+    B1 = {(i, j): R.ominus(B[(i, j)], R.scale(n, curl_E(R, Ex, Ey, i, j, L))) for i, j in P}
+    Ex1 = {(i, j): R.oplus(Ex[(i, j)], R.scale(n, curl_B_x(R, B1, i, j, L))) for i, j in P}
+    Ey1 = {(i, j): R.oplus(Ey[(i, j)], R.scale(n, curl_B_y(R, B1, i, j, L))) for i, j in P}
+    B2 = {(i, j): R.ominus(B1[(i, j)], R.scale(n, curl_E(R, Ex1, Ey1, i, j, L))) for i, j in P}
+    return Ex1, Ey1, B2
+
+def yee_harness(R, rnd, L=4):
+    P = list(itertools.product(range(L), repeat=2))
+    Ex = {k: rnd() for k in P}; Ey = {k: rnd() for k in P}; B = {k: rnd() for k in P}
+    s1 = yee_step(R, Ex, Ey, B, 1, L); s0 = yee_step(R, *s1, -1, L)
+    rev = all(R.eq(s0[0][k], Ex[k]) and R.eq(s0[1][k], Ey[k]) and R.eq(s0[2][k], B[k]) for k in P)
+    g0 = {k: div_E(R, Ex, Ey, *k, L) for k in P}
+    n = (Ex, Ey, B)
+    for _ in range(3): n = yee_step(R, *n, 1, L)
+    gauss = all(R.eq(g0[k], div_E(R, n[0], n[1], *k, L)) for k in P)
+    tot = R.zero
+    for k in P: tot = R.oplus(tot, B[k])
+    return rev, gauss, tot
+
+def real_step_matrix(L, dt, half):
+    """Real-valued linear Yee step.  half = False: B advanced by dt twice (as in the group-valued update);
+    half = True: standard Strang step, B advanced by dt/2 twice."""
+    n = 3 * L * L; M = np.zeros((n, n))
+    def step(v):
+        Ex = v[:L * L].reshape(L, L).copy(); Ey = v[L * L:2 * L * L].reshape(L, L).copy(); B = v[2 * L * L:].reshape(L, L).copy()
+        curlE = lambda Ex, Ey: Ex + np.roll(Ey, -1, axis=0) - np.roll(Ex, -1, axis=1) - Ey
+        h = dt / 2 if half else dt
+        B = B - h * curlE(Ex, Ey)
+        Ex = Ex + dt * (B - np.roll(B, 1, axis=1)); Ey = Ey + dt * (np.roll(B, 1, axis=0) - B)
+        B = B - h * curlE(Ex, Ey)
+        return np.concatenate([Ex.ravel(), Ey.ravel(), B.ravel()])
+    for c in range(n):
+        e = np.zeros(n); e[c] = 1; M[:, c] = step(e)
+    return M
+
+
+def main():
+    print("15. reconstruction of links from faces, open 3D box N = 3 (36 faces per plane, 27 cubes)")
+    N = 3
+    for label, R in (("Q", RQ), ("F_7", RF(7)), ("F_11", RF(11))):
+        rng = random.Random(3); rnd = sampler(R, rng)
+        a = make_links(N, rnd); F = faces_from_links(R, a, N)
+        cubes = list(itertools.product(range(N), repeat=3))
+        ok6 = sum(R.eq(cube_residual(R, F, *c), R.zero) for c in cubes)
+        ok3 = sum(R.eq(R.oplus(R.oplus(F['xy'][c], F['yz'][c]), F['zx'][c]), R.zero) for c in cubes)
+        m = match(R, F, reconstruct(R, F, N), N)
+        print(f"   {label:<5} six-face cube identity {ok6}/27;  three-face a_xy (+) a_yz (+) a_zx = 0: {ok3}/27;  "
+              f"recovered faces from Bianchi-satisfying data: xy {m['xy'][0]}/{m['xy'][1]}, yz {m['yz'][0]}/{m['yz'][1]}, zx {m['zx'][0]}/{m['zx'][1]}")
+        rng2 = random.Random(4); fin = sampler_finite(R, rng2); fr = face_ranges(N)
+        Fbad = {n: {p: fin() for p in fr[n]} for n in fr}
+        bad = sum(R.eq(cube_residual(R, Fbad, *c), R.zero) for c in cubes)
+        m = match(R, Fbad, reconstruct(R, Fbad, N), N)
+        print(f"         random faces violating the identity (holds on {bad}/27 cubes): recovered xy {m['xy'][0]}/36, yz {m['yz'][0]}/36, zx {m['zx'][0]}/36")
+        tl, tr = torus_flux_checks(R)
+        print(f"         4x4 torus, total flux: faces from links = {tl} (must be 0);  random faces = {tr}")
+    print("\n16. group-valued Yee update, 2+1 D torus L = 4, integer step n = 1")
+    for label, R in (("Q", RQ), ("F_7", RF(7))):
+        rng = random.Random(17); rnd = sampler_finite(R, rng)
+        rev, gauss, tot = yee_harness(R, rnd)
+        print(f"   Cayley {label:<4}: reversibility {rev}, Gauss after 3 steps {gauss}, total flux of the random initial B = {tot}")
+    Z = AddRing(7); rng = random.Random(17); rnd = lambda: rng.randrange(7)
+    rev, gauss, tot = yee_harness(Z, rnd)
+    print(f"   plain Z_7 addition (no Cayley structure): reversibility {rev}, Gauss after 3 steps {gauss}")
+    L = 24; dt = 0.05; k = 2 * np.pi / L
+    for half, name in ((False, "as above (B advanced by dt twice)"), (True, "standard Strang (B advanced by dt/2 twice)")):
+        ev = np.linalg.eigvals(real_step_matrix(L, dt, half))
+        w = np.sort(np.abs(np.angle(ev)) / dt); w = w[w > 1e-9]
+        print(f"   real linear scheme, {name}: lowest wave frequency / k = {w[0] / k:.4f}")
+    for half, name in ((False, "as above"), (True, "standard")):
+        print("   max |eigenvalue| per step, " + name + ":  " + ",  ".join(
+            f"dt = {dt_}: {np.max(abs(np.linalg.eigvals(real_step_matrix(8, dt_, half)))):.3f}" for dt_ in (0.5, 0.7, 0.9, 1.0)))
+
+main()
+```
+
+## Reproducing Calculation 17
+
+```python
+"""
+Does boost covariance force the Riemann-Silberstein equation?   (exact arithmetic over Q(i), polynomial solutions)
+
+Equation:   d_t zeta = c curl zeta,  div zeta = 0,     zeta in K^3 (K = Q(i)),  c in K.
+Rotations act by  J_x zeta = (y d_z - z d_y) zeta + s e_x x zeta
+Boosts    act by  K_x zeta = (x d_t + t d_x) zeta + mu e_x x zeta          (mu = spin coupling; imaginary-angle rotation <-> mu = +-i)
+We find the polynomial solution space (total degree <= 3) for each c and test closure under K_x and J_x.
+"""
+import itertools, sympy as sp
+t,x,y,z=sp.symbols('t x y z'); X=(x,y,z); I=sp.I
+mons=[t**a*x**b*y**c_*z**d for a in range(4) for b in range(4) for c_ in range(4) for d in range(4) if a+b+c_+d<=3]
+def curl(v): return [sp.diff(v[2],y)-sp.diff(v[1],z), sp.diff(v[0],z)-sp.diff(v[2],x), sp.diff(v[1],x)-sp.diff(v[0],y)]
+def div(v): return sum(sp.diff(v[i],X[i]) for i in range(3))
+def cross_ex(v): return [0, -v[2], v[1]]            # e_x x v
+def solution_space(c):
+    syms=[sp.Symbol(f'q{a}_{k}') for a in range(3) for k in range(len(mons))]
+    zeta=[sum(syms[a*len(mons)+k]*mons[k] for k in range(len(mons))) for a in range(3)]
+    eqs=[sp.diff(zeta[a],t)-c*curl(zeta)[a] for a in range(3)]+[div(zeta)]
+    rows=[]
+    for e in eqs:
+        e=sp.expand(e)
+        if e==0: continue
+        for co in sp.Poly(e,t,x,y,z).coeffs(): rows.append(co)
+    M,_=sp.linear_eq_to_matrix(rows,syms)
+    ns=M.nullspace()
+    return [[sp.expand(sum(v[a*len(mons)+k]*mons[k] for k in range(len(mons)))) for a in range(3)] for v in ns]
+def residual_ok(zeta,c):
+    r=[sp.expand(sp.diff(zeta[a],t)-c*curl(zeta)[a]) for a in range(3)]+[sp.expand(div(zeta))]
+    return all(e==0 for e in r)
+def boost(zeta,mu): 
+    cr=cross_ex(zeta); return [sp.expand(x*sp.diff(zeta[a],t)+t*sp.diff(zeta[a],x)+mu*cr[a]) for a in range(3)]
+def rot(zeta,s):
+    cr=cross_ex(zeta); return [sp.expand(y*sp.diff(zeta[a],z)-z*sp.diff(zeta[a],y)+s*cr[a]) for a in range(3)]
+vals={'-i':-I,'+i':I,'+1':sp.Integer(1),'-1':sp.Integer(-1),'+2':sp.Integer(2)}
+for cn,c in vals.items():
+    sols=solution_space(c)
+    boosts=[mn for mn,mu in vals.items() if all(residual_ok(boost(s,mu),c) for s in sols)]
+    rots=[s_ for s_ in (1,-1) if all(residual_ok(rot(s,s_),c) for s in sols)]
+    print(f"c = {cn:>3}: polynomial solutions (deg<=3): {len(sols):3d};  boost-covariant spin couplings mu: {boosts if boosts else 'none'};  rotation-covariant s: {rots}")
+```
+
+## Reproducing Calculation 18
+
+```python
+"""
+Cayley (Crank-Nicolson) time step for the lattice Maxwell system  d/dt (E, B) = M (E, B),  M = [[0, C^T], [-C, 0]]  (antisymmetric).
+Q(dt) = (I - dt M/2)^-1 (I + dt M/2) is a RATIONAL ORTHOGONAL matrix (Wildberger's cap for SO(n)).
+Exact checks over Q (sympy), accuracy against the matrix exponential (scipy).
+2+1 D periodic torus, E on edges, B on plaquettes.
+"""
+import itertools, numpy as np, sympy as sp
+from scipy.linalg import expm
+def build(L):
+    n=L*L; ix=lambda a,i,j: a*n+(i%L)*L+(j%L)
+    C=sp.zeros(n,2*n)                      # (C E)(i,j) = Ex(i,j)+Ey(i+1,j)-Ex(i,j+1)-Ey(i,j)
+    for i in range(L):
+        for j in range(L):
+            C[i*L+j,ix(0,i,j)]+=1; C[i*L+j,ix(1,i+1,j)]+=1; C[i*L+j,ix(0,i,j+1)]-=1; C[i*L+j,ix(1,i,j)]-=1
+    D=sp.zeros(n,2*n)                      # div E (i,j) = Ex(i,j)-Ex(i-1,j)+Ey(i,j)-Ey(i,j-1)
+    for i in range(L):
+        for j in range(L):
+            D[i*L+j,ix(0,i,j)]+=1; D[i*L+j,ix(0,i-1,j)]-=1; D[i*L+j,ix(1,i,j)]+=1; D[i*L+j,ix(1,i,j-1)]-=1
+    M=sp.zeros(3*n,3*n); M[:2*n,2*n:]=C.T; M[2*n:,:2*n]=-C
+    return M,D,C
+L=4; M,D,C=build(L); N=M.shape[0]; Id=sp.eye(N)
+print("M antisymmetric:", M.T==-M, ";  div(curl^T) = 0 (so Gauss is a conserved linear functional):", D*C.T==sp.zeros(D.shape[0],C.shape[0]))
+for dt in (sp.Rational(1),sp.Rational(3,2),sp.Rational(7,3)):
+    Q=(Id-dt*M/2).inv()*(Id+dt*M/2)
+    orth=(Q.T*Q==Id)
+    gauss=(D*Q[:, :]).extract(list(range(D.shape[0])),list(range(N)))  if False else None
+    Dfull=sp.zeros(D.shape[0],N); Dfull[:,:2*L*L]=D
+    gauss_ok=(Dfull*Q==Dfull)
+    Qinv=(Id+dt*M/2).inv()*(Id-dt*M/2)            # Q(-dt)
+    rev=(Q*Qinv==Id)
+    print(f"dt = {dt}: Q^T Q = I exactly: {orth};  Gauss functional preserved exactly (D Q = D): {gauss_ok};  Q(-dt) = Q(dt)^-1: {rev};  max entry denominator bits: {max(sp.Rational(e).q.bit_length() for e in Q)}")
+# accuracy against exp(M t) (floating point), unconditional stability
+Mf=np.array(M.tolist(),dtype=float); T=1.0
+for steps in (4,8,16,32):
+    dt=T/steps; Qf=np.linalg.solve(np.eye(N)-dt*Mf/2,np.eye(N)+dt*Mf/2)
+    err=np.max(abs(np.linalg.matrix_power(Qf,steps)-expm(Mf*T))); print(f"accuracy at T = 1: {steps:3d} steps, max error {err:.3e}")
+rng=np.random.default_rng(1); v=rng.normal(size=N)
+for dt in (0.5,5.0,50.0):
+    Qf=np.linalg.solve(np.eye(N)-dt*Mf/2,np.eye(N)+dt*Mf/2); w=v.copy()
+    for _ in range(200): w=Qf@w
+    print(f"dt = {dt:5.1f}: norm after 200 steps / initial norm = {np.linalg.norm(w)/np.linalg.norm(v):.12f}")
+```
+
+## References
+
+1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Version 2, October 15, 2026. DOI: [10.5281/zenodo.23395166](https://doi.org/10.5281/zenodo.23395166).
+2. J. D. Coady. Parts 1, 2 and 3 of this series, blog posts, October 2026.
+3. N. J. Wildberger. *Divine Proportions: Rational Trigonometry to Universal Geometry*. Wild Egg Books, Sydney, 2005.
+4. R. Penrose and W. Rindler. *Spinors and Space-Time, Volume 1*. Cambridge University Press, 1984.
+5. J. Crank and P. Nicolson. A practical method for numerical evaluation of solutions of partial differential equations of the heat-conduction type. *Proc. Cambridge Philos. Soc.* 43, 50 (1947) (cited from memory).
+6. K. S. Yee. Numerical solution of initial boundary value problems involving Maxwell's equations in isotropic media. *IEEE Trans. Antennas Propag.* 14, 302 (1966).
