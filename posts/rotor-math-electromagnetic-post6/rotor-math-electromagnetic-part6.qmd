@@ -1,0 +1,120 @@
+---
+title: "Where the Rotor–Gauge Programme Stands: What Is Proved, What Is Chosen, and What Is Missing"
+author: "John D. Coady"
+date: "2026-10-17"
+categories: [pure-math, mathematical-physics, electromagnetism, gauge-theory, lorentz-group, rational-trigonometry]
+format:
+  html:
+    toc: true
+---
+
+## Why this post
+
+Five posts in, the work has produced several results that each hold up on their own but have not yet been joined into one system. This post is a map: what the programme set out to do, which parts are established, which are choices, which are negative results, and what the central missing piece is. It contains no new calculations. It does record one corrected script and a short log of corrections made along the way.
+
+## The goal, in three questions
+
+1. **Representation.** What can rotor mathematics already say about electromagnetism and abelian gauge theory?
+2. **Evolution.** How do the mathematical objects change consistently from one time step to the next?
+3. **Derivation.** Can that evolution be derived from the rotor framework itself, instead of borrowed from standard electromagnetism or lattice gauge theory?
+
+The first question has produced real results. The second has produced useful building blocks. The third is the unfinished one.
+
+## What the lecture asks for
+
+[Lecture 13 of the particle physics course](https://youtu.be/WGQMb88xDqA) ([handwritten notes](https://inside.mines.edu/~aflourno/Particle/Lecture13-%20Interactions%20via%20Local%20Gauge%20Invariance%20%28The%20Abelian%20Case%29.pdf)) works with three objects, easiest to picture on a grid:
+
+- the **matter field** $\psi(x)$, the state of a charged particle at each point;
+- the **connection** $A_\mu(x)$, which says how to compare the state at one point with the state at a neighbouring point (on a lattice, a link variable on each edge);
+- the **curvature** $F_{\mu\nu}$, what is left when a state is carried around a small loop and does not come back unchanged ($[D_\mu,D_\nu]\psi=iqF_{\mu\nu}\psi$).
+
+Knowing the field strength does not, by itself, give the connection, and neither tells you how the fields change in time. That is why the series moved from representing the field (Part 1) to links, matter and dynamics (Parts 2–5).
+
+## Mapping the work onto the lecture
+
+| Lecture element | What the series has | Status |
+|:---|:---|:---|
+| Field strength and its algebra | Part 1: the anchor $\zeta=\mathbf E+i\mathbf B$ gives the Lorentz force, both field invariants, null fields, duality, and a rational particle integrator | substantial, exact |
+| Flux and the U(1) phase around a loop | Part 1: the flux identity $\zeta_F\cdot z_{uv}=-\Phi_F+i\Phi_{*F}$, and an exact Cayley U(1) lattice with exact Stokes and Bianchi identities | exact identities |
+| Covariant derivative and curvature | Part 2: $[\mathcal D_\mu,\mathcal D_\nu]\psi=(U_P-1)\mathcal T_{\mu\nu}\psi$ exactly, a Cayley ratio for the plaquette, the charge map, the $\mathbb Z_{p+1}$ structure over $\mathbb F_p$ | exact, but a reformulation: the links are inputs |
+| Gauge symmetry and matter | Part 3: the single-link obstruction to a bare mass term; a Wilson–Dirac operator with exact covariance and current identity | exact; matter is not coupled back to the field |
+| Field dynamics | Parts 1, 4, 5: compact Hamiltonian dynamics in Cayley variables; the free equation from boost covariance; a rational time step; one-step commutation for a low-degree class | pieces, not one derived system |
+
+## Four stages
+
+| Stage | Goal | Status |
+|:---|:---|:---|
+| 1. Represent the field | $\zeta$ as the field strength | **established** (Part 1) |
+| 2. Transport and curvature | links whose plaquette holonomies equal the curvature represented by $\zeta$ | **partial:** exact for polynomial free solutions through a chosen regularisation (Part 5); no exactly gauge-equivariant version can exist in the sense of Proposition 20(c) |
+| 3. Evolution | an update derived from the rotor construction that advances field and links together | **partial:** a conditional derivation of the free equation (Part 4, 5); an exact time step and exact commutation for a low-degree class (Part 5); the compact dynamics of Part 1 is not derived from the rotor |
+| 4. Matter coupling | the matter current sources the same field update, with Gauss's law and gauge identities | **not done** |
+
+These should be read as four stages, not one claim.
+
+## What each post achieved, and what it did not
+
+| Post | Achieved | Did not achieve |
+|:---|:---|:---|
+| 1 | the field representation; particle dynamics in a given field | the evolution of the field itself |
+| 2 | exact lattice commutator identity; Cayley field strength; charge as a Cayley map | deriving the links from $\zeta$ |
+| 3 | exact covariance of a Wilson–Dirac operator; its current identity; the single-link mass-term obstruction (abelian) | a matter field that dynamically sources a rotor-derived field |
+| 4 | links from Cayley-valued curvature on a box (a reconstruction theorem); the free equation from boost covariance (conditional); a rational Cayley time step; a negative result on a group-valued Yee update | showing these are parts of one evolution law |
+| 5 | no zeroth-order term; an exact rational potential-to-links map for polynomial solutions; flux-first faces are not realizable ($O(e^3)$); the equivariance no-go; exact commutation for degree $\le2$ | a rotor-derived regularisation; the compact dynamics from the rotor; sources |
+
+## Three results that shape the next step
+
+1. **The links are chosen.** Turning a potential into Cayley links uses $a_e=-\tfrac12e\int_e\mathbf A$, a regularisation. The potential itself is not intrinsic to $\zeta$ either (it depends on a gauge choice). Neither is derived from the rotor algebra.
+2. **A rational, exactly gauge-equivariant link prescription cannot exist** in the sense of Proposition 20(c): if gauge transformations act on links through the Cayley group law by some map $\gamma$ of the endpoint gauge parameters, for all rational gauge parameters, then the links are gauge invariant, which a link cannot be. The only exact exception is quantized flux (integer multiples of a fixed Cayley unit). This does not rule out constructions with extra variables or a different transformation law. Computing the flux-first face parameter $-\tfrac12e\Phi_f$ directly does not even give realizable faces: the $\oplus$ cube identity fails at $O(e^3)$.
+3. **Exactness is limited.** The Cayley time step commutes exactly with the exact evolution only for polynomial solutions of total degree $\le2$ in linear integrated variables; the degree-3 examples tested fail. Elsewhere it holds with measured errors ($O(k^2)$, $O(\tau^2)$, and $O(\epsilon^2)$ for the weak-field comparison with Part 1's compact dynamics).
+
+A fourth item is a warning rather than a theorem. The attempt to keep every variable group-valued and update by group translations (Part 4, Calculation 16) passes reversibility and Gauss checks that any abelian group would pass, and it has the wrong wave speed and no usable step size. Reversibility and a conserved Gauss functional are not evidence of Maxwell dynamics.
+
+## Statements this series does not make
+
+- It does **not** derive dynamics from projective geometry alone. The free equation of Calculation 17 assumes a first-order, linear, $K$-linear equation and takes the rotor action on $\zeta$ (a specified boost generator) as input.
+- It does **not** show that the Gauss law is preserved with sources. What has been shown is that the Gauss law is conserved for *static* charges in the compact dynamics of Part 1 (Calculation 10), and that the Gauss functional is conserved by the free linear Cayley step of Part 4 (Calculation 18). A time-dependent current needs the matching continuity equation and a coupled system, and the Wilson–Dirac current of Part 3 has not been coupled to either update.
+- It does **not** show that the links built in Part 5 represent electromagnetic transport derived from the rotor.
+- It does **not** treat sources, a Minkowski matter operator, or Lorentz covariance on the lattice.
+
+## Corrections made along the way
+
+| Where | Issue | Effect |
+|:---|:---|:---|
+| Parts 2 and 3 scripts | an early version stored one field modulus globally, so tests labelled $\mathbb F_7$ and $\mathbb F_{11}$ ran over the last prime | rerun with one field class per prime; all results unchanged, labels now correct |
+| Part 2 | the link must be $\exp(+ie\int A)$, so $e=+q$, for $\mathcal D_\mu\psi=U_\mu\psi(x+\hat\mu)-\psi$ | an early statement that $e=-q$ was wrong; the posts use the correct sign |
+| Part 3 | the paper's Proposition 6.3(3) misstated the relation between the vector Cayley anchor and the rotor anchor | the general formula is given; version 2 of the paper corrects the proposition |
+| Part 4 | the cube identity has six faces; the three-face statement is false | corrected statement and test in Calculation 15 |
+| Part 5 | the finite-field no-go needs $p\equiv3\pmod4$; the equivariance claim needed explicit hypotheses | restricted and restated as Proposition 20(a)–(c) |
+| Part 5 script | the chain's difference matrix had the opposite orientation to its comment | fixed, with a self-check; floating-point tables rerun, last digits changed, orders unchanged |
+
+## The missing piece, in plain language
+
+Picture a grid of little squares. The rotor anchor describes the field. Each square has a flux through it. Each edge carries a link describing how a phase is transported along it. The product of the four links around a square is its holonomy, the curvature of that square. Charged matter moves on the grid and produces a current, and the field must respond to that current.
+
+What is missing is a single justified rule connecting these objects. Three questions make it precise:
+
+1. Given the rotor anchor, how do we obtain the links, or at least their plaquette holonomies, without inserting a separate connection by hand?
+2. When the rotor field evolves, do the links and holonomies evolve consistently with it?
+3. When matter moves, does its current enter the same update, so that gauge covariance, charge continuity and Gauss's law fit together?
+
+The key missing result is a **compatibility theorem** connecting rotor evolution, link evolution, curvature and the matter current. It is not just another dynamical equation.
+
+## Where to go next
+
+I agree with narrowing the work to the central bridge instead of adding another matter model or another solver. The equivariance no-go changes how that bridge should be formulated, though. "Derive exact gauge-equivariant links from $\zeta$ for general fields" cannot succeed over $\mathbb Q$. Three routes remain:
+
+- **Quantized fluxes.** Here an exactly equivariant chain exists statically. The open question is whether any dynamics preserves quantization while approximating Maxwell. My suspicion, which is a conjecture and not a result, is that exactness and continuity pull against each other: the only exact group-valued dynamics tested so far (Calculation 16) failed the Maxwell tests.
+- **Group-valued links as primary data, with an action principle.** Define the dynamics on Cayley links directly, as in Part 1's compact dynamics, and ask what rotor structure determines the action. A concrete candidate: the Lorentz-invariant $\mathrm{Re}(\zeta\cdot\zeta)=E^2-B^2$ is the Maxwell Lagrangian density, so a spacetime plaquette action in Cayley variables, with spacelike and timelike planes entering with opposite signs, would tie the rotor invariant to the lattice action. Varying it would give the field equations, and adding the Wilson–Dirac term would give the matter current as the source, so the Gauss law would follow from gauge invariance. This route needs temporal links and a real-time Dirac operator, neither of which exists yet in this series.
+- **Leading-order closure.** Accept equivariance only to leading order in $e$ and prove explicit error bounds, so the chain is stated as exact up to a controlled remainder.
+
+I would try the action-principle route first, because it addresses both the missing derivation of the evolution and the matter coupling, and it avoids the equivariance obstruction by working with group-valued links natively. The quantized case is worth a separate small exploration.
+
+## Summary
+
+The series started by showing that rotor mathematics can represent electromagnetic field strength. The later posts tried to show that it can also generate the gauge transport and the consistent time evolution that turn that representation into a dynamical theory. Important pieces are established, several are chosen and marked as such, one is a proved obstruction, and the pieces have not yet been shown to fit together. The work has narrowed the problem: we now know which identities hold, which constructions are separate, and where an asserted connection would need an actual proof.
+
+## References
+
+1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Version 2, October 15, 2026. DOI: [10.5281/zenodo.23395166](https://doi.org/10.5281/zenodo.23395166).
+2. Parts [1](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-curvature/), [2](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-part2/), [3](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-part3/), [4](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-part4/) and [5](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-part5/) of this series, blog posts, October 2026.
+3. *Particle Physics Lecture 13: Interactions via Local Gauge Symmetry (The Abelian Case)*. Video: <https://youtu.be/WGQMb88xDqA>. Handwritten notes (7 pages): <https://inside.mines.edu/~aflourno/Particle/Lecture13-%20Interactions%20via%20Local%20Gauge%20Invariance%20%28The%20Abelian%20Case%29.pdf>.

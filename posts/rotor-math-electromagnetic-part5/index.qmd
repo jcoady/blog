@@ -1,0 +1,689 @@
+---
+title: "What Can Be Proved About the Rotor-to-Link Map: An Exact Potential, an Obstruction, and One-Step Commutation"
+author: "John D. Coady"
+date: "2026-10-16"
+categories: [pure-math, mathematical-physics, electromagnetism, gauge-theory, lorentz-group, rational-trigonometry]
+format:
+  html:
+    toc: true
+    code-fold: true
+---
+
+## Where Part 4 left off
+
+[Part 4](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-part4/) proved a reconstruction theorem (links from Cayley-valued curvature), derived the free equation $\partial_t\zeta=\pm i\nabla\times\zeta$ from the rotor action, and gave a rational time step. It also said what was missing: an explicit map from the rotor anchor $\zeta$ to face curvature, a proof that its output is realizable, and a commutation statement tying the map to the dynamics.
+
+A review of Part 4 set out four tasks: tighten three statements, define the map $\zeta\mapsto\Phi_f\mapsto a_f\mapsto U_f$, prove that the face data it produces are realizable, and prove one-step commutation, then compare with the continuum and with Part 1. This post carries those out as far as they can be carried, including where they cannot.
+
+::: {.callout-note}
+## What this post establishes
+- **Calculation 19.** A zeroth-order term $d\,\zeta$ in the free equation is excluded by boost covariance: $d=0$. This closes a gap in Calculation 17 of Part 4.
+- **Calculation 20.** An exact rational map from polynomial solutions of the free equation to Cayley links, built through the vector potential. The face data it produces satisfy the cube identity exactly. The *flux-first* alternative does not. A no-go result shows that no rational link prescription can be exactly gauge-equivariant when gauge transformations act on links through the Cayley group law. The factor $-\tfrac12e$ that turns potentials into Cayley links is a **chosen regularisation**, not derived from the rotor algebra.
+- **Calculation 21.** One-step commutation holds **exactly** for polynomial solutions of total degree $\le2$, fails for the degree-3 examples tested, and in the tested setups holds with measured $O(k^2)$, $O(\tau^2)$ and $O(\epsilon^2)$ errors.
+
+**Not claimed:** a derivation of dynamics from projective geometry alone (Calculation 19 uses the specified boost generator of the rotor action); a rotor-derived regularisation of the links; exact commutation for general fields; sources or matter; the behaviour over $\mathbb F_p$ (the no-go is checked for primes $p\equiv3\pmod4$; the rest was run over $\mathbb Q$ or in floating point).
+:::
+
+**Proofs and checks.** The statements are proved in the text. Tables labelled exact are exact computations over $\mathbb Q$ or $\mathbb Q(i)$ that check the proofs and the scripts; floating-point results are numerical experiments and are marked. The three levels of evidence (proved, exact finite verification, numerical) are summarised near the end. The scripts are at the end.
+
+## Clarifications to Part 4
+
+These are the three tightenings from the review, written so they can be folded into Part 4 when it is revised. Part 4 itself is unchanged.
+
+**Proposition 15 (setting).** The face and link values lie in $\mathbb P^1(F)=F\cup\{\infty\}$, regarded as the group of norm-one elements of $K=F[i]$ through $a\mapsto(1-ia)/(1+ia)$, with $\infty\mapsto-1$. Every $\oplus$ and $\ominus$ in the statement and proof is the group operation of that group, so the formula $(a+b)/(1-ab)$ is used where it is defined and extended by the group law elsewhere. The statement concerns an **open box** with the gauge $a_x\equiv0$ and the slice conditions given; a torus needs further conditions (vanishing total flux in each plane, and free non-contractible holonomies). The proposition is about the existence of links with prescribed plaquette holonomies. It says nothing about whether those links represent electromagnetic transport, which needs the rotor-to-face map discussed below.
+
+**Calculation 17 (assumptions).** The ansatz must exclude, or the derivation must show, the absence of a zeroth-order term $d\,\zeta$. Calculation 19 below shows boost covariance forces $d=0$.
+
+**Calculation 18 (stability).** "Unconditional stability" means only this: for real skew-symmetric $M$, $Q(h)$ is orthogonal for every $h$, so the Euclidean norm of the finite-dimensional linear system is conserved. It says nothing about stability of any nonlinear or compact dynamics.
+
+## Calculation 19: a zeroth-order term is excluded
+
+Let the equation be $\partial_t\zeta=c\,\nabla\times\zeta+d\,\zeta$ with $\nabla\cdot\zeta=0$, and let $L=\partial_t-c\nabla\times-d$ and $K\zeta=(x\partial_t+t\partial_x)\zeta+\mu\,e_x\times\zeta$ as in Calculation 17. The constant $d$ commutes with $K$, so for generic $\zeta$
+$$
+[L,K]\zeta=\partial_x\zeta-c\,e_x\times\partial_t\zeta-c\mu\bigl(e_x\,\nabla\cdot\zeta-\partial_x\zeta-e_x\times\nabla\times\zeta\bigr),
+$$
+$$
+\nabla\cdot(K\zeta)=\partial_t\zeta_x+x\,\partial_t\nabla\cdot\zeta+t\,\partial_x\nabla\cdot\zeta-\mu(\nabla\times\zeta)_x ,
+$$
+both verified symbolically for generic functions. On solutions ($\partial_t\zeta=c\nabla\times\zeta+d\zeta$, $\nabla\cdot\zeta=0$):
+$$
+[L,K]\zeta=(1+c\mu)\,\partial_x\zeta-c(c-\mu)\,e_x\times(\nabla\times\zeta)-c\,d\;e_x\times\zeta,\qquad
+\nabla\cdot(K\zeta)=(c-\mu)(\nabla\times\zeta)_x+d\,\zeta_x .
+$$
+For $K$ to map solutions to solutions, each coefficient must vanish (the independence is justified below): $1+c\mu=0$, $c(c-\mu)=0$, $c\,d=0$, $c-\mu=0$ and $d=0$. Solving gives exactly
+$$
+\boxed{c=\pm i,\qquad \mu=c,\qquad d=0 .}
+$$
+
+**Scope.** This is a statement about the *specified* boost generator $K$, the rotor action on $\zeta$ of Part 1 (Calculation 6) with spin coupling $\mu$. It does not derive $K$ or its spin term from projective geometry.
+
+**Independence of the coefficients.** At a point, the values of $\zeta$ and of its first derivatives can be prescribed arbitrarily subject only to the trace condition $\partial_x\zeta_x+\partial_y\zeta_y+\partial_z\zeta_z=0$: any such 1-jet is the 1-jet of a linear divergence-free initial field $\zeta(0,\mathbf x)=\zeta_0+J\mathbf x$ with $\operatorname{tr}J=0$, which has a local analytic solution by Cauchy–Kovalevskaya (for coefficient fields embedded in $\mathbb C$). The $x$-component of $[L,K]\zeta$ contains only $\partial_x\zeta_x$, with coefficient $1+c\mu$. With $1+c\mu=0$, the $y$-component is $c(c-\mu)(\partial_x\zeta_y-\partial_y\zeta_x)+c\,d\,\zeta_z$, in which $\partial_y\zeta_x$ and $\zeta_z$ are free jet entries, so $c(c-\mu)=0$ and $c\,d=0$. In the divergence condition $(c-\mu)(\partial_y\zeta_z-\partial_z\zeta_y)+d\,\zeta_x$, the entries $\partial_y\zeta_z-\partial_z\zeta_y$ and $\zeta_x$ are free, so $c-\mu=0$ and $d=0$. The plane-wave test below is a consistency check on this argument, not a substitute for it.
+
+*Why polynomial solutions are no longer enough.* For $d\neq0$ there are no non-zero polynomial solutions (the top power of $t$ would have to satisfy $-d\zeta_N=c\nabla\times\zeta_N$, which forces $\zeta_N=0$), so a closure test on polynomials would be vacuous. The test below therefore uses exact plane waves.
+
+### Computational verification
+
+Exact plane waves $\zeta=\epsilon\,e^{i(3x+4y)+\lambda t}$ over $\mathbb Q(i)$ ($|k|=5$, both helicities $s=\pm1$, polarisation $\epsilon$ an eigenvector of $k\times$, $\lambda=-5cs+d$), tested for closure of $\{$equation, $\nabla\cdot\zeta=0\}$ under the boost with $\mu=c$:
+
+| $c$ | $d=0$ | $d=1/2$ | $d=i$ |
+|:---:|:---:|:---:|:---:|
+| $-i$ (both helicities) | closed | not closed | not closed |
+| $+i$ (both helicities) | closed | not closed | not closed |
+
+So the free equation has no zeroth-order term, and Calculation 17's assumptions can state "no zeroth-order term" as a consequence rather than an input.
+
+## Calculation 20: the rotor-to-link map
+
+### Defining the map (potential-first)
+
+Take a polynomial solution $\zeta=\mathbf E+i\mathbf B$ of $\partial_t\zeta=-i\nabla\times\zeta$, $\nabla\cdot\zeta=0$ (so $\mathbf E,\mathbf B$ have coefficients in $F$ and satisfy the vacuum Maxwell equations). Then:
+
+1. **Potential.** In temporal gauge,
+$$
+\mathbf A(t,\mathbf x)=\int_0^1 s\,\mathbf B(0,s\mathbf x)\times\mathbf x\,ds-\int_0^t\mathbf E(\tau,\mathbf x)\,d\tau ,
+$$
+which is polynomial with rational coefficients, with $\nabla\times\mathbf A=\mathbf B$ and $\partial_t\mathbf A=-\mathbf E$. *Proof.* The first term is the Poincaré homotopy, so $\nabla\times$ of it is $\mathbf B(0,\mathbf x)$ because $\nabla\cdot\mathbf B=0$; then $\nabla\times$ of the second term is $-\int_0^t\nabla\times\mathbf E=\int_0^t\partial_\tau\mathbf B=\mathbf B(t)-\mathbf B(0)$.
+2. **Links.** For each lattice edge $e$, $a_e:=-\tfrac12e\int_e\mathbf A\cdot d\boldsymbol\ell$ (exact rational integrals).
+3. **Faces.** The plaquette parameters are the $\oplus$-products of the four links.
+
+This is an exact rational map for any polynomial solution. The integrals divide by integers up to degree $+1$, so over $\mathbb F_p$ it needs $p$ larger than that (not tested). Step 2 is a **definition** (a regularisation), not a consequence of the rotor algebra. The potential is also not intrinsic: it depends on a gauge choice (temporal gauge, the origin used in the homotopy, and the reference slice $t=0$); other choices differ by a gauge transformation.
+
+### Realizability (the review's Step 2)
+
+For a degree-$\le3$ solution (a random combination of five of the 50 basis solutions over $\mathbb Q(i)$), on a $3\times3\times3$ box at $t_0=1/2$, all exact over $\mathbb Q$:
+
+- Faces obtained from the links satisfy the six-face cube identity with residual **exactly 0**. This is automatic: they come from links (Calculation 15(i)).
+- Faces obtained **flux-first**, $a_f:=-\tfrac12e\,\Phi_f$ with $\Phi_f$ the exact flux of $\mathbf B$, satisfy the **additive** cube identity exactly (residual 0, because $\nabla\cdot\mathbf B=0$) but **not** the $\oplus$ identity:
+
+| $e$ | flux-first $\oplus$-residual (max over cubes) | $\max\lvert a_P(\text{links})-(-\tfrac12e\Phi)\rvert$ | ratio |
+|:---:|:---:|:---:|:---:|
+| 1/128 | $1.502\times10^{-2}$ | $2.194\times10^{-2}$ | |
+| 1/256 | $2.000\times10^{-3}$ | $2.882\times10^{-3}$ | 7.61 |
+| 1/512 | $2.543\times10^{-4}$ | $3.648\times10^{-4}$ | 7.90 |
+| 1/1024 | $3.192\times10^{-5}$ | $4.575\times10^{-5}$ | 7.97 |
+
+Both columns scale as $e^3$ (ratio $\to8$ per halving of $e$). So a flux that is closed in the additive sense is not closed under $\oplus$, which is exactly the caution in the review. *Why cubic:* expanding $(p+q)/(1-pq)$ gives $p\oplus q=p+q+pq(p+q)+O(5)$, so the $\oplus$ of six face parameters of size $O(e)$ differs from their sum by cubic terms. The additive cube identity cancels the linear terms, and the cubic terms do not cancel in general, so the residual is generically $O(e^3)$. It is exactly zero for uniform fields, whose opposite faces are equal (Part 2). The table shows a non-zero cubic term for the tested field; "generically" is not a theorem about every field. The links-first map avoids the problem because it constructs the links before the faces, and the plaquette parameter agrees with the linear regularisation $-\tfrac12e\Phi$ only to leading order.
+
+### Gauge equivariance, and an obstruction
+
+Replace $\mathbf A$ by $\mathbf A+\nabla\lambda$ with $\lambda=x^2y+2yz+xz^2$ (time independent, so temporal gauge is kept). The additive fluxes are unchanged (exactly), but the plaquette parameters of the linear regularisation change:
+
+| $e$ | max change of a plaquette parameter | ratio |
+|:---:|:---:|:---:|
+| 1/128 | $1.024\times10^{-2}$ | |
+| 1/256 | $1.378\times10^{-3}$ | 7.43 |
+| 1/512 | $1.755\times10^{-4}$ | 7.85 |
+
+So the linear regularisation is gauge invariant only to leading order, with an $O(e^3)$ defect. This is not an accident of the regularisation:
+
+**Proposition 20 (no-go).**
+(a) There is no non-trivial group homomorphism $(\mathbb Q,+)\to(\mathbb P^1(\mathbb Q),\oplus)$.
+(b) Let $p$ be a prime with $p\equiv3\pmod4$ (the case covered by the paper's standing hypotheses, where $-1$ is not a square and $\mathbb P^1(\mathbb F_p)$ with $\oplus$ is the norm-one group of $\mathbb F_p[i]$, of order $p+1$). There is no non-trivial homomorphism $(\mathbb F_p,+)\to(\mathbb P^1(\mathbb F_p),\oplus)$.
+(c) Suppose a link prescription assigns to every polynomial potential $\mathbf A$ with rational coefficients and every edge $e=(x\to y)$ a value $a_e(\mathbf A)\in\mathbb P^1(\mathbb Q)$, and that for some map $\gamma:\mathbb Q\to\mathbb P^1(\mathbb Q)$ and for all $\mathbf A$ and all polynomial $\lambda$ with rational coefficients
+$$
+a_e(\mathbf A+\nabla\lambda)=a_e(\mathbf A)\oplus\gamma(\lambda(x))\ominus\gamma(\lambda(y)).
+$$
+Then $a_e(\mathbf A+\nabla\lambda)=a_e(\mathbf A)$: the prescription is invariant under every gauge transformation.
+
+A link that is invariant under gauge transformations is not a parallel transporter, because under $\mathbf A\mapsto\mathbf A+\nabla\lambda$ the integral $\int_e\mathbf A$ changes by the arbitrary amount $\lambda(y)-\lambda(x)$. So no rational link prescription can be exactly gauge-equivariant in the sense of (c), where gauge transformations act on links through the Cayley group law via some map $\gamma$ of the endpoint gauge parameters, for all rational gauge parameters. The proposition does not rule out constructions with extra variables, a different transformation law, or additional structure.
+
+*Proof.* (a) $\mathbb P^1(\mathbb Q)$ is the norm-one group $G\subset\mathbb Q(i)^\times$. Let $\varphi:\mathbb Q\to G$ be a homomorphism, and $g=\varphi(1)$. For every $n$, $g=\varphi(1/n)^n$, so $g=h_n^n$ with $h_n\in G$. Write $g$ by its Gaussian-prime factorisation in $\mathbb Z[i]$: each exponent must be divisible by every $n$, hence is 0, so $g$ is a unit, $g\in\{\pm1,\pm i\}$. Taking $n=4$, $g=h_4^4$ with $h_4$ also a unit (its exponents are also 0), so $g=1$. Then $\varphi(1/n)^n=1$ for all $n$, so $\varphi(1/n)$ is a root of unity in $G$, i.e. in $\{\pm1,\pm i\}$, and $\varphi(1/n)=\varphi(1/4n)^4=1$. Hence $\varphi=1$. (b) $\lvert\mathbb F_p\rvert=p$ and $\lvert\mathbb P^1(\mathbb F_p)\rvert=p+1$ are coprime, so the only homomorphism is trivial. (c) Apply the relation to $\mathbf A+\nabla\lambda$ and then $\nabla\lambda'$, and compare with the single transformation by $\lambda+\lambda'$:
+$$
+\gamma\bigl(\lambda(x){+}\lambda'(x)\bigr)\ominus\gamma\bigl(\lambda(y){+}\lambda'(y)\bigr)=\bigl[\gamma(\lambda(x))\oplus\gamma(\lambda'(x))\bigr]\ominus\bigl[\gamma(\lambda(y))\oplus\gamma(\lambda'(y))\bigr].
+$$
+Polynomials take arbitrary values at two lattice points, so choose $\lambda(y)=\lambda'(y)=0$. Then $\delta(u):=\gamma(u)\ominus\gamma(0)$ satisfies $\delta(u+u')=\delta(u)\oplus\delta(u')$, a homomorphism $(\mathbb Q,+)\to(\mathbb P^1(\mathbb Q),\oplus)$, trivial by (a). So $\gamma$ is constant and the relation reduces to $a_e(\mathbf A+\nabla\lambda)=a_e(\mathbf A)$. $\square$
+
+*Why $p\equiv3\pmod4$.* For $p\equiv1\pmod4$ the polynomial $X^2+1$ has roots in $\mathbb F_p$, so $1+a^2$ vanishes for some $a$ (for example $1+2^2=0$ over $\mathbb F_5$): those parameters have no Cayley phase, and the norm-one group of $\mathbb F_p[X]/(X^2+1)\cong\mathbb F_p\times\mathbb F_p$ has order $p-1$ and is a different group. That case is not treated here, and the script refuses it (it asserts $p\equiv3\pmod4$ and raises an error if $1+a^2=0$).
+
+*Computational check over $\mathbb F_p$* (exhaustive, primes $p\equiv3\pmod4$ only): the number of $g\in\mathbb P^1(\mathbb F_p)$ with $p$-fold $\oplus g=0$ is $1$ for $p=3,7,11,19,23$, i.e. only $g=0$.
+
+**What survives.** Homomorphisms from the integers do exist: $n\mapsto c_n(a_0)$, the charge map of Part 2. So an exactly equivariant map exists only for **quantized** fluxes, integer multiples of a fixed Cayley unit (Calculation 12(f) of Part 2 is this case). For general potentials one of two things must be accepted: equivariance holds only to leading order (as above), or the group-valued link data are taken as primary and the relation to a continuum additive potential is a leading-order statement.
+
+### What this does and does not give
+
+- **Gives:** an exact rational map from polynomial solutions of the free equation to links, using a chosen potential-based regularisation, with realizable faces by construction; a demonstration that the flux-first route is not realizable; an obstruction to exact gauge equivariance in the sense of Proposition 20(c).
+- **Does not give:** the regularisation $a_e=-\tfrac12e\int_e\mathbf A$ from the rotor algebra (it is a choice); that the resulting links represent electromagnetic transport derived from the rotor; exact equivariance; results over $\mathbb F_p$ other than the no-go.
+
+## Calculation 21: one-step commutation
+
+Use **integrated** lattice variables (spacing 1): $E$ on each edge is the line integral of $\mathbf E$, $\Phi$ on each face is the flux of $\mathbf B$. The semi-discrete system is $\tfrac d{dt}(E,\Phi)=M(E,\Phi)$ with $M=\begin{pmatrix}0&C^T\\-C&0\end{pmatrix}$ (the system of Calculation 18), and the Cayley step $Q(\tau)=(I-\tfrac\tau2M)^{-1}(I+\tfrac\tau2M)$ satisfies $x(t+\tau)=Q(\tau)x(t)$ exactly when the local trapezoid relation
+$$
+\bigl(I-\tfrac\tau2M\bigr)x(t+\tau)=\bigl(I+\tfrac\tau2M\bigr)x(t)
+$$
+holds.
+
+**Proposition 21.** Work on a Cartesian lattice with unit spacing, with integrated variables ($E$ on edges, $\Phi$ on faces) and the incidence operators $C$ and $C^T$ of Calculation 18, and consider only those edges and faces for which the stencil of $M$ lies inside the region where the data are defined. For a polynomial Maxwell solution of total degree $\le2$, the integrated lattice data satisfy the trapezoid relation exactly there.
+
+*Proof.* *Faraday half.* $\dot\Phi_f=-(CE)_f$ holds exactly for every solution by Stokes' theorem. Since $\Phi$ has $t$-degree $\le2$, $\dot\Phi$ has $t$-degree $\le1$, and the trapezoid rule is exact for integrands linear in $t$. *Ampère half.* $\dot E_e=\int_e(\nabla\times\mathbf B)$ is exact, and $(C^T\Phi)_e$ equals it when the cell averages of $\mathbf B$ are quadratic at most in each transverse variable, because for $f(y)=y^2$ the difference of the averages over $[j,j+1]$ and $[j-1,j]$ is exactly $f'(j)$. Total degree $\le2$ ensures this, and again $\dot E$ has $t$-degree $\le1$. $\square$
+
+### Computational verification (exact, $\mathbb Q$)
+
+Maxwell polynomial solutions, random combinations, $t_0=1/3$, $\tau=2/3$, residuals of the trapezoid relation over a $4\times4\times4$ box (all interior edges and faces for which the stencil is in range):
+
+| solution class | combination | Ampère-half residual (108 edges) | Faraday-half residual (240 faces) |
+|:---|:---:|:---:|:---:|
+| degree $\le2$ | 1 | 0 | 0 |
+| degree $\le2$ | 2 | 0 | 0 |
+| degree 3 | 1 | $2/3$ | $8/81$ |
+| degree 3 | 2 | $4/9$ | 0 |
+
+So the relation holds exactly in the degree-$\le2$ examples. Both degree-3 examples fail it, one in both halves and one in the Ampère half only (its Faraday half is exact). These are counterexamples to exactness for degree-3 solutions in general, not a claim that every degree-3 solution fails. Both halves can contribute defects (the third spatial derivative for the Ampère half, a cubic dependence on $t$ for the Faraday half). The degree-$\le2$ class includes uniform fields and constant gradients, and is exactly where a second-order lattice scheme can be exact.
+
+### Beyond that class: measured errors (floating point)
+
+For a plane wave on a periodic chain ($\theta=\epsilon\sin(kx-kt)$, one period $T=2\pi/k$, $N=256$):
+
+::: {.callout-warning}
+## Correction to an earlier version of this script
+The first version of the script built the chain's difference matrix with the opposite orientation to its own comment: it implemented $\dot E_i=B_i-B_{i+1}$ and $\dot B_i=E_{i-1}-E_i$ instead of $\dot E_i=B_i-B_{i-1}$ and $\dot B_i=E_{i+1}-E_i$. That system is the intended one after relabelling $E_i\to-E_{i-1}$, so the spectrum and the dispersion were unchanged, but the initial data were not a pure travelling wave of the matrix actually used. The matrix is now fixed, the script asserts its orientation, and the floating-point tables below were rerun. The last digits changed slightly; the orders did not. The exact results of this calculation and the weak-field comparison (which uses separate code) are unaffected.
+:::
+
+| Test | Result |
+|:---|:---|
+| Spatial: exact semi-discrete flow against the continuum solution, $k=2\pi\cdot4,\,8,\,16,\,32/256$ | error$/(\epsilon k)=2.52\times10^{-3},\,1.004\times10^{-2},\,3.967\times10^{-2},\,1.522\times10^{-1}$; each doubling of $k$ multiplies the error by about 4 (ratios $4.0,\,4.0,\,3.9$): $O(k^2)$ |
+| Time: $Q(\tau)^n$ against the exact semi-discrete flow, $\tau=2,\,1,\,0.5,\,0.25$ | error$/(\epsilon k)=7.84\times10^{-2},\,1.99\times10^{-2},\,5.01\times10^{-3},\,1.25\times10^{-3}$; ratios $3.93,\,3.98,\,4.00$: $O(\tau^2)$ |
+| Weak field: compact Wilson dynamics against linear dynamics (RK4, $dt=0.01$), $\epsilon=0.4,\,0.2,\,0.1,\,0.05$ | relative difference $3.23\times10^{-3},\,8.06\times10^{-4},\,2.02\times10^{-4},\,5.04\times10^{-5}$; ratio 4.00 each time: $O(\epsilon^2)$ |
+
+This answers the review's Step 4 in the tested setup. The lattice dynamics approach the continuum equation at the expected orders ($k^2$ and $\tau^2$), and the compact Wilson evolution of Part 1 agrees with the linear evolution at weak field with error proportional to $\epsilon^2$. These are numerical experiments, not proofs of convergence for general three-dimensional fields, and the weak-field comparison concerns the particular Wilson and linear dynamics implemented in the script; it does not show that the compact dynamics are derived from the rotor architecture.
+
+### What this does and does not give
+
+- **Gives:** an exact commutation theorem for a stated class (degree $\le2$), exact counterexamples at degree 3, and measured errors in space, time and amplitude in the tested setups.
+- **Does not give:** exact commutation for general fields (this second-order scheme is not exact at degree 3; whether another scheme could be is left open, see the last next direction); commutation in the Cayley variables themselves (that holds only to leading order in $e$, by Calculation 20); sources.
+
+## Where the bridge stands
+
+| Step | Status |
+|:---|:---|
+| $\zeta\mapsto$ potential $\mathbf A$ (polynomial solutions) | exact, rational (Calculation 20) |
+| $\mathbf A\mapsto$ Cayley links | a **chosen regularisation**; gauge-equivariant only to leading order (no-go) |
+| links $\mapsto$ face curvature, realizable | exact, automatic |
+| flux-first faces realizable | **no**: $O(e^3)$ failure of the $\oplus$ identity |
+| one-step commutation, linear integrated variables | **exact** for degree $\le2$; fails at degree 3 |
+| convergence to $\partial_t\zeta=\pm i\nabla\times\zeta$ | measured: $O(k^2)$, $O(\tau^2)$ |
+| agreement with Part 1's compact dynamics at weak field | measured: $O(\epsilon^2)$ |
+| exactly gauge-equivariant rational rotor-to-link map | **does not exist** in the sense of Proposition 20(c), except for quantized fluxes |
+| sources, Wilson–Dirac coupling | untested |
+
+The most accurate description of what has been constructed is:
+
+> An exact rational map from polynomial free-Maxwell solutions to Cayley links, using a chosen potential-based regularisation, with an obstruction to exact gauge equivariance (Proposition 20), and an exact one-step commutation theorem for a low-degree class in linear integrated variables.
+
+It is not a completed exact rotor-to-link map. The regularisation factor $-\tfrac12e$ is a choice, and a derivation of it from the rotor algebra, or a rotor-native construction that bypasses it, is still missing. The review asked for exact commutation of the rotor-derived update. The degree-3 counterexamples show that the Cayley step is not exact beyond degree 2, and the no-go shows that exact equivariance cannot hold for links obtained from additive potentials in the sense of Proposition 20(c). The content of the result is to say precisely where commutation holds and where it does not.
+
+**Three levels of evidence.**
+
+| Level | Items |
+|:---|:---|
+| Proved | the coefficient conditions of Calculation 19; the potential construction; link-first realizability; Proposition 20 (a)–(c); Proposition 21 |
+| Exact finite verification (over $\mathbb Q$, or exhaustive over $\mathbb F_p$ with $p\equiv3\pmod4$) | the plane-wave closure table; the cube-identity and gauge-defect tables; the trapezoid residuals; the $\mathbb F_p$ homomorphism count |
+| Numerical (floating point) | the spatial, temporal and weak-field convergence tables |
+
+## Next directions
+
+1. **Finite fields.** Run Calculations 20 and 21 over $\mathbb F_p$, where the integrals need $p$ above the degree and there is no energy; check the Cayley step's domain.
+2. **Quantized fluxes.** Use the one case with exact equivariance (integer multiples of a Cayley unit) for a fully exact rotor-to-link-to-dynamics chain, and ask which rotor fields are quantized in this sense.
+3. **Sources.** Determine the transformation law of $(\rho,\mathbf J)$ and couple the Wilson–Dirac current, so the Gauss law becomes a Noether constraint.
+4. **Higher-order exactness.** Find a lattice scheme (or enlarge the stencil) that is exact for degree 3 and beyond, if exact commutation on a larger class is wanted.
+5. **A rotor-native replacement for the regularisation.** Determine what additional rotor-native structure, if any, can replace the chosen potential regularisation, and whether the resulting construction can be both gauge-equivariant and compatible with the face-group identity of Calculation 15.
+
+## Environment
+
+The scripts were run with Python 3.12.3, SymPy 1.14.0, NumPy 2.4.4 and SciPy 1.17.1, in a single sandbox environment (not one built from a lockfile in a clean virtual environment). The Cayley code refuses zero denominators ($1+a^2=0$) with an explicit error.
+
+## Reproducing Calculation 19
+
+```python
+"""
+Calculation 19 (Part 5): is a zeroth-order term excluded?
+
+Equation with a possible zeroth-order term:   d_t zeta = c curl zeta + d zeta ,   div zeta = 0 .
+Boost generator  K zeta = (x d_t + t d_x) zeta + mu e_x x zeta .       L zeta = d_t zeta - c curl zeta - d zeta .
+  (1) the operator identity  [L, K] zeta = d_x zeta - c e_x x d_t zeta - c mu ( e_x div zeta - d_x zeta - e_x x curl zeta )
+      and  div(K zeta) = d_t zeta_x + x d_t div zeta + t d_x div zeta - mu (curl zeta)_x   are verified symbolically for generic functions
+  (2) reduction on solutions and the resulting conditions on (c, d, mu)
+  (3) exact plane-wave check over Q(i):  boost closure holds if and only if d = 0
+Needs sympy.
+Tested with Python 3.12.3, SymPy 1.14.0, NumPy 2.4.4, SciPy 1.17.1 (one sandbox environment, not a lockfile-built clean environment).
+"""
+import sympy as sp
+t, x, y, z = sp.symbols('t x y z'); I = sp.I
+c, d, mu = sp.symbols('c d mu')
+def curl(v): return [sp.diff(v[2], y) - sp.diff(v[1], z), sp.diff(v[0], z) - sp.diff(v[2], x), sp.diff(v[1], x) - sp.diff(v[0], y)]
+def div(v): return sp.diff(v[0], x) + sp.diff(v[1], y) + sp.diff(v[2], z)
+def cross_ex(v): return [0, -v[2], v[1]]                       # e_x x v
+ex = [1, 0, 0]
+
+# ---- (1) operator identities for generic functions ----
+f = [sp.Function(f'f{a}')(t, x, y, z) for a in range(3)]
+L = lambda v: [sp.diff(v[a], t) - c * curl(v)[a] - d * v[a] for a in range(3)]
+K = lambda v: [x * sp.diff(v[a], t) + t * sp.diff(v[a], x) + mu * cross_ex(v)[a] for a in range(3)]
+comm = [sp.expand(L(K(f))[a] - K(L(f))[a]) for a in range(3)]
+dxf = [sp.diff(f[a], x) for a in range(3)]; dtf = [sp.diff(f[a], t) for a in range(3)]; cf = curl(f)
+rhs = [dxf[a] - c * cross_ex(dtf)[a] - c * mu * (ex[a] * div(f) - dxf[a] - cross_ex(cf)[a]) for a in range(3)]
+print("(1) [L,K] f = d_x f - c e_x x d_t f - c mu (e_x div f - d_x f - e_x x curl f), for generic f:", all(sp.expand(comm[a] - rhs[a]) == 0 for a in range(3)))
+Kf = K(f)
+divK = sp.expand(div(Kf)); rhs2 = sp.expand(dtf[0] + x * sp.diff(div(f), t) + t * sp.diff(div(f), x) - mu * cf[0])
+print("    div(K f) = d_t f_x + x d_t div f + t d_x div f - mu (curl f)_x:", sp.expand(divK - rhs2) == 0)
+
+# ---- (2) reduction on solutions: d_t zeta = c curl zeta + d zeta, div zeta = 0 ----
+vx = sp.symbols('vx1:4'); vc = sp.symbols('vc1:4'); vz = sp.symbols('vz1:4')       # d_x zeta, curl zeta, zeta (independent vectors)
+dt_sol = [c * vc[a] + d * vz[a] for a in range(3)]
+comm_sol = [sp.expand(vx[a] - c * cross_ex(dt_sol)[a] - c * mu * (-vx[a] - cross_ex(vc)[a])) for a in range(3)]
+cex = cross_ex(vc); czx = cross_ex(vz)
+coef_vx = sp.expand(comm_sol[0].coeff(vx[0]))                                    # coefficient of d_x zeta (x-component)
+print("(2) on solutions:  [L,K] zeta = (1 + c mu) d_x zeta - c (c - mu) e_x x curl zeta - c d e_x x zeta ;  div(K zeta) = (c - mu)(curl zeta)_x + d zeta_x")
+print("    coefficients of d_x zeta, e_x x curl zeta, e_x x zeta:", sp.factor(coef_vx), ",", sp.factor(comm_sol[1].coeff(vc[2])*(-1)) , ",", sp.factor(comm_sol[1].coeff(vz[2])*(-1)))
+conds = [1 + c * mu, c * (c - mu), c * d, c - mu, d]
+print("    conditions:", conds, "->", sp.solve(conds, [c, d, mu], dict=True))
+
+# ---- (3) exact plane-wave check over Q(i):  zeta = eps exp(i k.x + lam t) ----
+kx, ky = 3, 4; kv = sp.Matrix([kx, ky, 0]); kn = 5                                     # |k| = 5, rational
+def kcross(v): return sp.Matrix(kv).cross(sp.Matrix(v))
+Kmat = sp.Matrix([[0, 0, ky], [0, 0, -kx], [-ky, kx, 0]])                               # k x
+rows = []
+for s in (1, -1):
+    ns = (Kmat - s * kn * I * sp.eye(3)).nullspace()
+    eps = ns[0]
+    for cval in (-I, I):
+        for dval in (0, sp.Rational(1, 2), I):
+            lam = -kn * cval * s + dval                                                  # from lam eps = c i (k x eps) + d eps
+            phase = sp.exp(I * (kx * x + ky * y) + lam * t)
+            zeta = [eps[a] * phase for a in range(3)]
+            eq_res = [sp.simplify((sp.diff(zeta[a], t) - cval * curl(zeta)[a] - dval * zeta[a]) / phase) for a in range(3)]
+            assert all(r == 0 for r in eq_res) and sp.simplify(div(zeta) / phase) == 0
+            mval = cval                                                                  # mu = c is the only candidate
+            Kz = [x * sp.diff(zeta[a], t) + t * sp.diff(zeta[a], x) + mval * cross_ex(zeta)[a] for a in range(3)]
+            res = [sp.simplify((sp.diff(Kz[a], t) - cval * curl(Kz)[a] - dval * Kz[a]) / phase) for a in range(3)]
+            dres = sp.simplify(div(Kz) / phase)
+            closed = all(sp.simplify(r) == 0 for r in res) and sp.simplify(dres) == 0
+            rows.append((s, cval, dval, closed))
+print("(3) plane waves (k = (3,4,0), |k| = 5), mu = c:  boost closure of {equation, div = 0}:")
+for s, cval, dval, closed in rows:
+    print(f"      helicity s = {s:+d}, c = {str(cval):>2}, d = {str(dval):>3}:  closed under the boost: {closed}")
+```
+
+## Reproducing Calculation 20
+
+```python
+"""
+Calculation 20 (Part 5): the rotor-to-link map for polynomial solutions of the free field equation.
+
+  Input:  a polynomial solution zeta = E + iB of  d_t zeta = -i curl zeta,  div zeta = 0  (zeta in K^3, K = Q(i); E, B have Q coefficients)
+  (a) vector potential in temporal gauge, exactly:   A(t,x) = int_0^1 s B(0,sx) x x ds  -  int_0^t E(tau,x) dtau ,   curl A = B ,  d_t A = -E
+  (b) Cayley links   a_e = -(e/2) * (integral of A along the edge)   (exact rational numbers)
+  (c) plaquettes (+) of the four links satisfy the six-face cube identity EXACTLY (realizable by construction)
+  (d) FLUX-FIRST regularisation  a_f = -(e/2) Phi_f  (Phi_f = exact flux of B): the additive cube identity holds, the (+) identity fails at O(e^3)
+  (e) gauge equivariance: A -> A + grad(lambda) changes the (+)-plaquettes at O(e^3) for the linear regularisation
+  (f) exhaustive check over F_p, p = 3 (mod 4) only (the standing hypothesis -1 not a square): there is no non-trivial homomorphism
+      (F_p, +) -> (P^1(F_p), (+));  for p = 1 (mod 4) the parameter 1 + a^2 can vanish and the group is a different one (not treated)
+Needs sympy.
+Tested with Python 3.12.3, SymPy 1.14.0, NumPy 2.4.4, SciPy 1.17.1 (one sandbox environment, not a lockfile-built clean environment).
+"""
+import itertools, random
+from fractions import Fraction as Fr
+import sympy as sp
+
+t, x, y, z, s, tau = sp.symbols('t x y z s tau'); X = (x, y, z); I = sp.I
+def curl(v): return [sp.diff(v[2], y) - sp.diff(v[1], z), sp.diff(v[0], z) - sp.diff(v[2], x), sp.diff(v[1], x) - sp.diff(v[0], y)]
+def div(v): return sp.diff(v[0], x) + sp.diff(v[1], y) + sp.diff(v[2], z)
+def cross(a, b): return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]
+
+# ---------------- polynomial solutions of d_t zeta = -i curl zeta, div zeta = 0 (total degree <= maxdeg) ----------------
+def solution_space(maxdeg, c=-I):
+    mons = [t**a * x**b * y**cc * z**dd for a in range(maxdeg + 1) for b in range(maxdeg + 1) for cc in range(maxdeg + 1)
+            for dd in range(maxdeg + 1) if a + b + cc + dd <= maxdeg]
+    syms = [sp.Symbol(f'q{a}_{k}') for a in range(3) for k in range(len(mons))]
+    zeta = [sum(syms[a * len(mons) + k] * mons[k] for k in range(len(mons))) for a in range(3)]
+    eqs = [sp.diff(zeta[a], t) - c * curl(zeta)[a] for a in range(3)] + [div(zeta)]
+    rows = []
+    for e in eqs:
+        e = sp.expand(e)
+        if e != 0: rows += list(sp.Poly(e, t, x, y, z).coeffs())
+    M, _ = sp.linear_eq_to_matrix(rows, syms)
+    return [[sp.expand(sum(v[a * len(mons) + k] * mons[k] for k in range(len(mons)))) for a in range(3)] for v in M.nullspace()]
+
+def split_EB(zeta):
+    """zeta = E + iB with E, B polynomials with rational coefficients."""
+    E, B = [], []
+    for comp in zeta:
+        P = sp.Poly(sp.expand(comp), t, x, y, z); Ep = 0; Bp = 0
+        for mon, co in P.terms():
+            m = t**mon[0] * x**mon[1] * y**mon[2] * z**mon[3]
+            Ep += sp.re(co) * m; Bp += sp.im(co) * m
+        E.append(sp.expand(Ep)); B.append(sp.expand(Bp))
+    return E, B
+
+def random_solution(sols, seed, n=5):
+    rng = random.Random(seed); zeta = [0, 0, 0]
+    for sol in rng.sample(sols, n):
+        co = rng.randint(-2, 2) + I * rng.randint(-2, 2)
+        zeta = [sp.expand(zeta[a] + co * sol[a]) for a in range(3)]
+    return zeta
+
+def potential(E, B):
+    """A(t,x) = int_0^1 s B(0,sx) x x ds - int_0^t E(tau,x) dtau."""
+    B0 = [bb.subs({t: 0, x: s * x, y: s * y, z: s * z}, simultaneous=True) for bb in B]
+    A0 = [sp.integrate(sp.expand(s * c_), (s, 0, 1)) for c_ in cross(B0, [x, y, z])]
+    return [sp.expand(A0[a] - sp.integrate(E[a].subs(t, tau), (tau, 0, t))) for a in range(3)]
+
+# ---------------- Cayley arithmetic over Q ----------------
+def kmul(u, v): return (u[0] * v[0] - u[1] * v[1], u[0] * v[1] + u[1] * v[0])
+class Ring:
+    def __init__(s_, mk, p=None): s_.mk, s_.p, s_.one, s_.zero = mk, p, mk(1), mk(0)
+    def phase(s_, a):
+        if a is None: return (-s_.one, s_.zero)
+        dd = s_.one + a * a
+        if dd == s_.zero: raise ZeroDivisionError("1 + a^2 = 0: not an admissible Cayley parameter (the hypothesis that -1 is not a square fails)")
+        return ((s_.one - a * a) / dd, s_.mk(-2) * a / dd)
+    def a_of(s_, u): return None if u[0] == -s_.one else -u[1] / (s_.one + u[0])
+    def oplus(s_, a, b): return s_.a_of(kmul(s_.phase(a), s_.phase(b)))
+    def neg(s_, a): return None if a is None else -a
+    def ominus(s_, a, b): return s_.oplus(a, s_.neg(b))
+RQ = Ring(Fr)
+def make_Fp(p):
+    class FpP:
+        P = p
+        def __init__(s_, v): s_.v = int(v) % FpP.P
+        def __add__(s_, o): return FpP(s_.v + (o.v if hasattr(o, 'v') else int(o)))
+        __radd__ = __add__
+        def __sub__(s_, o): return FpP(s_.v - (o.v if hasattr(o, 'v') else int(o)))
+        def __neg__(s_): return FpP(-s_.v)
+        def __mul__(s_, o): return FpP(s_.v * (o.v if hasattr(o, 'v') else int(o)))
+        __rmul__ = __mul__
+        def __truediv__(s_, o): return FpP(s_.v * pow(o.v if hasattr(o, 'v') else int(o), -1, FpP.P))
+        def __eq__(s_, o): return o is not None and s_.v == (o.v if hasattr(o, 'v') else int(o)) % FpP.P
+        def __hash__(s_): return hash(s_.v)
+    return FpP
+def eq(a, b): return (a is None and b is None) or (a is not None and b is not None and a == b)
+
+# ---------------- lattice plaquettes ----------------
+def Pxy(R, a, i, j, k): return R.oplus(R.oplus(R.oplus(a[(i, j, k, 0)], a[(i + 1, j, k, 1)]), R.neg(a[(i, j + 1, k, 0)])), R.neg(a[(i, j, k, 1)]))
+def Pyz(R, a, i, j, k): return R.oplus(R.oplus(R.oplus(a[(i, j, k, 1)], a[(i, j + 1, k, 2)]), R.neg(a[(i, j, k + 1, 1)])), R.neg(a[(i, j, k, 2)]))
+def Pzx(R, a, i, j, k): return R.oplus(R.oplus(R.oplus(a[(i, j, k, 2)], a[(i, j, k + 1, 0)]), R.neg(a[(i + 1, j, k, 2)])), R.neg(a[(i, j, k, 0)]))
+def face_ranges(N):
+    return {'xy': [(i, j, k) for i in range(N) for j in range(N) for k in range(N + 1)],
+            'yz': [(i, j, k) for i in range(N + 1) for j in range(N) for k in range(N)],
+            'zx': [(i, j, k) for i in range(N) for j in range(N + 1) for k in range(N)]}
+def faces_from_links(R, a, N):
+    fr = face_ranges(N); f = {'xy': Pxy, 'yz': Pyz, 'zx': Pzx}
+    return {n: {p: f[n](R, a, *p) for p in fr[n]} for n in fr}
+def cube_residual(R, F, i, j, k):
+    d_ = lambda f, p, q: R.ominus(F[f][p], F[f][q])
+    return R.oplus(R.oplus(d_('xy', (i, j, k + 1), (i, j, k)), d_('yz', (i + 1, j, k), (i, j, k))), d_('zx', (i, j + 1, k), (i, j, k)))
+
+# ---------------- exact line and surface integrals of polynomials on the lattice ----------------
+def tofr(expr):
+    r = sp.Rational(sp.expand(expr)); return Fr(int(r.p), int(r.q))
+
+def edge_integrals(A, t0, N):
+    """a-values:  int along the edge of A, for edges (i,j,k,m), m = 0,1,2, spacing 1."""
+    At = [sp.expand(c_.subs(t, t0)) for c_ in A]; out = {}
+    anti = [sp.integrate(At[0], x), sp.integrate(At[1], y), sp.integrate(At[2], z)]
+    for i, j, k in itertools.product(range(N + 1), repeat=3):
+        out[(i, j, k, 0)] = tofr(anti[0].subs({x: i + 1, y: j, z: k}) - anti[0].subs({x: i, y: j, z: k}))
+        out[(i, j, k, 1)] = tofr(anti[1].subs({x: i, y: j + 1, z: k}) - anti[1].subs({x: i, y: j, z: k}))
+        out[(i, j, k, 2)] = tofr(anti[2].subs({x: i, y: j, z: k + 1}) - anti[2].subs({x: i, y: j, z: k}))
+    return out
+
+def face_fluxes(B, t0, N):
+    Bt = [sp.expand(c_.subs(t, t0)) for c_ in B]; fr = face_ranges(N); out = {'xy': {}, 'yz': {}, 'zx': {}}
+    Iz = sp.integrate(sp.integrate(Bt[2], x), y); Ix = sp.integrate(sp.integrate(Bt[0], y), z); Iy = sp.integrate(sp.integrate(Bt[1], z), x)
+    def box(F2, v1, v2, a1, a2, fixed):
+        tot = 0
+        for (p, q, sg) in ((a1 + 1, a2 + 1, 1), (a1, a2, 1), (a1 + 1, a2, -1), (a1, a2 + 1, -1)):
+            tot += sg * F2.subs({v1: p, v2: q, **fixed})
+        return tofr(tot)
+    for (i, j, k) in fr['xy']: out['xy'][(i, j, k)] = box(Iz, x, y, i, j, {z: k})
+    for (i, j, k) in fr['yz']: out['yz'][(i, j, k)] = box(Ix, y, z, j, k, {x: i})
+    for (i, j, k) in fr['zx']: out['zx'][(i, j, k)] = box(Iy, z, x, k, i, {y: j})
+    return out
+
+def scaled(links, factor): return {k: factor * v for k, v in links.items()}
+def maxabs_resid(R, F, N):
+    m = Fr(0)
+    for c_ in itertools.product(range(N), repeat=3):
+        r = cube_residual(R, F, *c_)
+        if r is None: return None
+        m = max(m, abs(r))
+    return m
+
+def main():
+    print("building polynomial Maxwell solutions (total degree <= 3), exactly over Q(i) ...")
+    sols = solution_space(3); print("   dimension over Q(i):", len(sols))
+    zeta = random_solution(sols, seed=11); E, B = split_EB(zeta)
+    maxwell = all(sp.expand(sp.diff(E[a], t) - curl(B)[a]) == 0 and sp.expand(sp.diff(B[a], t) + curl(E)[a]) == 0 for a in range(3)) \
+        and sp.expand(div(E)) == 0 and sp.expand(div(B)) == 0
+    print("   E, B (rational coefficients) satisfy d_t E = curl B, d_t B = -curl E, div E = div B = 0:", maxwell)
+    A = potential(E, B)
+    ok_curl = all(sp.expand(curl(A)[a] - B[a]) == 0 for a in range(3)); ok_dt = all(sp.expand(sp.diff(A[a], t) + E[a]) == 0 for a in range(3))
+    print("(a) exact potential in temporal gauge:  curl A = B:", ok_curl, ";  d_t A = -E:", ok_dt)
+
+    N = 3; t0 = Fr(1, 2)
+    lin = edge_integrals(A, sp.Rational(1, 2), N); flux = face_fluxes(B, sp.Rational(1, 2), N)
+    print("(b)-(d) lattice N = 3, spacing 1, t0 = 1/2.  Columns: e, then max over cubes of the cube-identity residual")
+    print("        e      links-first (+)-residual   flux-first (+)-residual   additive residual   max|a_P(links) - (-e Phi/2)|")
+    prev = None
+    for e in (Fr(1, 128), Fr(1, 256), Fr(1, 512), Fr(1, 1024)):
+        links = scaled(lin, -e / 2)                                                  # a_e = -(e/2) * int_e A
+        F_links = faces_from_links(RQ, links, N)
+        F_flux = {n: {p: -e / 2 * v for p, v in flux[n].items()} for n in flux}      # a_f = -(e/2) Phi_f
+        r_links = maxabs_resid(RQ, F_links, N); r_flux = maxabs_resid(RQ, F_flux, N)
+        add = max(abs((flux['xy'][(i, j, k + 1)] - flux['xy'][(i, j, k)]) + (flux['yz'][(i + 1, j, k)] - flux['yz'][(i, j, k)]) +
+                      (flux['zx'][(i, j + 1, k)] - flux['zx'][(i, j, k)])) for (i, j, k) in itertools.product(range(N), repeat=3))
+        dif = max(abs(F_links[n][p] - F_flux[n][p]) for n in F_links for p in F_links[n])
+        ratio = "" if prev is None else f"   (ratio to previous {float(prev / dif):.2f})"
+        prev = dif
+        print(f"        {str(e):>5}   {str(r_links):>22}   {float(r_flux):>22.3e}   {str(add):>17}   {float(dif):.3e}{ratio}")
+
+    print("(e) gauge change A -> A + grad(lambda), lambda = x^2 y + 2 y z + x z^2 (time independent): plaquettes of the linear regularisation")
+    lam = x**2 * y + 2 * y * z + x * z**2
+    A2 = [sp.expand(A[0] + sp.diff(lam, x)), sp.expand(A[1] + sp.diff(lam, y)), sp.expand(A[2] + sp.diff(lam, z))]
+    lin2 = edge_integrals(A2, sp.Rational(1, 2), N); prev = None
+    for e in (Fr(1, 128), Fr(1, 256), Fr(1, 512)):
+        F1 = faces_from_links(RQ, scaled(lin, -e / 2), N); F2 = faces_from_links(RQ, scaled(lin2, -e / 2), N)
+        dif = max(abs(F1[n][p] - F2[n][p]) for n in F1 for p in F1[n])
+        ratio = "" if prev is None else f"   (ratio to previous {float(prev / dif):.2f})"; prev = dif
+        print(f"        e = {str(e):>5}: max change of a plaquette parameter = {float(dif):.3e}{ratio}")
+    fl2 = face_fluxes(sp.Matrix(curl(A2)).T.tolist()[0], sp.Rational(1, 2), N)
+    print("        the additive fluxes are unchanged by the gauge change:", all(fl2[n][p] == flux[n][p] for n in flux for p in flux[n]))
+
+    print("(f) homomorphisms (F_p, +) -> (P^1(F_p), (+)): number of g in P^1(F_p) with p-fold g = 0  (only g = 0 means no non-trivial homomorphism)")
+    for p in (3, 7, 11, 19, 23):
+        assert p % 4 == 3, 'the Cayley group of order p+1 needs p = 3 (mod 4)'
+        R = Ring(make_Fp(p), p); pts = [None] + [R.mk(v) for v in range(p)]; cnt = 0
+        for g in pts:
+            r = R.zero
+            for _ in range(p): r = R.oplus(r, g)
+            cnt += eq(r, R.zero)
+        print(f"        p = {p:2d}: solutions {cnt}   (|P^1| = {p + 1}, gcd(p, p+1) = 1)")
+
+main()
+```
+
+## Reproducing Calculation 21
+
+```python
+"""
+Calculation 21 (Part 5): one-step commutation between the exact rotor-side evolution and the Cayley time step.
+
+  Lattice data in INTEGRATED variables (spacing 1):  E on edges = line integral of E,  Phi on faces = flux of B.
+  Semi-discrete system  d/dt (E, Phi) = M (E, Phi),  M = [[0, C^T], [-C, 0]]  (the system of Calculation 18).
+  The Cayley step Q(tau) = (I - tau M/2)^-1 (I + tau M/2) satisfies  x(t+tau) = Q(tau) x(t)  iff the trapezoid relation
+        (I - tau M/2) x(t+tau) = (I + tau M/2) x(t)          (local: involves M only)
+  (a) EXACT, over Q:  for polynomial Maxwell solutions of total degree <= 2 the trapezoid relation holds exactly;
+      for degree 3 it fails.
+  (b) FLOATING POINT, 1D chain (plane wave): convergence of the Cayley step to the exact continuum solution in space and in time,
+      and agreement of the compact Wilson dynamics with the linear dynamics at weak field (error ~ amplitude^2).
+Needs sympy, numpy, scipy.
+Tested with Python 3.12.3, SymPy 1.14.0, NumPy 2.4.4, SciPy 1.17.1 (one sandbox environment, not a lockfile-built clean environment).
+"""
+import itertools, random
+from fractions import Fraction as Fr
+import numpy as np
+import sympy as sp
+from scipy.linalg import expm
+
+t, x, y, z, tau_s = sp.symbols('t x y z tau'); I = sp.I
+def curl(v): return [sp.diff(v[2], y) - sp.diff(v[1], z), sp.diff(v[0], z) - sp.diff(v[2], x), sp.diff(v[1], x) - sp.diff(v[0], y)]
+def div(v): return sp.diff(v[0], x) + sp.diff(v[1], y) + sp.diff(v[2], z)
+def tofr(expr):
+    r = sp.Rational(sp.expand(expr)); return Fr(int(r.p), int(r.q))
+
+def solution_space(maxdeg, c=-I):
+    mons = [t**a * x**b * y**cc * z**dd for a in range(maxdeg + 1) for b in range(maxdeg + 1) for cc in range(maxdeg + 1)
+            for dd in range(maxdeg + 1) if a + b + cc + dd <= maxdeg]
+    syms = [sp.Symbol(f'q{a}_{k}') for a in range(3) for k in range(len(mons))]
+    zeta = [sum(syms[a * len(mons) + k] * mons[k] for k in range(len(mons))) for a in range(3)]
+    eqs = [sp.diff(zeta[a], t) - c * curl(zeta)[a] for a in range(3)] + [div(zeta)]
+    rows = []
+    for e in eqs:
+        e = sp.expand(e)
+        if e != 0: rows += list(sp.Poly(e, t, x, y, z).coeffs())
+    M, _ = sp.linear_eq_to_matrix(rows, syms)
+    return [[sp.expand(sum(v[a * len(mons) + k] * mons[k] for k in range(len(mons)))) for a in range(3)] for v in M.nullspace()]
+
+def split_EB(zeta):
+    E, B = [], []
+    for comp in zeta:
+        P = sp.Poly(sp.expand(comp), t, x, y, z); Ep = 0; Bp = 0
+        for mon, co in P.terms():
+            m = t**mon[0] * x**mon[1] * y**mon[2] * z**mon[3]
+            Ep += sp.re(co) * m; Bp += sp.im(co) * m
+        E.append(sp.expand(Ep)); B.append(sp.expand(Bp))
+    return E, B
+
+def combo(sols, seed, n):
+    rng = random.Random(seed); zeta = [0, 0, 0]
+    for sol in rng.sample(sols, min(n, len(sols))):
+        co = rng.randint(-2, 2) + I * rng.randint(-2, 2)
+        zeta = [sp.expand(zeta[a] + co * sol[a]) for a in range(3)]
+    return zeta
+
+# ---------------- integrated lattice data (spacing 1) ----------------
+def edge_data(E, t0, N):
+    Et = [sp.expand(c_.subs(t, t0)) for c_ in E]; anti = [sp.integrate(Et[0], x), sp.integrate(Et[1], y), sp.integrate(Et[2], z)]; out = {}
+    for i, j, k in itertools.product(range(N + 1), repeat=3):
+        out[(i, j, k, 0)] = tofr(anti[0].subs({x: i + 1, y: j, z: k}) - anti[0].subs({x: i, y: j, z: k}))
+        out[(i, j, k, 1)] = tofr(anti[1].subs({x: i, y: j + 1, z: k}) - anti[1].subs({x: i, y: j, z: k}))
+        out[(i, j, k, 2)] = tofr(anti[2].subs({x: i, y: j, z: k + 1}) - anti[2].subs({x: i, y: j, z: k}))
+    return out
+
+def flux_data(B, t0, N):
+    Bt = [sp.expand(c_.subs(t, t0)) for c_ in B]
+    Iz = sp.integrate(sp.integrate(Bt[2], x), y); Ix = sp.integrate(sp.integrate(Bt[0], y), z); Iy = sp.integrate(sp.integrate(Bt[1], z), x)
+    def box(F2, v1, v2, a1, a2, fixed):
+        tot = 0
+        for (p, q, sg) in ((a1 + 1, a2 + 1, 1), (a1, a2, 1), (a1 + 1, a2, -1), (a1, a2 + 1, -1)):
+            tot += sg * F2.subs({v1: p, v2: q, **fixed})
+        return tofr(tot)
+    out = {'xy': {}, 'yz': {}, 'zx': {}}
+    for (i, j, k) in itertools.product(range(N), range(N), range(N + 1)): out['xy'][(i, j, k)] = box(Iz, x, y, i, j, {z: k})
+    for (i, j, k) in itertools.product(range(N + 1), range(N), range(N)): out['yz'][(i, j, k)] = box(Ix, y, z, j, k, {x: i})
+    for (i, j, k) in itertools.product(range(N), range(N + 1), range(N)): out['zx'][(i, j, k)] = box(Iy, z, x, k, i, {y: j})
+    return out
+
+def CE(E, key, p):
+    i, j, k = p
+    if key == 'xy': return E[(i, j, k, 0)] + E[(i + 1, j, k, 1)] - E[(i, j + 1, k, 0)] - E[(i, j, k, 1)]
+    if key == 'yz': return E[(i, j, k, 1)] + E[(i, j + 1, k, 2)] - E[(i, j, k + 1, 1)] - E[(i, j, k, 2)]
+    return E[(i, j, k, 2)] + E[(i, j, k + 1, 0)] - E[(i + 1, j, k, 2)] - E[(i, j, k, 0)]
+
+def CTPhi(P, e):
+    i, j, k, m = e
+    if m == 0: return P['xy'][(i, j, k)] - P['xy'][(i, j - 1, k)] + P['zx'][(i, j, k - 1)] - P['zx'][(i, j, k)]
+    if m == 1: return P['yz'][(i, j, k)] - P['yz'][(i, j, k - 1)] + P['xy'][(i - 1, j, k)] - P['xy'][(i, j, k)]
+    return P['zx'][(i, j, k)] - P['zx'][(i - 1, j, k)] + P['yz'][(i, j - 1, k)] - P['yz'][(i, j, k)]
+
+def trapezoid_residuals(E, B, t0, tau, N=4):
+    E0, E1 = edge_data(E, t0, N), edge_data(E, t0 + tau, N); P0, P1 = flux_data(B, t0, N), flux_data(B, t0 + tau, N)
+    rE = Fr(0); rP = Fr(0); nE = nP = 0
+    for key in P0:
+        for p in P0[key]:
+            try:
+                r = (P1[key][p] - P0[key][p]) + (Fr(tau.p, tau.q) / 2) * (CE(E0, key, p) + CE(E1, key, p))
+            except KeyError: continue
+            rP = max(rP, abs(r)); nP += 1
+    for e in E0:
+        try:
+            r = (E1[e] - E0[e]) - (Fr(tau.p, tau.q) / 2) * (CTPhi(P0, e) + CTPhi(P1, e))
+        except KeyError: continue
+        rE = max(rE, abs(r)); nE += 1
+    return rE, nE, rP, nP
+
+
+# ---------------- 1D chain, floating point ----------------
+def chain_matrix(N):
+    Dm = np.eye(N) - np.roll(np.eye(N), -1, axis=1)                              # (Dm B)_i = B_i - B_{i-1}  (ones at (i, i-1))
+    M = np.zeros((2 * N, 2 * N)); M[:N, N:] = Dm; M[N:, :N] = -Dm.T
+    return M
+def check_chain_orientation(N=6):
+    """dE_i/dt = B_i - B_{i-1}  and  dB_i/dt = E_{i+1} - E_i."""
+    M = chain_matrix(N); B = np.zeros(N); B[2] = 1; E = np.zeros(N); E[2] = 1
+    dE = (M @ np.concatenate([np.zeros(N), B]))[:N]; dB = (M @ np.concatenate([E, np.zeros(N)]))[N:]
+    assert np.allclose(dE, [0, 0, 1, -1, 0, 0]) and np.allclose(dB, [0, 1, -1, 0, 0, 0]), (dE, dB)
+def chain_initial(N, m, eps):
+    k = 2 * np.pi * m / N; i = np.arange(N)
+    th = lambda xx, tt: eps * np.sin(k * xx - k * tt)
+    E = -eps * k * np.cos(k * i); B = th(i + 1, 0) - th(i, 0)
+    Bex = lambda tt: th(i + 1, tt) - th(i, tt)
+    return k, E, B, Bex
+def wilson_rk4(N, theta, E, dt, steps):
+    def rhs(th, Ev):
+        P = np.roll(th, -1) - th
+        return Ev, np.sin(P) - np.sin(np.roll(P, 1))
+    for _ in range(steps):
+        k1 = rhs(theta, E); k2 = rhs(theta + dt / 2 * k1[0], E + dt / 2 * k1[1]); k3 = rhs(theta + dt / 2 * k2[0], E + dt / 2 * k2[1]); k4 = rhs(theta + dt * k3[0], E + dt * k3[1])
+        theta = theta + dt / 6 * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0]); E = E + dt / 6 * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1])
+    return theta, E
+def linear_rk4(N, theta, E, dt, steps):
+    def rhs(th, Ev): return Ev, np.roll(th, -1) - 2 * th + np.roll(th, 1)
+    for _ in range(steps):
+        k1 = rhs(theta, E); k2 = rhs(theta + dt / 2 * k1[0], E + dt / 2 * k1[1]); k3 = rhs(theta + dt / 2 * k2[0], E + dt / 2 * k2[1]); k4 = rhs(theta + dt * k3[0], E + dt * k3[1])
+        theta = theta + dt / 6 * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0]); E = E + dt / 6 * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1])
+    return theta, E
+
+
+def main():
+    print("(a) EXACT one-step commutation (trapezoid relation) for integrated lattice data of polynomial Maxwell solutions")
+    for deg, n in ((2, 5), (3, 6)):
+        sols = solution_space(deg)
+        for seed in (1, 2):
+            zeta = combo(sols, seed, n); E, B = split_EB(zeta)
+            degE = max(sp.Poly(c_, t, x, y, z).total_degree() for c_ in E + B if c_ != 0)
+            rE, nE, rP, nP = trapezoid_residuals(E, B, sp.Rational(1, 3), sp.Rational(2, 3))
+            print(f"      solution space deg <= {deg}, combination {seed} (actual total degree {degE}):  Ampere-half residual max {rE} on {nE} edges;  Faraday-half residual max {rP} on {nP} faces")
+
+    check_chain_orientation()
+    print("(b) floating point, 1D chain, plane wave theta = eps sin(kx - kt), one period T = 2 pi/k")
+    N = 256; m = 8
+    print("    spatial convergence (exact semi-discrete flow expm(M T) against the continuum solution), eps = 1:")
+    prev = None
+    for m_ in (4, 8, 16, 32):
+        k, E0, B0, Bex = chain_initial(N, m_, 1.0); T = N / m_
+        v = expm(chain_matrix(N) * T) @ np.concatenate([E0, B0]); err = np.max(abs(v[N:] - Bex(T))) / (k)
+        print(f"      k = 2 pi*{m_}/{N}: error / (eps k) = {err:.3e}" + ("" if prev is None else f"   (ratio to previous {prev / err:.2f})")); prev = err
+    print("    time convergence (Cayley step Q(tau)^n against the exact semi-discrete flow), N = 256, m = 8, eps = 1:")
+    k, E0, B0, Bex = chain_initial(N, m, 1.0); T = N / m; M = chain_matrix(N); v0 = np.concatenate([E0, B0]); vex = expm(M * T) @ v0; prev = None
+    for n in (16, 32, 64, 128):
+        tau = T / n; Q = np.linalg.solve(np.eye(2 * N) - tau / 2 * M, np.eye(2 * N) + tau / 2 * M)
+        v = np.linalg.matrix_power(Q, n) @ v0; err = np.max(abs(v - vex)) / k
+        print(f"      tau = {tau:.4f} (n = {n:3d}): error / (eps k) = {err:.3e}" + ("" if prev is None else f"   (ratio to previous {prev / err:.2f})")); prev = err
+    print("    weak-field agreement: compact Wilson dynamics versus linear dynamics (RK4, dt = 0.01), N = 256, m = 8, one period:")
+    prev = None; steps = int(round(T / 0.01))
+    for eps in (0.4, 0.2, 0.1, 0.05):
+        i = np.arange(N); k = 2 * np.pi * m / N
+        th0 = eps * np.sin(k * i); E0 = -eps * k * np.cos(k * i)
+        thw, _ = wilson_rk4(N, th0.copy(), E0.copy(), 0.01, steps); thl, _ = linear_rk4(N, th0.copy(), E0.copy(), 0.01, steps)
+        err = np.max(abs(thw - thl)) / eps
+        print(f"      eps = {eps:5.3f}: max|theta_Wilson - theta_linear| / eps = {err:.3e}" + ("" if prev is None else f"   (ratio to previous {prev / err:.2f})")); prev = err
+
+main()
+```
+
+## References
+
+1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Version 2, October 15, 2026. DOI: [10.5281/zenodo.23395166](https://doi.org/10.5281/zenodo.23395166).
+2. J. D. Coady. Parts 1 to 4 of this series, blog posts, October 2026.
+3. J. Crank and P. Nicolson. A practical method for numerical evaluation of solutions of partial differential equations of the heat-conduction type. *Proc. Cambridge Philos. Soc.* 43, 50 (1947) (cited from memory).
+4. K. S. Yee. Numerical solution of initial boundary value problems involving Maxwell's equations in isotropic media. *IEEE Trans. Antennas Propag.* 14, 302 (1966).
