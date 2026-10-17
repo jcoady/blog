@@ -44,7 +44,7 @@ Knowing the field strength does not, by itself, give the connection, and neither
 
 | Stage | Goal | Status |
 |:---|:---|:---|
-| 1. Represent the field | $\zeta$ as the field strength | **established** (Part 1) |
+| 1. Represent the field | $\zeta$ as the field strength | **established** within the paper's stated framework (Part 1) |
 | 2. Transport and curvature | links whose plaquette holonomies equal the curvature represented by $\zeta$ | **partial:** exact for polynomial free solutions through a chosen regularisation (Part 5); no exactly gauge-equivariant version can exist in the sense of Proposition 20(c) |
 | 3. Evolution | an update derived from the rotor construction that advances field and links together | **partial:** a conditional derivation of the free equation (Part 4, 5); an exact time step and exact commutation for a low-degree class (Part 5); the compact dynamics of Part 1 is not derived from the rotor |
 | 4. Matter coupling | the matter current sources the same field update, with Gauss's law and gauge identities | **not done** |
@@ -104,10 +104,22 @@ The key missing result is a **compatibility theorem** connecting rotor evolution
 I agree with narrowing the work to the central bridge instead of adding another matter model or another solver. The equivariance no-go changes how that bridge should be formulated, though. "Derive exact gauge-equivariant links from $\zeta$ for general fields" cannot succeed over $\mathbb Q$. Three routes remain:
 
 - **Quantized fluxes.** Here an exactly equivariant chain exists statically. The open question is whether any dynamics preserves quantization while approximating Maxwell. My suspicion, which is a conjecture and not a result, is that exactness and continuity pull against each other: the only exact group-valued dynamics tested so far (Calculation 16) failed the Maxwell tests.
-- **Group-valued links as primary data, with an action principle.** Define the dynamics on Cayley links directly, as in Part 1's compact dynamics, and ask what rotor structure determines the action. A concrete candidate: the Lorentz-invariant $\mathrm{Re}(\zeta\cdot\zeta)=E^2-B^2$ is the Maxwell Lagrangian density, so a spacetime plaquette action in Cayley variables, with spacelike and timelike planes entering with opposite signs, would tie the rotor invariant to the lattice action. Varying it would give the field equations, and adding the Wilson–Dirac term would give the matter current as the source, so the Gauss law would follow from gauge invariance. This route needs temporal links and a real-time Dirac operator, neither of which exists yet in this series.
+- **Group-valued links as primary data, with an action principle.** Define the dynamics on Cayley links directly, as in Part 1's compact dynamics, and ask what rotor structure determines the action. A concrete candidate: the Lorentz-invariant $\mathrm{Re}(\zeta\cdot\zeta)=E^2-B^2$ is the Maxwell Lagrangian density, so a spacetime plaquette action in Cayley variables, with spacelike and timelike planes entering with opposite signs, would tie the rotor invariant to the lattice action. The invariant alone is not enough: the action must also specify the independent dynamical variables, and variation must be shown to give the intended equations. Adding the Wilson–Dirac term might then supply the matter current as the source, and gauge invariance gives identities and constraints, but whether a correct sourced lattice Gauss law follows depends on the time discretisation, the temporal links, the matter action and the definition of the charge density. That is a programme to be demonstrated, not an automatic consequence. This route needs temporal links and a real-time Dirac operator, neither of which exists yet in this series.
 - **Leading-order closure.** Accept equivariance only to leading order in $e$ and prove explicit error bounds, so the chain is stated as exact up to a controlled remainder.
 
-I would try the action-principle route first, because it addresses both the missing derivation of the evolution and the matter coupling, and it avoids the equivariance obstruction by working with group-valued links natively. The quantized case is worth a separate small exploration.
+I would try the action-principle route first, because it addresses both the missing derivation of the evolution and the matter coupling, and because working with group-valued links natively avoids the specific obstruction of Proposition 20(c). It is not known to succeed. The quantized case is worth a separate small exploration.
+
+### The next task, stated narrowly
+
+The next step is not "build a complete rotor–electromagnetic theory". It is to answer five questions in a small model (for example, one space dimension plus time with a U(1) link):
+
+1. What are the independent dynamical variables?
+2. What is the exact discrete action?
+3. What equations follow from varying the links and the matter variables?
+4. Does the resulting system satisfy the intended gauge and charge-conservation identities?
+5. Where precisely does the rotor anchor enter, and what is actually derived from it?
+
+If these can be answered, that is a genuine advance toward the compatibility theorem. If they cannot, the failure should identify a more precise obstruction.
 
 ## Summary
 
