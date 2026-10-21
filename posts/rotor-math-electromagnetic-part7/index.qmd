@@ -1,0 +1,426 @@
+---
+title: "A Minimal Action Principle: Variables, Gauss Law, Continuity, and Where the Rotor Enters"
+author: "John D. Coady"
+date: "2026-10-20"
+categories: [pure-math, mathematical-physics, electromagnetism, gauge-theory, lattice-gauge-theory, rational-trigonometry]
+format:
+  html:
+    toc: true
+    code-fold: true
+---
+
+## Where Part 6 left off
+
+[Part 6](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-part6/) ended with a narrow task: answer five questions in a small model. What are the independent variables? What is the exact discrete action? What follows from varying it? Do the gauge and charge-conservation identities hold? Where does the rotor anchor enter, and what is derived from it? This post answers them in the smallest model I could build that has a gauge field, a charged matter field, a Gauss constraint and a matter current.
+
+::: {.callout-note}
+## Scope
+- **Calculation 22** defines a rational, reversible kick–Cayley-drift–kick update for a charged complex scalar coupled to compact U(1) lattice links in $2{+}1$ dimensions. The Gauss function is preserved exactly by each sub-step, the kick satisfies an exact discrete continuity identity (and the full step satisfies one with the time-centred current), and gauge covariance and reversibility hold. These are proved in the text and checked in exact arithmetic over $\mathbb Q$, $\mathbb F_7$ and $\mathbb F_{11}$.
+- **Calculation 23** identifies the two Lorentz-invariant real quadratic forms in the electromagnetic field. Under the usual assumption that the pseudoscalar term is a boundary contribution, the rotor's Lorentz action selects the Maxwell quadratic field Lagrangian up to normalisation. It does not derive the lattice regularisation, the links, or the matter action.
+
+**Calculations 22 and 23 are separate results.** Calculation 22 is a $2{+}1$-dimensional lattice model (two electric components per site and one plaquette variable per square). Calculation 23 is a $3{+}1$-dimensional calculation with three-component $\mathbf E$ and $\mathbf B$. Calculation 23 motivates the form of the continuum field action; it does not derive Calculation 22 or show that its dynamics reproduce $3{+}1$-dimensional Maxwell theory.
+
+The continuous-time Hamiltonian action supplies the canonical equations and the Gauss constraint. The rational update is a **separate discretisation**: its Cayley drift is the exact flow of a modified electric kinetic energy $T_h(E)$, not of $\tfrac12E^2$, so the update is not claimed to be an exact Strang splitting of the displayed Hamiltonian, and it is not derived by varying a discrete action. Its convergence to Maxwell–matter dynamics is not established here.
+
+**Not claimed:** that the scheme approximates Maxwell theory with matter (wave speed, dispersion and energy behaviour in the coupled system were not tested); a real-time fermion (a complex scalar is used, not the Wilson–Dirac operator of Part 3); Lorentz covariance on the lattice; a rotor-derived regularisation, link structure or matter action; any conformal or convergence result.
+:::
+
+**Proofs and checks.** The identities are proved in the text. They are algebraic identities in $K=F[i]$ and hold wherever the operations are defined: the Cayley denominators $1+a^2$ and $1+(hE/2)^2$ are non-zero (automatic when $-1$ is not a square: over $\mathbb Q$ and for $p\equiv3\pmod4$), the point $a=\infty$ is handled projectively, and the update needs only that $2$ is invertible ($\mathrm{char}\,F\neq2$, for the factor $h/2$ in the drift). The step $h$ may be any element of $F$, and in the coordinates $K=F\oplus iF$ the real and imaginary parts are coordinates and need no division. The divisions by $2$ and $2i$ in the conjugation formulas for $\mathrm{Re}$ and $\mathrm{Im}$, and the division by $h$ in the real-variable formula for $T_h'$, belong to the interpretation, not to the update. The tests use $h=1/3$ as a convenient value, which requires $p\neq3$. The tables are exact-arithmetic verification (random states, including $a=\infty$) that checks the proofs and the script; they do not establish validity over fields not tested. One check is in floating point and is marked. Four kinds of statement are kept apart throughout: a **model definition** (variables, Hamiltonian, constraints), an **algebraic identity** (a consequence of the definitions), a **numerical test** (a check of an implementation), and a **rotor derivation** (why the model follows from the rotor anchor). This post contains the first three; the fourth is largely open. Floating-point consistency tests of the coupled scheme are reported in Part 8. Over $\mathbb Q$ I ran single steps only, because exact rational numbers grow about fourteen-fold in size per step (Part 1); the multi-step checks are over $\mathbb F_p$. The script is at the end.
+
+## The model
+
+**Variables (question 1).** On an $L\times L$ periodic spatial lattice (so $2{+}1$ dimensions with time):
+
+- Cayley link parameters $a_\mu(x)\in\mathbb P^1(F)$, with $U_\mu(x)=(1-ia_\mu)/(1+ia_\mu)=e^{i\theta_\mu(x)}$;
+- electric fields $E_\mu(x)\in F$, conjugate to $\theta_\mu$;
+- a charged complex scalar $\phi(x)\in K=F[i]$ with conjugate momentum $\pi(x)\in K$;
+- the temporal gauge component $A_0(x)$, which in the Hamiltonian form below is a **Lagrange multiplier** (its discrete-time counterpart is the temporal link $U_0=e^{i\Delta t\,A_0}$).
+
+I chose a scalar and the Hamiltonian form for three reasons. A scalar is the smallest matter field with a Noether charge. The Hamiltonian form keeps $E$ real and the drift rational (a $\oplus$ with a rational element). And a second-order Lagrangian discretisation of the Wilson term in the temporal plaquettes is not rational-explicit: the next temporal link must be solved from $\sin\theta=-2a/(1+a^2)=s$, which gives $a=(-1\pm\sqrt{1-s^2})/s$, a square root in general. (This is an algebraic observation; I did not run it.)
+
+**Algebraic versus real-variable notation.** The expressions $e^{i\theta}$, $\cos\theta_P$ and $\arctan$ in this post have their ordinary meaning in the real model. They are not operations over $\mathbb Q$ or $\mathbb F_p$. In the algebraic implementation, $a_\mu(x)\in\mathbb P^1(F)$, $U_\mu\in K=F[i]$ has norm one, and $\bar{\phantom{u}}$ is the conjugation of $K/F$. The plaquette energy is $H_B=\sum_P(1-\mathrm{Re}\,U_P)$ with $\mathrm{Re}\,U=(U+\bar U)/2$ (which needs $2$ invertible), the plaquette force $\sin\theta_P$ is $\mathrm{Im}\,U_P=(U_P-\bar U_P)/2i$, and squared norms are written $z\bar z$. Over $\mathbb F_p$ there is no ordering, so the Hamiltonian and the Poisson brackets are formal there: only the algebraic identities of Proposition 22 are meaningful, not an energy.
+
+**Canonical conventions.** The variables $\phi,\phi^*,\pi,\pi^*$ are treated as independent canonical variables with $\{\phi,\pi\}=1$, $\{\phi^*,\pi^*\}=1$ and $\{\theta_\mu,E_\mu\}=1$; physical states have $\phi^*=\overline\phi$ and $\pi^*=\overline\pi$. Then $\rho=i(\pi\phi-\pi^*\phi^*)=-2\,\mathrm{Im}(\pi\phi)$ generates $\phi\mapsto e^{i\alpha}\phi$, $\pi\mapsto e^{-i\alpha}\pi$, because $\{\phi,\,i\alpha\pi\phi\}=i\alpha\phi$ and $\{\pi,\,i\alpha\pi\phi\}=-i\alpha\pi$; and $\sum_x\alpha_x(\operatorname{div}E)_x$ generates $\theta_\mu(x)\mapsto\theta_\mu(x)+\alpha_x-\alpha_{x+\hat\mu}$, because $\{\theta_\mu(x),\sum_y\alpha_y(E_\mu(y)-E_\mu(y-\hat\mu))\}=\alpha_x-\alpha_{x+\hat\mu}$. So $G=\operatorname{div}E+\rho$ generates exactly the gauge transformation of the model. A kinetic term $\pi\pi^*$ gives $\dot\phi=\partial H/\partial\pi=\pi^*$.
+
+**Action and Hamiltonian (question 2).** In continuous time the first-order action is
+$$
+S=\int dt\Bigl[\sum_{x,\mu}E_\mu\dot\theta_\mu+\sum_x\bigl(\pi\dot\phi+\pi^*\dot\phi^*\bigr)-H-\sum_xA_{0}(x)\,G(x)\Bigr],
+$$
+with
+$$
+H=\sum\tfrac12E_\mu^2+\sum_P(1-\cos\theta_P)+\sum_x\pi\pi^*+\sum_{x,\mu}\bigl|U_\mu(x)\phi(x{+}\hat\mu)-\phi(x)\bigr|^2+m^2\sum_x|\phi|^2 .
+$$
+The gauge transformation is $\phi\mapsto g\phi$, $\pi\mapsto g^{-1}\pi$, $U_\mu(x)\mapsto g(x)U_\mu(x)g(x{+}\hat\mu)^{-1}$, with $E$ unchanged. Its generator is the Gauss function
+$$
+G(x)=(\operatorname{div}E)(x)+\rho(x),\qquad(\operatorname{div}E)(x)=\sum_\mu\bigl[E_\mu(x)-E_\mu(x-\hat\mu)\bigr],\qquad \rho=-2\,\mathrm{Im}(\pi\phi).
+$$
+
+**Equations from varying (question 3).** Varying $A_0$ first gives the constraint $G=0$ (the standard Dirac structure; I did not test this statement computationally). Temporal gauge $A_0=0$ is then chosen for the evolution: the constraint is imposed on the initial data and shown below to be preserved by the update. Varying the remaining variables gives Hamilton's equations: $\dot\theta=\partial H/\partial E$, $\dot E=-\partial H/\partial\theta$, $\dot\phi=\pi^*$, $\dot\pi=-\partial H/\partial\phi$. In these, the matter current enters the electric equation through
+$$
+J_\mu(x)\equiv\frac{\partial H_{\rm hop}}{\partial\theta_\mu(x)}=2\,\mathrm{Im}\bigl(U_\mu(x)\,\phi(x{+}\hat\mu)\,\phi(x)^*\bigr),\qquad \dot E_\mu=-(\text{plaquette force})-J_\mu .
+$$
+So the current is not an external source: it is computed by varying the same hopping term that couples the matter to the links.
+
+## The scheme and its exact identities (question 4)
+
+The time step is a symmetric kick–drift–kick scheme, $\mathrm{step}(h)=\mathrm{kick}(h/2)\,\mathrm{drift}(h)\,\mathrm{kick}(h/2)$, where
+
+- the **kick** advances the momenta by the position-dependent forces: $E\leftarrow E-h\,\partial H_{\rm pot}/\partial\theta$ and $\pi\leftarrow\pi-h\,\partial H_{\rm pot}/\partial\phi$, with $H_{\rm pot}$ the plaquette, hopping and mass terms (these depend on positions only, so the three kicks commute);
+- the **drift** advances the positions: $\phi\leftarrow\phi+h\pi^*$ (the exact flow of $\pi\pi^*$) and $a_\mu\leftarrow a_\mu\oplus(-\tfrac h2E_\mu)$ (the Cayley drift of Part 1, Calculation 10).
+
+**The Cayley drift is not the exact flow of $\tfrac12E^2$.** The exact flow would be $\theta\mapsto\theta+hE$, i.e. $U\mapsto Ue^{ihE}$. The Cayley drift gives $U\mapsto U\,(1+ihE/2)/(1-ihE/2)$, which is $\theta\mapsto\theta+2\arctan(hE/2)$ in the real model (the code never evaluates $\arctan$; this is a real-variable interpretation only, and the expansion below is not an identity over $\mathbb Q$ or $\mathbb F_p$). This is the exact flow of the **modified** kinetic energy $T_h(E)$ with $T_h'(E)=(2/h)\arctan(hE/2)$, that is $T_h(E)=\tfrac12E^2-\tfrac{h^2}{48}E^4+O(h^4)$. So every sub-step is the exact flow of a gauge-invariant piece of the modified Hamiltonian $H_h$ (with $\tfrac12E^2$ replaced by $T_h(E)$), and the scheme deviates from the displayed $H$ at order $h^2$. The composition is a splitting integrator for the modified Hamiltonian, not its exact full-time flow; the existence of a useful conserved modified Hamiltonian for the complete discrete map is not established here. The exact real drift $U\mapsto Ue^{ihE}$ is not rational over the fields used here. I keep the rational drift, and its approximation to the intended dynamics must be tested separately. With $\phi=\pi=0$ the scheme reduces to Part 1's Calculation 10 integrator, whose dispersion, energy behaviour and convergence were measured there. The coupled system is tested in floating point in Part 8 (constraints, charge, energy, reversibility and temporal convergence); its spatial convergence and dispersion have not been tested.
+
+Every operation is rational over $K$: the plaquette force is $\sin\theta_P=\mathrm{Im}\,U_P$, and $\mathrm{Im}\,z=(z-\bar z)/2i$.
+
+**Proposition 22.**
+
+1. **Gauss law is preserved exactly.** Each of the kick and the drift leaves $G$ unchanged, for any $h$; hence so does the full step.
+2. **Discrete continuity.** For the kick, $\rho_x^{\rm after}-\rho_x^{\rm before}=h\,(\operatorname{div}J)_x$, where $(\operatorname{div}J)_x=\sum_\mu[J_\mu(x)-J_\mu(x-\hat\mu)]$. For the full step, $\rho^{n+1}-\rho^n=\tfrac h2\operatorname{div}J^{(0)}+\tfrac h2\operatorname{div}J^{(1)}=h\operatorname{div}\overline J^{\,n+1/2}$, where $J^{(0)}$ and $J^{(1)}$ are the currents at the states where the first and second half-kicks are evaluated and $\overline J^{\,n+1/2}=\tfrac12(J^{(0)}+J^{(1)})$.
+3. **Gauge covariance.** The step commutes with every gauge transformation.
+4. **Reversibility.** $\mathrm{step}(-h)$ is the exact inverse of $\mathrm{step}(h)$.
+
+*Proof.* (1) The plaquette kick changes only $E$ by a lattice curl, so $\Delta(\operatorname{div}E)=0$ and $\Delta\rho=0$. The mass kick changes $\pi$ by $-hm^2\phi^*$, so $\Delta\rho=2hm^2\,\mathrm{Im}|\phi|^2=0$. For the hopping kick, $\Delta E_\mu(x)=-hJ_\mu(x)$, so $\Delta(\operatorname{div}E)_x=-h(\operatorname{div}J)_x$. The momentum change is $\Delta\pi_x=-h\sum_\mu\bigl(2\phi_x^*-U_\mu(x{-}\hat\mu)\phi^*_{x-\hat\mu}-U_\mu(x)^*\phi^*_{x+\hat\mu}\bigr)$, and $\Delta\rho_x=-2\,\mathrm{Im}(\Delta\pi_x\phi_x)$; the terms $2\lvert\phi_x\rvert^2$ are real and drop out, and with $z_\mu(x)=U_\mu(x)\phi(x{+}\hat\mu)\phi(x)^*$ one finds $\mathrm{Im}\bigl(U_\mu(x{-}\hat\mu)\phi^*_{x-\hat\mu}\phi_x\bigr)=\mathrm{Im}\,z_\mu(x{-}\hat\mu)$ and $\mathrm{Im}\bigl(U_\mu(x)^*\phi^*_{x+\hat\mu}\phi_x\bigr)=-\mathrm{Im}\,z_\mu(x)$. Hence $\Delta\rho_x=h\,(\operatorname{div}J)_x=-\Delta(\operatorname{div}E)_x$, which is (2) and gives $\Delta G=0$. In the drift, $\phi\leftarrow\phi+h\pi^*$ changes $\rho$ by $-2h\,\mathrm{Im}(\pi\pi^*)=0$, and the Cayley drift changes only the $a_\mu$, on which neither $\operatorname{div}E$ nor $\rho$ depends. (3) Each sub-step is built from gauge-covariant expressions ($\phi$, $U$ and $\pi$ enter only through gauge-invariant combinations or covariantly). (4) Each sub-step is inverted by $h\to-h$, and the scheme is symmetric. For the full-step continuity in (2), the drift does not change $\rho$ (shown in (1)), so the change of $\rho$ over the step is the sum of the two half-kick changes, each given by the kick identity at its own state. $\square$
+
+Three logically distinct statements are involved: the action gives Gauss's law (standard, stated above), the matter equations give a continuity identity (item 2), and the evolution preserves the constraint (item 1). In this model the third is a theorem about the scheme: Proposition 22(1) is proved by direct algebra for each sub-step. Equivalently, each sub-flow is the exact flow of a gauge-invariant piece of the modified Hamiltonian $H_h$ above, so each conserves its Noether charge $G$.
+
+### Computational verification
+
+$3\times3$ torus, $h=1/3$, $m^2=1$, random states (including $a=\infty$), exact arithmetic:
+
+| Check | $\mathbb Q$ | $\mathbb F_7$ | $\mathbb F_{11}$ |
+|:---|:---:|:---:|:---:|
+| $G$ conserved by kick, drift and full step | 6/6 | 18/18 | 18/18 |
+| $G$ conserved by multiple full steps | 2/2 (1 step) | 6/6 (5 steps) | 6/6 (5 steps) |
+| continuity $\Delta\rho=h\operatorname{div}J$ for the kick, per site | 18/18 | 54/54 | 54/54 |
+| full-step continuity with the time-centred current, per site | 18/18 | 54/54 | 54/54 |
+| gauge covariance of the step | 2/2 | 6/6 | 6/6 |
+| $\mathrm{step}(-h)$ inverts $\mathrm{step}(h)$ | 2/2 | 6/6 | 6/6 |
+
+Floating point (a check that the implementation is the stated Hamiltonian system): the implemented kick forces agree with finite-difference gradients of the stated $H_{\rm pot}$, with maximum differences $4.2\times10^{-9}$ for $\partial H/\partial\theta$ and $3.4\times10^{-9}$ for the Wirtinger derivative $\partial H/\partial\phi$ (consistent with the accuracy of the finite differences).
+
+**Levels of evidence.**
+
+| Claim | Status |
+|:---|:---|
+| $G$ is preserved by the kick and the drift | proved algebraically; exact checks |
+| kick and full-step continuity | proved algebraically; exact checks |
+| implemented forces are the gradients of the stated $H_{\rm pot}$ | numerical check (floating point) |
+| the scheme approximates Maxwell–matter dynamics | **not established**; needs convergence, dispersion and energy tests of the coupled system |
+| the update follows from varying a discrete action | **not established**; the action and the update are separate constructions |
+| the update is an exact Strang splitting of the displayed $H$ | **not correct** (the Cayley drift is the exact flow of $T_h$, not of $\tfrac12E^2$) |
+
+### What this does and does not give
+
+- **Gives:** a complete small coupled system in which the Gauss constraint, charge continuity and gauge covariance hold exactly for the discrete update, with a current derived from the same Hamiltonian that couples the matter to the links. This is the compatibility statement the earlier posts lacked, in one explicit model.
+- **Does not give:** evidence that the scheme approximates Maxwell theory with matter (wave speed, dispersion, energy behaviour were not tested); a fermionic matter field; a real-time version of the Wilson–Dirac operator; Lorentz covariance.
+
+## Where the rotor enters (question 5)
+
+The rotor packages the field as $\zeta=\mathbf E+i\mathbf B$, on which Lorentz transformations act by complex rotations (Part 1, Calculation 6). Consider real quadratic forms in $(\mathbf E,\mathbf B)$ invariant under the rotation and boost generators ($\delta\zeta=\mathbf r\times\zeta$ and $\delta\zeta=i\,\mathbf b\times\zeta$).
+
+**Calculation 23.** Solving the invariance conditions exactly (SymPy) gives a space of dimension **2**, with basis
+$$
+B^2-E^2=-\mathrm{Re}(\zeta\cdot\zeta),\qquad \mathbf E\cdot\mathbf B=\tfrac12\mathrm{Im}(\zeta\cdot\zeta).
+$$
+
+So among local, gauge-invariant actions quadratic in the field strength, Lorentz invariance leaves two terms. The second, $\mathbf E\cdot\mathbf B$ (the pseudoscalar $F\tilde F$), is a total derivative when the field strength comes from a globally defined potential with suitable boundary conditions (a standard fact, not tested here). With boundaries or non-trivial topological sectors it need not be irrelevant to the action, although it does not change the local source-free field equations. So, for a local quadratic action in the field strength on a topologically trivial domain with appropriate boundary conditions, Lorentz invariance fixes the ordinary free Maxwell action up to its overall normalisation: $S_{\rm field}\propto\int\tfrac12(E^2-B^2)$. In the $2{+}1$-dimensional lattice model, the kinetic term $\tfrac12E^2$ and the plaquette term $(1-\cos\theta_P)\approx\tfrac12\theta_P^2$ (where the single plaquette variable plays the role of $B_z$) match the continuum density $\tfrac12(E^2-B^2)$ at leading order. This is a leading-order comparison that motivates the lattice terms; it is not a derivation of the lattice Hamiltonian, and the cosine regularisation is not fixed by the quadratic form.
+
+This is what the rotor contributes: the *form* of the field action, in one line, from its Lorentz action. It does **not** supply:
+
+- the links, or the Cayley regularisation $\cos\theta_P$ (the quadratic form fixes only the leading behaviour);
+- the matter action, the coupling, or the form of the hopping term;
+- the time discretisation (the Strang splitting and the Cayley drift are my choices).
+
+## Conformal symmetry
+
+I agree with the suggestion to treat conformal symmetry as a later structural test, not a prerequisite. Classical Maxwell theory in four dimensions is conformally invariant, and the invariants $\mathrm{Re}(\zeta\cdot\zeta)$ and $\mathrm{Im}(\zeta\cdot\zeta)$ have the right scaling. Three separate statements need separate treatment: conformal invariance of the continuum rotor equations (a reasonable target), exact invariance on a fixed lattice (not expected), and recovery in a scaling limit. I have not tested any of them, and the $2\times2$ rotor structure is not automatically the full conformal group of $3{+}1$ dimensions; that connection would need its own result. A first concrete step would be to check that the solution space of the free equation is mapped to itself by a special conformal transformation combined with a position-dependent complex rotation of $\zeta$.
+
+## Next directions
+
+1. **Small-step expansion and consistency.** The Cayley drift is already expanded ($T_h(E)=\tfrac12E^2-\tfrac{h^2}{48}E^4+\dots$). Part 8 measures the Gauss function, charge, energy, reversibility and temporal convergence of the coupled scheme in floating point. Still open: spatial convergence and wave dispersion of the coupled system, a manufactured-solution test, and a weak-field comparison with Calculation 18 and Part 1's compact dynamics, so that the scheme can be described as a verified discretisation and not only a constraint-preserving rational model.
+2. **A fermion.** Replace the scalar by a real-time lattice fermion, with the doubling issue of Part 3, and repeat the Gauss and continuity identities.
+3. **A discrete-action derivation.** Derive the update (or an alternative) as a variational integrator of a discrete action with temporal links, and state which part of the update corresponds to which part of the action.
+4. **Where the rotor could constrain more.** Identify any further place where Lorentz covariance of $\zeta$ restricts the coupling or the matter action, beyond the field action.
+5. **Rotor-to-link construction.** An explicit map from projective $2\times2$ rotor data to lattice links, with its covariance and curvature properties. Part 5 gives such a map only for polynomial free solutions, through a chosen regularisation.
+6. **Conformal test**, as above.
+
+## Reproducing Calculations 22 and 23
+
+The exact-arithmetic claims refer to the script below, `minimal_action_model.py`, which is embedded in full. SHA-256 of the tested file:
+`a365ed41a471495f60b4a480ef3a8ee27d411d6265e560fd9468567ce413ddca`. The floating-point validation of Part 8 (`validate_coupled_scheme.py`, SHA-256 `20da795c2f78832520ec45406af55fb15ec40e579e57f854478f6d6e93057d8a`) imports it, so keep both files in one directory. Rerun the whole suite after changing any force sign, link convention or projective exceptional case.
+
+Run with `python3 minimal_action_model.py` (or with the argument `Q`, `F7`, `F11`, `float` or `inv` to run one part). Tested with Python 3.12.3 and SymPy 1.14.0.
+
+```python
+"""
+Calculations 22 and 23 (Part 7): a minimal coupled gauge-matter lattice model in exact arithmetic.
+
+MODEL (2+1 D periodic L x L lattice, Hamiltonian form, temporal gauge; the temporal link is the Lagrange multiplier of the Gauss constraint)
+  variables:  Cayley link parameters a_mu(x) in P^1(F),  electric fields E_mu(x) in F,  complex scalar phi(x) in K = F[i],  momentum pi(x) in K
+  H = sum_{x,mu} E^2/2  +  sum_P (1 - cos theta_P)  +  sum_x pi pi*  +  sum_{x,mu} |U_mu(x) phi(x+mu) - phi(x)|^2  +  m^2 sum_x |phi|^2
+  gauge transformation:  phi -> g phi,  pi -> g^-1 pi,  U_mu(x) -> g(x) U_mu(x) g(x+mu)^-1,  E unchanged
+  Gauss generator:  G(x) = (div E)(x) + rho(x),   rho = -2 Im(pi phi),   (div E)(x) = sum_mu [E_mu(x) - E_mu(x-mu)]
+  link current:     J_mu(x) = dH_hop/d theta_mu(x) = 2 Im( U_mu(x) phi(x+mu) phi(x)* )
+CONVENTIONS: phi, phi*, pi, pi* are independent canonical variables with {phi, pi} = 1, {phi*, pi*} = 1, {theta, E} = 1; physical states have
+  phi* = conj(phi), pi* = conj(pi).  rho = i (pi phi - pi* phi*) = -2 Im(pi phi) generates phi -> e^{i alpha} phi, pi -> e^{-i alpha} pi;
+  alpha_x (div E)_x summed over x generates theta_mu(x) -> theta_mu(x) + alpha_x - alpha_{x+mu}.
+SCHEME (symmetric kick-drift-kick):  step(h) = kick(h/2) drift(h) kick(h/2).
+  The kicks are exact flows of the potential terms of H.  The matter drift is the exact flow of pi pi*.  The Cayley drift of the links is the
+  exact flow of the MODIFIED kinetic energy T_h(E) with T_h'(E) = (2/h) arctan(hE/2), i.e. T_h(E) = E^2/2 - h^2 E^4/48 + O(h^4);
+  it is NOT the exact flow of E^2/2.
+  kick:   E <- E - h dH_pot/d theta,  pi <- pi - h dH_pot/d phi          (H_pot = plaquette + hopping + mass; depends on positions only)
+  drift:  phi <- phi + h pi*,   a <- a (+) ( -(h/2) E )                  (Cayley drift)
+Checks over Q (one full step: exact rational numbers grow about 14-fold in size per step), F_7 and F_11 (five full steps); random states, including a = infinity:
+  (a) G is conserved exactly by every sub-step, for any h        (b) exact discrete continuity  Delta rho = h div J  for the kick
+  (c) the step commutes with gauge transformations               (d) step(-h) is the exact inverse
+  (b') continuity over a FULL step:  rho(n+1) - rho(n) = (h/2) div J(first kick) + (h/2) div J(second kick)
+  (e) the space of real quadratic Lorentz invariants of (E, B) is 2-dimensional, spanned by E^2 - B^2 and E.B   (sympy)
+  (f) floating point: the implemented kick forces equal the gradients of the stated potential Hamiltonian (finite differences)
+Needs sympy for (e).  Tested with Python 3.12.3, SymPy 1.14.0.
+"""
+import itertools
+import random
+from fractions import Fraction as Fr
+
+
+# ------------------------------------------------------------------ fields ---
+def make_Fp(p):
+    class FpP:
+        P = p
+        def __init__(s, v): s.v = int(v) % FpP.P
+        def __add__(s, o): return FpP(s.v + _v(o))
+        __radd__ = __add__
+        def __sub__(s, o): return FpP(s.v - _v(o))
+        def __rsub__(s, o): return FpP(_v(o) - s.v)
+        def __neg__(s): return FpP(-s.v)
+        def __mul__(s, o): return FpP(s.v * _v(o))
+        __rmul__ = __mul__
+        def __truediv__(s, o): return FpP(s.v * pow(_v(o), -1, FpP.P))
+        def __eq__(s, o): return o is not None and s.v == _v(o) % FpP.P
+        def __hash__(s): return hash(s.v)
+        def __repr__(s): return str(s.v)
+    return FpP
+def _v(o): return o.v if hasattr(o, "v") else int(o)
+
+def kadd(u, v): return (u[0] + v[0], u[1] + v[1])
+def ksub(u, v): return (u[0] - v[0], u[1] - v[1])
+def kmul(u, v): return (u[0] * v[0] - u[1] * v[1], u[0] * v[1] + u[1] * v[0])
+def kconj(u): return (u[0], -u[1])
+def ksc(s, u): return (s * u[0], s * u[1])
+
+class Ring:
+    """P^1(F) with the Cayley law; a = None is infinity.  Requires -1 not a square (p = 3 mod 4)."""
+    def __init__(s, mk, p=None):
+        if p is not None: assert p % 4 == 3
+        s.mk, s.p, s.one, s.zero = mk, p, mk(1), mk(0)
+    def phase(s, a):
+        if a is None: return (-s.one, s.zero)
+        d = s.one + a * a
+        if d == s.zero: raise ZeroDivisionError("1 + a^2 = 0")
+        return ((s.one - a * a) / d, s.mk(-2) * a / d)
+    def a_of(s, u): return None if u[0] == -s.one else -u[1] / (s.one + u[0])
+    def oplus(s, a, b): return s.a_of(kmul(s.phase(a), s.phase(b)))
+    def neg(s, a): return None if a is None else -a
+    def eq(s, a, b): return (a is None and b is None) or (a is not None and b is not None and a == b)
+RQ = Ring(Fr)
+def RF(p): return Ring(make_Fp(p), p)
+
+
+# ------------------------------------------------------------------ lattice ---
+L = 3
+SITES = [(i, j) for i in range(L) for j in range(L)]
+def sh(x, mu, s=1): return ((x[0] + s * (mu == 0)) % L, (x[1] + s * (mu == 1)) % L)
+
+class State:
+    def __init__(s, a, E, phi, pi): s.a, s.E, s.phi, s.pi = a, E, phi, pi
+    def copy(s): return State(dict(s.a), dict(s.E), dict(s.phi), dict(s.pi))
+    def same(s, R, o):
+        return all(R.eq(s.a[k], o.a[k]) and s.E[k] == o.E[k] for k in s.a) and all(s.phi[x] == o.phi[x] and s.pi[x] == o.pi[x] for x in s.phi)
+
+def random_state(R, rng, with_infinity=True):
+    if R is RQ:
+        num = lambda: Fr(rng.randint(-5, 5), rng.randint(1, 4))
+        par = lambda: None if (with_infinity and rng.random() < 0.05) else num()
+    else:
+        num = lambda: R.mk(rng.randrange(R.p))
+        par = lambda: None if (with_infinity and rng.randrange(R.p + 1) == R.p) else R.mk(rng.randrange(R.p))
+    a = {(x, mu): par() for x in SITES for mu in (0, 1)}; E = {(x, mu): num() for x in SITES for mu in (0, 1)}
+    phi = {x: (num(), num()) for x in SITES}; pi = {x: (num(), num()) for x in SITES}
+    return State({(x, mu): a[(x, mu)] for x in SITES for mu in (0, 1)}, E, phi, pi)
+
+def links(R, st): return {k: R.phase(v) for k, v in st.a.items()}
+
+def forces(R, st, m2):
+    """Returns (dE_kick, dpi_kick, J) such that a kick of size h does E -= h*dE, pi -= h*dpi.   J_mu(x) = dH_hop/d theta."""
+    U = links(R, st); two = R.mk(2)
+    # plaquette: xi = sin(theta_P) = Im U_P
+    xi = {}
+    for (i, j) in SITES:
+        UP = kmul(kmul(U[((i, j), 0)], U[(sh((i, j), 0), 1)]), kmul(kconj(U[(sh((i, j), 1), 0)]), kconj(U[((i, j), 1)])))
+        xi[(i, j)] = UP[1]
+    dE = {}
+    for (i, j) in SITES:
+        dE[((i, j), 0)] = xi[(i, j)] - xi[(i, (j - 1) % L)]                      # E_x -= h (xi(i,j) - xi(i,j-1))
+        dE[((i, j), 1)] = -(xi[(i, j)] - xi[((i - 1) % L, j)])                   # E_y += h (xi(i,j) - xi(i-1,j))
+    # hopping: J = 2 Im( U phi(x+mu) phi(x)* ),  dH/dphi_x = sum_mu [ 2 phi*_x - U_mu(x-mu) phi*_{x-mu} - U_mu(x)* phi*_{x+mu} ]
+    J = {}
+    for x in SITES:
+        for mu in (0, 1):
+            z = kmul(kmul(U[(x, mu)], st.phi[sh(x, mu)]), kconj(st.phi[x]))
+            J[(x, mu)] = two * z[1]
+            dE[(x, mu)] = dE[(x, mu)] + J[(x, mu)]
+    dpi = {}
+    for x in SITES:
+        d = (R.zero, R.zero)
+        for mu in (0, 1):
+            d = kadd(d, ksc(two, kconj(st.phi[x])))
+            d = ksub(d, kmul(U[(sh(x, mu, -1), mu)], kconj(st.phi[sh(x, mu, -1)])))
+            d = ksub(d, kmul(kconj(U[(x, mu)]), kconj(st.phi[sh(x, mu)])))
+        dpi[x] = kadd(d, ksc(m2, kconj(st.phi[x])))                               # + m^2 phi*
+    return dE, dpi, J
+
+def kick(R, st, h, m2):
+    dE, dpi, J = forces(R, st, m2); out = st.copy()
+    for k in out.E: out.E[k] = st.E[k] - h * dE[k]
+    for x in out.pi: out.pi[x] = ksub(st.pi[x], ksc(h, dpi[x]))
+    return out
+
+def drift(R, st, h):
+    out = st.copy()
+    for x in out.phi: out.phi[x] = kadd(st.phi[x], ksc(h, kconj(st.pi[x])))
+    half = h / R.mk(2)
+    for k in out.a: out.a[k] = R.oplus(st.a[k], -(half * st.E[k]))
+    return out
+
+def step(R, st, h, m2):
+    h2 = h / R.mk(2)
+    return kick(R, drift(R, kick(R, st, h2, m2), h), h2, m2)
+
+def gauss(R, st):
+    G = {}
+    for x in SITES:
+        div = R.zero
+        for mu in (0, 1): div = div + st.E[(x, mu)] - st.E[(sh(x, mu, -1), mu)]
+        rho = -R.mk(2) * kmul(st.pi[x], st.phi[x])[1]
+        G[x] = div + rho
+    return G
+
+def gauge_transform(R, st, gam):
+    g = {x: R.phase(gam[x]) for x in SITES}; out = st.copy()
+    for (x, mu) in out.a: out.a[(x, mu)] = R.oplus(R.oplus(gam[x], st.a[(x, mu)]), R.neg(gam[sh(x, mu)]))
+    for x in out.phi:
+        out.phi[x] = kmul(g[x], st.phi[x]); out.pi[x] = kmul(kconj(g[x]), st.pi[x])
+    return out
+
+
+def invariants_test():
+    import sympy as sp
+    E = sp.symbols('E1:4'); B = sp.symbols('B1:4'); v = list(E) + list(B)
+    S = sp.Matrix(6, 6, lambda i, j: sp.Symbol(f's{min(i, j)}{max(i, j)}'))
+    unk = sorted(S.free_symbols, key=str)
+    def gen(rot, boost):
+        # delta E = rot x E - boost x B ,  delta B = rot x B + boost x E   (rotation by a complex angle: delta zeta = (rot + i boost) x zeta ... i.e. i (boost x zeta))
+        Ev = sp.Matrix(E); Bv = sp.Matrix(B); r = sp.Matrix(rot); b = sp.Matrix(boost)
+        dE = r.cross(Ev) - b.cross(Bv); dB = r.cross(Bv) + b.cross(Ev)
+        return sp.Matrix(list(dE) + list(dB))
+    eqs = []
+    unit = [sp.Matrix([1, 0, 0]), sp.Matrix([0, 1, 0]), sp.Matrix([0, 0, 1])]
+    for k in range(3):
+        for (r, b) in ((unit[k], sp.zeros(3, 1)), (sp.zeros(3, 1), unit[k])):
+            dv = gen(r, b); q = sp.Matrix(v).T * S * dv * 2
+            eqs += list(sp.Poly(sp.expand(q[0]), *v).coeffs())
+    M, _ = sp.linear_eq_to_matrix(eqs, unk); ns = M.nullspace()
+    forms = []
+    for n in ns:
+        sub = {unk[i]: n[i] for i in range(len(unk))}; Sm = S.subs(sub)
+        forms.append(sp.expand((sp.Matrix(v).T * Sm * sp.Matrix(v))[0]))
+    return len(ns), forms
+
+
+def forces_vs_hamiltonian(seed=3, m2=1.0, delta=1e-6):
+    """Floating point: compare the implemented kick forces with finite-difference gradients of
+    H_pot = sum_P (1 - cos theta_P) + sum |U phi(x+mu) - phi(x)|^2 + m2 sum |phi|^2   (theta = -2 arctan a)."""
+    import math
+    Rf = Ring(float); rng = random.Random(seed)
+    th = {(x, mu): rng.uniform(-1.2, 1.2) for x in SITES for mu in (0, 1)}
+    phi = {x: complex(rng.uniform(-1, 1), rng.uniform(-1, 1)) for x in SITES}
+    def Hpot(th, phi):
+        U = {k: complex(math.cos(v), math.sin(v)) for k, v in th.items()}; H = 0.0
+        for (i, j) in SITES:
+            UP = U[((i, j), 0)] * U[(sh((i, j), 0), 1)] * U[(sh((i, j), 1), 0)].conjugate() * U[((i, j), 1)].conjugate(); H += 1 - UP.real
+        for x in SITES:
+            for mu in (0, 1): H += abs(U[(x, mu)] * phi[sh(x, mu)] - phi[x]) ** 2
+            H += m2 * abs(phi[x]) ** 2
+        return H
+    a = {k: -math.tan(v / 2) for k, v in th.items()}
+    st = State(a, {k: 0.0 for k in a}, {x: (phi[x].real, phi[x].imag) for x in SITES}, {x: (0.0, 0.0) for x in SITES})
+    dE, dpi, J = forces(Rf, st, m2)
+    errE = errP = 0.0
+    for k in th:
+        up = dict(th); dn = dict(th); up[k] += delta; dn[k] -= delta
+        errE = max(errE, abs((Hpot(up, phi) - Hpot(dn, phi)) / (2 * delta) - dE[k]))
+    for x in SITES:
+        pr = dict(phi); mr = dict(phi); pi_ = dict(phi); mi = dict(phi)
+        pr[x] += delta; mr[x] -= delta; pi_[x] += 1j * delta; mi[x] -= 1j * delta
+        dRe = (Hpot(th, pr) - Hpot(th, mr)) / (2 * delta); dIm = (Hpot(th, pi_) - Hpot(th, mi)) / (2 * delta)
+        wirt = 0.5 * (dRe - 1j * dIm)                                              # dH/dphi (Wirtinger derivative)
+        errP = max(errP, abs(wirt - complex(dpi[x][0], dpi[x][1])))
+    return errE, errP
+
+def run_ring(label, R, nsteps, ntrials):
+    rng = random.Random(5); m2 = R.mk(1); h = R.mk(1) / R.mk(3)
+    res = dict(subG=0, subN=0, stepG=0, cont=0, contN=0, full=0, fullN=0, gauge=0, rev=0)
+    for trial in range(ntrials):
+        st = random_state(R, rng); G0 = gauss(R, st)
+        for op in (lambda s: kick(R, s, h, m2), lambda s: drift(R, s, h), lambda s: step(R, s, h, m2)):
+            res['subN'] += 1; res['subG'] += gauss(R, op(st)) == G0
+        s5 = st
+        for _ in range(nsteps): s5 = step(R, s5, h, m2)
+        res['stepG'] += gauss(R, s5) == G0
+        dE, dpi, J = forces(R, st, m2); k1 = kick(R, st, h, m2)
+        for x in SITES:
+            rho0 = -R.mk(2) * kmul(st.pi[x], st.phi[x])[1]; rho1 = -R.mk(2) * kmul(k1.pi[x], k1.phi[x])[1]
+            divJ = R.zero
+            for mu in (0, 1): divJ = divJ + J[(x, mu)] - J[(sh(x, mu, -1), mu)]
+            res['contN'] += 1; res['cont'] += (rho1 - rho0 == h * divJ)
+        # (b') continuity over a full step with the time-centred current
+        h2 = h / R.mk(2); sa = kick(R, st, h2, m2); J0 = forces(R, st, m2)[2]; sb = drift(R, sa, h); J1 = forces(R, sb, m2)[2]; sc = kick(R, sb, h2, m2)
+        for x in SITES:
+            rho0 = -R.mk(2) * kmul(st.pi[x], st.phi[x])[1]; rho1 = -R.mk(2) * kmul(sc.pi[x], sc.phi[x])[1]
+            d0 = d1 = R.zero
+            for mu in (0, 1):
+                d0 = d0 + J0[(x, mu)] - J0[(sh(x, mu, -1), mu)]; d1 = d1 + J1[(x, mu)] - J1[(sh(x, mu, -1), mu)]
+            res['fullN'] += 1; res['full'] += (rho1 - rho0 == h2 * d0 + h2 * d1)
+        gam = {x: (None if (R is not RQ and rng.randrange(R.p + 1) == R.p) else (Fr(rng.randint(-4, 4), rng.randint(1, 3)) if R is RQ else R.mk(rng.randrange(R.p)))) for x in SITES}
+        res['gauge'] += step(R, gauge_transform(R, st, gam), h, m2).same(R, gauge_transform(R, step(R, st, h, m2), gam))
+        res['rev'] += step(R, step(R, st, h, m2), -h, m2).same(R, st)
+    print(f"   {label:<5} G conserved by kick/drift/full step: {res['subG']}/{res['subN']};  by {nsteps} full step(s): {res['stepG']}/{ntrials};  "
+          f"continuity, kick (per site): {res['cont']}/{res['contN']};  continuity, full step: {res['full']}/{res['fullN']};  gauge covariance of the step: {res['gauge']}/{ntrials};  step(-h) inverts step(h): {res['rev']}/{ntrials}", flush=True)
+
+def main():
+    import sys
+    which = sys.argv[1] if len(sys.argv) > 1 else "all"
+    if which in ("all", "Q"):
+        print("22. minimal coupled model, 2+1 D torus L = 3 (9 sites, 18 links), exact arithmetic, h = 1/3, m^2 = 1", flush=True)
+        run_ring("Q", RQ, 1, 2)
+    if which in ("all", "F7"): run_ring("F_7", RF(7), 5, 6)
+    if which in ("all", "F11"): run_ring("F_11", RF(11), 5, 6)
+    if which in ("all", "float"):
+        eE, eP = forces_vs_hamiltonian()
+        print(f"   (f) floating point: max |dH_pot/d theta - implemented force| = {eE:.2e};  max |dH_pot/d phi (Wirtinger) - implemented force| = {eP:.2e}", flush=True)
+    if which in ("all", "inv"):
+        print("23. Lorentz-invariant quadratic forms in (E, B)")
+        dim, forms = invariants_test()
+        print(f"   dimension of the space of real quadratic forms invariant under rotations and boosts of zeta = E + iB: {dim}")
+        for f in forms: print("   basis element:", f)
+
+if __name__ == "__main__":
+    main()
+```
+
+## References
+
+1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Version 2, October 15, 2026. DOI: [10.5281/zenodo.23395166](https://doi.org/10.5281/zenodo.23395166).
+2. J. D. Coady. Parts 1 to 6 of this series, blog posts, October 2026.
+3. J. Kogut and L. Susskind. Hamiltonian formulation of Wilson's lattice gauge theories. *Phys. Rev. D* 11, 395 (1975).
+4. K. G. Wilson. Confinement of quarks. *Phys. Rev. D* 10, 2445 (1974).
