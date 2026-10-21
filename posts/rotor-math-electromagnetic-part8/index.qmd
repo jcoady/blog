@@ -1,0 +1,208 @@
+---
+title: "Numerical Consistency of the Coupled Scalar–Gauge Scheme: Constraints, Conservation, Reversibility and Temporal Convergence"
+author: "John D. Coady"
+date: "2026-10-21"
+categories: [mathematical-physics, electromagnetism, gauge-theory, numerical-methods, lattice-gauge-theory]
+format:
+  html:
+    toc: true
+    code-fold: true
+---
+
+## Where Part 7 left off
+
+[Part 7](https://jcoady.github.io/blog/posts/rotor-math-electromagnetic-part7/) defined a minimal coupled model (compact U(1) links, electric variables, a charged complex scalar), proved that its kick–Cayley-drift–kick update preserves the Gauss function exactly, satisfies discrete charge continuity, commutes with gauge transformations and is reversible, and checked those identities in exact arithmetic over $\mathbb Q$, $\mathbb F_7$ and $\mathbb F_{11}$. It stated plainly what was not established: that the scheme approximates Maxwell theory with matter. This post starts on that question. It reports floating-point consistency tests of the same scheme, and says what they do not show.
+
+::: {.callout-note}
+## Scope
+**Tested here (floating point, $32\times32$ lattice, $m^2=1$):** unforced evolution with nonzero charge density and magnetic curvature starting from Gauss-law initial data; tracking of the Gauss function, total charge and energy; a forward–backward round trip; temporal convergence against a fine-step reference.
+
+**Not tested here:** spatial convergence of the coupled system; a manufactured-solution test; wave dispersion of the coupled system; a weak-field comparison with Part 4's linear scheme or Part 1's compact dynamics; any fermionic matter; any comparison with an independent Maxwell–matter solver. Nothing below establishes that the scheme approximates Maxwell theory with matter in the continuum limit, and nothing is derived from the rotor anchor.
+:::
+
+Three levels of evidence should be kept apart. *Algebraic correctness* (identities such as gauge covariance, continuity and constraint preservation) is established in Part 7. *Numerical consistency* (agreement with a specified solution as the discretisation is refined) is what this post begins to measure. *Physical validation* (that the model's unforced dynamics are the intended Maxwell–matter dynamics) is not established by either.
+
+## Setup
+
+The scheme is exactly that of Part 7, vectorised (`validate_coupled_scheme.py`). As a first check, the vectorised step agrees with the reference implementation of Part 7's script (the one used for the exact tests, run with floating-point numbers) to $2.2\times10^{-16}$ on a random $3\times3$ state.
+
+**Initial data.** On the $32\times32$ torus ($k=2\pi/L$):
+$$
+\phi=0.5\cos(ki)\cos(kj)(1+0.3i)+0.05i\sin(kj),\qquad \pi=0.3i\sin(ki)\cos(kj)+0.02\cos(kj),
+$$
+link angles $\theta_x=0.1\sin(kj)$, $\theta_y=0.15\cos(ki)$ (so the plaquette angles are non-zero), and an electric field built to satisfy Gauss's law: the longitudinal part solves the lattice Poisson equation $\Delta\chi=\rho$ with $E_\mu=-(\chi(x+\hat\mu)-\chi(x))$ by FFT, plus divergence-free transverse parts $0.05\sin(kj)$ and $0.04\cos(ki)$. The conventions are those of the code: the divergence is the backward difference $(\nabla\!\cdot\!E)(x)=\sum_\mu\big(E_\mu(x)-E_\mu(x-\hat\mu)\big)$, the charge density is $\rho=-2\,\mathrm{Im}(\pi\phi)$, and the Gauss function is $G=\nabla\!\cdot\!E+\rho$. With $E_\mu=-(\chi(x+\hat\mu)-\chi(x))$ one has $\nabla\!\cdot\!E=-\Delta\chi$, so $\Delta\chi=\rho$ gives $G=0$ for the longitudinal part, and the transverse parts are divergence-free.
+
+A Poisson equation on a torus is solvable only if the total charge vanishes. The chosen data have zero total charge (up to floating-point round-off): each of the three terms in $\rho=-2\,\mathrm{Im}(\pi\phi)$ sums to zero over the lattice by the symmetry of the sine and cosine factors. The code projects the right-hand side onto the zero-mean subspace for compatibility, and asserts that the mean it removes is negligible. This projection does not modify the scalar fields or their charge density, so it is a safeguard against future changes to the initial data rather than an adjustment of the present ones.
+
+The initial $\max|G|$ is $7.5\times10^{-16}$, the maximum $|\rho|$ is $0.154$, the maximum plaquette angle is $0.049$, and $H_0=115.05$. The evolution is unforced: no source or forcing is added after initialisation.
+
+## Results
+
+**Constraints, conservation and reversibility** (evolution to $T=20$; the round trip runs forward for $T$ and then back with $-h$):
+
+| $h$ | steps | $\max\lvert G\rvert$ | $\max\lvert Q-Q_0\rvert$ | $\max\lvert H/H_0-1\rvert$ | round-trip error |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0.1 | 200 | $1.1\times10^{-15}$ | $6.2\times10^{-15}$ | $1.51\times10^{-3}$ | $4.6\times10^{-15}$ |
+| 0.05 | 400 | $1.4\times10^{-15}$ | $5.8\times10^{-15}$ | $3.78\times10^{-4}$ | $4.3\times10^{-15}$ |
+| 0.025 | 800 | $1.8\times10^{-15}$ | $6.7\times10^{-15}$ | $9.47\times10^{-5}$ | $5.8\times10^{-15}$ |
+
+Here $Q=\sum_x\rho(x)$ is the total charge and $G$ is the Gauss function of Part 7.
+
+**Temporal convergence** (lattice fixed, $T=2$, reference step $h_{\rm ref}=0.003125$, maximum-norm error over all fields):
+
+| $h$ | error | ratio to previous |
+|:---:|:---:|:---:|
+| 0.2 | $4.49\times10^{-3}$ | |
+| 0.1 | $1.12\times10^{-3}$ | 4.02 |
+| 0.05 | $2.79\times10^{-4}$ | 4.02 |
+| 0.025 | $6.88\times10^{-5}$ | 4.05 |
+
+The ratios sit slightly above 4. The finite reference step may contribute to this: the reference solution has its own temporal error, so the measured difference is not the error relative to an exact solution. Under the simplified model $e(h)=Ch^2$, the difference from a reference at $h_{\rm ref}$ would scale as $C(h^2-h_{\rm ref}^2)$, predicting ratios of approximately $4.003$, $4.012$ and $4.050$ for these step sizes. This illustrates the possible size of the effect but does not fully explain the observed ratios, particularly the first two; the errors are maximum-norm differences between states, so the idealised formula need not hold exactly. The results are consistent with second-order temporal convergence, but a self-convergence study using three step sizes would give a cleaner assessment without relying on a fine-step reference (see below).
+
+## What these results show
+
+- **The algebra holds in floating point.** The Gauss function stays at round-off level ($\sim10^{-15}$) for hundreds of steps with nonzero charge and curvature, independent of $h$, and the total charge is constant to round-off. These are the numerical counterparts of Proposition 22 of Part 7. They confirm the implementation; they are not independent evidence beyond the proof.
+- **The scheme is reversible to round-off** on nontrivial coupled data (round-trip error $\sim5\times10^{-15}$ after $T=20$).
+- **The observed energy deviation scales as $h^2$ over $T=20$.** The maximum relative deviations are $1.51\times10^{-3}$, $3.78\times10^{-4}$ and $9.47\times10^{-5}$ for $h=0.1,\,0.05,\,0.025$, with a ratio of $4.0$ each time. This is consistent with the behaviour expected from a symmetric second-order splitting. Although the Cayley drift admits a modified-kinetic-energy interpretation (Part 7), these tests do not establish that the complete update conserves a modified Hamiltonian. Longer-time behaviour, and a candidate modified energy, remain to be investigated.
+- **The temporal error is second order.** The ratios $4.02,\,4.02,\,4.05$ are consistent with $O(h^2)$ for the combined update at fixed lattice. The finite reference step may slightly inflate them, as discussed above.
+
+## What they do not show
+
+- **Spatial accuracy.** The lattice spacing was not varied. Whether the scheme converges to a continuum limit as the spacing shrinks, and at what order, is not tested. A fair test needs the Hamiltonian written with an explicit spacing $\varepsilon$, which I expect to be $H=\tfrac12\sum E^2+\varepsilon^{-2}\sum(1-\cos\theta_P)+\sum\pi\pi^*+\varepsilon^{-2}\sum|U\phi'-\phi|^2+m^2\sum|\phi|^2$ for fields scaled as $\theta=\varepsilon A$, $E=\varepsilon E_{\rm c}$, $\phi=\varepsilon\Phi$ (derived by matching to the continuum Hamiltonian, not yet implemented or tested).
+- **That the dynamics are Maxwell–matter dynamics.** Second-order consistency in time of one discretisation, and conservation properties, do not establish agreement with the intended continuum equations. No independent solver or exact coupled solution was used.
+- **Anything about the rotor.** The tests concern the lattice model. They say nothing about whether the model follows from the rotor anchor.
+
+## What a fuller validation needs
+
+1. **Spatial and combined convergence** with the explicit-spacing Hamiltonian, using self-convergence on nested grids or a manufactured solution, with the time step small enough that the temporal error does not mask the spatial one. For the temporal study, comparing three step sizes ($h$, $h/2$, $h/4$) avoids dependence on a reference solution's own error.
+2. **A manufactured-solution test** with a spatially varying magnetic field, with forcing chosen to make a smooth coupled solution exact. This tests consistency of all terms. It does not by itself show that the unforced equations are right, which is why the unforced tests above matter.
+3. **Wave dispersion of the coupled system,** and a weak-field comparison with Part 4's linear scheme and Part 1's compact dynamics.
+4. **Longer-time energy behaviour,** against a conserved modified energy if one can be identified.
+5. **Exact-arithmetic regression.** The exact suite of Part 7 should be kept as a separate regression test for any code change, since it checks the identities that floating-point residuals can only bound.
+
+If a manufactured-solution test and its convergence table already exist from another source, they should be added with their code so that they can be reproduced; I have not reproduced them here, so none of their numbers appear in this post.
+
+## Reproducing
+
+The two files used for this post are available alongside it:
+
+- [`code/validate_coupled_scheme.py`](code/validate_coupled_scheme.py): the validation script listed below.
+- [`code/minimal_action_model.py`](code/minimal_action_model.py): the reference implementation from Part 7, needed for the cross-check.
+
+Place both files in the same directory to run the script.
+
+```python
+"""
+Numerical validation of the coupled scalar-gauge kick-drift-kick scheme of Part 7 (floating point, vectorised).
+
+  (0) cross-check: the vectorised step equals the reference implementation of minimal_action_model.py (L = 3, floats)
+  (1) unforced evolution with nonzero charge and magnetic curvature, Gauss-law initial data:
+        max |G| over time, total charge, energy deviation (and its scaling with h)
+  (2) forward-backward round trip on nontrivial coupled data
+  (3) temporal convergence against a fine-step reference (spatial lattice fixed)
+NOT tested here: spatial convergence of the coupled system, manufactured solutions, dispersion of the coupled system.
+Needs numpy.  Tested with Python 3.12.3, NumPy 2.4.4.
+"""
+import math
+import random
+import numpy as np
+
+
+def plaq_U(U): return U[0] * np.roll(U[1], -1, axis=0) * np.conj(np.roll(U[0], -1, axis=1)) * np.conj(U[1])
+
+def kick(th, E, phi, pi, h, m2):
+    U = np.exp(1j * th); xi = plaq_U(U).imag; dE = np.empty_like(E)
+    dE[0] = xi - np.roll(xi, 1, axis=1); dE[1] = -(xi - np.roll(xi, 1, axis=0))
+    dpi = m2 * np.conj(phi)
+    for mu in (0, 1):
+        z = U[mu] * np.roll(phi, -1, axis=mu) * np.conj(phi); dE[mu] += 2 * z.imag
+        dpi = dpi + 2 * np.conj(phi) - np.roll(U[mu], 1, axis=mu) * np.conj(np.roll(phi, 1, axis=mu)) - np.conj(U[mu]) * np.conj(np.roll(phi, -1, axis=mu))
+    return th, E - h * dE, phi, pi - h * dpi
+
+def drift(th, E, phi, pi, h): return th + 2 * np.arctan(h * E / 2), E, phi + h * np.conj(pi), pi
+
+def step(s, h, m2):
+    s = kick(*s, h / 2, m2); s = drift(*s, h); return kick(*s, h / 2, m2)
+
+def gauss(E, phi, pi):
+    return sum(E[mu] - np.roll(E[mu], 1, axis=mu) for mu in (0, 1)) - 2 * (pi * phi).imag
+
+def energy(s, m2):
+    th, E, phi, pi = s; U = np.exp(1j * th); H = 0.5 * np.sum(E ** 2) + np.sum(1 - plaq_U(U).real) + np.sum(abs(pi) ** 2) + m2 * np.sum(abs(phi) ** 2)
+    for mu in (0, 1): H += np.sum(abs(U[mu] * np.roll(phi, -1, axis=mu) - phi) ** 2)
+    return H
+
+def initial_state(L, A=0.5, B=0.3):
+    i, j = np.meshgrid(np.arange(L), np.arange(L), indexing='ij'); k = 2 * np.pi / L
+    phi = A * np.cos(k * i) * np.cos(k * j) * (1 + 0.3j) + 0.05j * np.sin(k * j)
+    pi = 1j * B * np.sin(k * i) * np.cos(k * j) + 0.02 * np.cos(k * j)
+    th = np.array([0.1 * np.sin(k * j), 0.15 * np.cos(k * i)])
+    rho = -2 * (pi * phi).imag
+    rho_mean = rho.mean()
+    # The Poisson problem on a torus needs zero total charge. These data have it (by symmetry);
+    # the assert guards against future changes to the initial data silently breaking that.
+    assert abs(rho_mean) < 1e-12, "Initial data are not charge-neutral."
+    rho_poisson = rho - rho_mean            # projection for solvability only; phi and pi are not modified
+    # solve  lap(chi) = rho  with  E_mu = -(chi(x+mu) - chi(x))  so that  div E = -rho
+    kk = np.fft.fftfreq(L) * 2 * np.pi; K0, K1 = np.meshgrid(kk, kk, indexing='ij')
+    lam = 2 * (np.cos(K0) - 1) + 2 * (np.cos(K1) - 1); lam[0, 0] = 1.0
+    chi = np.real(np.fft.ifft2(np.fft.fft2(rho_poisson) / lam))
+    E = np.array([-(np.roll(chi, -1, axis=0) - chi), -(np.roll(chi, -1, axis=1) - chi)])
+    E[0] += 0.05 * np.sin(k * j); E[1] += 0.04 * np.cos(k * i)         # divergence-free (transverse) parts
+    return th, E, phi, pi
+
+def cross_check():
+    import minimal_action_model as mam
+    rng = random.Random(1); Lc = mam.L; m2 = 1.0; h = 0.13
+    th = np.array([[[rng.uniform(-1, 1) for _ in range(Lc)] for _ in range(Lc)] for _ in range(2)]); E = np.array([[[rng.uniform(-1, 1) for _ in range(Lc)] for _ in range(Lc)] for _ in range(2)])
+    phi = np.array([[complex(rng.uniform(-1, 1), rng.uniform(-1, 1)) for _ in range(Lc)] for _ in range(Lc)]); pi = np.array([[complex(rng.uniform(-1, 1), rng.uniform(-1, 1)) for _ in range(Lc)] for _ in range(Lc)])
+    Rf = mam.Ring(float)
+    a = {((i, j), mu): -math.tan(th[mu, i, j] / 2) for i in range(Lc) for j in range(Lc) for mu in (0, 1)}
+    st = mam.State(a, {((i, j), mu): E[mu, i, j] for i in range(Lc) for j in range(Lc) for mu in (0, 1)},
+                   {(i, j): (phi[i, j].real, phi[i, j].imag) for i in range(Lc) for j in range(Lc)}, {(i, j): (pi[i, j].real, pi[i, j].imag) for i in range(Lc) for j in range(Lc)})
+    ref = mam.step(Rf, st, h, m2); vec = step((th, E, phi, pi), h, m2); err = 0.0
+    for i in range(Lc):
+        for j in range(Lc):
+            for mu in (0, 1):
+                err = max(err, abs(-2 * math.atan(ref.a[((i, j), mu)]) - vec[0][mu, i, j]), abs(ref.E[((i, j), mu)] - vec[1][mu, i, j]))
+            err = max(err, abs(complex(*ref.phi[(i, j)]) - vec[2][i, j]), abs(complex(*ref.pi[(i, j)]) - vec[3][i, j]))
+    return err
+
+def main():
+    m2 = 1.0; L = 32
+    print(f"(0) vectorised step versus the reference implementation (L = 3, random state): max difference {cross_check():.2e}")
+    s0 = initial_state(L); G0 = gauss(s0[1], s0[2], s0[3]); rho0 = -2 * (s0[3] * s0[2]).imag
+    print(f"(1) L = {L}, m^2 = 1: initial max|G| = {abs(G0).max():.2e}, max|rho| = {abs(rho0).max():.3f}, max magnetic plaquette angle = {abs(np.angle(plaq_U(np.exp(1j * s0[0])))).max():.3f}, H0 = {energy(s0, m2):.5f}")
+    T = 20.0
+    print("    unforced evolution to T = 20 (nonzero charge density and magnetic curvature):")
+    print("      h        steps   max|G|      max|total charge - initial|   max|H/H0 - 1|    round trip error (forward T then back)")
+    for h in (0.1, 0.05, 0.025):
+        n = int(round(T / h)); s = s0; Gm = 0.0; Qm = 0.0; Hm = 0.0; H0 = energy(s0, m2); Q0 = np.sum(-2 * (s0[3] * s0[2]).imag)
+        for _ in range(n):
+            s = step(s, h, m2)
+            Gm = max(Gm, abs(gauss(s[1], s[2], s[3])).max()); Qm = max(Qm, abs(np.sum(-2 * (s[3] * s[2]).imag) - Q0)); Hm = max(Hm, abs(energy(s, m2) / H0 - 1))
+        back = s
+        for _ in range(n): back = step(back, -h, m2)
+        rt = max(abs(back[0] - s0[0]).max(), abs(back[1] - s0[1]).max(), abs(back[2] - s0[2]).max(), abs(back[3] - s0[3]).max())
+        print(f"      {h:<7} {n:5d}   {Gm:.2e}   {Qm:.2e}                     {Hm:.3e}        {rt:.2e}")
+    print("(3) temporal convergence at T = 2 (lattice fixed), reference step h = 0.003125; max-norm error over all fields:")
+    def run(h, T=2.0):
+        s = s0
+        for _ in range(int(round(T / h))): s = step(s, h, m2)
+        return s
+    ref = run(0.003125); prev = None
+    for h in (0.2, 0.1, 0.05, 0.025):
+        s = run(h); err = max(abs(s[0] - ref[0]).max(), abs(s[1] - ref[1]).max(), abs(s[2] - ref[2]).max(), abs(s[3] - ref[3]).max())
+        print(f"      h = {h:<6}: error {err:.3e}" + ("" if prev is None else f"   (ratio to previous {prev / err:.2f})")); prev = err
+
+if __name__ == "__main__":
+    main()
+```
+
+Run with `python3 validate_coupled_scheme.py`. Tested with Python 3.12.3 and NumPy 2.4.4.
+
+## References
+
+1. J. D. Coady. *Rational Rotations of Four-Dimensional Relativistic Space: A Projective 2 × 2 Rotor Architecture over General Fields*. Version 2, October 15, 2026. DOI: [10.5281/zenodo.23395166](https://doi.org/10.5281/zenodo.23395166).
+2. J. D. Coady. Parts 1 to 7 of this series, blog posts, October 2026.
+3. J. Kogut and L. Susskind. Hamiltonian formulation of Wilson's lattice gauge theories. *Phys. Rev. D* 11, 395 (1975).
