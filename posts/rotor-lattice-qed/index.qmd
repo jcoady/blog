@@ -1,0 +1,194 @@
+---
+title: "Auditing Local Gauge Invariance: How Flournoy's Lecture 13 Maps to Lattice QED and the Finitist Rotor Framework"
+author: "John D. Coady"
+date: "2026-10-24"
+categories: [pure-math, geometry, mathematical-physics, electromagnetism, lattice-qed, gauge-theory, rational-trigonometry]
+format:
+  html:
+    toc: true
+    code-fold: true
+---
+
+## The starting point: Flournoy's Lecture 13
+
+In high-energy physics, the standard way students first learn that forces arise from symmetries is through a famous sequence of arguments. A particularly clean, transparent presentation of this is Alex Flournoy's [Particle Physics Lecture 13: Interactions via Local Gauge Symmetry (The Abelian Case)](https://youtu.be/WGQMb88xDqA) ([handwritten lecture notes](https://inside.mines.edu/~aflourno/Particle/Lecture13-%20Interactions%20via%20Local%20Gauge%20Invariance%20%28The%20Abelian%20Case%29.pdf)).
+
+The lecture builds electrodynamics from scratch across four progressive steps:
+1. **Global phase symmetry:** A free Dirac electron field $\psi(x)$ is invariant under a constant phase rotation $\psi \to e^{iq\phi}\psi$.
+2. **Local gauge symmetry & minimal coupling:** If we demand invariance under a spacetime-dependent phase $\phi(x)$, ordinary derivatives $\partial_\mu \psi$ fail to transform covariantly. Restoring covariance forces us to replace $\partial_\mu$ with the covariant derivative $D_\mu = \partial_\mu + i q A_\mu(x)$. This automatically pulls in a compensating vector connection $A_\mu(x)$ and generates the interaction term $q j^\mu A_\mu$.
+3. **Masslessness of the photon:** Appending an explicit Proca mass term $m_A^2 A_\mu A^\mu$ breaks this local symmetry, requiring $m_A = 0$.
+4. **Field strength as curvature:** Commuting two covariant derivatives yields the electromagnetic field strength: $[D_\mu, D_\nu]\psi = i q F_{\mu\nu}\psi$.
+
+For the past several weeks, our research programme has asked a foundational question: **Can this entire pedagogical sequence be formulated on a discrete grid using purely rational, finitist geometry—without limits, transcendentals ($\sin, \cos, \exp$), or real-number completions?**
+
+To answer this, we conducted a comprehensive mathematical audit comparing Flournoy's lecture, standard **Lattice Quantum Electrodynamics (QED)**, and our **projective $2\times 2$ rotor/Cayley framework**. 
+
+The completed paper is now archived on Zenodo:
+> John D. Coady, *From Local Gauge Symmetry to Exact Rational Geometry: A Structural Audit of a Finitist Rotor Framework Against Abelian Lattice QED*, Preprint (October 2026), **DOI:** [10.5281/zenodo.23605833](https://doi.org/10.5281/zenodo.23605833).
+
+This post outlines the audit: where the rational rotor framework matches standard gauge theory exactly, what mathematical no-go theorem defines its boundary, and what remains open.
+
+---
+
+## The 9-Point Architectural Audit
+
+Rather than asserting vague physical equivalences, the paper lays out a strict, claim-by-claim benchmark table. 
+
+To maintain mathematical honesty, we explicitly separate:
+* **Algebraic Status:** Does an exact algebraic identity hold on the grid over general fields ($F = \mathbb{Q}$ or finite fields $\mathbb{F}_p$)?
+* **Physical Status:** Does the construction fully reproduce the continuum quantum field theory?
+
+| Topic & Lecture Source | Lecture 13 Continuum | Standard Lattice QED | Finitist Rotor Framework | Algebraic Status | Physical Status |
+|:---|:---|:---|:---|:---|:---|
+| **1. Matter Field** (p.~1) | Dirac spinor $\psi \in \mathbb{C}^4$; $\mathcal{L} = \bar\psi(i\gamma^\mu\partial_\mu - m)\psi$ | Site fermion; Wilson term lifts 15 doublers; staggered reduces tastes | Wilson--Dirac over $K = F[i]$; doubler lifting on $L=4$ over $\mathbb{Q}(i)$ | **Exact Identity** ($L=4$, $\mathbb{Q}(i)$) | Free, Finite-Volume Only |
+| **2. Global Symmetry** (p.~2) | $\psi \to e^{i q \phi}\psi$, $\phi = \text{const}$; $\bar\psi\psi \to \bar\psi\psi$ | Constant phase $V \in \mathrm{U}(1)$ at all lattice vertices | Norm-one unit $g \in K$; $\bar\psi \to \bar\psi g^{-1}$ preserves $\bar\psi\psi$ | **Exact Match** (Stated Rep.) | Global Phase Invariance |
+| **3. Local Phase** (p.~2) | $\psi(x) \to e^{i q \phi(x)}\psi(x)$; $\partial_\mu \psi$ non-covariant | Independent $V_x \in \mathrm{U}(1)$ per site; difference non-covariant | Independent $g(x) \in \mathbb{P}^1(F)$; free difference non-covariant | **Exact Transformation Match** | Non-covariance of Free Operator |
+| **4. Gauge Link** (p.~3) | $D_\mu = \partial_\mu + i q A_\mu$; $A_\mu \to A_\mu - \partial_\mu \phi$ | Link $U_\mu(x) = e^{i q a A_\mu}$; $U \to V_x U V_{x+\hat\mu}^\dagger$ | Cayley link $U_\mu = \frac{1-ia_\mu}{1+ia_\mu}$; $a' = \gamma_x \oplus a \ominus \gamma_{x+\hat\mu}$ | **Same Endpoint Rule on Links** | Potential-to-Link Map Obstructed |
+| **5. Interaction** (p.~3) | $\mathcal{L}_{\text{int}} = -q A_\mu \bar\psi \gamma^\mu \psi = -q A_\mu j^\mu$ | Hopping interaction; current from phase variation $j_\mu = \frac{\partial S}{\partial \theta_\mu}$ | Scalar current $J_\mu = 2\,\mathrm{Im}(U\phi'\phi^*)$; Dirac current $j_\mu = -\bar\psi\gamma_\mu\psi$ | **Exact Scalar Continuity Identity** | Analogous (Scalar vs Dirac Current) |
+| **6. Mass Bound** (p.~4) | Proca term $m_A^2 A^2$ breaks local symmetry $\implies m_A = 0$ | Single-link gauge orbit is all of $\mathrm{U}(1)$; no local link invariant | Orbit of single link is all $\mathbb{P}^1(F)$; no isolated link potential | **Exact Single-Link Transitivity** | Isolated-Link Analogue of Mass Obstruction |
+| **7. Commutator** (pp.~6--7) | $[D_\mu, D_\nu]\psi = i q F_{\mu\nu}\psi$; curvature 2-form | Plaquette $U_P = \prod_\Box U$; $[D_\mu, D_\nu]\psi \to i q a^2 F_{\mu\nu}\psi$ | $[\mathcal{D}_\mu, \mathcal{D}_\nu]\psi = (U_P - 1)\mathcal{T}_{\mu\nu}\psi$; exact transporter identity | **Exact Plaquette Identity** | Structural (Transporter at Corner; Limit Open) |
+| **8. Field Action** (pp.~4--5) | $S_F = -\frac{1}{4}\int d^4x F^2$; $\mathcal{L}_{\text{EM}} = \frac{1}{2}(E^2 - B^2)$ | Wilson action (Euclidean); continuum expansion has $F^2$ form | Invariants $E^2 - B^2$, $2\mathbf{E}\cdot\mathbf{B}$; Cayley potential $W_1 = \frac{2a_P^2}{1+a_P^2}$ | **Exact Invariant Algebra** | Open (Action-Level Equivalence) |
+| **9. Dynamics** (Implicit) | $\partial_\nu F^{\nu\mu} = j^\mu$; Gauss law $\nabla \cdot \mathbf{E} = \rho$ | Hamiltonian Kogut--Susskind; leapfrog / HMC; Gauss law conserved | Symmetric Kick--Cayley-Drift--Kick; exact Gauss preservation | **Exact Invariance** (Scalar Scheme) | Conditional (Classical $2+1$D Scheme) |
+
+---
+
+## Four Exact Mathematical Passes
+
+Four major results in the audit stand out as exact theorems holding without approximations:
+
+### 1. The Lattice Commutator and the Corner Transporter (Benchmark 7)
+In standard textbooks, the lattice commutator of covariant derivatives is said to approach $i q a^2 F_{\mu\nu}\psi$ only in the continuum limit $a \to 0$. In our paper, we prove an **exact finite-spacing algebraic identity**:
+$$
+[\mathcal{D}_\mu, \mathcal{D}_\nu]\psi(x) = \bigl(U_P(x) - 1\bigr)\,\mathcal{T}_{\mu\nu}\psi(x),
+$$
+where $U_P(x)$ is the oriented product of the four links around the plaquette, and
+$$
+\mathcal{T}_{\mu\nu}\psi(x) \equiv U_\nu(x) U_\mu(x + \hat\nu)\,\psi(x + \hat\mu + \hat\nu)
+$$
+is the matter field parallel-transported from the far corner of the plaquette back to site $x$. 
+* The identity shows that the lattice curvature naturally acts on a *transported* field rather than a purely local field.
+* When $U_P \ne -1$, the scalar Cayley curvature parameter is extracted without dividing spinors:
+$$
+a_P = i\,\frac{U_P - 1}{U_P + 1}.
+$$
+
+### 2. The Single-Link Transitivity Theorem (Benchmark 6)
+Why can't a gauge field have a bare mass? In Flournoy's lecture, a Proca mass term $m_A^2 A_\mu A^\mu$ is ruled out because $A_\mu \to A_\mu - \partial_\mu \phi$ is not invariant. 
+
+On the lattice, we prove a non-perturbative analogue:
+> **Theorem:** Independent gauge transformations at the two endpoints of a link act **transitively** on the link's projective Cayley parameter $a \in \mathbb{P}^1(F)$. 
+
+Because any link can be transformed into any other link by an endpoint gauge choice, **any gauge-invariant potential depending on an isolated link alone must be constant**. This forbids a bare mass potential on links while naturally leaving room for gauge-invariant plaquettes and electric kinetic terms $\frac{1}{2}E^2$.
+
+### 3. Wilson–Dirac Zero Modes on an $L=4$ Lattice (Benchmark 1)
+To represent the electron, we set up chiral Euclidean gamma matrices with entries in the quadratic extension $K = F[i]$. 
+* For the naive lattice Dirac operator ($r=0$), evaluating the operator on an $L=4$ grid reveals the infamous **fermion doubling problem**: the determinant vanishes at all 16 corners of the Brillouin zone, producing **64 unphysical zero modes** (16 corners $\times$ 4 spinor components).
+* For the Wilson operator ($r=1$) over the Gaussian rationals $\mathbb{Q}(i)$, the determinant formula:
+$$
+\det\mathcal{D}_W(k) = \bigl(M(k)^2 + n_{\mathrm{odd}}\bigr)^2
+$$
+forces $k = (0,0,0,0)$. **All 15 doubler species are strictly eliminated!**
+* Over finite fields $\mathbb{F}_p$ ($p \equiv 3 \pmod 4$), doubler elimination turns into a modular congruence: $(n_{\mathrm{odd}} + 2n_2)^2 \equiv -n_{\mathrm{odd}} \pmod p$. For $p=7$, accidental zero modes survive (33 singular modes), while for $p=11$, only $k=0$ survives, matching $\mathbb{Q}$.
+
+### 4. The Rotor Anchor Packages Both Field Invariants (Benchmark 8)
+When the $4\times 4$ rotor anchor matrix $A(\zeta)$ is parametrized by $\zeta = \kappa + i\rho \in K^3$, identifying $\kappa = \mathbf{E}$ and $\rho = \mathbf{B}$ identifies $\zeta$ with the classical **Riemann–Silberstein vector**. Its quadratic scalar decomposes into:
+$$
+\zeta \cdot \zeta = (\mathbf{E}^2 - \mathbf{B}^2) + 2i(\mathbf{E}\cdot\mathbf{B}).
+$$
+The real part is the Maxwell Lagrangian density $\mathcal{L}_{\text{EM}}$, and the imaginary part is the topological $\theta$-term / axion coupling density.
+
+---
+
+## The Core Boundary: The Equivariance No-Go Theorem
+
+The most important theoretical insight in the paper is **Theorem 4.1 (The Rational Equivariance No-Go Theorem)**. 
+
+In Lattice QED, link variables are defined from continuum vector potentials via the exponential map:
+$$
+U_e = \exp\left(iq \int_e \mathbf{A}\cdot d\boldsymbol{\ell}\right).
+$$
+Under $\mathbf{A} \to \mathbf{A} + \nabla\lambda$, the fundamental theorem of calculus ensures that $U_e$ transforms with exact equivariance: $U_e \to e^{iq\lambda(x)} U_e e^{-iq\lambda(y)}$.
+
+Can we do this in rational algebra? Can we find a rational map $a_e(\mathbf{A}) \in \mathbb{P}^1(\mathbb{Q})$ such that:
+$$
+a_e(\mathbf{A} + \nabla\lambda) = a_e(\mathbf{A}) \oplus \gamma(\lambda(x)) \ominus \gamma(\lambda(y))?
+$$
+
+**The answer is an absolute NO.**
+
+We prove that there are **no non-trivial group homomorphisms**:
+$$
+\mathrm{Hom}\bigl((\mathbb{Q}, +),\, (\mathbb{P}^1(\mathbb{Q}), \oplus)\bigr) = \{0\},
+$$
+and similarly for finite fields:
+$$
+\mathrm{Hom}\bigl((\mathbb{F}_p, +),\, (\mathbb{P}^1(\mathbb{F}_p), \oplus)\bigr) = \{0\} \quad (p \equiv 3 \pmod 4).
+$$
+
+### The Sketch of the Proof
+The Cayley group $(\mathbb{P}^1(\mathbb{Q}), \oplus)$ is isomorphic to the multiplicative group of norm-one elements $G = \{z \in \mathbb{Q}(i)^\times : z\bar z = 1\}$. 
+1. The additive group $(\mathbb{Q}, +)$ is **divisible**: for any rational $x$ and any integer $n$, $x/n \in \mathbb{Q}$.
+2. Therefore, any homomorphic image in $G$ must be divisible: every element $g$ must have an $n$-th root in the image for every integer $n$.
+3. In the Gaussian integer ring $\mathbb{Z}[i]$ (a unique factorization domain), prime ideal valuations $v_\pi(g)$ must be divisible by all $n$, forcing all valuations to be zero. 
+4. Thus, $g$ must be a Gaussian unit: $g \in \{\pm 1, \pm i\} = \mu_4$.
+5. But the finite group $\mu_4$ contains **no non-trivial divisible subgroups**. Therefore, the homomorphism must be identically trivial!
+
+### Why this No-Go Theorem is an Asset
+This theorem is not a failure; it is a structural clarification:
+* It proves mathematically why standard lattice gauge theory *must* use the transcendental exponential map $\exp(iq\int A)$ if it wants continuous potentials to transform links equivariantly.
+* In a purely rational or finitist framework, **gauge links cannot be derived from a continuous Lie-algebra 1-form $\mathbf{A}$**. 
+* **The Takeaway:** In rational gauge theory, **group-valued link variables must be taken as primary geometric data**, not as approximations of a continuum vector field.
+
+---
+
+## Exact Coupled Dynamics and the Open Frontier
+
+Finally, the paper analyzes the dynamical sector (Benchmark 9). 
+
+In Parts 7–9 of our blog series, we developed an explicit, reversible, symmetric **Kick–Cayley-Drift–Kick** scheme on a $2+1$D grid for compact $U(1)$ links coupled to a complex scalar field $\phi$:
+* **Kick:** Updates electric fields $E$ and scalar momenta $\pi$ using algebraic forces derived from the plaquette potential and the gauge-matter hopping term.
+* **Drift:** Updates the links via Cayley tangent addition $a \leftarrow a \oplus (-\frac{h}{2}E)$, using homogeneous projective coordinates $(x_0 : x_1) \mapsto (x_0 + \frac{h}{2}E x_1 : x_1 - \frac{h}{2}E x_0)$ to handle $a = \infty$ without singular denominators.
+
+### Exact Gauss Preservation
+We prove that:
+$$
+\Delta(\mathrm{div}\,E) = -h\,\mathrm{div}J, \qquad \Delta\rho = +h\,\mathrm{div}J,
+$$
+so that the Gauss constraint functional $G(x) \equiv (\mathrm{div}\,E)(x) + \rho(x)$ satisfies:
+$$
+G_{\mathrm{after}}(x) = G_{\mathrm{before}}(x) \quad \text{identically}.
+$$
+In numerical simulations over 20,000 steps, $\max|G|$ remains strictly at floating-point machine precision ($\sim 10^{-15}$). Over $\mathbb{Q}$ and $\mathbb{F}_p$, the residual is **literally 0**.
+
+### What Remains Open: The Fermion-to-Gauss Coupling
+In Table 1, Row 9 remains classified as a **Conditional Match** for one clear reason: our working dynamical code uses a **bosonic scalar field** $\phi$, whereas Flournoy's lecture specifies a **Dirac fermion** $\psi$.
+
+In computational field theory, Dirac fermions cannot be treated as classical numbers in a leapfrog update; they are anticommuting operators (or Grassmann fields). 
+
+This defines the **primary open problem** of our programme:
+> **The Challenge:** Formulate a discrete Hamiltonian time step coupling the free Wilson--Dirac operator (Benchmark 1) to the Cayley electric field $E$, such that the fermionic Gauss constraint $(\mathrm{div}\,E)(x) = q\,\psi^\dagger(x)\psi(x)$ and fermionic current continuity are preserved identically by the algebraic update.
+
+---
+
+## Summary: A Clear Map of the Territory
+
+By benchmarking our rational rotor framework against Flournoy's *Lecture 13* and Lattice QED, we have replaced speculation with a rigorous audit:
+
+1. **Exact Kinematics:** The corner-transporter commutator $[\mathcal{D}_\mu, \mathcal{D}_\nu]\psi = (U_P - 1)\mathcal{T}_{\mu\nu}\psi$, the single-link transitivity theorem, and the Wilson doubler elimination over $\mathbb{Q}(i)$ are mathematically proved at finite lattice spacing.
+2. **The Rational Boundary:** The Equivariance No-Go Theorem proves that rational gauge theory must treat group-valued links as primary variables rather than projections of continuous vector potentials.
+3. **The Clear Next Step:** Having established exact classical scalar dynamics with zero Gauss drift, the immediate research challenge is coupling dynamical Dirac fermions to the discrete Gauss law.
+
+For the full proofs, finite-field tables, and complete equations, see the published paper on Zenodo: [DOI: 10.5281/zenodo.23605833](https://doi.org/10.5281/zenodo.23605833).
+
+---
+
+## References
+
+1. A. Flournoy, *Particle Physics Lecture 13: Interactions via Local Gauge Symmetry (The Abelian Case)*, Video: [YouTube](https://youtu.be/WGQMb88xDqA); Notes: [Colorado School of Mines](https://inside.mines.edu/~aflourno/Particle/Lecture13-%20Interactions%20via%20Local%20Gauge%20Invariance%20(The%20Abelian%20Case).pdf) (2020).
+2. J. D. Coady, *From Local Gauge Symmetry to Exact Rational Geometry: A Structural Audit of a Finitist Rotor Framework Against Abelian Lattice QED*, Zenodo Preprint (2026), DOI: [10.5281/zenodo.23605833](https://doi.org/10.5281/zenodo.23605833).
+3. K. G. Wilson, *Confinement of quarks*, Phys. Rev. D **10**, 2445 (1974).
+4. N. J. Wildberger, *Divine Proportions: Rational Trigonometry to Universal Geometry*, Wild Egg Books, Sydney (2005).
+5. N. J. Wildberger, *Rational rotations of three dimensional Euclidean space*, Preprint, UNSW Sydney (2026).
+6. J. D. Coady, *Rational Rotations of Four-Dimensional Relativistic Space: A Projective $2 \times 2$ Rotor Architecture over General Fields*, DOI: [10.5281/zenodo.23395166](https://doi.org/10.5281/zenodo.23395166) (2026).
+7. H. B. Nielsen and M. Ninomiya, *Absence of neutrinos on a lattice: (I). Proof by homotopy theory*, Nucl. Phys. B **185**, 20–40 (1981).
+8. J. Kogut and L. Susskind, *Hamiltonian formulation of Wilson's lattice gauge theories*, Phys. Rev. D **11}, 395 (1975).
