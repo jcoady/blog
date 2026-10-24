@@ -134,6 +134,23 @@ The Cayley group $(\mathbb{P}^1(\mathbb{Q}), \oplus)$ is isomorphic to the multi
 5. But the finite group $\mu_4$ contains **no non-trivial divisible subgroups**. Therefore, the homomorphism must be identically trivial!
 
 ### Why this No-Go Theorem is an Asset
+
+::: {.callout-note}
+## The Wu–Yang Insight: Why Links Are More Fundamental Than Potentials
+
+Why should we be comfortable abandoning continuous vector potentials $\mathbf{A}$ in favor of primary links $U$?
+
+In a landmark 1975 paper, Tai Tsun Wu and Chen Ning Yang famously analyzed the Aharonov–Bohm effect to determine what the true, intrinsic mathematical descriptor of electromagnetism actually is ([Wu & Yang, *Phys. Rev. D* 12, 3845 (1975)](https://doi.org/10.1103/PhysRevD.12.3845)). They concluded:
+1. **The field strength $F_{\mu\nu}$ is an under-description of nature:** If you only know $\mathbf{E}$ and $\mathbf{B}$, you cannot explain the Aharonov–Bohm effect (where electrons experience physical phase shifts in regions where $\mathbf{E} = \mathbf{B} = 0$).
+2. **The vector potential $A_\mu$ is an over-description of nature:** $A_\mu$ contains vast amounts of unphysical gauge ambiguity.
+3. **The true, minimal, complete description of electromagnetism is the non-integrable Phase Factor (the Link / Holonomy):**
+   $$U = \mathcal{P}\exp\left(iq \oint A_\mu dx^\mu\right)$$
+
+In 19th-century physics, we started with continuous potentials $A_\mu$ because calculus required smooth lines. But quantum geometry teaches us that the phase factor on a path is the primary reality. 
+
+Theorem 4.1 provides an exact algebraic proof of Wu and Yang's thesis: you cannot smoothly force group-valued phase factors to be projections of additive potentials without breaking exact rational equivariance. Taking the group links as primary data is exactly what gauge theory demanded all along.
+:::
+
 This theorem is not a failure; it is a structural clarification:
 * It proves mathematically why standard lattice gauge theory *must* use the transcendental exponential map $\exp(iq\int A)$ if it wants continuous potentials to transform links equivariantly.
 * In a purely rational or finitist framework, **gauge links cannot be derived from a continuous Lie-algebra 1-form $\mathbf{A}$**. 
@@ -191,4 +208,6 @@ For the full proofs, finite-field tables, and complete equations, see the publis
 5. N. J. Wildberger, *Rational rotations of three dimensional Euclidean space*, Preprint, UNSW Sydney (2026).
 6. J. D. Coady, *Rational Rotations of Four-Dimensional Relativistic Space: A Projective $2 \times 2$ Rotor Architecture over General Fields*, DOI: [10.5281/zenodo.23395166](https://doi.org/10.5281/zenodo.23395166) (2026).
 7. H. B. Nielsen and M. Ninomiya, *Absence of neutrinos on a lattice: (I). Proof by homotopy theory*, Nucl. Phys. B **185**, 20–40 (1981).
-8. J. Kogut and L. Susskind, *Hamiltonian formulation of Wilson's lattice gauge theories*, Phys. Rev. D **11}, 395 (1975).
+8. J. Kogut and L. Susskind, *Hamiltonian formulation of Wilson's lattice gauge theories*, Phys. Rev. D **11**, 395 (1975).
+9. T. T. Wu and C. N. Yang, *Concept of nonintegrable phase factors and global formulation of gauge fields*, Phys. Rev. D **12**, 3845–3857 (1975). DOI: [10.1103/PhysRevD.12.3845](https://doi.org/10.1103/PhysRevD.12.3845).
+
