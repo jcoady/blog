@@ -214,6 +214,18 @@ The answer is clean. Two rational quaternions giving the same rotation differ by
 
 In the example, $\lvert\Delta_3\rvert^2 = 370/784$, and $370 = 2\cdot 5\cdot 37$ is not a square. So the holonomy rotation is a perfectly good rational rotation, with rational quaternion representative $K$, but **no rational unit quaternion represents it**. The projective description reaches it. The normalized one does not, and $\widehat{K}$ from the Wilson-loop section has irrational entries here.
 
+
+::: {.callout-note}
+## A square-root-free construction, and its limit
+For any nonzero rational quaternion $K$, the expression $K' = K^2/N(K)$ is a rational quaternion of norm one, because $N(K^2)=N(K)^2$. It is also unchanged when $K$ is rescaled by a nonzero rational. So a rational unit quaternion can be built from $K$ with no square root.
+
+The catch is that $K'$ represents the *square* of the rotation of $K$, not the rotation itself, and the obstruction above is untouched. Squaring replaces the norm square class $[N(K)]$ by the trivial class $[N(K)^2]$.
+
+For our $K=8\Phi_{n_1}(\Delta_3)$, the scalar part of $K'$ is $(S^2-V^2)/(S^2+V^2)$ and its vector part is $\frac{2SV}{S^2+V^2}\,n_1$. Equivalently, $K'$ is the image under $\Phi_{n_1}$ of $\Delta_3^2/\lvert\Delta_3\rvert^2$.
+
+In the example this is $K'=\left(\tfrac{176}{185},\ \left(\tfrac{57}{185},0,0\right)\right)$, and indeed $176^2+57^2=185^2$. The full phase factor $e^{i\Omega}=\Delta_3/\overline{\Delta_3}$ is therefore a rational function of the Bloch vectors, even though the half-angle factor $e^{i\Omega/2}$ is not. This is an identity checked by hand, not a theorem from the paper.
+:::
+
 ## Where Freed's slogan fits
 
 The motivation for the project is Dan Freed's thesis in *What is an anomaly?*: **quantum theory is projective; quantization is linear.** Physical content lives on projective objects, and a symmetry group acts only up to a central extension. Several different "lifts" are in play here, and they should not be mixed up:
