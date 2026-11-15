@@ -2,6 +2,9 @@
   {
     "listing": "/physics.html",
     "items": [
+      "/posts/bargmann-quaternion/index.html",
+      "/posts/bargmann-quaternion/index_old.html",
+      "/posts/bargmann-quaternion/index_old2.html",
       "/posts/rotor-lattice-qed/index.html",
       "/posts/rotor-math-electromagnetic-part9/index.html",
       "/posts/rotor-math-electromagnetic-part8/index.html",
@@ -26,6 +29,9 @@
   {
     "listing": "/math.html",
     "items": [
+      "/posts/bargmann-quaternion/index.html",
+      "/posts/bargmann-quaternion/index_old.html",
+      "/posts/bargmann-quaternion/index_old2.html",
       "/posts/rotor-lattice-qed/index.html",
       "/posts/rotor-math-electromagnetic-part9/index.html",
       "/posts/rotor-math-electromagnetic-part7/index.html",
@@ -59,6 +65,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/bargmann-quaternion/index.html",
       "/posts/rotor-lattice-qed/index.html",
       "/posts/rotor-math-electromagnetic-part9/index.html",
       "/posts/rotor-math-electromagnetic-part8/index.html",
