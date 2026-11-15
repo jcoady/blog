@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Your Name">
+<meta name="dcterms.date" content="2026-11-14">
+<meta name="description" content="Three qubit states, a triangle on the Bloch sphere, and the question of what survives when you identify a Bloch vector with its antipode.">
+
+<title>What a Projective Qubit Triangle Remembers – John Coady’s Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-2212757b80b1df614b4b011ba39f1668.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">John Coady’s Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">All Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../math.html"> 
+<span class="menu-text">Pure Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics.html"> 
+<span class="menu-text">Math Physics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0009-0008-6020-5733"> 
+<span class="menu-text"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/ORCID_iD.svg" alt="ORCID iD" style="height:20px; width:20px; vertical-align:-3px;"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://x.com/johndavidcoady"> <i class="bi bi-twitter-x" role="img" aria-label="X">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jcoady"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">What a Projective Qubit Triangle Remembers</h1>
+            <p class="subtitle lead">Quaternions, the Bargmann invariant, and an elliptic cousin of hyperbolic geometry</p>
+                  <div>
+        <div class="description">
+          Three qubit states, a triangle on the Bloch sphere, and the question of what survives when you identify a Bloch vector with its antipode.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">pure-math</div>
+                <div class="quarto-category">geometry</div>
+                <div class="quarto-category">mathematical-physics</div>
+                <div class="quarto-category">quantum mechanics</div>
+                <div class="quarto-category">quaternions</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Your Name </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 14, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#the-starting-question" id="toc-the-starting-question" class="nav-link active" data-scroll-target="#the-starting-question">The starting question</a></li>
+  <li><a href="#two-different-projectivizations" id="toc-two-different-projectivizations" class="nav-link" data-scroll-target="#two-different-projectivizations">Two different “projectivizations”</a></li>
+  <li><a href="#what-uhg-sees" id="toc-what-uhg-sees" class="nav-link" data-scroll-target="#what-uhg-sees">What UHG sees</a></li>
+  <li><a href="#result-1-the-quadrea-and-the-half-turn-product" id="toc-result-1-the-quadrea-and-the-half-turn-product" class="nav-link" data-scroll-target="#result-1-the-quadrea-and-the-half-turn-product">Result 1: the quadrea and the half-turn product</a></li>
+  <li><a href="#result-2-the-main-one-a-quaternion-that-is-the-bargmann-invariant" id="toc-result-2-the-main-one-a-quaternion-that-is-the-bargmann-invariant" class="nav-link" data-scroll-target="#result-2-the-main-one-a-quaternion-that-is-the-bargmann-invariant">Result 2 (the main one): a quaternion that <em>is</em> the Bargmann invariant</a></li>
+  <li><a href="#a-worked-example-with-rational-numbers" id="toc-a-worked-example-with-rational-numbers" class="nav-link" data-scroll-target="#a-worked-example-with-rational-numbers">A worked example with rational numbers</a></li>
+  <li><a href="#a-wilson-loop-on-a-triangle" id="toc-a-wilson-loop-on-a-triangle" class="nav-link" data-scroll-target="#a-wilson-loop-on-a-triangle">A Wilson loop on a triangle</a></li>
+  <li><a href="#the-eight-sign-choices" id="toc-the-eight-sign-choices" class="nav-link" data-scroll-target="#the-eight-sign-choices">The eight sign choices</a></li>
+  <li><a href="#an-arithmetic-twist-over-the-rationals" id="toc-an-arithmetic-twist-over-the-rationals" class="nav-link" data-scroll-target="#an-arithmetic-twist-over-the-rationals">An arithmetic twist over the rationals</a></li>
+  <li><a href="#where-freeds-slogan-fits" id="toc-where-freeds-slogan-fits" class="nav-link" data-scroll-target="#where-freeds-slogan-fits">Where Freed’s slogan fits</a></li>
+  <li><a href="#caveats-and-honest-limitations" id="toc-caveats-and-honest-limitations" class="nav-link" data-scroll-target="#caveats-and-honest-limitations">Caveats and honest limitations</a></li>
+  <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Read the paper
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The full paper, with proofs, is archived on Zenodo: <a href="https://doi.org/10.5281/zenodo.24220197">https://doi.org/10.5281/zenodo.24220197</a></p>
+</div>
+</div>
+<section id="the-starting-question" class="level2">
+<h2 class="anchored" data-anchor-id="the-starting-question">The starting question</h2>
+<p>A pure qubit state is a point on the Bloch sphere, a copy of <span class="math inline">\(\mathbb{CP}^1 \cong S^2\)</span>. Take three such states with Bloch vectors <span class="math inline">\(n_1, n_2, n_3\)</span>. One quantity you can attach to them is the <strong>Bargmann invariant</strong></p>
+<p><span class="math display">\[
+\Delta_3 = \langle\psi_1|\psi_2\rangle\langle\psi_2|\psi_3\rangle\langle\psi_3|\psi_1\rangle .
+\]</span></p>
+<p>It does not change if you rephase any of the kets, so it depends only on the three states. Its modulus is a product of transition probabilities, and, when it is nonzero, its argument is half the solid angle of the geodesic triangle on the sphere. That is the Pancharatnam–Berry geometric phase.</p>
+<p>In terms of the Bloch vectors, a short Pauli-matrix calculation gives</p>
+<p><span class="math display">\[
+4\Delta_3 = S + iV, \qquad S = 1 + c_{12} + c_{13} + c_{23}, \quad V = n_1\cdot(n_2\times n_3),
+\]</span></p>
+<p>where <span class="math inline">\(c_{ij} = n_i\cdot n_j\)</span>.</p>
+<p>The question behind this post, and the accompanying paper, is: <strong>which parts of <span class="math inline">\(\Delta_3\)</span> can be seen by a purely projective geometry of the three axes, and which need extra data?</strong></p>
+</section>
+<section id="two-different-projectivizations" class="level2">
+<h2 class="anchored" data-anchor-id="two-different-projectivizations">Two different “projectivizations”</h2>
+<p>This is where it is easy to get confused, so it is worth slowing down.</p>
+<ul>
+<li><strong>Quantum projectivization.</strong> A state is a <em>ray</em> in <span class="math inline">\(\mathbb{C}^2\)</span>. This identifies kets that differ by a phase and gives the Bloch sphere <span class="math inline">\(S^2\)</span>. The vector <span class="math inline">\(n\)</span> is uniquely determined by the state.</li>
+<li><strong>Elliptic UHG projectivization.</strong> Wildberger’s universal hyperbolic geometry (UHG) works with points of the real projective plane <span class="math inline">\(\mathbb{RP}^2\)</span>, that is, <em>lines</em> through the origin in <span class="math inline">\(\mathbb{R}^3\)</span>. Here <span class="math inline">\(n\)</span> and <span class="math inline">\(-n\)</span> are the same point.</li>
+</ul>
+<p>These are not the same quotient. The state with Bloch vector <span class="math inline">\(-n\)</span> is the one <em>orthogonal</em> to the state with Bloch vector <span class="math inline">\(n\)</span>. So passing to <span class="math inline">\(\mathbb{RP}^2\)</span> is an <em>additional</em> quotient of the quantum picture, and each UHG triangle is the image of eight (generally different) physical triples of qubit states, one for each choice of signs <span class="math inline">\(n_i \mapsto \pm n_i\)</span>.</p>
+</section>
+<section id="what-uhg-sees" class="level2">
+<h2 class="anchored" data-anchor-id="what-uhg-sees">What UHG sees</h2>
+<p>In UHG the basic metrical quantities are <strong>quadrance</strong> and <strong>quadrea</strong> instead of distance and area. With the positive-definite form <span class="math inline">\(x^2+y^2+z^2\)</span> (the elliptic case), for unit vectors:</p>
+<p><span class="math display">\[
+q_k = 1 - c_{ij}^2, \qquad \mathcal{A} = V^2 .
+\]</span></p>
+<p>For a single pair of states with transition probability <span class="math inline">\(\pi\)</span>, the quadrance is</p>
+<p><span class="math display">\[
+q = 4\pi(1-\pi),
+\]</span></p>
+<p>which is the second spread polynomial. It sees the double-angle quantity <span class="math inline">\(\sin^2\theta\)</span>, and it cannot tell <span class="math inline">\(\pi\)</span> from <span class="math inline">\(1-\pi\)</span>. Identical and orthogonal states both have <span class="math inline">\(q = 0\)</span>.</p>
+</section>
+<section id="result-1-the-quadrea-and-the-half-turn-product" class="level2">
+<h2 class="anchored" data-anchor-id="result-1-the-quadrea-and-the-half-turn-product">Result 1: the quadrea and the half-turn product</h2>
+<p>In Wildberger’s quaternion framework for rotations, a pure unit quaternion <span class="math inline">\((0, n)\)</span> represents the half turn about the axis <span class="math inline">\(n\)</span>. Multiply the three half turns:</p>
+<p><span class="math display">\[
+H = H_1H_2H_3 = \bigl(V,\; -c_{12}n_3 + c_{13}n_2 - c_{23}n_1\bigr), \qquad N(H) = 1 .
+\]</span></p>
+<p>The scalar part is exactly the triple product <span class="math inline">\(V\)</span>. Since the half spread of the rotation satisfies <span class="math inline">\(1 - h = x^2/N\)</span>, this gives</p>
+<p><span class="math display">\[
+\boxed{\;\mathcal{A} = V^2 = 1 - h(H) = 16\,(\operatorname{Im}\Delta_3)^2\;}
+\]</span></p>
+<p>So the elliptic UHG quadrea is exactly the squared imaginary part of the Bargmann invariant, up to the factor 16, and it equals one minus the half spread of the rotation given by the product of the three half turns.</p>
+</section>
+<section id="result-2-the-main-one-a-quaternion-that-is-the-bargmann-invariant" class="level2">
+<h2 class="anchored" data-anchor-id="result-2-the-main-one-a-quaternion-that-is-the-bargmann-invariant">Result 2 (the main one): a quaternion that <em>is</em> the Bargmann invariant</h2>
+<p>The half-turn product only sees <span class="math inline">\(V\)</span>. To get the full complex number we need the real part <span class="math inline">\(S\)</span> too. For each edge, define</p>
+<p><span class="math display">\[
+E_{ij} = 1 - n_i n_j = (1 + c_{ij},\; n_i\times n_j).
+\]</span></p>
+<p>Using the quaternion sandwich action, <span class="math inline">\(E_{ij}\)</span> carries <span class="math inline">\(n_i\)</span> to <span class="math inline">\(n_j\)</span>. Its scalar part <span class="math inline">\(1 + c_{ij}\)</span> is positive when the two states are not orthogonal, so it is the canonical positive-scalar representative of the shortest rotation from <span class="math inline">\(n_i\)</span> to <span class="math inline">\(n_j\)</span>.</p>
+<p>Now go once around the triangle:</p>
+<p><span class="math display">\[
+\boxed{\;K = E_{12}E_{23}E_{31} = 2\,(S,\; V n_1) = 8\,\Phi_{n_1}(\Delta_3)\;}
+\]</span></p>
+<p>Here <span class="math inline">\(\Phi_{n_1}\)</span> is the algebra isomorphism from <span class="math inline">\(\mathbb{C}\)</span> onto the plane <span class="math inline">\(\langle 1, n_1\rangle \subset \mathbb{H}\)</span> that sends <span class="math inline">\(i\)</span> to <span class="math inline">\(n_1\)</span>. Since <span class="math inline">\(n_1^2 = -1\)</span>, the oriented axis <span class="math inline">\(n_1\)</span> plays exactly the role of the imaginary unit.</p>
+<p>The proof is a direct expansion. Multiplying out <span class="math inline">\((1 - n_1n_2)(1 - n_2n_3)(1 - n_3n_1)\)</span> and using <span class="math inline">\(n_in_i = -1\)</span>, the pairwise terms combine into <span class="math inline">\(2S\)</span> in the scalar part and the triple term gives <span class="math inline">\(2Vn_1\)</span> in the vector part.</p>
+<section id="what-this-does-and-does-not-say" class="level3">
+<h3 class="anchored" data-anchor-id="what-this-does-and-does-not-say">What this does and does not say</h3>
+<ul>
+<li>The ordered product of edge transports around the triangle is a <em>discrete holonomy</em>. No continuous connection or gauge field is constructed.</li>
+<li>The rotation of <span class="math inline">\(K\)</span> fixes <span class="math inline">\(n_1\)</span> and has angle <span class="math inline">\(2\arg\Delta_3 = \Omega\)</span>. But <span class="math inline">\(K\)</span> and <span class="math inline">\(-K\)</span> give the same rotation, so the rotation alone remembers only the <em>doubled</em> angle.</li>
+<li>The sign of <span class="math inline">\(K\)</span> (its positive ray), together with the oriented axis <span class="math inline">\(n_1\)</span>, remembers <span class="math inline">\(\arg\Delta_3\)</span> modulo <span class="math inline">\(2\pi\)</span>.</li>
+<li>Without <span class="math inline">\(n_1\)</span>, <span class="math inline">\(K\)</span> cannot distinguish <span class="math inline">\(\Delta_3\)</span> from its complex conjugate.</li>
+</ul>
+</section>
+</section>
+<section id="a-worked-example-with-rational-numbers" class="level2">
+<h2 class="anchored" data-anchor-id="a-worked-example-with-rational-numbers">A worked example with rational numbers</h2>
+<p>Take</p>
+<p><span class="math display">\[
+n_1 = (1,0,0), \quad n_2 = \tfrac{1}{3}(2,2,1), \quad n_3 = \tfrac{1}{7}(2,3,6).
+\]</span></p>
+<p>Then <span class="math inline">\(c_{12} = \tfrac23\)</span>, <span class="math inline">\(c_{13} = \tfrac27\)</span>, <span class="math inline">\(c_{23} = \tfrac{16}{21}\)</span>, <span class="math inline">\(V = \tfrac37\)</span>, and <span class="math inline">\(S = \tfrac{19}{7}\)</span>. So</p>
+<p><span class="math display">\[
+\Delta_3 = \frac{19 + 3i}{28}, \qquad K \propto (19 : 3, 0, 0), \qquad \tan(\Omega/2) = \tfrac{3}{19}.
+\]</span></p>
+<p>The half-turn product is <span class="math inline">\(H = \tfrac{1}{21}(9, -16, -2, -10)\)</span>, with norm 1 and <span class="math inline">\(1 - h(H) = 81/441 = 9/49 = \mathcal{A}\)</span>, as predicted.</p>
+<p>The hand-computed numbers above can be rechecked with exact rational arithmetic:</p>
+<div id="4c7d0106" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fractions <span class="im">import</span> Fraction <span class="im">as</span> Fr</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dot(a, b):   <span class="cf">return</span> <span class="bu">sum</span>(x<span class="op">*</span>y <span class="cf">for</span> x, y <span class="kw">in</span> <span class="bu">zip</span>(a, b))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cross(a, b): <span class="cf">return</span> (a[<span class="dv">1</span>]<span class="op">*</span>b[<span class="dv">2</span>]<span class="op">-</span>a[<span class="dv">2</span>]<span class="op">*</span>b[<span class="dv">1</span>], a[<span class="dv">2</span>]<span class="op">*</span>b[<span class="dv">0</span>]<span class="op">-</span>a[<span class="dv">0</span>]<span class="op">*</span>b[<span class="dv">2</span>], a[<span class="dv">0</span>]<span class="op">*</span>b[<span class="dv">1</span>]<span class="op">-</span>a[<span class="dv">1</span>]<span class="op">*</span>b[<span class="dv">0</span>])</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> qmul(p, q):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    x, v <span class="op">=</span> p<span class="op">;</span> y, u <span class="op">=</span> q</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> cross(v, u)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (x<span class="op">*</span>y <span class="op">-</span> dot(v, u), <span class="bu">tuple</span>(x<span class="op">*</span>u[i] <span class="op">+</span> y<span class="op">*</span>v[i] <span class="op">-</span> c[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>)))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>n1 <span class="op">=</span> (Fr(<span class="dv">1</span>), Fr(<span class="dv">0</span>), Fr(<span class="dv">0</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>n2 <span class="op">=</span> (Fr(<span class="dv">2</span>,<span class="dv">3</span>), Fr(<span class="dv">2</span>,<span class="dv">3</span>), Fr(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>n3 <span class="op">=</span> (Fr(<span class="dv">2</span>,<span class="dv">7</span>), Fr(<span class="dv">3</span>,<span class="dv">7</span>), Fr(<span class="dv">6</span>,<span class="dv">7</span>))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> E(a, b):                      <span class="co"># E_ij = 1 - n_i n_j</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    s, v <span class="op">=</span> qmul((Fr(<span class="dv">0</span>), a), (Fr(<span class="dv">0</span>), b))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="dv">1</span> <span class="op">-</span> s, <span class="bu">tuple</span>(<span class="op">-</span>t <span class="cf">for</span> t <span class="kw">in</span> v))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> qmul(qmul(E(n1, n2), E(n2, n3)), E(n3, n1))</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(K)   <span class="co"># expect (38/7, (6/7, 0, 0)) = 8*Phi(Delta_3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="a-wilson-loop-on-a-triangle" class="level2">
+<h2 class="anchored" data-anchor-id="a-wilson-loop-on-a-triangle">A Wilson loop on a triangle</h2>
+<p>Physicists will recognize the structure. A Wilson loop is the gauge-invariant trace of a path-ordered product of transports around a closed loop, and both <span class="math inline">\(\Delta_3\)</span> and <span class="math inline">\(K\)</span> are discrete versions of that.</p>
+<p><strong>Abelian case.</strong> Take the phase of each overlap as a <span class="math inline">\(U(1)\)</span> link variable,</p>
+<p><span class="math display">\[
+U_{ij}=\frac{\langle\psi_i|\psi_j\rangle}{|\langle\psi_i|\psi_j\rangle|}.
+\]</span></p>
+<p>Rephasing the kets changes these links by a gauge transformation, and the product <span class="math inline">\(U_{12}U_{23}U_{31}=\Delta_3/|\Delta_3|\)</span> is gauge invariant. So <span class="math inline">\(\Delta_3\)</span> is a triangular plaquette for the Berry (Pancharatnam) connection on the tautological line bundle over <span class="math inline">\(\mathbb{CP}^1\)</span>. Subdividing the triangle finely gives the continuum Wilson loop <span class="math inline">\(\exp\bigl(i\oint A\bigr)\)</span>, which for spin-½ is <span class="math inline">\(e^{\pm i\Omega/2}\)</span>.</p>
+<p><strong>Non-abelian case.</strong> The quaternion <span class="math inline">\(K=E_{12}E_{23}E_{31}\)</span> is a path-ordered product of <span class="math inline">\(SU(2)\)</span> link variables, each carrying <span class="math inline">\(n_i\)</span> to <span class="math inline">\(n_j\)</span> along a great-circle arc. Going once around the triangle gives a rotation about <span class="math inline">\(n_1\)</span> by the enclosed solid angle <span class="math inline">\(\Omega\)</span>, up to orientation convention. Wilson loops are traces, and the paper’s quantities are traces:</p>
+<ul>
+<li>In the spin-½ representation the trace is <span class="math inline">\(2\cos(\Omega/2)\)</span>, the scalar part of the normalized <span class="math inline">\(K\)</span>.</li>
+<li>In the spin-1 (rotation matrix) representation, <span class="math inline">\(\operatorname{tr}\mathcal{R}(K)=1+2\cos\Omega\)</span>. Since the half spread is <span class="math inline">\(h=(3-\operatorname{tr}\mathcal{R})/4=\sin^2(\Omega/2)\)</span>, <strong>the half spread is an affine function of the spin-1 Wilson loop around the triangle.</strong></li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Where the analogy stops
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The paper constructs no connection and takes no continuum limit, which is why it says “discrete holonomy”. There is no spacetime or dynamics here: the “gauge field” lives on the Bloch sphere, which is a parameter space. And the UHG triangle forgets the signs of the <span class="math inline">\(n_i\)</span>, so it does not determine the Wilson loop. Different sign choices give up to four values of <span class="math inline">\(K\)</span>. I have not checked the sign conventions of the spin-½ trace against the paper’s orientation conventions.</p>
+</div>
+</div>
+<p>A nontrivial Wilson loop is where a nontrivial line bundle shows up, which matches the earlier remark that a nontrivial phase of <span class="math inline">\(\Delta_3\)</span> obstructs a consistent choice of phases. That is an analogy with Freed’s descent argument, and not an anomaly.</p>
+</section>
+<section id="the-eight-sign-choices" class="level2">
+<h2 class="anchored" data-anchor-id="the-eight-sign-choices">The eight sign choices</h2>
+<p>Replace <span class="math inline">\(n_i\)</span> by <span class="math inline">\(\varepsilon_i n_i\)</span> with <span class="math inline">\(\varepsilon_i = \pm 1\)</span>. The UHG triangle does not change, but the physical states do. Writing <span class="math inline">\(\varepsilon = \varepsilon_1\varepsilon_2\varepsilon_3\)</span>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Quantity</th>
+<th>Behaviour over the 8 sign choices</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>quadrances <span class="math inline">\(q_k\)</span>, <span class="math inline">\(P = c_{12}c_{13}c_{23}\)</span>, quadrea <span class="math inline">\(\mathcal{A} = V^2\)</span></td>
+<td>invariant</td>
+</tr>
+<tr class="even">
+<td>rotation of <span class="math inline">\(H_1H_2H_3\)</span></td>
+<td>invariant</td>
+</tr>
+<tr class="odd">
+<td>positive ray of <span class="math inline">\(H\)</span></td>
+<td>changes by the factor <span class="math inline">\(\varepsilon\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(S\)</span>, <span class="math inline">\(\lvert\Delta_3\rvert^2\)</span></td>
+<td>at most four values (generically four)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\Delta_3\)</span></td>
+<td>at most eight values (generically eight), in conjugate pairs</td>
+</tr>
+<tr class="even">
+<td>quaternion <span class="math inline">\(K\)</span></td>
+<td>at most four values; unchanged by the global flip</td>
+</tr>
+</tbody>
+</table>
+<p>The global flip <span class="math inline">\((\varepsilon_1,\varepsilon_2,\varepsilon_3) \mapsto (-\varepsilon_1,-\varepsilon_2,-\varepsilon_3)\)</span> leaves every <span class="math inline">\(E_{ij}\)</span> and <span class="math inline">\(K\)</span> unchanged, but conjugates <span class="math inline">\(\Delta_3\)</span> and reverses <span class="math inline">\(n_1\)</span>. This is consistent with <span class="math inline">\(K = 8\Phi_{n_1}(\Delta_3)\)</span> because <span class="math inline">\(\Phi_{-n_1}(\overline{\Delta_3}) = \Phi_{n_1}(\Delta_3)\)</span>.</p>
+<p>For the example above, the four values of <span class="math inline">\(S'\)</span> are <span class="math inline">\(\tfrac{19}{7}\)</span>, <span class="math inline">\(\tfrac{17}{21}\)</span>, <span class="math inline">\(-\tfrac{1}{7}\)</span> and <span class="math inline">\(\tfrac{13}{21}\)</span>. The same UHG triangle therefore carries four different moduli and eight different Bargmann values. This is the precise sense in which the elliptic projective geometry forgets the phase.</p>
+</section>
+<section id="an-arithmetic-twist-over-the-rationals" class="level2">
+<h2 class="anchored" data-anchor-id="an-arithmetic-twist-over-the-rationals">An arithmetic twist over the rationals</h2>
+<p>When the Bloch vectors have rational coordinates, every quantity above is rational, so a natural question is whether the rotation of <span class="math inline">\(K\)</span> can be written with a <strong>norm-one rational quaternion</strong>. Over the reals every nonzero quaternion can be normalized; over <span class="math inline">\(\mathbb{Q}\)</span> it usually cannot, because that needs a square root.</p>
+<p>The answer is clean. Two rational quaternions giving the same rotation differ by a rational scalar (the centre of the quaternion algebra), so:</p>
+<blockquote class="blockquote">
+<p>The rotation has a norm-one rational representative if and only if <span class="math inline">\(N(K) = 64\lvert\Delta_3\rvert^2\)</span> is a rational square, equivalently <span class="math inline">\(\lvert\Delta_3\rvert^2\)</span> is a nonzero rational square.</p>
+</blockquote>
+<p>In the example, <span class="math inline">\(\lvert\Delta_3\rvert^2 = 370/784\)</span>, and <span class="math inline">\(370 = 2\cdot 5\cdot 37\)</span> is not a square. So the holonomy rotation is a perfectly good rational rotation, with rational quaternion proportion <span class="math inline">\((19:3,0,0)\)</span>, but <strong>no rational unit quaternion represents it</strong>. The projective description reaches it; the normalized one does not.</p>
+</section>
+<section id="where-freeds-slogan-fits" class="level2">
+<h2 class="anchored" data-anchor-id="where-freeds-slogan-fits">Where Freed’s slogan fits</h2>
+<p>The motivation for the project is Dan Freed’s thesis in <em>What is an anomaly?</em>: <strong>quantum theory is projective; quantization is linear.</strong> Physical content lives on projective objects, and a symmetry group acts only up to a central extension. Several different “lifts” are in play here, and they should not be mixed up:</p>
+<ol type="1">
+<li><strong>Scalar quotient.</strong> <span class="math inline">\(F^\times \to \mathbb{H}_F^\times \to \mathbb{H}_F^\times/F^\times \cong SO(3,F)\)</span>. This has the same pattern as <span class="math inline">\(\mathbb{C}^\times \to GL \to PGL\)</span>, but over <span class="math inline">\(\mathbb{R}\)</span> the Euclidean quaternions are a division algebra, so the group is <span class="math inline">\(SO(3)\)</span>, not <span class="math inline">\(PGL_2(\mathbb{R})\)</span>.</li>
+<li><strong>Positive-ray double cover.</strong> Quaternion positive rays map two-to-one onto rotations. Over <span class="math inline">\(\mathbb{R}\)</span> this is the familiar <span class="math inline">\(SU(2)\to SO(3)\)</span> with kernel <span class="math inline">\(\{\pm 1\}\)</span>. It is a different thing from the central <span class="math inline">\(U(1)\)</span>-extension <span class="math inline">\(U(2) \to SO(3)\)</span>.</li>
+<li><strong>Spinor norm.</strong> The square class of the quaternion norm is a homomorphism to an abelian group, and it measures whether a rational rotation lifts to a rational norm-one quaternion. It is not an extension class of the kind Freed uses.</li>
+</ol>
+<p>There is also a pleasant finite-dimensional echo of Freed’s line-valued amplitudes. If <span class="math inline">\(L_i\)</span> is the line of the state <span class="math inline">\(\psi_i\)</span>, the overlap <span class="math inline">\(\langle\psi_i|\psi_j\rangle\)</span> is a map <span class="math inline">\(L_j \to L_i\)</span> (in unit frames), and the cyclic composite <span class="math inline">\(L_1\to L_3\to L_2\to L_1\)</span> is an endomorphism of a line, canonically a number: <span class="math inline">\(\Delta_3\)</span>.</p>
+<section id="does-freed-mention-the-bargmann-invariant" class="level3">
+<h3 class="anchored" data-anchor-id="does-freed-mention-the-bargmann-invariant">Does Freed mention the Bargmann invariant?</h3>
+<p>No.&nbsp;Freed’s paper does not mention the Bargmann invariant or the Berry phase, and Bargmann does not appear in his reference list. The connection in this post is my own framing, not something he states. It runs like this.</p>
+<ul>
+<li><strong>“Quantum theory is projective.”</strong> Overlaps <span class="math inline">\(\langle\psi_i|\psi_j\rangle\)</span> only make sense as maps between lines, so they are not numbers until you choose unit vectors. Phase-independent data are the closed loops of such maps. <span class="math inline">\(\Delta_3\)</span> is the simplest one.</li>
+<li><strong>“Quantization is linear.”</strong> To work with actual numbers you must trivialize the lines, that is, choose phases for the kets. For a set of states with nonzero overlaps this can be done so that all overlaps are real and positive exactly when every triple invariant <span class="math inline">\(\Delta_3\)</span> is real and positive. A nontrivial phase of <span class="math inline">\(\Delta_3\)</span> is therefore an obstruction to a consistent global choice of phases. This is the same kind of “descent requires a trivialization” argument that Freed makes for the anomaly, but at the level of three points, with no field theory involved.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What this is <em>not</em>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The paper does <strong>not</strong> construct an anomaly, a gerbe, or any field-theoretic object. The relation to Freed is motivational: a concrete illustration of what is visible projectively and what needs a lift. Nothing here shows that the Bargmann invariant is an anomaly in his sense.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="caveats-and-honest-limitations" class="level2">
+<h2 class="anchored" data-anchor-id="caveats-and-honest-limitations">Caveats and honest limitations</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Status of the work
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Only <strong>qubits</strong> are treated. Higher-dimensional systems (<span class="math inline">\(\mathbb{CP}^n\)</span> with <span class="math inline">\(n&gt;1\)</span>) are not captured by <span class="math inline">\(\mathbb{RP}^2\)</span>.</li>
+<li>The <strong>hyperbolic</strong> form <span class="math inline">\(x^2+y^2-z^2\)</span> (null points, boosts, the split algebra <span class="math inline">\(M_2(F)\)</span>) has no quantum interpretation in this work, and I do not know whether the half-turn identity has a Lorentzian analogue.</li>
+<li>The identities were <strong>checked by hand and on rational examples</strong>. An independent symbolic verification would be a sensible next step.</li>
+<li>The surjectivity of the projective quaternion parametrization onto <span class="math inline">\(SO(3,F)\)</span> is <strong>cited from an unpublished draft</strong> by Wildberger, <em>Rational Rotations of Three Dimensional Euclidean Space</em>. The sandwich formula, multiplicativity and injectivity used in the calculations are proved in the paper’s appendix.</li>
+<li>The classical ingredients (the Gram determinant identity, the Bargmann–Pancharatnam phase, quaternionic spherical excess) are <strong>not new</strong>. Any novelty lies in the packaging: elliptic UHG, projective quaternions, and the explicit accounting of what survives the sign choices.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
+<ul>
+<li>The elliptic UHG triangle of three Bloch axes remembers the quadrances and the quadrea, subject to the triple product relation. It forgets the orientations of the vectors and the full Bargmann phase.</li>
+<li>The identity <span class="math inline">\(E_{12}E_{23}E_{31} = 8\,\Phi_{n_1}(\Delta_3)\)</span> gives an exact quaternionic realization of the Bargmann invariant, with the oriented base axis supplying the complex structure.</li>
+<li>The eight sign choices describe exactly what the extra <span class="math inline">\(\mathbb{RP}^2\)</span> quotient loses.</li>
+<li>Over <span class="math inline">\(\mathbb{Q}\)</span>, the difference between a rational projective rotation and a rational norm-one quaternion is measured by a square class, and the Bargmann modulus decides it for the holonomy rotation.</li>
+</ul>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><em>Projective Bloch-Axis Triangles, Quaternion Holonomy, and the Bargmann Invariant</em> (this paper), Zenodo, <a href="https://doi.org/10.5281/zenodo.24220197">doi:10.5281/zenodo.24220197</a>.</li>
+<li>D. S. Freed, <em>What is an anomaly?</em>, arXiv:2307.08147 (2023).</li>
+<li>N. J. Wildberger, <em>Universal Hyperbolic Geometry I: Trigonometry</em>, arXiv:0909.1377 (2009).</li>
+<li>N. J. Wildberger, <em>Affine and projective universal geometry</em>, arXiv:math/0612499 (2006).</li>
+<li>N. J. Wildberger, <em>Rational Rotations of Three Dimensional Euclidean Space</em>, draft manuscript, unpublished (2026).</li>
+<li>V. Bargmann, Note on Wigner’s theorem on symmetry operations, <em>J. Math. Phys.</em> <strong>5</strong> (1964), 862–868.</li>
+<li>S. Pancharatnam, Generalized theory of interference, and its applications, <em>Proc. Indian Acad. Sci. A</em> <strong>44</strong> (1956), 247–262.</li>
+<li>M. V. Berry, Quantal phase factors accompanying adiabatic changes, <em>Proc. R. Soc. Lond. A</em> <strong>392</strong> (1984), 45–57.</li>
+<li>A. Van Oosterom and J. Strackee, The solid angle of a plane triangle, <em>IEEE Trans. Biomed. Eng.</em> <strong>30</strong> (1983), 125–126.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jcoady\.github\.io\/blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="jcoady/blog" data-repo-id="R_kgDOUEMSRA" data-category="General" data-category-id="DIC_kwDOUEMSRM4DEZKl" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
+</div> <!-- /content -->
+
+
+
+
+</body></html>
